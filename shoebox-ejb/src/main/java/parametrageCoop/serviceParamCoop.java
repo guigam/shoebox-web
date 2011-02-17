@@ -1,0 +1,362 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parametrageCoop;
+
+import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Client;
+import ModelesShoebox.Commande;
+import ModelesShoebox.Compte;
+import ModelesShoebox.Cooperative;
+import ModelesShoebox.FournisseurIntrant;
+import ModelesShoebox.FournisseurProduit;
+import ModelesShoebox.Magasin;
+import ModelesShoebox.Produit;
+import ModelesShoebox.TransactionMagasin;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author guigam
+ */
+@Stateless
+public class serviceParamCoop implements serviceParamCoopLocal {
+
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
+    private EntityManager em = emf.createEntityManager();
+
+    private void persist(Object objet) {
+        em.getTransaction().begin();
+        em.persist(objet);
+        em.getTransaction().commit();
+    }
+
+    private void merge(Object objet) {
+        em.getTransaction().begin();
+        em.merge(objet);
+        em.getTransaction().commit();
+    }
+
+    private void delete(Object objet) {
+        em.getTransaction().begin();
+        em.remove(objet);
+        em.getTransaction().commit();
+    }
+
+    @Override
+    public void newClient(Client client) {
+        persist(client);
+    }
+
+    @Override
+    public void newFP(FournisseurProduit fp) {
+        persist(fp);
+    }
+
+    @Override
+    public void newFI(FournisseurIntrant fi) {
+        persist(fi);
+    }
+
+    @Override
+    public void newCoop(Cooperative coop) {
+        persist(coop);
+    }
+
+    @Override
+    public void newCommande(Commande commande) {
+        persist(commande);
+    }
+
+    @Override
+    public void newProduit(Produit produit) {
+        persist(produit);
+    }
+
+    
+
+    @Override
+    public void newCharteCompte(CharteCompte charteCompte) {
+        persist(charteCompte);
+    }
+
+    @Override
+    public void newMagasin(Magasin magasin) {
+       persist(magasin);
+    }
+
+    @Override
+    public void updateClient(Client client) {
+        merge(client);
+    }
+
+    @Override
+    public void updateFP(FournisseurProduit fp) {
+        merge(fp);
+    }
+
+    @Override
+    public void updateFI(FournisseurIntrant fi) {
+        merge(fi);
+    }
+
+    @Override
+    public void updateCoop(Cooperative coop) {
+        merge(coop);
+    }
+
+    @Override
+    public void updateCommande(Commande commande) {
+        merge(commande);
+    }
+
+    @Override
+    public void updateProduit(Produit produit) {
+        merge(produit);
+    }
+
+  
+
+    @Override
+    public void updateCharteCompte(CharteCompte charteCompte) {
+        merge(charteCompte);
+    }
+
+    @Override
+    public void updateMagasin(Magasin magasin) {
+        merge(magasin);
+    }
+
+    @Override
+    public void deleteClient(Client client) {
+        delete(client);
+    }
+
+    @Override
+    public void deleteFP(FournisseurProduit fp) {
+        delete(fp);
+    }
+
+    @Override
+    public void deleteFI(FournisseurIntrant fi) {
+       delete(fi);
+    }
+
+    @Override
+    public void deleteCoop(Cooperative coop) {
+        delete(coop);
+    }
+
+    @Override
+    public void deleteCommande(Commande commande) {
+       delete(commande);
+    }
+
+    @Override
+    public void deleteProduit(Produit produit) {
+        delete(produit);
+    }
+
+ 
+
+    @Override
+    public void deleteCharteCompte(CharteCompte charteCompte) {
+        delete(charteCompte);
+    }
+
+    @Override
+    public void deleteMagasin(Magasin magasin) {
+        delete(magasin);
+    }
+
+    @Override
+    public List<Client> lstClient() {
+       Query query = em.createQuery("from Client");
+       return query.getResultList();
+
+    }
+
+    @Override
+    public List<FournisseurProduit> lstFP() {
+        Query query = em.createQuery("from FournisseurProduit");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<FournisseurIntrant> lstFI() {
+         Query query = em.createQuery("from FournisseurIntrant");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<Produit> lstproduit() {
+         Query query = em.createQuery("from Produit p where p.categorie = ?1");
+         query.setParameter(1, "produitCoop");
+       return query.getResultList();
+    }
+
+        @Override
+    public List<Magasin> lstMagasin() {
+        Query query = em.createQuery("from Magasin ");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<Produit> lstproduitIntrant() {
+         Query query = em.createQuery("from Produit p where p.categorie = ?1");
+         query.setParameter(1, "intrant");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<CharteCompte> lstcharteCompte() {
+       Query query = em.createQuery("from CharteCompte");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<SelectItem> lstItemProduit() {
+        List<SelectItem> lstproduitItem = new ArrayList<SelectItem>();
+        for(Produit p : lstproduit()){
+            lstproduitItem.add(new SelectItem(p, p.getName()));
+        }
+        return lstproduitItem;
+    }
+
+    @Override
+    public List<SelectItem> lstItemFP() {
+        List<SelectItem> lstFPItem = new ArrayList<SelectItem>();
+        for(FournisseurProduit p : lstFP()){
+            lstFPItem.add(new SelectItem(p, p.getName()));
+        }
+        return lstFPItem;
+    }
+
+    @Override
+    public List<SelectItem> lstItemFI() {
+        List<SelectItem> lstFIItem = new ArrayList<SelectItem>();
+        for(FournisseurIntrant p : lstFI()){
+            lstFIItem.add(new SelectItem(p, p.getName()));
+        }
+        return lstFIItem;
+    }
+
+    @Override
+    public List<SelectItem> lstItemProduitIntrant() {
+        List<SelectItem> lstproduitItemIntrant = new ArrayList<SelectItem>();
+        for(Produit p : lstproduitIntrant()){
+            lstproduitItemIntrant.add(new SelectItem(p, p.getName()));
+        }
+        return lstproduitItemIntrant;
+    }
+
+    @Override
+    public List<SelectItem> lstItemMagasin() {
+        List<SelectItem> listMagasin = new ArrayList<SelectItem>();
+        for(Magasin p : lstMagasin()){
+            listMagasin.add(new SelectItem(p, p.getName()));
+        }
+        return listMagasin;
+    }
+
+    @Override
+    public List<SelectItem> lstitemClient() {
+          List<SelectItem> listClient = new ArrayList<SelectItem>();
+        for(Client c : lstClient()){
+            listClient.add(new SelectItem(c, c.getName()));
+        }
+        return listClient;
+    }
+
+    @Override
+    public List<Object[]> rechercheStockProduit(Produit produit, int grade) {
+        List<Object[]> lstObject = new LinkedList<Object[]>();
+        for(Object[] t : rechercehEntreeProduit(produit, grade)){
+            for(Object[] o : rechercehSortisProduit(produit, grade)){
+                if(t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])){
+                    Object[] obj = null;
+                    Magasin mag = (Magasin)(t[0]);
+                    obj[3] = new Long((Long)t[3]);
+                    obj[4]  = new Long((Long)o[3]);
+                    lstObject.add(obj);
+                }
+            }
+        }
+        return lstObject;
+    }
+
+    private List<Object[]> rechercehEntreeProduit(Produit produit, int grade) {
+        if (produit != null && grade != 0) {
+            Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2  group by x.magasin");
+            q.setParameter(1, produit);
+            q.setParameter(2, grade);
+            q.setParameter(3, "EP");
+            return (List<Object[]>) q.getResultList();
+        }
+        return null;
+    }
+
+        private List<Object[]> rechercehSortisProduit(Produit produit, int grade) {
+        if (produit != null && grade != 0) {
+            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2  group by x.magasin");
+            q.setParameter(1, produit);
+            q.setParameter(2, grade);
+            q.setParameter(3, "SP");
+            return (List<Object[]>) q.getResultList();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Object[]> rechercheSommeEntreeProduit(Produit produit, int grade) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<TransactionMagasin> test() {
+       Query q = em.createQuery("from TransactionMagasin t where t.m_commande = 1 ");
+       return q.getResultList();
+    }
+
+    @Override
+    public List<SelectItem> lstitemCompte() {
+         List<SelectItem> listConpte = new ArrayList<SelectItem>();
+        for(Compte c : lstCompte()){
+            listConpte.add(new SelectItem(c, c.getNomCompte()));
+        }
+        return listConpte;
+    }
+
+    @Override
+    public List<Compte> lstCompte() {
+           Query query = em.createQuery("from Compte");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<SelectItem> lstItemCharteCompte() {
+       List<SelectItem> listCharteCompte = new ArrayList<SelectItem>();
+        for(CharteCompte c : lstcharteCompte()){
+            listCharteCompte.add(new SelectItem(c, c.getNom()));
+        }
+        return listCharteCompte;
+    }
+
+
+
+
+
+
+}
+
+
+   

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+<wb-module deploy-name="pegase-web">
+<wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/pegase-ejb/pegase-ejb">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/pegase-jpa/pegase-jpa">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<property name="context-root" value="pegase-web"/>
+<property name="java-output-path" value="/pegase-web/bin"/>
+</wb-module>
+</project-modules>

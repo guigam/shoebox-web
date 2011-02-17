@@ -1,0 +1,125 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <link href="#{request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
+    </head>
+
+    <body>
+        <div id="backimg">
+            <img src="#{request.contextPath}/images/bg.png" />
+        </div>
+        <div id="top">
+            <h:form>
+                <ui:insert name="top">
+                    <table width="100%" border="0">
+                        <tr>
+                            <td  width="20%">
+                        <h:graphicImage value="/images/soco.png"/>
+                        </td>
+                        <td width="60%" style="text-align: center">
+                        <ui:insert name="message">
+                        </ui:insert>
+                        </td>
+                        <td width="20%">
+
+                        </td>
+                        </tr>
+                    </table>
+                    <rich:toolBar>
+                        <ui:repeat value="#{gsLogin.lstpermission}" var="p">
+                            <h:commandLink value="#{p.name}" action="#{redirectController.redirect}" style="color: #ffffff">
+                                <f:param name="outcome" value="#{p.redirect}"/>
+                            </h:commandLink>
+                                <rich:spacer width="50"/>
+                        </ui:repeat>  
+
+
+
+                        <rich:dropDownMenu>
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:outputText value="#{msg.lib_magasin}"/>
+                                </h:panelGroup>
+                            </f:facet>
+
+                            <rich:menuItem submitMode="ajax" value="#{msg.lib_entreProduit}" action="lstFP"/>
+                            <rich:menuItem submitMode="ajax" value="#{msg.lib_sortisProduit}" action="lstFP"/>
+                            <rich:menuItem submitMode="ajax" value="#{msg.lib_entreeIntrant}" action="lstFP"/>
+                            <rich:menuItem submitMode="ajax" value="#{msg.lib_sortisIntrant}" action="lstFP"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu>
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:outputText value="#{msg.lib_caisse}"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <rich:menuGroup value="#{msg.lib_encaissement}">
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_venteproduit}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_venteIntrant}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteFournisseurProduit}" action="detteFP" />
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteFournisseurIntrant}" action="detteFI"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteClient}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_encaissementAvanceClient}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_partSocialDesMembres}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_diversPorduitEtAutresEncaissement}" action="lstFP"/>
+                            </rich:menuGroup>
+                            <rich:menuGroup value="#{msg.lib_debourse}">
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_achatProduit}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_achatIntrant}" action="lstFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_paiementCharges}" />
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementavanceClient}" action="lstFP" />
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementDettesFournisseurProduit}" action="rmbFP"/>
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementDettesFournisseurIntrant}" action="rmbFI" />
+                                <rich:menuItem submitMode="ajax" value="#{msg.lib_avanceFournisseurproduit}" action="addSP"/>
+                            </rich:menuGroup>
+                        </rich:dropDownMenu>
+
+                    </rich:toolBar>
+                </ui:insert>
+                <rich:spacer height="5"/>
+            </h:form>
+        </div>
+        <div id="content">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td width="20%" style="vertical-align:top; padding-right:5px">
+                <h:panelGroup style="width:100%;">
+                    <ui:insert name="menu" >
+                        <h:form>
+
+                            <rich:panelMenu label="Menu">
+                                <rich:panelMenuGroup  label="Menu" expanded="true"  >
+                                    <rich:panelMenuGroup  label="#{msg.lib_magasin}" expanded="true"  >
+                                        <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{redirectController.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_paramTransactionSoco}" action="#{redirectController.redirect}"><f:param value="lstParamTransactionCharteCompte" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_paramDefinitionPeriode}" action="#{redirectController.redirect}"><f:param value="lstDefPeriode" name="outcome"/></rich:panelMenuItem>
+                                    </rich:panelMenuGroup>
+                                </rich:panelMenuGroup>
+                            </rich:panelMenu>
+
+                        </h:form>
+                    </ui:insert>
+                </h:panelGroup>
+                </td>
+                <td  width="77%" style="vertical-align:top;" >
+                <h:panelGroup style="width:100%;">
+                    <ui:insert name="content" ></ui:insert>
+                </h:panelGroup>
+                </td>
+
+                </tr>
+            </table>
+        </div>
+        <center><div id="bottom">
+                <ui:insert name="bottom">Copyright @ 2011 Gfplus CANADA </ui:insert>
+            </div></center>
+
+    </body>
+
+</html>

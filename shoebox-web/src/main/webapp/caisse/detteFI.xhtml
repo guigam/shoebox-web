@@ -1,0 +1,53 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+               template="/templateCaisse.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich">
+    
+
+    <ui:define name="content">
+              <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_detteFournisseurIntrant}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <rich:dataTable width="100%" value="#{gsSoldeDepart.lstDetteFI}" var="item">
+                    <rich:column width="15%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_reference}" />
+                        </f:facet>
+                        <h:outputText value="#{item.soldeDepart.entite.reference}" />
+                    </rich:column>
+                    <rich:column width="30%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_description}" />
+                        </f:facet>
+                        <h:outputText value="#{item.soldeDepart.entite.name}" />
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montantTotal}" />
+                        </f:facet>
+                        <h:outputText value="#{item.soldeDepart.montant}" />
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montantPaye}" />
+                        </f:facet>
+                        <h:outputText value="#{item.montantPaye}" />
+                    </rich:column>
+                    <rich:column width="15%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_etat}" />
+                        </f:facet>
+                        <h:outputText  />
+                    </rich:column>
+
+                </rich:dataTable>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

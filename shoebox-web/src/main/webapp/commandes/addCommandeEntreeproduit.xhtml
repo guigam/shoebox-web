@@ -1,0 +1,109 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateMagasin.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:p="http://primefaces.prime.com.tr/ui">
+
+
+
+
+    <ui:define name="message" >
+        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_addCommandeEntreeProduit}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_reference}" />
+                    <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                    <h:outputText value="#{msg.lib_fournisseurProduit}" />
+                    <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterFP">
+                        <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
+                    </rich:comboBox>
+                </h:panelGrid>
+                <rich:spacer height="30"/>
+                  <h:outputText value="#{msg.lib_detailCommande}" styleClass="sousTitrePanel"/>
+                  <rich:spacer width="10"/>
+                   <a4j:commandLink value="Ajouter" action="#{gsCommandes.ajouterLigneVide}" reRender="tot" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                
+                   
+
+                    <a4j:outputPanel id="tot">
+                        <a4j:outputPanel rendered="#{empty gsCommandes.lstTsxMagasin}">
+                            <h:outputText value="#{msg.message_pasDenregistrement}"/>
+                        </a4j:outputPanel>
+
+                        <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="tsx" id="tab" rendered="#{not empty gsCommandes.lstTsxMagasin}">
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_magasin}"/>
+                                </f:facet>
+                                <rich:comboBox value="#{tsx.magasin}" converter="converterMagasin">
+                                    <f:selectItems value="#{parametrageShoebox.listitemMagasin}"/>
+                                </rich:comboBox>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_produit}"/>
+                                </f:facet>
+                                <rich:comboBox value="#{tsx.produit}" converter="converterProduit">
+                                    <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
+                                </rich:comboBox>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_grade}"/>
+                                </f:facet>
+                                <h:inputText value="#{tsx.grade}" required="true" requiredMessage="#{msg.lib_grade} #{msg.message_Obligatoire}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_humidite}" />
+                                </f:facet>
+                                <h:inputText value="#{tsx.humidite}" required="true" requiredMessage="#{msg.lib_humidite} #{msg.message_Obligatoire}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_quantite}" />
+                                </f:facet>
+                                <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_pu}" />
+                                </f:facet>
+                                <h:inputText value="#{tsx.prixUnitaire}"  required="true" requiredMessage="#{msg.lib_pu} #{msg.message_Obligatoire}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="--" />
+                                </f:facet>
+                                <a4j:commandButton  image="/icons/pplus.png" action="#{gsCommandes.ajouterLigneVide}" reRender="tab" />
+                            </rich:column>
+
+
+                        </rich:dataTable>
+                    </a4j:outputPanel>
+
+                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeEntreeProduit}"/>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+
+</ui:composition>

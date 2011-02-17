@@ -1,0 +1,117 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateCaisse.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_sortisProduit}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <rich:spacer height="10"/>
+
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisProduit}" binding="#{gsCommandes.dataTable}" var="item">
+                    <rich:column width="5%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_confirmation}" />
+                        </f:facet>
+                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" action="#{gsCommandes.rowData}" id="link"  reRender="panel">
+                                <rich:componentControl for="panel" attachTo="link" operation="show" event="onclick"/>
+                            </a4j:commandButton></center>
+                        <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
+                    </rich:column>
+                   
+                       <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_date}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{item.dateCommande}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
+                    </rich:column>
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_reference}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{item.reference}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_client}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{item.m_entite.name}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montantPaye}" />
+                        </f:facet>
+                        <div style="text-align: right; vertical-align: top">
+                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye)}" action="addTransaction">
+                                <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
+                            </a4j:commandButton>
+                        </div>
+                        <center> <h:outputText value="#{item.montantPaye}"/></center>
+                        <rich:toolTip for="plus" value="#{msg.lib_ajouterPaiement}"/>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montantTotal}" />
+                        </f:facet>
+                       <center> <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" /></center>
+                    </rich:column>
+                       <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_etat}" />
+                        </f:facet>
+                           <center> <h:outputText  value="#{item.montantTotal.equals(item.montantPaye) ? msg.lib_paye : msg.lib_nonPaye}" styleClass="titreLibelle" /></center>
+                    </rich:column>
+                     <rich:column width="5%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_voirdetail}" />
+                        </f:facet>
+                         <center><h:commandButton id="voidetail"  image="/icons/eye.png">
+                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
+
+                             </h:commandButton></center>
+                         <rich:toolTip for="voidetail" value="#{msg.lib_voirdetail}"/>
+                    </rich:column>
+
+                </rich:dataTable>
+            </rich:panel>
+            <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}">
+                <rich:panel>
+                    <rich:dataTable value="#{gsCommandes.commade.lsttransactionMagasin}" var="tsx" width="100%" >
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_magasin} : " styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:outputText value="#{tsx.magasin.name}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_produit} : " styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.produit.name}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.quantite}" />
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+            </rich:modalPanel>
+        </h:form>
+    </ui:define>
+
+
+
+</ui:composition>

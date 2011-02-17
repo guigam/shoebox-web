@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateCaisse.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <rich:panel>
+             <h:form>
+            <rich:panel>
+                <rich:panel style="background-color: white">
+                    <h:outputText value="#{msg.lib_description}"/>
+                    <h:outputText value="#{gsCommandes.commade.m_entite.name}"/>
+                    <h:panelGrid columns="4">
+                        <h:outputText value="#{msg.lib_montantPaye}" styleClass="titreLibelle"/>
+                    <h:outputText value="#{gsCommandes.commade.montantPaye}"/>
+                    <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
+                    <h:outputText value="#{gsCommandes.commade.montantTotal}"/>
+                    </h:panelGrid>
+                </rich:panel>
+                </rich:panel>
+                <h:outputText value="#{msg.lib_ajouterPaiement}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                    <rich:calendar value="#{gsCommandes.tsxCaisse.date}"/>
+                    <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                    <h:inputText value="#{gsCommandes.tsxCaisse.reference}"/>
+                    <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
+                    <rich:comboBox value="#{gsCommandes.tsxCaisse.compteEncaisse}" converter="converterCompte">
+                        <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
+                    <h:inputText value="#{gsCommandes.tsxCaisse.montant}"/>
+                    <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newTransaction}" />
+                </h:panelGrid>
+
+
+
+
+
+             </h:form>
+
+        </rich:panel>
+    </ui:define>
+
+</ui:composition>

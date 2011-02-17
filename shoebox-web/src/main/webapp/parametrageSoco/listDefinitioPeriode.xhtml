@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+ 
+
+
+    <ui:define name="content">
+         <rich:panel>
+            <h:form>
+                <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriode}"  var="item" width="40%" binding="#{gsParamSoco.dataTable}">
+                    <rich:column width="60%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_nomMois}"/>
+                        </f:facet>
+                       <h:outputText value="#{item.mois}"/>
+                    </rich:column>
+                      <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periode}"/>
+                        </f:facet>
+                          <rich:comboBox value="#{item.periode}" valueChangeListener="#{gsParamSoco.valueChangeListenerDefinitionPeriode}">
+                              <f:selectItem itemValue="P!" />
+                              <f:selectItem itemValue="P2" />
+                              <f:selectItem itemValue="P3" />
+                              <f:selectItem itemValue="P4" />
+                              <f:selectItem itemValue="P5" />
+                              <f:selectItem itemValue="P6" />
+                              <f:selectItem itemValue="P7" />
+                              <f:selectItem itemValue="P8" />
+                              <f:selectItem itemValue="P9" />
+                              <f:selectItem itemValue="P!0" />
+                              <f:selectItem itemValue="P!1" />
+                              <f:selectItem itemValue="P!2" />
+                               <a4j:support event="onselect" reRender="Alias" limitToList="true" ajaxSingle="true"/>
+                          </rich:comboBox>
+                    </rich:column>
+                </rich:dataTable>
+            </h:form>
+         </rich:panel>
+    </ui:define>
+
+
+</ui:composition>

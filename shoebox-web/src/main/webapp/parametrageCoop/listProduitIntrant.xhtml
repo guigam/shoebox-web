@@ -1,0 +1,55 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateParametrage.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_listIntrant}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <div style="margin-left:15px">
+                    <h:commandButton image="/icons/add.png" action="addProduitIntrant" />
+                    <h:commandLink value="#{msg.lib_addIntrant}" action="addProduitIntrant" />
+                </div>
+                <rich:spacer height="10"/>
+
+                <rich:dataTable width="100%" value="#{parametrageShoebox.lstProduitIntrant}" var="item">
+                    <rich:column width="30%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_NomProduit}" />
+                        </f:facet>
+                        <h:outputText value="#{item.name}" />
+                    </rich:column>
+                    <rich:column width="45%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_description}" />
+                        </f:facet>
+                        <h:outputText value="#{item.description}" />
+                    </rich:column>
+                   
+                      <rich:column width="5%">
+                        <f:facet name="header">
+                            <h:outputText value="--" />
+                        </f:facet>
+                          <h:commandButton id="update" image="/icons/pencil.png"/>
+                          <rich:spacer width="5"/>
+                          <h:commandButton id="delete"  image="/icons/remove.png"/>
+                          <rich:toolTip for="update" value="#{msg.lib_update}"/>
+                          <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
+                    </rich:column>
+
+                </rich:dataTable>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+
+</ui:composition>

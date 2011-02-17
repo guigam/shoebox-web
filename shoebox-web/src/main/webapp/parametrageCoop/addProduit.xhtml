@@ -1,0 +1,43 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateParametrage.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+
+        <ui:define name="message" >
+        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+                                <f:facet name="message">
+                                    <h:graphicImage  value="/img/error.png"/>
+                                </f:facet>
+                            </rich:messages>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_addProduit}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_NomProduit}" />
+                    <h:inputText value="#{parametrageShoebox.produit.name}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                    <h:outputText value="#{msg.lib_description}" />
+                    <h:inputTextarea cols="30" rows="2" value="#{parametrageShoebox.produit.description}" required="true" requiredMessage="#{msg.lib_description} #{msg.message_Obligatoire}"/>
+                    <h:outputText value="#{msg.lib_type}" />
+                    <rich:comboBox value="#{parametrageShoebox.produit.type}">
+                        <f:selectItem itemValue="#{msg.lib_principal}" />
+                        <f:selectItem itemValue="#{msg.lib_secondaire}"/>
+                    </rich:comboBox>
+                    <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newProduit}"/>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+
+</ui:composition>

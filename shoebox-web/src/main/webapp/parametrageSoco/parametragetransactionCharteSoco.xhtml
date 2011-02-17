@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+
+
+    <ui:define name="content">
+        <rich:panel>
+            <h:form>
+                <h:outputText value="#{msg.lib_parametrageSoco}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="item" width="100%" binding="#{gsParamSoco.dataTable}">
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_codeTransaction}"/>
+                        </f:facet>
+                       <h:outputText value="#{item.abrev}"/>
+                    </rich:column>
+                    <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_transaction}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.type}"/>
+                    </rich:column>
+                    <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
+                        </f:facet>
+                        <center><rich:comboBox  valueChangeListener="#{gsParamSoco.valueChangeListener}"  value="#{item.charteCompte}"   width="400px" converter="converterCharteCompte" >
+                            <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
+                             <a4j:support event="onselect" reRender="Alias" limitToList="true" ajaxSingle="true"/>
+                         </rich:comboBox></center>
+                    </rich:column>
+                </rich:dataTable>
+                <div style="text-align: right">
+                    <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.newParamCharteTransaction}"/>
+                </div>
+            </h:form>
+        </rich:panel>
+    </ui:define>
+
+
+</ui:composition>

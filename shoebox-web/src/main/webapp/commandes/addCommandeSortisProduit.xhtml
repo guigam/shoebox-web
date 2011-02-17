@@ -1,0 +1,162 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateMagasin.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:p="http://primefaces.prime.com.tr/ui">
+
+
+
+
+    <ui:define name="message" >
+        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_addCommandeSortieProduit}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <h:panelGrid columns="2" styleClass="top,top" width="100%">
+                    <h:panelGrid columns="2" width="50%">
+                        <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                        <h:outputText value="#{msg.lib_fournisseurProduit}" styleClass="titreLibelle"/>
+                        <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterClient">
+                            <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
+                        </rich:comboBox>
+                    </h:panelGrid>
+                    <rich:panel  header="#{msg.lib_rechercheStock}">
+                        <h:panelGrid width="50%" style="background-color: white">
+                        <h:panelGrid columns="5">
+                            <h:outputText value="#{msg.lib_produit}" styleClass="titreLibelle"/>
+                            <rich:comboBox value="#{gsCommandes.produit}" converter="converterProduit">
+                                <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
+                            </rich:comboBox>
+                            <h:outputText value="#{msg.lib_grade}" styleClass="titreLibelle"/>
+                            <h:inputText value="#{gsCommandes.grade}"/>
+                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab"/>
+                        </h:panelGrid>
+                        <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab" >
+                            <rich:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_magasin}"/>
+                                </f:facet>
+                                <h:inputText value="#{rech.magasin.name}"/>
+                            </rich:column>
+                            <rich:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_quantite}"/>
+                                </f:facet>
+                                <h:inputText value="#{rech.quantite}"/>
+                            </rich:column>
+                            <rich:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_quantiteCommande}"/>
+                                </f:facet>
+                                <h:inputText value="#{rech.quantiteSaisie}" />
+                            </rich:column>
+                            <rich:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_pu}"/>
+                                </f:facet>
+                                <h:inputText value="#{rech.pu}" />
+                            </rich:column>
+                              <rich:column >
+                                <f:facet name="header">
+                                    <h:outputText value="--"/>
+                                </f:facet>
+                                  <a4j:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduit}" reRender="tab2">
+                                     <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
+                                  </a4j:commandButton>  
+                            </rich:column>
+                        </rich:dataTable>
+                        </h:panelGrid>
+                       </rich:panel>
+                 
+
+                </h:panelGrid>
+             
+
+                <rich:spacer height="5"/>
+                <h:outputText value="#{msg.lib_resultat}" styleClass="sousTitrePanel"/>
+                <rich:separator width="100%" height="3"/>
+                <rich:spacer height="5"/>
+
+                <h:panelGrid  width="100%">
+
+                    <a4j:outputPanel id="tab2">
+                        <a4j:outputPanel id="empty" rendered="#{empty gsCommandes.lstTsxMagasin}">
+                            <h:outputText value="#{msg.message_pasDenregistrement}"/>
+                        </a4j:outputPanel>
+                         <a4j:outputPanel id="notEmpty" rendered="#{not empty gsCommandes.lstTsxMagasin}">
+                        <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="rech" id="tt" width="100%"  >
+                        <rich:column width="30%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_magasin}"/>
+                            </f:facet>
+                            <h:outputText value="#{rech.magasin.name}"/>
+                        </rich:column>
+                        <rich:column width="30%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_produit}"/>
+                            </f:facet>
+                            <h:outputText value="#{rech.produit.name}"/>
+                        </rich:column>
+                        <rich:column width="10%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_grade}"/>
+                            </f:facet>
+                            <h:outputText value="#{rech.grade}"/>
+                        </rich:column>
+                        <rich:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_quantite}"/>
+                            </f:facet>
+                            <h:outputText value="#{rech.quantite}" />
+                        </rich:column>
+                        <rich:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_pu}"/>
+                            </f:facet>
+                            <h:outputText value="#{rech.prixUnitaire}" />
+                        </rich:column>
+                        <rich:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_montantTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{rech.calculMontant}" />
+                        </rich:column>
+                        <rich:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="--"/>
+                            </f:facet>
+                            <a4j:commandButton image="/icons/delete.png"/>
+                        </rich:column>
+                    </rich:dataTable>
+                             <rich:spacer height="10"/>
+                             <div style="text-align: right">
+                                 <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
+                                 <rich:spacer width="5"/>
+                                 <h:outputText value="#{gsCommandes.calculSommeCommande}" styleClass="titreMontantTotal"/>
+                             </div>
+                         </a4j:outputPanel>
+                  </a4j:outputPanel>
+                </h:panelGrid>
+                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeSortisProduit}"/>
+
+
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+
+</ui:composition>
