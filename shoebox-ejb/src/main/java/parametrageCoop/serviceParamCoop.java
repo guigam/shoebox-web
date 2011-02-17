@@ -285,6 +285,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
                 if(t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])){
                     Object[] obj = null;
                     Magasin mag = (Magasin)(t[0]);
+                    obj[0] = (Magasin)(t[0]);
                     obj[3] = new Long((Long)t[3]);
                     obj[4]  = new Long((Long)o[3]);
                     lstObject.add(obj);
