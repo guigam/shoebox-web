@@ -38,7 +38,6 @@ public class gestionCommandes implements Serializable {
     private Produit produit = new Produit();
     private int grade = 0;
     private TransactionCaisse tsxCaisse = new TransactionCaisse();
-
     @EJB
     private serviceParamCoopLocal parametrageCoop;
 
@@ -50,7 +49,7 @@ public class gestionCommandes implements Serializable {
         commade.setType("EP");
         commade.setLsttransactionMagasin(lstTsxMagasin);
         serviceGsCommande.newCommnde(commade);
-        commade  = new Commande();
+        commade = new Commande();
         lstTsxMagasin.clear();
         return "lstCommandeEntreeProduit";
     }
@@ -58,7 +57,7 @@ public class gestionCommandes implements Serializable {
     public String newCommandeEntreeIntrant() {
         commade.setType("EI");
         serviceGsCommande.newCommnde(commade);
-         commade = new Commande();
+        commade = new Commande();
         return "lstCommandeEntreeIntrant";
     }
 
@@ -80,9 +79,9 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeSortisProduit() {
         commade.setType("SP");
-         commade.setLsttransactionMagasin(lstTsxMagasin);
+        commade.setLsttransactionMagasin(lstTsxMagasin);
         serviceGsCommande.newCommnde(commade);
-         commade  = new Commande();
+        commade = new Commande();
         lstTsxMagasin.clear();
         return "lstCommandeSortieproduit";
     }
@@ -90,7 +89,7 @@ public class gestionCommandes implements Serializable {
     public String newCommandeSortisIntrant() {
         commade.setType("SI");
         serviceGsCommande.newCommnde(commade);
-         commade = new Commande();
+        commade = new Commande();
         return "lstCommandeSortisIntrant";
     }
 
@@ -109,47 +108,43 @@ public class gestionCommandes implements Serializable {
         for (Object[] t : lstObject) {
             StockSortieProduit ssp = new StockSortieProduit();
             ssp.setMagasin((Magasin) t[0]);
-            ssp.setSommequantiteEntree((Long) t[3]);
-            ssp.setSommequantiteSortis((Long) t[4]);
+            ssp.setQuantite((Long) t[2]);
             lstStockSortieProduit.add(ssp);
         }
     }
 
-    public void newTransaction(){
-            serviceGsCommande.newtransaction(tsxCaisse, commade);
+    public void newTransaction() {
+        serviceGsCommande.newtransaction(tsxCaisse, commade);
 
     }
 
     public void ajouterSortieProduit() {
-            if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
-                TransactionMagasin tsx = new TransactionMagasin();
-                tsx.setM_commande(commade);
-                tsx.setGrade(grade);
-                tsx.setMagasin(m_ssp.getMagasin());
-                tsx.setPrixUnitaire(m_ssp.getPu());
-                tsx.setProduit(produit);
-                tsx.setQuantite(m_ssp.getQuantiteSaisie());
-                lstTsxMagasin.add(tsx);
-                m_ssp = new StockSortieProduit();
-            }
+        if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
+            TransactionMagasin tsx = new TransactionMagasin();
+            tsx.setM_commande(commade);
+            tsx.setGrade(grade);
+            tsx.setMagasin(m_ssp.getMagasin());
+            tsx.setPrixUnitaire(m_ssp.getPu());
+            tsx.setProduit(produit);
+            tsx.setQuantite(m_ssp.getQuantiteSaisie());
+            lstTsxMagasin.add(tsx);
+            m_ssp = new StockSortieProduit();
         }
-    
+    }
 
-    public float getcalculSommeCommande(){
+    public float getcalculSommeCommande() {
         float somme = 0;
-        for(TransactionMagasin tsx : commade.getLsttransactionMagasin() ){
-            somme = somme +  tsx.getCalculMontant();
+        for (TransactionMagasin tsx : commade.getLsttransactionMagasin()) {
+            somme = somme + tsx.getCalculMontant();
         }
         return somme;
     }
-
-    
 
     /**
      * @return the commade
      */
     public Commande getCommade() {
-        
+
         return commade;
     }
 
@@ -178,19 +173,19 @@ public class gestionCommandes implements Serializable {
      * @return the dataTable
      */
     public UIData getDataTable() {
-            
+
         return dataTable;
     }
 
-    public void rowData(){
+    public void rowData() {
         lstTsxMagasinRowData.clear();
-        if(dataTable.getRowIndex() != -1){
+        if (dataTable.getRowIndex() != -1) {
             Commande com = (Commande) dataTable.getRowData();
-           for(TransactionMagasin tx : com.getLsttransactionMagasin()){
+            for (TransactionMagasin tx : com.getLsttransactionMagasin()) {
                 getLstTsxMagasinRowData().add(tx);
-           }
+            }
         }
-       
+
     }
 
     /**
@@ -260,7 +255,7 @@ public class gestionCommandes implements Serializable {
      * @return the lstTsxMagasinRowData
      */
     public List<TransactionMagasin> getLstTsxMagasinRowData() {
-        
+
         return lstTsxMagasinRowData;
     }
 
@@ -284,6 +279,4 @@ public class gestionCommandes implements Serializable {
     public void setTsxCaisse(TransactionCaisse tsxCaisse) {
         this.tsxCaisse = tsxCaisse;
     }
-
- 
 }

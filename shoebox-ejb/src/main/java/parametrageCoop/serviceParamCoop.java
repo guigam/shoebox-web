@@ -83,8 +83,6 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         persist(produit);
     }
 
-    
-
     @Override
     public void newCharteCompte(CharteCompte charteCompte) {
         persist(charteCompte);
@@ -92,7 +90,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public void newMagasin(Magasin magasin) {
-       persist(magasin);
+        persist(magasin);
     }
 
     @Override
@@ -125,8 +123,6 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         merge(produit);
     }
 
-  
-
     @Override
     public void updateCharteCompte(CharteCompte charteCompte) {
         merge(charteCompte);
@@ -149,7 +145,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public void deleteFI(FournisseurIntrant fi) {
-       delete(fi);
+        delete(fi);
     }
 
     @Override
@@ -159,15 +155,13 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public void deleteCommande(Commande commande) {
-       delete(commande);
+        delete(commande);
     }
 
     @Override
     public void deleteProduit(Produit produit) {
         delete(produit);
     }
-
- 
 
     @Override
     public void deleteCharteCompte(CharteCompte charteCompte) {
@@ -181,53 +175,53 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<Client> lstClient() {
-       Query query = em.createQuery("from Client");
-       return query.getResultList();
+        Query query = em.createQuery("from Client");
+        return query.getResultList();
 
     }
 
     @Override
     public List<FournisseurProduit> lstFP() {
         Query query = em.createQuery("from FournisseurProduit");
-       return query.getResultList();
+        return query.getResultList();
     }
 
     @Override
     public List<FournisseurIntrant> lstFI() {
-         Query query = em.createQuery("from FournisseurIntrant");
-       return query.getResultList();
+        Query query = em.createQuery("from FournisseurIntrant");
+        return query.getResultList();
     }
 
     @Override
     public List<Produit> lstproduit() {
-         Query query = em.createQuery("from Produit p where p.categorie = ?1");
-         query.setParameter(1, "produitCoop");
-       return query.getResultList();
+        Query query = em.createQuery("from Produit p where p.categorie = ?1");
+        query.setParameter(1, "produitCoop");
+        return query.getResultList();
     }
 
-        @Override
+    @Override
     public List<Magasin> lstMagasin() {
         Query query = em.createQuery("from Magasin ");
-       return query.getResultList();
+        return query.getResultList();
     }
 
     @Override
     public List<Produit> lstproduitIntrant() {
-         Query query = em.createQuery("from Produit p where p.categorie = ?1");
-         query.setParameter(1, "intrant");
-       return query.getResultList();
+        Query query = em.createQuery("from Produit p where p.categorie = ?1");
+        query.setParameter(1, "intrant");
+        return query.getResultList();
     }
 
     @Override
     public List<CharteCompte> lstcharteCompte() {
-       Query query = em.createQuery("from CharteCompte");
-       return query.getResultList();
+        Query query = em.createQuery("from CharteCompte");
+        return query.getResultList();
     }
 
     @Override
     public List<SelectItem> lstItemProduit() {
         List<SelectItem> lstproduitItem = new ArrayList<SelectItem>();
-        for(Produit p : lstproduit()){
+        for (Produit p : lstproduit()) {
             lstproduitItem.add(new SelectItem(p, p.getName()));
         }
         return lstproduitItem;
@@ -236,7 +230,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<SelectItem> lstItemFP() {
         List<SelectItem> lstFPItem = new ArrayList<SelectItem>();
-        for(FournisseurProduit p : lstFP()){
+        for (FournisseurProduit p : lstFP()) {
             lstFPItem.add(new SelectItem(p, p.getName()));
         }
         return lstFPItem;
@@ -245,7 +239,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<SelectItem> lstItemFI() {
         List<SelectItem> lstFIItem = new ArrayList<SelectItem>();
-        for(FournisseurIntrant p : lstFI()){
+        for (FournisseurIntrant p : lstFI()) {
             lstFIItem.add(new SelectItem(p, p.getName()));
         }
         return lstFIItem;
@@ -254,7 +248,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<SelectItem> lstItemProduitIntrant() {
         List<SelectItem> lstproduitItemIntrant = new ArrayList<SelectItem>();
-        for(Produit p : lstproduitIntrant()){
+        for (Produit p : lstproduitIntrant()) {
             lstproduitItemIntrant.add(new SelectItem(p, p.getName()));
         }
         return lstproduitItemIntrant;
@@ -263,7 +257,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<SelectItem> lstItemMagasin() {
         List<SelectItem> listMagasin = new ArrayList<SelectItem>();
-        for(Magasin p : lstMagasin()){
+        for (Magasin p : lstMagasin()) {
             listMagasin.add(new SelectItem(p, p.getName()));
         }
         return listMagasin;
@@ -271,8 +265,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<SelectItem> lstitemClient() {
-          List<SelectItem> listClient = new ArrayList<SelectItem>();
-        for(Client c : lstClient()){
+        List<SelectItem> listClient = new ArrayList<SelectItem>();
+        for (Client c : lstClient()) {
             listClient.add(new SelectItem(c, c.getName()));
         }
         return listClient;
@@ -281,17 +275,24 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<Object[]> rechercheStockProduit(Produit produit, int grade) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
-        for(Object[] t : rechercehEntreeProduit(produit, grade)){
-            for(Object[] o : rechercehSortisProduit(produit, grade)){
-                if(t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])){
-                    Object[] obj = new Object[3];
-                    Magasin mag = (Magasin)(t[0]);
-                    obj[0] = (Magasin)(t[0]);
-                    obj[1] = new Long((Long)t[3]);
-                    obj[2]  = new Long((Long)o[3]);
-                    long toto = new Long((Long)t[3]).longValue()-new Long((Long)o[3]).longValue();
-                    System.out.println(toto);
-                    lstObject.add(obj);
+        if (!rechercehEntreeProduit(produit, grade).isEmpty() && rechercehSortisProduit(produit, grade).isEmpty()) {
+            for (Object[] t : rechercehEntreeProduit(produit, grade)) {
+                Object[] obj = new Object[3];
+                obj[0] = (Magasin) (t[0]);
+                obj[1] = (Produit) (t[1]);
+                obj[2] = new Long((Long) t[3]);
+                lstObject.add(obj);
+            }
+        } else {
+            for (Object[] t : rechercehEntreeProduit(produit, grade)) {
+                for (Object[] o : rechercehSortisProduit(produit, grade)) {
+                    if (t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])) {
+                        Object[] obj = new Object[3];
+                        obj[0] = (Magasin) (t[0]);
+                        obj[1] = (Produit) (t[1]);
+                        obj[2] = new Long((Long) t[3]).longValue() - new Long((Long) o[3]).longValue();
+                        lstObject.add(obj);
+                    }
                 }
             }
         }
@@ -309,7 +310,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return null;
     }
 
-        private List<Object[]> rechercehSortisProduit(Produit produit, int grade) {
+    private List<Object[]> rechercehSortisProduit(Produit produit, int grade) {
         if (produit != null && grade != 0) {
             Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2  group by x.magasin");
             q.setParameter(1, produit);
@@ -327,14 +328,14 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<TransactionMagasin> test() {
-       Query q = em.createQuery("from TransactionMagasin t where t.m_commande = 1 ");
-       return q.getResultList();
+        Query q = em.createQuery("from TransactionMagasin t where t.m_commande = 1 ");
+        return q.getResultList();
     }
 
     @Override
     public List<SelectItem> lstitemCompte() {
-         List<SelectItem> listConpte = new ArrayList<SelectItem>();
-        for(Compte c : lstCompte()){
+        List<SelectItem> listConpte = new ArrayList<SelectItem>();
+        for (Compte c : lstCompte()) {
             listConpte.add(new SelectItem(c, c.getNomCompte()));
         }
         return listConpte;
@@ -342,25 +343,16 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<Compte> lstCompte() {
-           Query query = em.createQuery("from Compte");
-       return query.getResultList();
+        Query query = em.createQuery("from Compte");
+        return query.getResultList();
     }
 
     @Override
     public List<SelectItem> lstItemCharteCompte() {
-       List<SelectItem> listCharteCompte = new ArrayList<SelectItem>();
-        for(CharteCompte c : lstcharteCompte()){
+        List<SelectItem> listCharteCompte = new ArrayList<SelectItem>();
+        for (CharteCompte c : lstcharteCompte()) {
             listCharteCompte.add(new SelectItem(c, c.getNom()));
         }
         return listCharteCompte;
     }
-
-
-
-
-
-
 }
-
-
-   

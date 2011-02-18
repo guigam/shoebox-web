@@ -13,8 +13,8 @@ import ModelesShoebox.Magasin;
  */
 public class StockSortieProduit {
     private Magasin magasin = new Magasin();
-    private Long SommequantiteEntree;
-    private Long SommequantiteSortis;
+    private Long quantite;
+   
     private int quantiteSaisie;
     private float pu;
 
@@ -22,9 +22,6 @@ public class StockSortieProduit {
     }
 
 
-    public Long getCalculstock(){
-        return SommequantiteEntree - SommequantiteSortis;
-    }
 
     /**
      * @return the magasin
@@ -70,32 +67,20 @@ public class StockSortieProduit {
     }
 
     /**
-     * @return the SommequantiteEntree
+     * @return the quantite
      */
-    public Long getSommequantiteEntree() {
-        return SommequantiteEntree;
+    public Long getQuantite() {
+        return quantite;
     }
 
     /**
-     * @param SommequantiteEntree the SommequantiteEntree to set
+     * @param quantite the quantite to set
      */
-    public void setSommequantiteEntree(Long SommequantiteEntree) {
-        this.SommequantiteEntree = SommequantiteEntree;
+    public void setQuantite(Long quantite) {
+        this.quantite = quantite;
     }
 
-    /**
-     * @return the SommequantiteSortis
-     */
-    public Long getSommequantiteSortis() {
-        return SommequantiteSortis;
-    }
 
-    /**
-     * @param SommequantiteSortis the SommequantiteSortis to set
-     */
-    public void setSommequantiteSortis(Long SommequantiteSortis) {
-        this.SommequantiteSortis = SommequantiteSortis;
-    }
     
 
 }
