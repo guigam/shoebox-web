@@ -14,6 +14,7 @@ import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionMagasin;
+import java.lang.Object;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -283,11 +284,13 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         for(Object[] t : rechercehEntreeProduit(produit, grade)){
             for(Object[] o : rechercehSortisProduit(produit, grade)){
                 if(t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])){
-                    Object[] obj = null;
+                    Object[] obj = new Object[3];
                     Magasin mag = (Magasin)(t[0]);
                     obj[0] = (Magasin)(t[0]);
-                    obj[3] = new Long((Long)t[3]);
-                    obj[4]  = new Long((Long)o[3]);
+                    obj[1] = new Long((Long)t[3]);
+                    obj[2]  = new Long((Long)o[3]);
+                    long toto = new Long((Long)t[3]).longValue()-new Long((Long)o[3]).longValue();
+                    System.out.println(toto);
                     lstObject.add(obj);
                 }
             }
