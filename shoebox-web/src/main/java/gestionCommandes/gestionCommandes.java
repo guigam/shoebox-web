@@ -38,6 +38,7 @@ public class gestionCommandes implements Serializable {
     private Produit produit = new Produit();
     private int grade = 0;
     private TransactionCaisse tsxCaisse = new TransactionCaisse();
+    private List<ConfirmationCommande> lstConfirmationCommande = new LinkedList<ConfirmationCommande>();
     @EJB
     private serviceParamCoopLocal parametrageCoop;
 
@@ -115,7 +116,7 @@ public class gestionCommandes implements Serializable {
 
     public void newTransaction() {
         serviceGsCommande.newtransaction(tsxCaisse, commade);
-
+        commade = new Commande();
     }
 
     public void ajouterSortieProduit() {
@@ -279,4 +280,46 @@ public class gestionCommandes implements Serializable {
     public void setTsxCaisse(TransactionCaisse tsxCaisse) {
         this.tsxCaisse = tsxCaisse;
     }
+
+    /**
+     * @return the confirmationCommande
+     */
+    public void confirmerCommande() {
+        for(TransactionMagasin tsx : commade.getLsttransactionMagasin()){
+            for(ConfirmationCommande conf : lstConfirmationCommande){
+                if(tsx.equals(conf.getTsxMag())){
+                    tsx.setGrade(conf.getGradeSaisie());
+                    tsx.setPrixUnitaire(conf.getPuSaisie());
+                    tsx.setQuantite(conf.getQuantiteSaisie());
+                    commade.setConfirmation(true);
+                    serviceGsCommande.mergeCommande(commade);
+                }
+            }
+        }
+        commade = new Commande();
+        lstConfirmationCommande.clear();
+    }
+        
+
+    /**
+     * @return the lstConfirmationCommande
+     */
+    public List<ConfirmationCommande> getLstConfirmationCommande() {
+        lstConfirmationCommande.clear();
+        for (TransactionMagasin tsx : commade.getLsttransactionMagasin()){
+            ConfirmationCommande conf = new ConfirmationCommande();
+            conf.setTsxMag(tsx);
+            lstConfirmationCommande.add(conf);
+        }
+        return lstConfirmationCommande;
+    }
+
+    /**
+     * @param lstConfirmationCommande the lstConfirmationCommande to set
+     */
+    public void setLstConfirmationCommande(List<ConfirmationCommande> lstConfirmationCommande) {
+        this.lstConfirmationCommande = lstConfirmationCommande;
+    }
+
+ 
 }

@@ -21,12 +21,15 @@
                 </div>
                 <rich:spacer height="10"/>
 
-                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisProduit}" var="item">
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisProduit}" var="item" id="tab">
                     <rich:column width="5%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
                         </f:facet>
-                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}"/></center>
+                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
+                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
+                            </a4j:commandButton></center>
+                        <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
                     </rich:column>
                     <rich:column width="10%">
                         <f:facet name="header">
@@ -118,7 +121,69 @@
 
                 </rich:dataTable>
             </rich:panel>
-        </h:form>
+</h:form>
+            <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{not empty gsCommandes.lstConfirmationCommande}">
+                <h:form>
+                <rich:panel>
+                    <rich:dataTable value="#{gsCommandes.lstConfirmationCommande}" var="tsx" width="100%" >
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_produit} : " styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:outputText value="#{tsx.tsxMag.produit.name}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:outputText value="#{tsx.tsxMag.grade}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_quantite} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:outputText value="#{tsx.tsxMag.quantite}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_pu} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:outputText value="#{tsx.tsxMag.prixUnitaire}" />
+                        </rich:column>
+                         <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                             <h:inputText value="#{tsx.gradeSaisie}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_quantite} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.quantiteSaisie}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_pu} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.puSaisie}" />
+                        </rich:column>
+                          <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="--"  styleClass="titreLibelle" />
+                            </f:facet>
+                              <h:commandButton image="/icons/tick_off.png"  >
+                                  <f:setPropertyActionListener target="#{gsCommandes.tsxMagasin}" value="#{tsx}" />
+                              </h:commandButton>
+                        </rich:column>
+                    </rich:dataTable>
+                    <rich:spacer height="20"/>
+                    <div style="text-align: right">
+                        <a4j:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.confirmerCommande}" reRender="tab"/>
+                    </div>
+                </rich:panel>
+                    </h:form>
+            </rich:modalPanel>
     </ui:define>
 
 

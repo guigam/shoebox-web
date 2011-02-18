@@ -8,6 +8,7 @@ package gestionCommandes;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Compte;
 import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -83,6 +84,11 @@ public class ServiceGestionCommande implements ServiceGestionCommandeLocal {
             tsxCaisse.setTypeTransaction(commande.getType());
             tsxCaisse.setCommande(commande);
             persist(tsxCaisse);
+    }
+
+    @Override
+    public void mergeTransactionMagasin(TransactionMagasin tsx) {
+        merge(tsx);
     }
 
   

@@ -8,6 +8,7 @@ package gestionCommandes;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Compte;
 import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,6 +31,7 @@ public interface ServiceGestionCommandeLocal {
 
     public void newtransaction(TransactionCaisse tsxCaisse, Commande commande);
 
+    public void mergeTransactionMagasin(TransactionMagasin tsx);
     
 
     
