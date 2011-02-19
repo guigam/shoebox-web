@@ -13,7 +13,7 @@
 
                 <rich:spacer height="10"/>
 
-                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeEntreeProduit}" binding="#{gsCommandes.dataTable}" var="item">
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeEntreeProduit}"  var="item">
                     <rich:column width="5%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
@@ -82,9 +82,9 @@
 
                 </rich:dataTable>
             </rich:panel>
-            <rich:modalPanel  id="panel"  autosized="true" zindex="2000">
+              <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}">
                 <rich:panel>
-                    <rich:dataTable value="#{gsCommandes.lstTsxMagasinRowData}" var="tsx" width="100%" >
+                    <rich:dataTable value="#{gsCommandes.commade.lsttransactionMagasin}" var="tsx" width="100%" >
                         <rich:column>
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_magasin} : " styleClass="titreLibelle" />

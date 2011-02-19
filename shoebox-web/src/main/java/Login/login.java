@@ -22,24 +22,17 @@ import parametrageSocodevi.ServiceParamSocoLocal;
 @SessionScoped
 public class login implements Serializable{
     @EJB
-    private ServiceParamSocoLocal serviceLangue;
-    private Langue langueUtilise = new Langue();
+    private ServiceParamSocoLocal serviceparamSoco;
     /** Creates a new instance of login */
     public login() {
 
     }
     public List<Permission> getlstpermission(){
-        return serviceLangue.lstPermission();
+        return serviceparamSoco.lstPermission();
     }
 
-   
+    
 
-    /**
-     * @param langueUtilise the langueUtilise to set
-     */
-    public void setLangueUtilise(Langue langueUtilise) {
-        this.langueUtilise = langueUtilise;
-    }
 
 
 

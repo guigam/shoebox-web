@@ -4,18 +4,19 @@
  */
 package gestionCommandes;
 
+import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
-import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionMagasin;
+import gestionCaisse.GestionCaisse;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIData;
+import javax.inject.Inject;
 import javax.inject.Named;
 import parametrageCoop.serviceParamCoopLocal;
 
@@ -26,21 +27,19 @@ import parametrageCoop.serviceParamCoopLocal;
 @Named(value = "gsCommandes")
 @SessionScoped
 public class gestionCommandes implements Serializable {
-
     @EJB
-    private ServiceGestionCommandeLocal serviceGsCommande;
+    private ServiceGestionCommandeTransactionLocal serviceGsCommande;
+    @EJB
+    private serviceParamCoopLocal parametrageCoop;
+    @Inject
+    private GestionCaisse gsCaisse;
     private Commande commade = new Commande();
     private List<TransactionMagasin> lstTsxMagasin = new ArrayList<TransactionMagasin>();
-    private List<TransactionMagasin> lstTsxMagasinRowData = new ArrayList<TransactionMagasin>();
-    private UIData dataTable;
     private List<StockSortieProduit> lstStockSortieProduit = new ArrayList<StockSortieProduit>();
     private StockSortieProduit m_ssp = new StockSortieProduit();
     private Produit produit = new Produit();
     private int grade = 0;
-    private TransactionCaisse tsxCaisse = new TransactionCaisse();
-    private List<ConfirmationCommande> lstConfirmationCommande = new LinkedList<ConfirmationCommande>();
-    @EJB
-    private serviceParamCoopLocal parametrageCoop;
+    private List<Commande> lstCommandeSortisProduit = new LinkedList<Commande>();
 
     /** Creates a new instance of gestionCommandes */
     public gestionCommandes() {
@@ -82,6 +81,7 @@ public class gestionCommandes implements Serializable {
         commade.setType("SP");
         commade.setLsttransactionMagasin(lstTsxMagasin);
         serviceGsCommande.newCommnde(commade);
+        lstCommandeSortisProduit.add(commade);
         commade = new Commande();
         lstTsxMagasin.clear();
         return "lstCommandeSortieproduit";
@@ -94,9 +94,6 @@ public class gestionCommandes implements Serializable {
         return "lstCommandeSortisIntrant";
     }
 
-    public List<Commande> getlstCommandeSortisProduit() {
-        return serviceGsCommande.lstCommandeByType("SP");
-    }
 
     public List<Commande> getlstCommandeSortisIntrant() {
         return serviceGsCommande.lstCommandeByType("SI");
@@ -114,10 +111,7 @@ public class gestionCommandes implements Serializable {
         }
     }
 
-    public void newTransaction() {
-        serviceGsCommande.newtransaction(tsxCaisse, commade);
-        commade = new Commande();
-    }
+ 
 
     public void ajouterSortieProduit() {
         if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
@@ -169,32 +163,12 @@ public class gestionCommandes implements Serializable {
     public void setLstTsxMagasin(List<TransactionMagasin> lstTsxMagasin) {
         this.lstTsxMagasin = lstTsxMagasin;
     }
-
-    /**
-     * @return the dataTable
-     */
-    public UIData getDataTable() {
-
-        return dataTable;
+    public void confirmerCommande() {
+                    commade.setConfirmation(true);
+                    serviceGsCommande.mergeCommande(commade);
     }
 
-    public void rowData() {
-        lstTsxMagasinRowData.clear();
-        if (dataTable.getRowIndex() != -1) {
-            Commande com = (Commande) dataTable.getRowData();
-            for (TransactionMagasin tx : com.getLsttransactionMagasin()) {
-                getLstTsxMagasinRowData().add(tx);
-            }
-        }
 
-    }
-
-    /**
-     * @param dataTable the dataTable to set
-     */
-    public void setDataTable(UIData dataTable) {
-        this.dataTable = dataTable;
-    }
 
     /**
      * @return the produit
@@ -252,74 +226,20 @@ public class gestionCommandes implements Serializable {
         this.m_ssp = m_ssp;
     }
 
-    /**
-     * @return the lstTsxMagasinRowData
-     */
-    public List<TransactionMagasin> getLstTsxMagasinRowData() {
 
-        return lstTsxMagasinRowData;
+
+    /**
+     * @return the lstCommandeSortisProduit
+     */
+    public List<Commande> getLstCommandeSortisProduit() {
+      return serviceGsCommande.lstCommandeByType("SP");
     }
 
     /**
-     * @param lstTsxMagasinRowData the lstTsxMagasinRowData to set
+     * @param lstCommandeSortisProduit the lstCommandeSortisProduit to set
      */
-    public void setLstTsxMagasinRowData(List<TransactionMagasin> lstTsxMagasinRowData) {
-        this.lstTsxMagasinRowData = lstTsxMagasinRowData;
+    public void setLstCommandeSortisProduit(List<Commande> lstCommandeSortisProduit) {
+        this.lstCommandeSortisProduit = lstCommandeSortisProduit;
     }
 
-    /**
-     * @return the tsxCaisse
-     */
-    public TransactionCaisse getTsxCaisse() {
-        return tsxCaisse;
-    }
-
-    /**
-     * @param tsxCaisse the tsxCaisse to set
-     */
-    public void setTsxCaisse(TransactionCaisse tsxCaisse) {
-        this.tsxCaisse = tsxCaisse;
-    }
-
-    /**
-     * @return the confirmationCommande
-     */
-    public void confirmerCommande() {
-        for(TransactionMagasin tsx : commade.getLsttransactionMagasin()){
-            for(ConfirmationCommande conf : lstConfirmationCommande){
-                if(tsx.equals(conf.getTsxMag())){
-                    tsx.setGrade(conf.getGradeSaisie());
-                    tsx.setPrixUnitaire(conf.getPuSaisie());
-                    tsx.setQuantite(conf.getQuantiteSaisie());
-                    commade.setConfirmation(true);
-                    serviceGsCommande.mergeCommande(commade);
-                }
-            }
-        }
-        commade = new Commande();
-        lstConfirmationCommande.clear();
-    }
-        
-
-    /**
-     * @return the lstConfirmationCommande
-     */
-    public List<ConfirmationCommande> getLstConfirmationCommande() {
-        lstConfirmationCommande.clear();
-        for (TransactionMagasin tsx : commade.getLsttransactionMagasin()){
-            ConfirmationCommande conf = new ConfirmationCommande();
-            conf.setTsxMag(tsx);
-            lstConfirmationCommande.add(conf);
-        }
-        return lstConfirmationCommande;
-    }
-
-    /**
-     * @param lstConfirmationCommande the lstConfirmationCommande to set
-     */
-    public void setLstConfirmationCommande(List<ConfirmationCommande> lstConfirmationCommande) {
-        this.lstConfirmationCommande = lstConfirmationCommande;
-    }
-
- 
 }

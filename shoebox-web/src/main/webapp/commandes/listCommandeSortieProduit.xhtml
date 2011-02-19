@@ -97,7 +97,7 @@
                             </rich:column>
                         </rich:dataTable>
                     </rich:column>
-                    <rich:column width="20%">
+                    <rich:column width="17%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_paiement}" />
                         </f:facet>
@@ -108,7 +108,7 @@
                             <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" />
                         </h:panelGrid>
                     </rich:column>
-                    <rich:column width="5%">
+                    <rich:column width="8%">
                         <f:facet name="header">
                             <h:outputText value="--" />
                         </f:facet>
@@ -122,65 +122,41 @@
                 </rich:dataTable>
             </rich:panel>
 </h:form>
-            <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{not empty gsCommandes.lstConfirmationCommande}">
+        <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}">
                 <h:form>
                 <rich:panel>
-                    <rich:dataTable value="#{gsCommandes.lstConfirmationCommande}" var="tsx" width="100%" >
-                        <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_produit} : " styleClass="titreLibelle" />
-                            </f:facet>
-                            <h:outputText value="#{tsx.tsxMag.produit.name}" />
-                        </rich:column>
-                        <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
-                            </f:facet>
-                            <h:outputText value="#{tsx.tsxMag.grade}" />
-                        </rich:column>
-                        <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_quantite} : "  styleClass="titreLibelle" />
-                            </f:facet>
-                            <h:outputText value="#{tsx.tsxMag.quantite}" />
-                        </rich:column>
-                        <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_pu} : "  styleClass="titreLibelle" />
-                            </f:facet>
-                            <h:outputText value="#{tsx.tsxMag.prixUnitaire}" />
-                        </rich:column>
-                         <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
-                            </f:facet>
-                             <h:inputText value="#{tsx.gradeSaisie}" />
-                        </rich:column>
-                        <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_quantite} : "  styleClass="titreLibelle" />
-                            </f:facet>
-                            <h:inputText value="#{tsx.quantiteSaisie}" />
-                        </rich:column>
-                        <rich:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{msg.lib_pu} : "  styleClass="titreLibelle" />
-                            </f:facet>
-                            <h:inputText value="#{tsx.puSaisie}" />
-                        </rich:column>
+                    <rich:dataTable value="#{gsCommandes.commade.lsttransactionMagasin}" var="tsx" width="100%" >
                           <rich:column>
                             <f:facet name="header">
-                                <h:outputText value="--"  styleClass="titreLibelle" />
+                                <h:outputText value="#{msg.lib_produit} : "  styleClass="titreLibelle" />
                             </f:facet>
-                              <h:commandButton image="/icons/tick_off.png"  >
-                                  <f:setPropertyActionListener target="#{gsCommandes.tsxMagasin}" value="#{tsx}" />
-                              </h:commandButton>
+                              <h:outputText value="#{tsx.produit.name}" />
                         </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.grade}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_quantite} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.quantite}" />
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_pu} : "  styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:inputText value="#{tsx.prixUnitaire}" />
+                        </rich:column>
+                         
                     </rich:dataTable>
                     <rich:spacer height="20"/>
                     <div style="text-align: right">
                         <a4j:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.confirmerCommande}" reRender="tab"/>
                     </div>
+                    <h:commandButton value="#{msg.btn_fermer}" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"/>
                 </rich:panel>
                     </h:form>
             </rich:modalPanel>

@@ -29,7 +29,7 @@ public class Commande implements Serializable {
     private String type;
     private Date dateCommande;
     private List<TransactionMagasin> lsttransactionMagasin = new LinkedList<TransactionMagasin>();
-     private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
+    private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
     private Entite m_entite;
     private boolean confirmation = false;
 
@@ -45,7 +45,7 @@ public class Commande implements Serializable {
     @Transient
     public float getmontantPaye(){
     float montatPaye = 0;
-    for(TransactionCaisse tsx : lsttransactionCaisse){
+    for(TransactionCaisse tsx : getLsttransactionCaisse()){
         montatPaye = montatPaye + tsx.getMontant();
     }
         return montatPaye;
@@ -163,21 +163,7 @@ public class Commande implements Serializable {
         this.m_entite = m_entite;
     }
 
-    /**
-     * @return the lsttransactionCaisse
-     */
-    @OneToMany(mappedBy="commande")
-    public List<TransactionCaisse> getLsttransactionCaisse() {
-        return lsttransactionCaisse;
-    }
-
-    /**
-     * @param lsttransactionCaisse the lsttransactionCaisse to set
-     */
-    public void setLsttransactionCaisse(List<TransactionCaisse> lsttransactionCaisse) {
-        this.lsttransactionCaisse = lsttransactionCaisse;
-    }
-
+    
     /**
      * @return the dateCommande
      */
@@ -192,4 +178,24 @@ public class Commande implements Serializable {
     public void setDateCommande(Date dateCommande) {
         this.dateCommande = dateCommande;
     }
+
+    /**
+     * @return the lsttransactionCaisse
+     */
+    @OneToMany(cascade=CascadeType.ALL)
+    public List<TransactionCaisse> getLsttransactionCaisse() {
+        return lsttransactionCaisse;
+    }
+
+    /**
+     * @param lsttransactionCaisse the lsttransactionCaisse to set
+     */
+    public void setLsttransactionCaisse(List<TransactionCaisse> lsttransactionCaisse) {
+        this.lsttransactionCaisse = lsttransactionCaisse;
+    }
+
+    /**
+     * @return the lsttransactionCaisse
+     */
+    
 }

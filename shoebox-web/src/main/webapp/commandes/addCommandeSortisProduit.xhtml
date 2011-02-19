@@ -28,7 +28,7 @@
                     <h:panelGrid columns="2" width="50%">
                         <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                         <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
-                        <h:outputText value="#{msg.lib_fournisseurProduit}" styleClass="titreLibelle"/>
+                        <h:outputText value="#{msg.lib_client}" styleClass="titreLibelle"/>
                         <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterClient">
                             <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
                         </rich:comboBox>

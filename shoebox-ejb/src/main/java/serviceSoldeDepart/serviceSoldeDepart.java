@@ -110,4 +110,11 @@ public class serviceSoldeDepart implements serviceSoldeDepartLocal {
          }
         return lstSD;
     }
+
+    @Override
+    public void mergeSolde(SoldeDepart sd) {
+            em.getTransaction().begin();
+            em.merge(sd);
+            em.getTransaction().commit();
+    }
 }

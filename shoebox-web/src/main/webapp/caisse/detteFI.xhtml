@@ -2,7 +2,8 @@
                template="/templateCaisse.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:rich="http://richfaces.org/rich">
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
     
 
     <ui:define name="content">
@@ -17,25 +18,31 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_reference}" />
                         </f:facet>
-                        <h:outputText value="#{item.soldeDepart.entite.reference}" />
+                        <h:outputText value="#{item.entite.reference}" />
                     </rich:column>
                     <rich:column width="30%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_description}" />
                         </f:facet>
-                        <h:outputText value="#{item.soldeDepart.entite.name}" />
+                        <h:outputText value="#{item.entite.name}" />
                     </rich:column>
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_montantTotal}" />
                         </f:facet>
-                        <h:outputText value="#{item.soldeDepart.montant}" />
+                        <h:outputText value="#{item.montant}" />
                     </rich:column>
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
-                        <h:outputText value="#{item.montantPaye}" />
+                      <div style="text-align: right; vertical-align: top">
+                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montant.equals(item.montantPaye)}" action="addTransactionSD">
+                                <f:setPropertyActionListener target="#{gsSoldeDepart.sd}" value="#{item}"/>
+                            </a4j:commandButton>
+                        </div>
+                        <center> <h:outputText value="#{item.montantPaye}"/></center>
+                        <rich:toolTip for="plus" value="#{msg.lib_ajouterPaiement}"/>
                     </rich:column>
                     <rich:column width="15%">
                         <f:facet name="header">

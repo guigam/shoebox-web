@@ -52,7 +52,7 @@ public class GestionParametrageSoco implements Serializable {
         paramtsx = new ParamTransaction();
         paramtsx = (ParamTransaction) dataTable.getRowData();
         paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
-        lstParamtransaction.add(paramtsx);
+        serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
     }
 
     public void valueChangeListenerDefinitionPeriode(ValueChangeEvent event) {

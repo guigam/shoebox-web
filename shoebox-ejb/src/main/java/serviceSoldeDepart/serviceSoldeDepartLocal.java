@@ -26,4 +26,6 @@ public interface serviceSoldeDepartLocal {
     public List<SoldeDepart> dettesFI();
 
     public List<SoldeDepart> dettesClient();
+
+    public void mergeSolde(SoldeDepart sd);
 }

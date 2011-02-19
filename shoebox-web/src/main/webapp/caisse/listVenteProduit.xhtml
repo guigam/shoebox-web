@@ -13,15 +13,14 @@
 
                 <rich:spacer height="10"/>
 
-                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisProduit}" binding="#{gsCommandes.dataTable}" var="item">
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisProduit}" var="item">
                     <rich:column width="5%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
                         </f:facet>
-                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" action="#{gsCommandes.rowData}" id="link"  reRender="panel">
-                                <rich:componentControl for="panel" attachTo="link" operation="show" event="onclick"/>
-                            </a4j:commandButton></center>
-                        <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
+                        <center><h:graphicImage value="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}"  id="link"  />
+                                </center>
+                        <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_nonConfirme : msg.lib_confirme}"/>
                     </rich:column>
                    
                        <rich:column width="10%">
@@ -53,7 +52,7 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                         <div style="text-align: right; vertical-align: top">
-                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye)}" action="addTransaction">
+                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="addTransaction">
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
                             </a4j:commandButton>
                         </div>

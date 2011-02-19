@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -49,8 +48,7 @@ public class TransactionCaisse implements Serializable {
     private CharteCompte charteCompte;
     @ManyToOne
     private Compte compteEncaisse;
-    @ManyToOne
-    private Commande commande;
+    
     public Long getId() {
         return id;
     }
@@ -182,18 +180,6 @@ public class TransactionCaisse implements Serializable {
         this.compteEncaisse = compteEncaisse;
     }
 
-    /**
-     * @return the commande
-     */
-    public Commande getCommande() {
-        return commande;
-    }
 
-    /**
-     * @param commande the commande to set
-     */
-    public void setCommande(Commande commande) {
-        this.commande = commande;
-    }
 
 }

@@ -2,32 +2,6 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
   <persistence-unit name="gestion" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>ModelesParametrage.DefinitionPeriode</class>
-    <class>ModelesParametrage.DetailLangue</class>
-    <class>ModelesParametrage.Dictionnaire</class>
-    <class>ModelesParametrage.Langue</class>
-    <class>ModelesParametrage.ParamTransaction</class>
-    <class>ModelesParametrage.Permission</class>
-    <class>ModelesParametrage.Utilisateur</class>
-    <class>ModelesParametrage.parametrageComptabilite</class>
-    <class>ModelesShoebox.CharteCompte</class>
-    <class>ModelesShoebox.Client</class>
-    <class>ModelesShoebox.Commande</class>
-    <class>ModelesShoebox.Compte</class>
-    <class>ModelesShoebox.Cooperative</class>
-    <class>ModelesShoebox.Entite</class>
-    <class>ModelesShoebox.FournisseurIntrant</class>
-    <class>ModelesShoebox.FournisseurProduit</class>
-    <class>ModelesShoebox.Magasin</class>
-    <class>ModelesShoebox.Produit</class>
-    <class>ModelesShoebox.SoldeDepart</class>
-    <class>ModelesShoebox.Transaction</class>
-    <class>ModelesShoebox.TransactionCaisse</class>
-    <class>ModelesShoebox.TransactionClient</class>
-    <class>ModelesShoebox.TransactionCooperative</class>
-    <class>ModelesShoebox.TransactionFI</class>
-    <class>ModelesShoebox.TransactionFP</class>
-    <class>ModelesShoebox.TransactionMagasin</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

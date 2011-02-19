@@ -166,6 +166,12 @@
             <to-view-id>/caisse/addTransactionCaisse.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+      <navigation-rule>
+        <navigation-case>
+            <from-outcome>addTransactionSD</from-outcome>
+            <to-view-id>/caisse/addTransactionSDCaisse.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>addClient</from-outcome>

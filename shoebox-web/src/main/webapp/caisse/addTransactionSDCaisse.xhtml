@@ -12,12 +12,12 @@
             <rich:panel>
                 <rich:panel style="background-color: white">
                     <h:outputText value="#{msg.lib_description}"/>
-                    <h:outputText value="#{gsCommandes.commade.m_entite.name}"/>
+                    <h:outputText value="#{gsSoldeDepart.sd.entite.name}"/>
                     <h:panelGrid columns="4">
                         <h:outputText value="#{msg.lib_montantPaye}" styleClass="titreLibelle"/>
-                    <h:outputText value="#{gsCommandes.commade.montantPaye}"/>
+                        <h:outputText value="#{gsSoldeDepart.sd.montantPaye}"/>
                     <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
-                    <h:outputText value="#{gsCommandes.commade.montantTotal}"/>
+                    <h:outputText value="#{gsSoldeDepart.sd.montant}"/>
                     </h:panelGrid>
                 </rich:panel>
                 </rich:panel>
@@ -35,7 +35,7 @@
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
                     <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"/>
-                    <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionCommande}" />
+                    <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionSD}" />
                 </h:panelGrid>
 
 

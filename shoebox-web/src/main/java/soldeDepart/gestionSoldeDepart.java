@@ -5,11 +5,11 @@
 package soldeDepart;
 
 import ModelesShoebox.SoldeDepart;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import serviceSoldeDepart.serviceSoldeDepartLocal;
 
 /**
@@ -17,9 +17,9 @@ import serviceSoldeDepart.serviceSoldeDepartLocal;
  * @author guigamehdi
  */
 @Named(value = "gsSoldeDepart")
-@RequestScoped
-public class gestionSoldeDepart {
-    
+@SessionScoped
+public class gestionSoldeDepart implements Serializable{
+    private SoldeDepart sd = new SoldeDepart();
     @EJB
     private serviceSoldeDepartLocal serviceSoldeDepart;
 
@@ -27,64 +27,43 @@ public class gestionSoldeDepart {
     public gestionSoldeDepart() {
     }
 
-    public List<solde> getlstRemboursementFP() {
-     List<solde> lstSolde = new ArrayList<solde>();
-        for(SoldeDepart mysolde : serviceSoldeDepart.remboursementFP()){
-            solde monsolde = new solde();
-            monsolde.setSoldeDepart(mysolde);
-            lstSolde.add(monsolde);
-        }
-        return lstSolde;
+    public List<SoldeDepart> getlstRemboursementFP() {
+       return  serviceSoldeDepart.remboursementFP();
     }
 
-    public List<solde> getlstRemboursementFI() {
-        List<solde> lstSolde = new ArrayList<solde>();
-        for(SoldeDepart mysolde : serviceSoldeDepart.remboursementFI()){
-            solde monsolde = new solde();
-            monsolde.setSoldeDepart(mysolde);
-            lstSolde.add(monsolde);
-        }
-        return lstSolde;
+    public List<SoldeDepart> getlstRemboursementFI() {
+        return serviceSoldeDepart.remboursementFI();
     }
 
-    public List<solde> getlstRemboursementClient() {
-        List<solde> lstSolde = new ArrayList<solde>();
-        for(SoldeDepart mysolde : serviceSoldeDepart.remboursementClient()){
-            solde monsolde = new solde();
-            monsolde.setSoldeDepart(mysolde);
-            lstSolde.add(monsolde);
-        }
-        return lstSolde;
+    public List<SoldeDepart> getlstRemboursementClient() {
+        return serviceSoldeDepart.remboursementClient();
     }
 
-    public List<solde> getlstDetteFP() {
-       List<solde> lstSolde = new ArrayList<solde>();
-        for(SoldeDepart mysolde : serviceSoldeDepart.dettesFP()){
-            solde monsolde = new solde();
-            monsolde.setSoldeDepart(mysolde);
-            lstSolde.add(monsolde);
-        }
-        return lstSolde;
+    public List<SoldeDepart> getlstDetteFP() {
+        return serviceSoldeDepart.dettesFP();
     }
 
-    public List<solde> getlstDetteFI() {
-         List<solde> lstSolde = new ArrayList<solde>();
-        for(SoldeDepart mysolde : serviceSoldeDepart.dettesFI()){
-            solde monsolde = new solde();
-            monsolde.setSoldeDepart(mysolde);
-            lstSolde.add(monsolde);
-        }
-        return lstSolde;
+    public List<SoldeDepart> getlstDetteFI() {
+        return serviceSoldeDepart.dettesFI();
+           
     }
 
-    public List<solde> getlstDetteClient() {
-         List<solde> lstSolde = new ArrayList<solde>();
-        for(SoldeDepart mysolde : serviceSoldeDepart.dettesClient()){
-            solde monsolde = new solde();
-            monsolde.setSoldeDepart(mysolde);
-            lstSolde.add(monsolde);
-        }
-        return lstSolde;
+    public List<SoldeDepart> getlstDetteClient() {
+        return serviceSoldeDepart.dettesClient();
+    }
+
+    /**
+     * @return the sd
+     */
+    public SoldeDepart getSd() {
+        return sd;
+    }
+
+    /**
+     * @param sd the sd to set
+     */
+    public void setSd(SoldeDepart sd) {
+        this.sd = sd;
     }
 
 }

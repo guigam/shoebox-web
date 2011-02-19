@@ -21,7 +21,7 @@ public interface ServiceParamSocoLocal {
 
     public List<Permission> lstPermission();
 
-   public CharteCompte rechercheParamCharteCompte(String typetransction);
+   public ParamTransaction rechercheParamCharteCompte(String typetransction);
 
    public void mergeParamCharteCompteOfortransaction(ParamTransaction paramTsx);
 

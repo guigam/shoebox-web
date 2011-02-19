@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ModelesShoebox;
 
 import java.io.Serializable;
@@ -15,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -22,6 +22,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class SoldeDepart implements Serializable {
+
     private static long serialVersionUID = 1L;
 
     /**
@@ -37,15 +38,14 @@ public class SoldeDepart implements Serializable {
     public static void setSerialVersionUID(long aSerialVersionUID) {
         serialVersionUID = aSerialVersionUID;
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private float montant;
-    @OneToOne(cascade=CascadeType.ALL)
     private Entite entite;
-    @OneToMany
+    private String typeSolde;
     private List<TransactionCaisse> lstTransactionSoldeDepart = new LinkedList<TransactionCaisse>();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -59,6 +59,14 @@ public class SoldeDepart implements Serializable {
         int hash = 0;
         hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
+    }
+    @Transient
+    public float getmontantPaye() {
+        float somme = 0;
+        for (TransactionCaisse tsx : getLstTransactionSoldeDepart()) {
+            somme = somme + tsx.getMontant();
+        }
+        return somme;
     }
 
     @Override
@@ -82,20 +90,21 @@ public class SoldeDepart implements Serializable {
     /**
      * @return the montant
      */
-    public float   getMontant() {
+    public float getMontant() {
         return montant;
     }
 
     /**
      * @param montant the montant to set
      */
-    public void setMontant(float   montant) {
+    public void setMontant(float montant) {
         this.montant = montant;
     }
 
     /**
      * @return the entite
      */
+    @OneToOne(cascade = CascadeType.ALL)
     public Entite getEntite() {
         return entite;
     }
@@ -107,9 +116,26 @@ public class SoldeDepart implements Serializable {
         this.entite = entite;
     }
 
+   
+
+    /**
+     * @return the typeSolde
+     */
+    public String getTypeSolde() {
+        return typeSolde;
+    }
+
+    /**
+     * @param typeSolde the typeSolde to set
+     */
+    public void setTypeSolde(String typeSolde) {
+        this.typeSolde = typeSolde;
+    }
+
     /**
      * @return the lstTransactionSoldeDepart
      */
+    @OneToMany(cascade=CascadeType.ALL)
     public List<TransactionCaisse> getLstTransactionSoldeDepart() {
         return lstTransactionSoldeDepart;
     }
@@ -121,5 +147,5 @@ public class SoldeDepart implements Serializable {
         this.lstTransactionSoldeDepart = lstTransactionSoldeDepart;
     }
 
- 
+
 }

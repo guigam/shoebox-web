@@ -54,11 +54,10 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public CharteCompte rechercheParamCharteCompte(String typetransction) {
+    public ParamTransaction rechercheParamCharteCompte(String typetransction) {
         Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1");
         query.setParameter(1, typetransction);
-        ParamTransaction ptsx = (ParamTransaction) query.getSingleResult();
-        return ptsx.getCharteCompte();
+        return  (ParamTransaction) query.getSingleResult();
     }
 
 
