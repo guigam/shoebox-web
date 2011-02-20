@@ -32,7 +32,7 @@
                         </tr>
                     </table>
                     <rich:toolBar>
-                        <ui:repeat value="#{gsLogin.lstpermission}" var="p">
+                     <ui:repeat value="#{gsLogin.user.lstpermission}" var="p">
                             <h:commandLink value="#{p.name}" action="#{redirectController.redirect}" style="color: #ffffff">
                                 <f:param name="outcome" value="#{p.redirect}"/>
                             </h:commandLink>

@@ -8,6 +8,7 @@ package parametrageSocodevi;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
+import ModelesParametrage.Utilisateur;
 import ModelesShoebox.CharteCompte;
 import java.util.List;
 import javax.ejb.Local;
@@ -30,5 +31,8 @@ public interface ServiceParamSocoLocal {
    public List<ParamTransaction> lstParamTransaction();
 
    public List<DefinitionPeriode> lstDefinitionPeriode();
+
+   public Utilisateur verifUtilisateur(String utilisateur, String password);
+
 
 }

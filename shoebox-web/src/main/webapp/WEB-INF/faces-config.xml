@@ -15,6 +15,13 @@
             <var>msg</var>
         </resource-bundle>
     </application>
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>begin</from-outcome>
+            <to-view-id>/templateUtilisateur.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>menuCaisse</from-outcome>

@@ -44,10 +44,10 @@ and open the template in the editor.
                                         <h:form>
                                         <h:panelGrid columns="2">
                                             <h:outputText value="Nom utilisateur" styleClass="titreLibelle"/>
-                                            <h:inputText  required="true" requiredMessage="#{msg.message_Obligatoire}"/>
+                                            <h:inputText value="#{gsLogin.user.username}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
                                             <h:outputText value="Mot de passe" styleClass="titreLibelle"/>
-                                            <h:inputText required="true" requiredMessage="#{msg.message_Obligatoire}"/>
-                                            <h:commandButton value="valider"/>
+                                            <h:inputText value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
+                                            <h:commandButton action="#{gsLogin.identification}" value="valider"/>
                                         </h:panelGrid>
                                         </h:form>
                                     </td>

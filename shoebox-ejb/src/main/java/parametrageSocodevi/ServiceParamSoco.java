@@ -5,11 +5,9 @@
 package parametrageSocodevi;
 
 import ModelesParametrage.DefinitionPeriode;
-import ModelesParametrage.Dictionnaire;
-import ModelesParametrage.Langue;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
-import ModelesShoebox.CharteCompte;
+import ModelesParametrage.Utilisateur;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -82,6 +80,16 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     public void mergeDefPeriode(DefinitionPeriode def) {
         merge(def);
     }
+
+    @Override
+    public Utilisateur verifUtilisateur(String username, String password) {
+        Query query = em.createQuery("from Utilisateur u where u.username = ?1 and u.password = ?2");
+        query.setParameter(1, username);
+        query.setParameter(2, password);
+        return (Utilisateur) query.getSingleResult();
+    }
+
+  
 
  
    
