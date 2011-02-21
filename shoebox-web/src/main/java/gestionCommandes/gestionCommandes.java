@@ -50,11 +50,19 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeEntreeProduit() {
         commade.setType("EP");
+        setterCurrentUser();
+        commade.setCurrentuser(session.getUser());
         commade.setLsttransactionMagasin(lstTsxMagasin);
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
         lstTsxMagasin.clear();
         return "lstCommandeEntreeProduit";
+    }
+
+    private void setterCurrentUser() {
+        for (TransactionMagasin tsx : lstTsxMagasin) {
+            tsx.setCurrentuser(session.getUser());
+        }
     }
 
     public String newCommandeEntreeIntrant() {
@@ -82,7 +90,9 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeSortisProduit() {
         commade.setType("SP");
+        setterCurrentUser();
         commade.setLsttransactionMagasin(lstTsxMagasin);
+        commade.setCurrentuser(session.getUser());
         serviceGsCommande.newCommnde(commade);
         lstCommandeSortisProduit.add(commade);
         commade = new Commande();

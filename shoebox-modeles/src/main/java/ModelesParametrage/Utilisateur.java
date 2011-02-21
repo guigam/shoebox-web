@@ -56,7 +56,7 @@ public class Utilisateur implements Serializable {
     private boolean etat;
     @ManyToOne
     private Cooperative cooperative;
-    @OneToMany(mappedBy="currentuser")
+    @OneToMany(mappedBy="currentuser",cascade=CascadeType.ALL)
     private List<Commande> lstCommande = new LinkedList<Commande>();
     @OneToMany(mappedBy="currentuser")
     private List<Compte> lstCompte = new LinkedList<Compte>();

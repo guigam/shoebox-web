@@ -320,7 +320,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehSortisProduit(Produit produit, int grade, Cooperative coop) {
         if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 x.currentuser.cooperative = ?4  group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.currentuser.cooperative = ?4  group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(2, grade);
             q.setParameter(3, "SP");
