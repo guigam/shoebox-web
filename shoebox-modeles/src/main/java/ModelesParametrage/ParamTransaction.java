@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -41,7 +42,8 @@ public class ParamTransaction implements Serializable {
     private String abrev;
     @OneToOne
     private CharteCompte charteCompte;
-
+    @ManyToOne
+    private Utilisateur currentuser;
     public Long getId() {
         return id;
     }
@@ -115,6 +117,20 @@ public class ParamTransaction implements Serializable {
      */
     public void setAbrev(String abrev) {
         this.abrev = abrev;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 

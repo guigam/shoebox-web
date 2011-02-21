@@ -79,40 +79,40 @@ public interface serviceParamCoopLocal {
 
     //***************************************les liste ******************************************************//
 
-    public List<Client> lstClient();
+    public List<Client> lstClient(Cooperative coop);
 
-    public List<FournisseurProduit> lstFP();
+    public List<FournisseurProduit> lstFP(Cooperative coop);
 
-    public List<FournisseurIntrant> lstFI();
+    public List<FournisseurIntrant> lstFI(Cooperative coop);
 
-    public List<Produit> lstproduit();
+    public List<Produit> lstproduit(Cooperative coop);
 
-    public List<Magasin> lstMagasin();
+    public List<Magasin> lstMagasin(Cooperative coop);
 
-    public List<Produit> lstproduitIntrant();
+    public List<Produit> lstproduitIntrant(Cooperative coop);
 
-    public List<Compte> lstCompte();
+    public List<Compte> lstCompte(Cooperative coop);
 
-    public List<CharteCompte> lstcharteCompte();
+    public List<CharteCompte> lstcharteCompte(Cooperative coop);
 
-    public List<SelectItem> lstItemProduit();
+    public List<SelectItem> lstItemProduit(Cooperative coop);
 
-    public List<SelectItem> lstItemProduitIntrant();
+    public List<SelectItem> lstItemProduitIntrant(Cooperative coop);
 
-    public List<SelectItem> lstItemFP();
+    public List<SelectItem> lstItemFP(Cooperative coop);
 
-    public List<SelectItem> lstItemFI();
+    public List<SelectItem> lstItemFI(Cooperative coop);
 
-    public List<SelectItem> lstItemMagasin();
+    public List<SelectItem> lstItemMagasin(Cooperative coop);
 
-    public List<SelectItem> lstitemClient();
+    public List<SelectItem> lstitemClient(Cooperative coop);
 
-    public List<SelectItem> lstitemCompte();
+    public List<SelectItem> lstitemCompte(Cooperative coop);
 
-    public List<SelectItem> lstItemCharteCompte();
+    public List<SelectItem> lstItemCharteCompte(Cooperative coop);
 
     //***************************recherche*********************************//
-    public  List<Object[]>  rechercheStockProduit(Produit produit, int grade);
+    public  List<Object[]>  rechercheStockProduit(Produit produit, int grade, Cooperative coop);
     
     public List<Object[]> rechercheSommeEntreeProduit(Produit produit, int grade);
 

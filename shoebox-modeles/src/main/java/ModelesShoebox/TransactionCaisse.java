@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -42,6 +43,8 @@ public class TransactionCaisse implements Serializable {
     private int montant;
     private String typeTransaction;
     private String description;
+    @ManyToOne
+    private Utilisateur currentuser;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
     @ManyToOne
@@ -178,6 +181,20 @@ public class TransactionCaisse implements Serializable {
      */
     public void setCompteEncaisse(Compte compteEncaisse) {
         this.compteEncaisse = compteEncaisse;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 

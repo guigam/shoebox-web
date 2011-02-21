@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -39,7 +40,8 @@ public class Permission implements Serializable {
     private String Description;
     private String emplacement;
     private String redirect;
-
+    @ManyToOne
+    private Utilisateur currentuser;
     public Long getId() {
         return id;
     }
@@ -127,6 +129,20 @@ public class Permission implements Serializable {
      */
     public void setRedirect(String redirect) {
         this.redirect = redirect;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 }

@@ -5,11 +5,13 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -38,7 +40,8 @@ public class Magasin implements Serializable {
     private String name;
     private int distance;
     private String description;
-
+@ManyToOne
+    private Utilisateur currentuser;
     public Magasin() {
     }
 
@@ -115,6 +118,20 @@ public class Magasin implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 }

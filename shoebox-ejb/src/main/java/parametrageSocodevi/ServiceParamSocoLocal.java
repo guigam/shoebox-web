@@ -9,7 +9,7 @@ import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
-import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Cooperative;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -22,17 +22,19 @@ public interface ServiceParamSocoLocal {
 
     public List<Permission> lstPermission();
 
-   public ParamTransaction rechercheParamCharteCompte(String typetransction);
+   public ParamTransaction rechercheParamCharteCompte(String typetransction, Cooperative coop);
 
    public void mergeParamCharteCompteOfortransaction(ParamTransaction paramTsx);
 
    public void mergeDefPeriode(DefinitionPeriode def);
 
-   public List<ParamTransaction> lstParamTransaction();
+   public List<ParamTransaction> lstParamTransaction(Cooperative coop);
 
-   public List<DefinitionPeriode> lstDefinitionPeriode();
+   public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop);
 
    public Utilisateur verifUtilisateur(String utilisateur, String password);
+
+   public void newCoop(Cooperative coop);
 
 
 }

@@ -4,6 +4,7 @@
  */
 package com.gfplus.parametrageShoebox;
 
+import Login.login;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.FournisseurIntrant;
@@ -17,6 +18,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import parametrageCoop.serviceParamCoopLocal;
 
 /**
@@ -37,7 +39,8 @@ public class parametrageShoebox {
 
     @EJB
     private serviceParamCoopLocal parametrageCoop;
-
+ @Inject
+    private login session;
     /** Creates a new instance of parametrageShoebox */
     public parametrageShoebox() {
     }
@@ -47,68 +50,69 @@ public class parametrageShoebox {
     }
 
     public List<FournisseurProduit> getlstFournisseurProduit() {
-        return parametrageCoop.lstFP();
+        return parametrageCoop.lstFP(session.getUser().getCooperative());
     }
 
     public List<FournisseurIntrant> getlstFournisseurIntrant() {
-        return parametrageCoop.lstFI();
+        return parametrageCoop.lstFI(session.getUser().getCooperative());
     }
 
     public List<Client> getlstClient() {
-        return parametrageCoop.lstClient();
+        return parametrageCoop.lstClient(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getlstItemCompte(){
-        return parametrageCoop.lstitemCompte();
+        return parametrageCoop.lstitemCompte(session.getUser().getCooperative());
     }
 
     public List<Magasin> getlstMagasin() {
-        return parametrageCoop.lstMagasin();
+        return parametrageCoop.lstMagasin(session.getUser().getCooperative());
     }
 
     public List<Produit> getlstProduit() {
-        return parametrageCoop.lstproduit();
+        return parametrageCoop.lstproduit(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getListitemProduit() {
-        return parametrageCoop.lstItemProduit();
+        return parametrageCoop.lstItemProduit(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getlstitemCharteCompte(){
-        return parametrageCoop.lstItemCharteCompte();
+        return parametrageCoop.lstItemCharteCompte(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getListitemMagasin() {
-        return parametrageCoop.lstItemMagasin();
+        return parametrageCoop.lstItemMagasin(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getListitemProduitIntrant() {
-        return parametrageCoop.lstItemProduitIntrant();
+        return parametrageCoop.lstItemProduitIntrant(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getListitemFP() {
-        return parametrageCoop.lstItemFP();
+        return parametrageCoop.lstItemFP(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getListitemFI() {
-        return parametrageCoop.lstItemFI();
+        return parametrageCoop.lstItemFI(session.getUser().getCooperative());
     }
 
     public List<SelectItem> getListitemClient() {
-        return parametrageCoop.lstitemClient();
+        return parametrageCoop.lstitemClient(session.getUser().getCooperative());
     }
 
     public List<Produit> getlstProduitIntrant() {
-        return parametrageCoop.lstproduitIntrant();
+        return parametrageCoop.lstproduitIntrant(session.getUser().getCooperative());
     }
 
     public List<CharteCompte> getlstCharteCompte() {
-        return parametrageCoop.lstcharteCompte();
+        return parametrageCoop.lstcharteCompte(session.getUser().getCooperative());
     }
 
     public String newFournisseurProduit() {
         soldeDepart.setEntite(fournisseurproduit);
         fournisseurproduit.setSoldeDepart(soldeDepart);
+        fournisseurproduit.setCurrentuser(session.getUser());
         parametrageCoop.newFP(fournisseurproduit);
         return "lstFP";
     }
@@ -116,6 +120,7 @@ public class parametrageShoebox {
     public String newFournisseurIntrant() {
         soldeDepart.setEntite(fournisseurIntrant);
         fournisseurIntrant.setSoldeDepart(soldeDepart);
+        fournisseurIntrant.setCurrentuser(session.getUser());
         parametrageCoop.newFI(fournisseurIntrant);
         return "lstFI";
     }
@@ -123,28 +128,34 @@ public class parametrageShoebox {
     public String newClient() {
         soldeDepart.setEntite(client);
         client.setSoldeDepart(soldeDepart);
+        client.setCurrentuser(session.getUser());
         parametrageCoop.newClient(client);
         return "lstClient";
     }
 
     public String newMagasin() {
+        magasin.setCurrentuser(session.getUser());
         parametrageCoop.newMagasin(magasin);
+
         return "lstMagasin";
     }
 
     public String newProduit() {
         produit.setCategorie("produitCoop");
+        produit.setCurrentuser(session.getUser());
         parametrageCoop.newProduit(getProduit());
         return "lstProduit";
     }
 
     public String newProduitIntrant() {
         produit.setCategorie("intrant");
+        produit.setCurrentuser(session.getUser());
         parametrageCoop.newProduit(getProduit());
         return "lstProduitIntrant";
     }
 
     public String newCharteCompte() {
+        charteCompte.setCurrentuser(session.getUser());
         parametrageCoop.newCharteCompte(charteCompte);
         return "lstCharteCompte";
     }

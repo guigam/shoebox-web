@@ -4,6 +4,7 @@
  */
 package gestionCaisse;
 
+import Login.login;
 import ModelesShoebox.TransactionCaisse;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
@@ -37,23 +38,25 @@ private gestionSoldeDepart gsSoldeDepart;
  private ServiceParamSocoLocal serviceSoco;
  @EJB
  private serviceSoldeDepartLocal serviceSolde;
+   @Inject
+    private login session;
 
     /** Creates a new instance of gestionCaisse */
     public GestionCaisse() {
     }
 
     public void newtransactionCommande(){
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
-        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
-        
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getCharteCompte());
+        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getType());
+        tsxCaisse.setCurrentuser(session.getUser());
     gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
     serviceGsCommande.mergeCommande(gsCommande.getCommade());
         tsxCaisse = new TransactionCaisse();
     }
     public void newtransactionSD(){
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
-        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
-
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative())).getCharteCompte());
+        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative()).getType());
+        tsxCaisse.setCurrentuser(session.getUser());
     gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
     serviceSolde.mergeSolde(gsSoldeDepart.getSd());
       tsxCaisse = new TransactionCaisse();

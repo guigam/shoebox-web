@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html">
+    
+
+
+    <ui:define name="content">
+        <h:form>
+               <h:outputText value="id"/>
+               <h:inputText value="#{gsParamSoco.cooperative.id}"/>
+        <h:outputText value="name"/>
+        <h:inputText value="#{gsParamSoco.cooperative.name}"/>
+         <h:outputText value="ref"/>
+         <h:inputText value="#{gsParamSoco.cooperative.reference}"/>
+
+         <h:commandButton action="#{gsParamSoco.newCoop}" value="test"/>
+         </h:form>
+    </ui:define>
+
+  
+
+</ui:composition>

@@ -8,6 +8,7 @@ import Login.login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ import javax.inject.Inject;
 @Named(value = "gsParamSoco")
 @RequestScoped
 public class GestionParametrageSoco implements Serializable {
-
+    private Cooperative cooperative = new Cooperative();
     private List<ParamTransaction> lstParamtransaction = new LinkedList<ParamTransaction>();
     private ParamTransaction paramtsx = new ParamTransaction();
     private UIData dataTable;
@@ -39,12 +40,19 @@ public class GestionParametrageSoco implements Serializable {
     public GestionParametrageSoco() {
     }
 
+    public void newCoop(){
+        cooperative.getLstutilisateur().add(session.getUser());
+        serviceSoco.newCoop(cooperative);
+    }
+
     public void newParamCharteTransaction() {
         for (ParamTransaction p : lstParamtransaction) {
+            p.setCurrentuser(session.getUser());
             serviceSoco.mergeParamCharteCompteOfortransaction(p);
         }
     }
     private void newDefinitionPeriode(DefinitionPeriode def){
+        def.setCurrentuser(session.getUser());
         serviceSoco.mergeDefPeriode(def);
     }
 
@@ -52,6 +60,7 @@ public class GestionParametrageSoco implements Serializable {
         paramtsx = new ParamTransaction();
         paramtsx = (ParamTransaction) dataTable.getRowData();
         paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
+        paramtsx.setCurrentuser(session.getUser());
         serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
     }
 
@@ -59,6 +68,7 @@ public class GestionParametrageSoco implements Serializable {
         DefinitionPeriode def = new DefinitionPeriode();
         def = (DefinitionPeriode) dataTable.getRowData();
         def.setPeriode((String) event.getNewValue());
+        def.setCurrentuser(session.getUser());
         newDefinitionPeriode(def);
     }
 
@@ -66,11 +76,11 @@ public class GestionParametrageSoco implements Serializable {
      * @return the lstParamtransaction
      */
     public List<ParamTransaction> getLstParamtransaction() {
-        return serviceSoco.lstParamTransaction();
+        return serviceSoco.lstParamTransaction(session.getUser().getCooperative());
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {
-        return serviceSoco.lstDefinitionPeriode();
+        return serviceSoco.lstDefinitionPeriode(session.getUser().getCooperative());
     }
 
     /**
@@ -120,5 +130,19 @@ public class GestionParametrageSoco implements Serializable {
      */
     public void setLstDefPeriode(List<DefinitionPeriode> lstDefPeriode) {
         this.lstDefPeriode = lstDefPeriode;
+    }
+
+    /**
+     * @return the cooperative
+     */
+    public Cooperative getCooperative() {
+        return cooperative;
+    }
+
+    /**
+     * @param cooperative the cooperative to set
+     */
+    public void setCooperative(Cooperative cooperative) {
+        this.cooperative = cooperative;
     }
 }

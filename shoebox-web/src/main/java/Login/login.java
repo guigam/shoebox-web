@@ -5,9 +5,9 @@
 
 package Login;
 
-import ModelesParametrage.Langue;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
+import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +38,7 @@ public class login implements Serializable{
     public String identification(){
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
         if(user != null){
+
            return "begin";
         }
         return null;

@@ -8,6 +8,7 @@ import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
+import ModelesShoebox.Cooperative;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -52,16 +53,18 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public ParamTransaction rechercheParamCharteCompte(String typetransction) {
-        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1");
+    public ParamTransaction rechercheParamCharteCompte(String typetransction,Cooperative coop) {
+        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 and  p.currentuser.cooperative = ?2 ");
         query.setParameter(1, typetransction);
+         query.setParameter(2, coop);
         return  (ParamTransaction) query.getSingleResult();
     }
 
 
     @Override
-    public List<ParamTransaction> lstParamTransaction() {
-       Query query = em.createQuery("from ParamTransaction");
+    public List<ParamTransaction> lstParamTransaction(Cooperative coop) {
+       Query query = em.createQuery("from ParamTransaction p where p.currentuser.cooperative = ?1 ");
+        query.setParameter(1, coop);
        return query.getResultList();
     }
 
@@ -71,8 +74,9 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public List<DefinitionPeriode> lstDefinitionPeriode() {
-       Query query = em.createQuery("from DefinitionPeriode");
+    public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop) {
+       Query query = em.createQuery("from DefinitionPeriode p where  p.currentuser.cooperative = ?1" );
+        query.setParameter(1, coop);
        return query.getResultList();
     }
 
@@ -87,6 +91,11 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
         query.setParameter(1, username);
         query.setParameter(2, password);
         return (Utilisateur) query.getSingleResult();
+    }
+
+    @Override
+    public void newCoop(Cooperative coop) {
+     persist(coop);
     }
 
   

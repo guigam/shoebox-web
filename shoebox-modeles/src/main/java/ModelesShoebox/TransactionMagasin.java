@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class TransactionMagasin implements Serializable {
     private float prixUnitaire;
     private int type; //1 = produit ,  2 = intrant
     private Commande m_commande;
-    
+    private Utilisateur currentuser;
     @Transient
     public float getCalculMontant(){
 
@@ -199,6 +200,21 @@ public class TransactionMagasin implements Serializable {
      */
     public void setM_commande(Commande m_commande) {
         this.m_commande = m_commande;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    @ManyToOne
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 

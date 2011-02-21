@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -38,7 +39,8 @@ public class DefinitionPeriode implements Serializable {
     private String periode;
     private String mois;
     private int numMois;
-
+    @ManyToOne
+    private Utilisateur currentuser;
     public Long getId() {
         return id;
     }
@@ -112,6 +114,20 @@ public class DefinitionPeriode implements Serializable {
      */
     public void setNumMois(int numMois) {
         this.numMois = numMois;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 }

@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +44,8 @@ public abstract  class Entite implements Serializable {
     private String reference;
     private String name;
     private String distance;
+     @OneToOne
+    private Utilisateur currentuser = new Utilisateur();
     @OneToMany(mappedBy="m_entite")
     private List<Commande> lstCommande = new LinkedList<Commande>() ;
     @OneToOne(cascade=CascadeType.ALL)
@@ -150,6 +153,21 @@ public abstract  class Entite implements Serializable {
     public void setDistance(String distance) {
         this.distance = distance;
     }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
+    }
+
 
   
 

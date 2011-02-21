@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,8 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -43,6 +44,8 @@ public class Compte implements Serializable {
     private String typeCompte;
     private String nomCompte;
     private String Description;
+    @ManyToOne
+    private Utilisateur currentuser;
    @OneToMany(mappedBy="compteEncaisse")
    private List<TransactionCaisse> tsxCaisse = new LinkedList<TransactionCaisse>();
 
@@ -147,6 +150,20 @@ public class Compte implements Serializable {
      */
     public void setNomCompte(String nomCompte) {
         this.nomCompte = nomCompte;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 

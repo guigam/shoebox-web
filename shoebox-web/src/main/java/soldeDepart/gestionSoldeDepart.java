@@ -4,12 +4,14 @@
  */
 package soldeDepart;
 
+import Login.login;
 import ModelesShoebox.SoldeDepart;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import serviceSoldeDepart.serviceSoldeDepartLocal;
 
 /**
@@ -18,38 +20,41 @@ import serviceSoldeDepart.serviceSoldeDepartLocal;
  */
 @Named(value = "gsSoldeDepart")
 @SessionScoped
-public class gestionSoldeDepart implements Serializable{
+public class gestionSoldeDepart implements Serializable {
+
     private SoldeDepart sd = new SoldeDepart();
     @EJB
     private serviceSoldeDepartLocal serviceSoldeDepart;
+    @Inject
+    private login session;
 
     /** Creates a new instance of NewJSFManagedBean */
     public gestionSoldeDepart() {
     }
 
     public List<SoldeDepart> getlstRemboursementFP() {
-       return  serviceSoldeDepart.remboursementFP();
+        return serviceSoldeDepart.remboursementFP(session.getUser().getCooperative());
     }
 
     public List<SoldeDepart> getlstRemboursementFI() {
-        return serviceSoldeDepart.remboursementFI();
+        return serviceSoldeDepart.remboursementFI(session.getUser().getCooperative());
     }
 
     public List<SoldeDepart> getlstRemboursementClient() {
-        return serviceSoldeDepart.remboursementClient();
+        return serviceSoldeDepart.remboursementClient(session.getUser().getCooperative());
     }
 
     public List<SoldeDepart> getlstDetteFP() {
-        return serviceSoldeDepart.dettesFP();
+        return serviceSoldeDepart.dettesFP(session.getUser().getCooperative());
     }
 
     public List<SoldeDepart> getlstDetteFI() {
-        return serviceSoldeDepart.dettesFI();
-           
+        return serviceSoldeDepart.dettesFI(session.getUser().getCooperative());
+
     }
 
     public List<SoldeDepart> getlstDetteClient() {
-        return serviceSoldeDepart.dettesClient();
+        return serviceSoldeDepart.dettesClient(session.getUser().getCooperative());
     }
 
     /**
@@ -65,5 +70,4 @@ public class gestionSoldeDepart implements Serializable{
     public void setSd(SoldeDepart sd) {
         this.sd = sd;
     }
-
 }

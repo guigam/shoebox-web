@@ -5,11 +5,13 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -36,7 +38,8 @@ public class CharteCompte implements Serializable {
     private String type;
     @Column(name = "reference")
     private String reference;
-
+    @ManyToOne
+    private Utilisateur currentuser;
     public CharteCompte() {
     }
 
@@ -107,6 +110,20 @@ public class CharteCompte implements Serializable {
     @Override
     public String toString() {
         return "ModelesShoebox.CharteCompte[id=" + id + "]";
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 }

@@ -45,31 +45,21 @@
 
                          dkl;dkfglkd;fgkdfg
 
-                         <h:dataTable value="#{parametrageShoebox.test}" var="item">
+                         <h:dataTable value="#{gsParamSoco.lstDefinitionPeriode}" var="i">
+                             <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="periode"/>
+                                </f:facet>
+                                <h:outputText value="#{item.periode}"/>
+                            </h:column>
 
-                            <h:column>
+                             </ui:repeat>
+                              <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Id"/>
+                                    <h:outputText value="mois"/>
                                 </f:facet>
-                                <h:outputText value="#{item.grade}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Reference"/>
-                                </f:facet>
-                                <h:outputText value="#{item.quantite}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Name"/>
-                                </f:facet>
-                                <h:outputText value="#{item.produit.name}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="SoldeDepart"/>
-                                </f:facet>
-                                <h:outputText value="#{item.magasin.name}"/>
+                                <h:outputText value="#{i.mois}"/>
                             </h:column>
                         </h:dataTable>
                     </h:form>

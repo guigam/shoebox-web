@@ -5,6 +5,16 @@
 
 package ModelesParametrage;
 
+import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Commande;
+import ModelesShoebox.Compte;
+import ModelesShoebox.Cooperative;
+import ModelesShoebox.Entite;
+import ModelesShoebox.Magasin;
+import ModelesShoebox.Produit;
+import ModelesShoebox.SoldeDepart;
+import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,9 +23,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import org.hibernate.event.PersistEvent;
 
 /**
  *
@@ -44,6 +54,32 @@ public class Utilisateur implements Serializable {
     private String username;
     private String password;
     private boolean etat;
+    @ManyToOne
+    private Cooperative cooperative;
+    @OneToMany(mappedBy="currentuser")
+    private List<Commande> lstCommande = new LinkedList<Commande>();
+    @OneToMany(mappedBy="currentuser")
+    private List<Compte> lstCompte = new LinkedList<Compte>();
+    @OneToMany(mappedBy="currentuser")
+    private List<Entite> lstEntite = new LinkedList<Entite>();
+    @OneToMany(mappedBy="currentuser")
+    private List<Magasin> lstMagasin = new LinkedList<Magasin>();
+    @OneToMany(mappedBy="currentuser")
+    private List<Produit> lstProduit = new LinkedList<Produit>();
+    @OneToMany(mappedBy="currentuser")
+    private List<SoldeDepart> lstSoldeDepart = new LinkedList<SoldeDepart>();
+    @OneToMany(mappedBy="currentuser")
+    private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
+    @OneToMany(mappedBy="currentuser")
+    private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
+    @OneToMany(mappedBy="currentuser")
+    private List<CharteCompte> lstCharteCompte = new LinkedList<CharteCompte>();
+    @OneToMany(mappedBy="currentuser")
+    private List<DefinitionPeriode> lstDefinitionPeriode = new LinkedList<DefinitionPeriode>();
+    @OneToMany(mappedBy="currentuser")
+    private List<ParamTransaction> lstParamTransaction = new LinkedList<ParamTransaction>();
+    @OneToMany(mappedBy="currentuser")
+    private List<Permission> lstPermission = new LinkedList<Permission>();
     @OneToMany(cascade=CascadeType.ALL)
     private List<Permission> lstpermission = new LinkedList<Permission>();
     public Long getId() {
@@ -132,9 +168,192 @@ public class Utilisateur implements Serializable {
      * @param lstpermission the lstpermission to set
      */
     public void setLstpermission(List<Permission> lstpermission) {
-        this.lstpermission = lstpermission;
+        this.setLstpermission(lstpermission);
     }
 
+    /**
+     * @return the lstCommande
+     */
+    public List<Commande> getLstCommande() {
+        return lstCommande;
+    }
+
+    /**
+     * @param lstCommande the lstCommande to set
+     */
+    public void setLstCommande(List<Commande> lstCommande) {
+        this.lstCommande = lstCommande;
+    }
+
+    /**
+     * @return the lstCompte
+     */
+    public List<Compte> getLstCompte() {
+        return lstCompte;
+    }
+
+    /**
+     * @param lstCompte the lstCompte to set
+     */
+    public void setLstCompte(List<Compte> lstCompte) {
+        this.lstCompte = lstCompte;
+    }
+
+    /**
+     * @return the lstEntite
+     */
+    public List<Entite> getLstEntite() {
+        return lstEntite;
+    }
+
+    /**
+     * @param lstEntite the lstEntite to set
+     */
+    public void setLstEntite(List<Entite> lstEntite) {
+        this.lstEntite = lstEntite;
+    }
+
+    /**
+     * @return the lstMagasin
+     */
+    public List<Magasin> getLstMagasin() {
+        return lstMagasin;
+    }
+
+    /**
+     * @param lstMagasin the lstMagasin to set
+     */
+    public void setLstMagasin(List<Magasin> lstMagasin) {
+        this.lstMagasin = lstMagasin;
+    }
+
+    /**
+     * @return the lstProduit
+     */
+    public List<Produit> getLstProduit() {
+        return lstProduit;
+    }
+
+    /**
+     * @param lstProduit the lstProduit to set
+     */
+    public void setLstProduit(List<Produit> lstProduit) {
+        this.lstProduit = lstProduit;
+    }
+
+    /**
+     * @return the lstSoldeDepart
+     */
+    public List<SoldeDepart> getLstSoldeDepart() {
+        return lstSoldeDepart;
+    }
+
+    /**
+     * @param lstSoldeDepart the lstSoldeDepart to set
+     */
+    public void setLstSoldeDepart(List<SoldeDepart> lstSoldeDepart) {
+        this.lstSoldeDepart = lstSoldeDepart;
+    }
+
+    /**
+     * @return the lsttransactionCaisse
+     */
+    public List<TransactionCaisse> getLsttransactionCaisse() {
+        return lsttransactionCaisse;
+    }
+
+    /**
+     * @param lsttransactionCaisse the lsttransactionCaisse to set
+     */
+    public void setLsttransactionCaisse(List<TransactionCaisse> lsttransactionCaisse) {
+        this.lsttransactionCaisse = lsttransactionCaisse;
+    }
+
+    /**
+     * @return the lstTransactionMagasin
+     */
+    public List<TransactionMagasin> getLstTransactionMagasin() {
+        return lstTransactionMagasin;
+    }
+
+    /**
+     * @param lstTransactionMagasin the lstTransactionMagasin to set
+     */
+    public void setLstTransactionMagasin(List<TransactionMagasin> lstTransactionMagasin) {
+        this.lstTransactionMagasin = lstTransactionMagasin;
+    }
+
+    /**
+     * @return the lstCharteCompte
+     */
+    public List<CharteCompte> getLstCharteCompte() {
+        return lstCharteCompte;
+    }
+
+    /**
+     * @param lstCharteCompte the lstCharteCompte to set
+     */
+    public void setLstCharteCompte(List<CharteCompte> lstCharteCompte) {
+        this.lstCharteCompte = lstCharteCompte;
+    }
+
+    /**
+     * @return the lstDefinitionPeriode
+     */
+    public List<DefinitionPeriode> getLstDefinitionPeriode() {
+        return lstDefinitionPeriode;
+    }
+
+    /**
+     * @param lstDefinitionPeriode the lstDefinitionPeriode to set
+     */
+    public void setLstDefinitionPeriode(List<DefinitionPeriode> lstDefinitionPeriode) {
+        this.lstDefinitionPeriode = lstDefinitionPeriode;
+    }
+
+    /**
+     * @return the lstParamTransaction
+     */
+    public List<ParamTransaction> getLstParamTransaction() {
+        return lstParamTransaction;
+    }
+
+    /**
+     * @param lstParamTransaction the lstParamTransaction to set
+     */
+    public void setLstParamTransaction(List<ParamTransaction> lstParamTransaction) {
+        this.lstParamTransaction = lstParamTransaction;
+    }
+
+    /**
+     * @return the lstPermission
+     */
+    public List<Permission> getLstPermission() {
+        return lstPermission;
+    }
+
+    /**
+     * @param lstPermission the lstPermission to set
+     */
+    public void setLstPermission(List<Permission> lstPermission) {
+        this.lstPermission = lstPermission;
+    }
+
+    /**
+     * @return the cooperative
+     */
+    public Cooperative getCooperative() {
+        return cooperative;
+    }
+
+    /**
+     * @param cooperative the cooperative to set
+     */
+    public void setCooperative(Cooperative cooperative) {
+        this.cooperative = cooperative;
+    }
+
+   
 
    
 

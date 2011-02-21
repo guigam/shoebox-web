@@ -4,6 +4,7 @@
  */
 package gestionCommandes;
 
+import Login.login;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Magasin;
@@ -33,6 +34,8 @@ public class gestionCommandes implements Serializable {
     private serviceParamCoopLocal parametrageCoop;
     @Inject
     private GestionCaisse gsCaisse;
+     @Inject
+    private login session;
     private Commande commade = new Commande();
     private List<TransactionMagasin> lstTsxMagasin = new ArrayList<TransactionMagasin>();
     private List<StockSortieProduit> lstStockSortieProduit = new ArrayList<StockSortieProduit>();
@@ -70,11 +73,11 @@ public class gestionCommandes implements Serializable {
     }
 
     public List<Commande> getlstCommandeEntreeProduit() {
-        return serviceGsCommande.lstCommandeByType("EP");
+        return serviceGsCommande.lstCommandeByType("EP",session.getUser().getCooperative());
     }
 
     public List<Commande> getlstCommandeEntreeIntrant() {
-        return serviceGsCommande.lstCommandeByType("EI");
+        return serviceGsCommande.lstCommandeByType("EI",session.getUser().getCooperative());
     }
 
     public String newCommandeSortisProduit() {
@@ -96,13 +99,13 @@ public class gestionCommandes implements Serializable {
 
 
     public List<Commande> getlstCommandeSortisIntrant() {
-        return serviceGsCommande.lstCommandeByType("SI");
+        return serviceGsCommande.lstCommandeByType("SI",session.getUser().getCooperative());
     }
 
     public void rechercheStockProduit() {
         List<Object[]> lstObject = new LinkedList<Object[]>();
         lstStockSortieProduit.clear();
-        lstObject = parametrageCoop.rechercheStockProduit(produit, grade);
+        lstObject = parametrageCoop.rechercheStockProduit(produit, grade,session.getUser().getCooperative());
         for (Object[] t : lstObject) {
             StockSortieProduit ssp = new StockSortieProduit();
             ssp.setMagasin((Magasin) t[0]);
@@ -232,7 +235,7 @@ public class gestionCommandes implements Serializable {
      * @return the lstCommandeSortisProduit
      */
     public List<Commande> getLstCommandeSortisProduit() {
-      return serviceGsCommande.lstCommandeByType("SP");
+      return serviceGsCommande.lstCommandeByType("SP",session.getUser().getCooperative());
     }
 
     /**

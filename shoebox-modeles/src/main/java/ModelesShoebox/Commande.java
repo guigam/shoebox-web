@@ -4,6 +4,7 @@
  */
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -32,7 +33,7 @@ public class Commande implements Serializable {
     private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
     private Entite m_entite;
     private boolean confirmation = false;
-
+    private Utilisateur currentuser;
     @Transient
     public float getmontantTotal() {
         float total = 0;
@@ -192,6 +193,21 @@ public class Commande implements Serializable {
      */
     public void setLsttransactionCaisse(List<TransactionCaisse> lsttransactionCaisse) {
         this.lsttransactionCaisse = lsttransactionCaisse;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    @ManyToOne
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
     /**

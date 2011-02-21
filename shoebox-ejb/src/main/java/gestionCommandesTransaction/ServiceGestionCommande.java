@@ -6,6 +6,7 @@
 package gestionCommandesTransaction;
 
 import ModelesShoebox.Commande;
+import ModelesShoebox.Cooperative;
 import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.EJB;
@@ -54,8 +55,9 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
     @Override
-    public List<Commande> lstCommande() {
-        Query query = em.createQuery("from Commande");
+    public List<Commande> lstCommande(Cooperative coop) {
+        Query query = em.createQuery("from Commande c where c.currentuser.cooperative = ?1 ");
+         query.setParameter(1, coop);
        return query.getResultList();
     }
 
@@ -70,9 +72,10 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
     @Override
-    public List<Commande> lstCommandeByType(String type) {
-        Query query = em.createQuery("from Commande c where c.type = ?1");
+    public List<Commande> lstCommandeByType(String type,Cooperative coop) {
+        Query query = em.createQuery("from Commande c where c.type = ?1 and c.currentuser.cooperative = ?2");
         query.setParameter(1, type);
+         query.setParameter(2, coop);
        return query.getResultList();
     }
 

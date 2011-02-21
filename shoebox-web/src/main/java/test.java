@@ -3,8 +3,6 @@
  * and open the template in the editor.
  */
 
-import ModelesShoebox.Client;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -24,8 +22,5 @@ public class test {
     public test() {
     }
 
-    public List<Client> lstClient(){
-        return serviceParamCoop.lstClient();
-    }
 
 }

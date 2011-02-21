@@ -5,11 +5,13 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -39,6 +41,8 @@ public class Produit implements Serializable {
     private String type;
     private String description;
     private String categorie; // represente si un produit coop ou un intrant
+    @ManyToOne
+    private Utilisateur currentuser;
     public Long getId() {
         return id;
     }
@@ -128,6 +132,20 @@ public class Produit implements Serializable {
      */
     public void setCategorie(String categorie) {
         this.categorie = categorie;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 }

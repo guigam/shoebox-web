@@ -4,6 +4,7 @@
  */
 package ModelesShoebox;
 
+import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -42,6 +44,7 @@ public class SoldeDepart implements Serializable {
     private float montant;
     private Entite entite;
     private String typeSolde;
+    private Utilisateur currentuser;
     private List<TransactionCaisse> lstTransactionSoldeDepart = new LinkedList<TransactionCaisse>();
 
     @Id
@@ -145,6 +148,21 @@ public class SoldeDepart implements Serializable {
      */
     public void setLstTransactionSoldeDepart(List<TransactionCaisse> lstTransactionSoldeDepart) {
         this.lstTransactionSoldeDepart = lstTransactionSoldeDepart;
+    }
+
+    /**
+     * @return the currentuser
+     */
+    @ManyToOne
+    public Utilisateur getCurrentuser() {
+        return currentuser;
+    }
+
+    /**
+     * @param currentuser the currentuser to set
+     */
+    public void setCurrentuser(Utilisateur currentuser) {
+        this.currentuser = currentuser;
     }
 
 
