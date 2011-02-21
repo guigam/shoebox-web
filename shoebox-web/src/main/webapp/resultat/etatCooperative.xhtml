@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateResultat.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:outputText value="#{msg.lib_etatDuCompte msg.lib_status.cooperative} " styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <rich:dataTable value="#{gsResultat.etatcompteCoop}"  var="item" width="40%" binding="#{gsParamSoco.dataTable}">
+                    <rich:column width="60%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_date}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.date}"/>
+                    </rich:column>
+                    <rich:column width="60%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_description}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.charteCompte.nom}"/>
+                    </rich:column>
+                    <rich:column width="60%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_encaissement}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.montant }"/>
+                    </rich:column>
+    </ui:define>
+</ui:composition>

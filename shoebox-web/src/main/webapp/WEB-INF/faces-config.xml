@@ -28,6 +28,18 @@
             <to-view-id>/caisse/menuCaisse.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>menuResultat</from-outcome>
+            <to-view-id>/resultat/menuResultat.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>etatCoop</from-outcome>
+            <to-view-id>/resultat/etatCooperative.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>menuParam</from-outcome>
