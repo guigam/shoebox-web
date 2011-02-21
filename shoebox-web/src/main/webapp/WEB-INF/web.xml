@@ -30,7 +30,7 @@
     </context-param>
     <context-param>
         <param-name>org.richfaces.SKIN</param-name>
-        <param-value>emeraldTown</param-value>
+        <param-value>soco</param-value>
     </context-param>
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
