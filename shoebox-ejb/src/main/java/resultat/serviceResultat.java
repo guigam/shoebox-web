@@ -49,12 +49,26 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
 
     @Override
     public List<TransactionCaisse> lstTsxCaisseFP(Cooperative coop, FournisseurProduit FP) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+        Query query = em.createQuery( "from Commande t where t.m_entite = ?1 and t.currentuser.cooperative = ?2");
+        query.setParameter(1, FP);
+        query.setParameter(2, coop);
+        for(Commande comm : (List<Commande>)query.getResultList() ){
+            lstTsxCaisse.addAll(comm.getLsttransactionCaisse());
+        }
+        return lstTsxCaisse;
     }
 
     @Override
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop, FournisseurIntrant FI) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+        Query query = em.createQuery( "from Commande t where t.m_entite = ?1 and t.currentuser.cooperative = ?2");
+        query.setParameter(1, FI);
+        query.setParameter(2, coop);
+        for(Commande comm : (List<Commande>)query.getResultList() ){
+            lstTsxCaisse.addAll(comm.getLsttransactionCaisse());
+        }
+        return lstTsxCaisse;
     }
     
     // Add business logic below. (Right-click in editor and choose

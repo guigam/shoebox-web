@@ -43,7 +43,7 @@ public class Compte implements Serializable {
     private String folio;
     private String typeCompte;
     private String nomCompte;
-    private String Description;
+    private String description;
     @ManyToOne
     private Utilisateur currentuser;
    @OneToMany(mappedBy="compteEncaisse")
@@ -114,14 +114,14 @@ public class Compte implements Serializable {
      * @return the Description
      */
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     /**
      * @param Description the Description to set
      */
     public void setDescription(String Description) {
-        this.Description = Description;
+        this.description = Description;
     }
 
     /**

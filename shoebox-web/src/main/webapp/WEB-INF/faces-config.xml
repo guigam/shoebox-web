@@ -40,6 +40,18 @@
             <to-view-id>/resultat/etatCooperative.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+         <navigation-rule>
+        <navigation-case>
+            <from-outcome>etatFourProd</from-outcome>
+            <to-view-id>/resultat/etatFP.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+         <navigation-rule>
+        <navigation-case>
+            <from-outcome>etatFourIntrant</from-outcome>
+            <to-view-id>/resultat/etatFI.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>menuParam</from-outcome>
@@ -86,6 +98,13 @@
         <navigation-case>
             <from-outcome>lstVenteProduit</from-outcome>
             <to-view-id>/caisse/listVenteProduit.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>lstCompteEncaisse</from-outcome>
+            <to-view-id>/parametrageCoop/listCompteEncaisse.xhtml</to-view-id>
         </navigation-case>
         <redirect/>
     </navigation-rule>
@@ -212,6 +231,12 @@
         <navigation-case>
             <from-outcome>addMagasin</from-outcome>
             <to-view-id>/parametrageCoop/addMagasin.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>addCompteEncaisse</from-outcome>
+            <to-view-id>/parametrageCoop/addCompteEncaisse.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

@@ -4,13 +4,23 @@
                 template="./../templateResultat.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
     <ui:define name="content">
-        <h:outputText value="#{msg.lib_etatDuCompte} " styleClass="titrePanel" />
+         <h:form>
+             <h:outputText value="#{msg.lib_etatDuCompte} #{msg.lib_fournisseurIntrant}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsResultat.etatcompteCoop}"  var="item" width="100%">
-                    <rich:column width="10%">
+                <h:outputText value="#{msg.lib_fournisseurIntrant}"/>
+               
+                <rich:comboBox value="#{gsResultat.fp}"   valueChangeListener="#{gsResultat.etatcompteFI}"   converter="converterFI"  >
+                    <f:selectItems value="#{parametrageShoebox.listitemFI}"/>
+                   <a4j:support event="onselect" reRender="tab"/>
+                </rich:comboBox>
+                
+                <rich:spacer height="10"/>
+                <rich:dataTable value="#{gsResultat.etatcompteFI}"  var="item" width="100%" id="tab">
+                    <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}"/>
                         </f:facet>
@@ -22,29 +32,19 @@
                         </f:facet>
                         <h:outputText value="#{item.charteCompte.nom}"/>
                     </rich:column>
-                      <rich:column width="20%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_compteEncaisse}"/>
-                        </f:facet>
-                          
-                          <h:outputText value="#{msg.lib_folio} : " style="font-weight: bold"/>
-                        <h:outputText value="#{item.compteEncaisse.folio}"/><br/>
-                        <h:outputText value="#{msg.lib_nomCompte} : " style="font-weight: bold"/>
-                        <h:outputText value="#{item.compteEncaisse.nomCompte}"/>
-                       
-                    </rich:column>
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_debourse}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'E' ? item.montant : ''}"/>
                     </rich:column>
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_encaissement}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'E' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}"/>
                     </rich:column>
                 </rich:dataTable>
+                </h:form>
     </ui:define>
 </ui:composition>

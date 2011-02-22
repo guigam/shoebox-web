@@ -7,6 +7,7 @@ package com.gfplus.parametrageShoebox;
 import Login.login;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
+import ModelesShoebox.Compte;
 import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
@@ -67,6 +68,9 @@ public class parametrageShoebox {
 
     public List<Magasin> getlstMagasin() {
         return parametrageCoop.lstMagasin(session.getUser().getCooperative());
+    }
+     public List<Compte> getlstCompteEncaisse() {
+        return parametrageCoop.lstCompte(session.getUser().getCooperative());
     }
 
     public List<Produit> getlstProduit() {

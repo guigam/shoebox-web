@@ -13,14 +13,13 @@
                 <rich:spacer height="10"/>
                 <h:outputText value="#{msg.lib_client}"/>
                
-                    <rich:comboBox value="#{gsResultat.client}"   valueChangeListener="#{gsResultat.changeValueCombo}"   converter="converterClient"  >
+                <rich:comboBox value="#{gsResultat.client}"   valueChangeListener="#{gsResultat.etatcompteClient}"   converter="converterClient"  >
                    <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
-                   <a4j:support event="onselect" reRender="Alias" limitToList="true" ajaxSingle="true" />
+                   <a4j:support event="onselect" reRender="tab"/>
                 </rich:comboBox>
-               
                 
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsResultat.etatcompteClient}"  var="item" width="100%">
+                <rich:dataTable value="#{gsResultat.etatcompteClient}"  var="item" width="100%" id="tab">
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}"/>
@@ -43,7 +42,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_encaissement}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'DS' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}"/>
                     </rich:column>
                 </rich:dataTable>
                 </h:form>

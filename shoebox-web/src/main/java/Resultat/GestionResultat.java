@@ -7,11 +7,14 @@ package Resultat;
 
 import Login.login;
 import ModelesShoebox.Client;
+import ModelesShoebox.FournisseurIntrant;
+import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.TransactionCaisse;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
@@ -22,13 +25,15 @@ import resultat.serviceResultatLocal;
  * @author guigam
  */
 @Named(value="gsResultat")
-@RequestScoped
+@SessionScoped
 public class GestionResultat implements Serializable{
 @EJB
 private serviceResultatLocal resultat;
 @Inject
 private login session;
 private Client client = new Client();
+private FournisseurProduit fp = new FournisseurProduit();
+private FournisseurIntrant fi = new FournisseurIntrant();
     /** Creates a new instance of GestionResultat */
     public GestionResultat() {
     }
@@ -43,11 +48,19 @@ private Client client = new Client();
         }
         return null;
     }
-  
-    public void changeValueCombo(ValueChangeEvent event){
-         getetatcompteClient();
+      public List<TransactionCaisse> getetatcompteFP(){
+        if(fp.getId() != null){
+        return resultat.lstTsxCaisseFP(session.getUser().getCooperative(),fp);
+        }
+        return null;
     }
-
+         public List<TransactionCaisse> getetatcompteFI(){
+        if(fp.getId() != null){
+        return resultat.lstTsxCaisseFI(session.getUser().getCooperative(),fi);
+        }
+        return null;
+    }
+  
     /**
      * @return the client
      */
@@ -60,5 +73,33 @@ private Client client = new Client();
      */
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    /**
+     * @return the fp
+     */
+    public FournisseurProduit getFp() {
+        return fp;
+    }
+
+    /**
+     * @param fp the fp to set
+     */
+    public void setFp(FournisseurProduit fp) {
+        this.fp = fp;
+    }
+
+    /**
+     * @return the fi
+     */
+    public FournisseurIntrant getFi() {
+        return fi;
+    }
+
+    /**
+     * @param fi the fi to set
+     */
+    public void setFi(FournisseurIntrant fi) {
+        this.fi = fi;
     }
 }
