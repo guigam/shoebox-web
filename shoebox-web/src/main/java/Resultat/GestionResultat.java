@@ -11,8 +11,8 @@ import ModelesShoebox.TransactionCaisse;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import resultat.serviceResultatLocal;
@@ -22,7 +22,7 @@ import resultat.serviceResultatLocal;
  * @author guigam
  */
 @Named(value="gsResultat")
-@SessionScoped
+@RequestScoped
 public class GestionResultat implements Serializable{
 @EJB
 private serviceResultatLocal resultat;
@@ -43,11 +43,9 @@ private Client client = new Client();
         }
         return null;
     }
-    public void test(){
-            getetatcompteClient();
-    }
+  
     public void changeValueCombo(ValueChangeEvent event){
-        client = (Client) event.getSource();
+         getetatcompteClient();
     }
 
     /**
