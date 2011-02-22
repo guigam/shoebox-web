@@ -110,7 +110,6 @@
         </navigation-case>
         <redirect/>
     </navigation-rule>
-    lstDefPeriode
     <navigation-rule>
         <navigation-case>
             <from-outcome>lstCommandeEntreeproduit</from-outcome>

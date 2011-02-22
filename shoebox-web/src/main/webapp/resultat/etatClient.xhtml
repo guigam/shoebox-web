@@ -4,12 +4,23 @@
                 template="./../templateResultat.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
     <ui:define name="content">
-        <h:outputText value="#{msg.lib_etatDuCompte} " styleClass="titrePanel" />
+        
+        <h:outputText value="#{msg.lib_etatDuCompte} #{msg.lib_client}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsResultat.etatcompteCoop}"  var="item" width="100%">
+                <h:outputText value="#{msg.lib_client}"/>
+                <h:form>
+                    <rich:comboBox value="#{gsResultat.client}"   onchange="#{gsResultat.test}"   converter="converterClient" valueChangeListener="#{gsResultat.changeValueCombo}">
+                   <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
+                    <a4j:support event="onchange" ajaxSingle="true"/>
+                </rich:comboBox>
+                <h:commandButton value="recherche" action="#{gsResultat.test}"/>
+                </h:form>
+                <rich:spacer height="10"/>
+                <rich:dataTable value="#{gsResultat.etatcompteClient}"  var="item" width="100%">
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}"/>
@@ -26,14 +37,15 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_debourse}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'E' ? item.montant : ''}"/>
                     </rich:column>
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_encaissement}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'E' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'DS' ? item.montant : ''}"/>
                     </rich:column>
                 </rich:dataTable>
+                
     </ui:define>
 </ui:composition>

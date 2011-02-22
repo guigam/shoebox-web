@@ -57,9 +57,19 @@ private gestionSoldeDepart gsSoldeDepart;
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative())).getCharteCompte());
         tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
+        affectationTypetransaction();
     gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
     serviceSolde.mergeSolde(gsSoldeDepart.getSd());
       tsxCaisse = new TransactionCaisse();
+    }
+
+    private void affectationTypetransaction() {
+        
+        if (gsSoldeDepart.getSd().getTypeSolde() == "rmbFP" || gsSoldeDepart.getSd().getTypeSolde() == "rmbFI" || gsSoldeDepart.getSd().getTypeSolde() == "rmbClient") {
+            tsxCaisse.setTypeTransaction("D");
+        }else{
+            tsxCaisse.setTypeTransaction("E");
+        }
     }
 
     /**
