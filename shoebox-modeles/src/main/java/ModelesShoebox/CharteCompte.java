@@ -38,8 +38,6 @@ public class CharteCompte implements Serializable {
     private String type;
     @Column(name = "reference")
     private String reference;
-    @ManyToOne
-    private Utilisateur currentuser;
     public CharteCompte() {
     }
 
@@ -112,18 +110,6 @@ public class CharteCompte implements Serializable {
         return "ModelesShoebox.CharteCompte[id=" + id + "]";
     }
 
-    /**
-     * @return the currentuser
-     */
-    public Utilisateur getCurrentuser() {
-        return currentuser;
-    }
-
-    /**
-     * @param currentuser the currentuser to set
-     */
-    public void setCurrentuser(Utilisateur currentuser) {
-        this.currentuser = currentuser;
-    }
+  
 
 }

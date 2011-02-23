@@ -219,9 +219,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     @Override
-    public List<CharteCompte> lstcharteCompte(Cooperative coop) {
-        Query query = em.createQuery("from CharteCompte c where c.currentuser.cooperative = ?1");
-         query.setParameter(1, coop);
+    public List<CharteCompte> lstcharteCompte() {
+        Query query = em.createQuery("from CharteCompte c ");
         return query.getResultList();
     }
 
@@ -358,9 +357,9 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     @Override
-    public List<SelectItem> lstItemCharteCompte(Cooperative coop) {
+    public List<SelectItem> lstItemCharteCompte() {
         List<SelectItem> listCharteCompte = new ArrayList<SelectItem>();
-        for (CharteCompte c : lstcharteCompte(coop)) {
+        for (CharteCompte c : lstcharteCompte()) {
             listCharteCompte.add(new SelectItem(c, c.getNom()));
         }
         return listCharteCompte;

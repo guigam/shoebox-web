@@ -82,7 +82,7 @@ public class parametrageShoebox {
     }
 
     public List<SelectItem> getlstitemCharteCompte(){
-        return parametrageCoop.lstItemCharteCompte(session.getUser().getCooperative());
+        return parametrageCoop.lstItemCharteCompte();
     }
 
     public List<SelectItem> getListitemMagasin() {
@@ -110,11 +110,16 @@ public class parametrageShoebox {
     }
 
     public List<CharteCompte> getlstCharteCompte() {
-        return parametrageCoop.lstcharteCompte(session.getUser().getCooperative());
+        return parametrageCoop.lstcharteCompte();
     }
 
     public String newFournisseurProduit() {
+        if(soldeDepart.getMontant() > 0){
+            soldeDepart.setTypeSolde("rmbFP");
+        }else{soldeDepart.setTypeSolde("detteFP");
+        }
         soldeDepart.setEntite(fournisseurproduit);
+        soldeDepart.setCurrentuser(session.getUser());
         fournisseurproduit.setSoldeDepart(soldeDepart);
         fournisseurproduit.setCurrentuser(session.getUser());
         parametrageCoop.newFP(fournisseurproduit);
@@ -122,7 +127,12 @@ public class parametrageShoebox {
     }
 
     public String newFournisseurIntrant() {
+        if(soldeDepart.getMontant() < 0){
+            soldeDepart.setTypeSolde("rmbFI");
+        }else{soldeDepart.setTypeSolde("detteFI");
+        }
         soldeDepart.setEntite(fournisseurIntrant);
+        soldeDepart.setCurrentuser(session.getUser());
         fournisseurIntrant.setSoldeDepart(soldeDepart);
         fournisseurIntrant.setCurrentuser(session.getUser());
         parametrageCoop.newFI(fournisseurIntrant);
@@ -130,7 +140,12 @@ public class parametrageShoebox {
     }
 
     public String newClient() {
+        if(soldeDepart.getMontant() < 0){
+            soldeDepart.setTypeSolde("rmbClient");
+        }else{soldeDepart.setTypeSolde("detteClient");
+        }
         soldeDepart.setEntite(client);
+        soldeDepart.setCurrentuser(session.getUser());
         client.setSoldeDepart(soldeDepart);
         client.setCurrentuser(session.getUser());
         parametrageCoop.newClient(client);
@@ -159,7 +174,6 @@ public class parametrageShoebox {
     }
 
     public String newCharteCompte() {
-        charteCompte.setCurrentuser(session.getUser());
         parametrageCoop.newCharteCompte(charteCompte);
         return "lstCharteCompte";
     }

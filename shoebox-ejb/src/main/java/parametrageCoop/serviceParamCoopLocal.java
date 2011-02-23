@@ -93,7 +93,7 @@ public interface serviceParamCoopLocal {
 
     public List<Compte> lstCompte(Cooperative coop);
 
-    public List<CharteCompte> lstcharteCompte(Cooperative coop);
+    public List<CharteCompte> lstcharteCompte();
 
     public List<SelectItem> lstItemProduit(Cooperative coop);
 
@@ -109,7 +109,7 @@ public interface serviceParamCoopLocal {
 
     public List<SelectItem> lstitemCompte(Cooperative coop);
 
-    public List<SelectItem> lstItemCharteCompte(Cooperative coop);
+    public List<SelectItem> lstItemCharteCompte();
 
     //***************************recherche*********************************//
     public  List<Object[]>  rechercheStockProduit(Produit produit, int grade, Cooperative coop);
