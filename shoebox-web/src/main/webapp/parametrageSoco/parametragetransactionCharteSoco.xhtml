@@ -34,13 +34,11 @@
                         </f:facet>
                         <center><rich:comboBox  valueChangeListener="#{gsParamSoco.valueChangeListener}"  value="#{item.charteCompte}"   width="400px" converter="converterCharteCompte" >
                             <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
-                             <a4j:support event="onselect" reRender="Alias" limitToList="true" ajaxSingle="true"/>
+                             <a4j:support event="onselect"  limitToList="true" ajaxSingle="true"/>
                          </rich:comboBox></center>
                     </rich:column>
                 </rich:dataTable>
-                <div style="text-align: right">
-                    <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.newParamCharteTransaction}"/>
-                </div>
+                
             </h:form>
         </rich:panel>
     </ui:define>

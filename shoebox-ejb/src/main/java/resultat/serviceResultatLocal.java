@@ -25,6 +25,12 @@ public interface serviceResultatLocal {
     public List<TransactionCaisse> lstTsxCaisseClient(Cooperative coop,Client cli);
 
     public List<TransactionCaisse> lstTsxCaisseFP(Cooperative coop,FournisseurProduit FP);
+
+    public List<TransactionCaisse> lstTsxCaisseFPPourSD(Cooperative coop,FournisseurProduit FP);
+
+    public List<TransactionCaisse> lstTsxCaisseClientPourSD(Cooperative coop,Client client);
     
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI);
+
+
 }

@@ -49,6 +49,7 @@ private gestionSoldeDepart gsSoldeDepart;
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getCharteCompte());
         tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
+        affectationTypetransactionCaisse();
     gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
     serviceGsCommande.mergeCommande(gsCommande.getCommade());
         tsxCaisse = new TransactionCaisse();
@@ -57,15 +58,23 @@ private gestionSoldeDepart gsSoldeDepart;
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative())).getCharteCompte());
         tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
-        affectationTypetransaction();
+        affectationTypetransactionSD();
     gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
     serviceSolde.mergeSolde(gsSoldeDepart.getSd());
       tsxCaisse = new TransactionCaisse();
     }
 
-    private void affectationTypetransaction() {
+    private void affectationTypetransactionSD() {
         
         if (gsSoldeDepart.getSd().getTypeSolde() == "rmbFP" || gsSoldeDepart.getSd().getTypeSolde() == "rmbFI" || gsSoldeDepart.getSd().getTypeSolde() == "rmbClient") {
+            tsxCaisse.setTypeTransaction("D");
+        }else{
+            tsxCaisse.setTypeTransaction("E");
+        }
+    }
+    private void affectationTypetransactionCaisse() {
+
+        if (gsCommande.getCommade().getType() == "EP" || gsCommande.getCommade().getType()  == "EI" ) {
             tsxCaisse.setTypeTransaction("D");
         }else{
             tsxCaisse.setTypeTransaction("E");

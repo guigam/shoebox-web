@@ -73,8 +73,6 @@ public class Utilisateur implements Serializable {
     @OneToMany(mappedBy="currentuser")
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
     @OneToMany(mappedBy="currentuser")
-    private List<CharteCompte> lstCharteCompte = new LinkedList<CharteCompte>();
-    @OneToMany(mappedBy="currentuser")
     private List<DefinitionPeriode> lstDefinitionPeriode = new LinkedList<DefinitionPeriode>();
     @OneToMany(mappedBy="currentuser")
     private List<ParamTransaction> lstParamTransaction = new LinkedList<ParamTransaction>();
@@ -283,19 +281,7 @@ public class Utilisateur implements Serializable {
         this.lstTransactionMagasin = lstTransactionMagasin;
     }
 
-    /**
-     * @return the lstCharteCompte
-     */
-    public List<CharteCompte> getLstCharteCompte() {
-        return lstCharteCompte;
-    }
-
-    /**
-     * @param lstCharteCompte the lstCharteCompte to set
-     */
-    public void setLstCharteCompte(List<CharteCompte> lstCharteCompte) {
-        this.lstCharteCompte = lstCharteCompte;
-    }
+  
 
     /**
      * @return the lstDefinitionPeriode

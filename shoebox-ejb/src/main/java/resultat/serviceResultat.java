@@ -10,6 +10,7 @@ import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
+import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,6 +68,30 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
         query.setParameter(2, coop);
         for(Commande comm : (List<Commande>)query.getResultList() ){
             lstTsxCaisse.addAll(comm.getLsttransactionCaisse());
+        }
+        return lstTsxCaisse;
+    }
+
+    @Override
+    public List<TransactionCaisse> lstTsxCaisseFPPourSD(Cooperative coop, FournisseurProduit FP) {
+        List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+        Query query = em.createQuery( "from SoldeDepart t where t.entite = ?1 and t.currentuser.cooperative = ?2");
+        query.setParameter(1, FP);
+        query.setParameter(2, coop);
+        for(SoldeDepart sd : (List<SoldeDepart>)query.getResultList() ){
+            lstTsxCaisse.addAll(sd.getLstTransactionSoldeDepart());
+        }
+        return lstTsxCaisse;
+    }
+
+    @Override
+    public List<TransactionCaisse> lstTsxCaisseClientPourSD(Cooperative coop, Client client) {
+        List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+        Query query = em.createQuery( "from SoldeDepart t where t.entite = ?1 and t.currentuser.cooperative = ?2");
+        query.setParameter(1, client);
+        query.setParameter(2, coop);
+        for(SoldeDepart sd : (List<SoldeDepart>)query.getResultList() ){
+            lstTsxCaisse.addAll(sd.getLstTransactionSoldeDepart());
         }
         return lstTsxCaisse;
     }

@@ -11,12 +11,11 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.TransactionCaisse;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import resultat.serviceResultatLocal;
 
@@ -25,7 +24,7 @@ import resultat.serviceResultatLocal;
  * @author guigam
  */
 @Named(value="gsResultat")
-@SessionScoped
+@RequestScoped
 public class GestionResultat implements Serializable{
 @EJB
 private serviceResultatLocal resultat;
@@ -43,14 +42,20 @@ private FournisseurIntrant fi = new FournisseurIntrant();
     }
 
     public List<TransactionCaisse> getetatcompteClient(){
+          List<TransactionCaisse> lstEtatTransactionFP = new LinkedList<TransactionCaisse>();
         if(client.getId() != null){
-        return resultat.lstTsxCaisseClient(session.getUser().getCooperative(),client);
+             lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClientPourSD(session.getUser().getCooperative(), client));
+         lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClient(session.getUser().getCooperative(),client));
+         return lstEtatTransactionFP;
         }
         return null;
     }
       public List<TransactionCaisse> getetatcompteFP(){
+          List<TransactionCaisse> lstEtatTransactionFP = new LinkedList<TransactionCaisse>();
         if(fp.getId() != null){
-        return resultat.lstTsxCaisseFP(session.getUser().getCooperative(),fp);
+            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFPPourSD(session.getUser().getCooperative(), fp));
+         lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFP(session.getUser().getCooperative(),fp));
+         return lstEtatTransactionFP;
         }
         return null;
     }
@@ -65,6 +70,7 @@ private FournisseurIntrant fi = new FournisseurIntrant();
      * @return the client
      */
     public Client getClient() {
+        getetatcompteClient();
         return client;
     }
 
@@ -79,6 +85,7 @@ private FournisseurIntrant fi = new FournisseurIntrant();
      * @return the fp
      */
     public FournisseurProduit getFp() {
+        getetatcompteFP();
         return fp;
     }
 
