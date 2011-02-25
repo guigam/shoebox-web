@@ -5,6 +5,7 @@
 
 package Login;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
 import ModelesShoebox.Cooperative;
@@ -25,6 +26,8 @@ import parametrageSocodevi.ServiceParamSocoLocal;
 public class login implements Serializable{
     private List<Permission> lstPermission = new LinkedList<Permission>();
     private Utilisateur user = new Utilisateur();
+    private DefinitionPeriode currentPeriode = new DefinitionPeriode();
+    private Cooperative currentCoop = new Cooperative();
     @EJB
     private ServiceParamSocoLocal serviceparamSoco;
     /** Creates a new instance of login */
@@ -37,6 +40,7 @@ public class login implements Serializable{
 
     public String identification(){
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
+        currentPeriode = serviceparamSoco.currentPeriode(user.getCooperative());
         if(user != null){
 
            return "begin";
@@ -70,6 +74,36 @@ public class login implements Serializable{
      */
     public void setLstPermission(List<Permission> lstPermission) {
         this.lstPermission = lstPermission;
+    }
+
+   
+
+    /**
+     * @param currentPeriode the currentPeriode to set
+     */
+    public void setCurrentPeriode(DefinitionPeriode currentPeriode) {
+        this.currentPeriode = currentPeriode;
+    }
+
+    /**
+     * @return the currentPeriode
+     */
+    public DefinitionPeriode getCurrentPeriode() {
+        return currentPeriode;
+    }
+
+    /**
+     * @return the cuurentCoop
+     */
+    public Cooperative getCurrentCoop() {
+        return currentCoop;
+    }
+
+    /**
+     * @param cuurentCoop the cuurentCoop to set
+     */
+    public void setCurrentCoop(Cooperative cuurentCoop) {
+        this.currentCoop = cuurentCoop;
     }
 
 

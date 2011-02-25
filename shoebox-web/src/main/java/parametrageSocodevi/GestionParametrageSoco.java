@@ -7,6 +7,7 @@ package parametrageSocodevi;
 import Login.login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
+import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.io.Serializable;
@@ -31,6 +32,8 @@ public class GestionParametrageSoco implements Serializable {
     private ParamTransaction paramtsx = new ParamTransaction();
     private UIData dataTable;
     private List<DefinitionPeriode> lstDefPeriode = new LinkedList<DefinitionPeriode>();
+    private formatageEntier formatageDevise = new formatageEntier();
+    private formatageEntier formatageunite = new formatageEntier();
     @Inject
     private login session;
     @EJB
@@ -47,7 +50,7 @@ public class GestionParametrageSoco implements Serializable {
 
     public void newParamCharteTransaction() {
         for (ParamTransaction p : lstParamtransaction) {
-            p.setCurrentuser(session.getUser());
+            p.setCooperative(session.getCurrentCoop());
             serviceSoco.mergeParamCharteCompteOfortransaction(p);
         }
     }
@@ -60,7 +63,7 @@ public class GestionParametrageSoco implements Serializable {
         paramtsx = new ParamTransaction();
         paramtsx = (ParamTransaction) dataTable.getRowData();
         paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
-        paramtsx.setCurrentuser(session.getUser());
+        paramtsx.setCooperative(session.getCurrentCoop());
         serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
     }
 
@@ -71,6 +74,14 @@ public class GestionParametrageSoco implements Serializable {
         def.setCurrentuser(session.getUser());
         newDefinitionPeriode(def);
     }
+    
+      public void valueChangeListenerformatage(ValueChangeEvent event) {
+        formatageEntier fe = new formatageEntier();
+        fe = (formatageEntier) dataTable.getRowData();
+        fe.setCurremcy((String) event.getNewValue());
+    }
+
+
 
     /**
      * @return the lstParamtransaction
@@ -145,4 +156,34 @@ public class GestionParametrageSoco implements Serializable {
     public void setCooperative(Cooperative cooperative) {
         this.cooperative = cooperative;
     }
+
+    /**
+     * @return the formatageDevise
+     */
+    public formatageEntier getFormatageDevise() {
+        return serviceSoco.formatage("devise");
+    }
+
+    /**
+     * @param formatageDevise the formatageDevise to set
+     */
+    public void setFormatageDevise(formatageEntier formatageDevise) {
+        this.formatageDevise = formatageDevise;
+    }
+
+    /**
+     * @return the formatageunite
+     */
+    public formatageEntier getFormatageunite() {
+        return serviceSoco.formatage("unite");
+    }
+
+    /**
+     * @param formatageunite the formatageunite to set
+     */
+    public void setFormatageunite(formatageEntier formatageunite) {
+        this.formatageunite = formatageunite;
+    }
+
+   
 }

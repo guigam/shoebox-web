@@ -19,6 +19,7 @@
     <class>ModelesShoebox.SoldeDepart</class>
     <class>ModelesShoebox.TransactionCaisse</class>
     <class>ModelesShoebox.TransactionMagasin</class>
+    <class>ModelesParametrage.formatageEntier</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

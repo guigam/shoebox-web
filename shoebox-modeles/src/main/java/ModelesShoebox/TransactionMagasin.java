@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 /**
@@ -45,6 +47,7 @@ public class TransactionMagasin implements Serializable {
     private int type; //1 = produit ,  2 = intrant
     private Commande m_commande;
     private Utilisateur currentuser;
+    private DefinitionPeriode defPeriode;
     @Transient
     public float getCalculMontant(){
 
@@ -215,6 +218,21 @@ public class TransactionMagasin implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the defPeriode
+     */
+    @OneToOne
+    public DefinitionPeriode getDefPeriode() {
+        return defPeriode;
+    }
+
+    /**
+     * @param defPeriode the defPeriode to set
+     */
+    public void setDefPeriode(DefinitionPeriode defPeriode) {
+        this.defPeriode = defPeriode;
     }
 
 

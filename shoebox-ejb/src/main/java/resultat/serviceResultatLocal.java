@@ -5,6 +5,7 @@
 
 package resultat;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Client;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.FournisseurIntrant;
@@ -20,17 +21,17 @@ import javax.ejb.Local;
 @Local
 public interface serviceResultatLocal {
     
-    public List<TransactionCaisse> lstTsxCaisseCoop(Cooperative coop);
+    public List<TransactionCaisse> lstTsxCaisseCoop(Cooperative coop, DefinitionPeriode periode);
 
-    public List<TransactionCaisse> lstTsxCaisseClient(Cooperative coop,Client cli);
+    public List<TransactionCaisse> lstTsxCaisseClient(Cooperative coop,Client cli, DefinitionPeriode periode);
 
-    public List<TransactionCaisse> lstTsxCaisseFP(Cooperative coop,FournisseurProduit FP);
+    public List<TransactionCaisse> lstTsxCaisseFP(Cooperative coop,FournisseurProduit FP, DefinitionPeriode periode);
 
-    public List<TransactionCaisse> lstTsxCaisseFPPourSD(Cooperative coop,FournisseurProduit FP);
+    public List<TransactionCaisse> lstTsxCaisseFPPourSD(Cooperative coop,FournisseurProduit FP, DefinitionPeriode periode);
 
-    public List<TransactionCaisse> lstTsxCaisseClientPourSD(Cooperative coop,Client client);
+    public List<TransactionCaisse> lstTsxCaisseClientPourSD(Cooperative coop,Client client, DefinitionPeriode periode);
     
-    public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI);
+    public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);
 
 
 }

@@ -5,6 +5,7 @@
 
 package gestionCommandesTransaction;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.TransactionMagasin;
@@ -55,9 +56,10 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
     @Override
-    public List<Commande> lstCommande(Cooperative coop) {
-        Query query = em.createQuery("from Commande c where c.currentuser.cooperative = ?1 ");
+    public List<Commande> lstCommande(Cooperative coop, DefinitionPeriode periode) {
+        Query query = em.createQuery("from Commande c where c.currentuser.cooperative = ?1 and c.defPeriode = ?2 ");
          query.setParameter(1, coop);
+         query.setParameter(2, periode);
        return query.getResultList();
     }
 
@@ -72,10 +74,11 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
     @Override
-    public List<Commande> lstCommandeByType(String type,Cooperative coop) {
-        Query query = em.createQuery("from Commande c where c.type = ?1 and c.currentuser.cooperative = ?2");
+    public List<Commande> lstCommandeByType(String type,Cooperative coop, DefinitionPeriode periode) {
+        Query query = em.createQuery("from Commande c where c.type = ?1 and c.currentuser.cooperative = ?2 and c.defPeriode = ?3");
         query.setParameter(1, type);
          query.setParameter(2, coop);
+         query.setParameter(3, periode);
        return query.getResultList();
     }
 

@@ -39,6 +39,7 @@ public class DefinitionPeriode implements Serializable {
     private String periode;
     private String mois;
     private int numMois;
+    private boolean periodeActif;
     @ManyToOne
     private Utilisateur currentuser;
     public Long getId() {
@@ -128,6 +129,20 @@ public class DefinitionPeriode implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the periodeActif
+     */
+    public boolean isPeriodeActif() {
+        return periodeActif;
+    }
+
+    /**
+     * @param periodeActif the periodeActif to set
+     */
+    public void setPeriodeActif(boolean periodeActif) {
+        this.periodeActif = periodeActif;
     }
 
 }

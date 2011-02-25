@@ -118,6 +118,7 @@ public class parametrageShoebox {
             soldeDepart.setTypeSolde("rmbFP");
         }else{soldeDepart.setTypeSolde("detteFP");
         }
+        soldeDepart.setDefPeriode(session.getCurrentPeriode());
         soldeDepart.setEntite(fournisseurproduit);
         soldeDepart.setCurrentuser(session.getUser());
         fournisseurproduit.setSoldeDepart(soldeDepart);
@@ -131,6 +132,7 @@ public class parametrageShoebox {
             soldeDepart.setTypeSolde("rmbFI");
         }else{soldeDepart.setTypeSolde("detteFI");
         }
+        soldeDepart.setDefPeriode(session.getCurrentPeriode());
         soldeDepart.setEntite(fournisseurIntrant);
         soldeDepart.setCurrentuser(session.getUser());
         fournisseurIntrant.setSoldeDepart(soldeDepart);
@@ -144,6 +146,7 @@ public class parametrageShoebox {
             soldeDepart.setTypeSolde("rmbClient");
         }else{soldeDepart.setTypeSolde("detteClient");
         }
+        soldeDepart.setDefPeriode(session.getCurrentPeriode());
         soldeDepart.setEntite(client);
         soldeDepart.setCurrentuser(session.getUser());
         client.setSoldeDepart(soldeDepart);

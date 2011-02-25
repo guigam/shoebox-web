@@ -4,6 +4,7 @@
  */
 package parametrageCoop;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
@@ -364,4 +365,6 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         }
         return listCharteCompte;
     }
+
+   
 }

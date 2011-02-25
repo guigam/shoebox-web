@@ -74,12 +74,8 @@ public class Utilisateur implements Serializable {
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
     @OneToMany(mappedBy="currentuser")
     private List<DefinitionPeriode> lstDefinitionPeriode = new LinkedList<DefinitionPeriode>();
-    @OneToMany(mappedBy="currentuser")
-    private List<ParamTransaction> lstParamTransaction = new LinkedList<ParamTransaction>();
-    @OneToMany(mappedBy="currentuser")
+    @OneToMany(mappedBy="currentuser",cascade=CascadeType.ALL)
     private List<Permission> lstPermission = new LinkedList<Permission>();
-    @OneToMany(cascade=CascadeType.ALL)
-    private List<Permission> lstpermission = new LinkedList<Permission>();
     public Long getId() {
         return id;
     }
@@ -155,12 +151,6 @@ public class Utilisateur implements Serializable {
         this.etat = etat;
     }
 
-    /**
-     * @return the lstpermission
-     */
-    public List<Permission> getLstpermission() {
-        return lstpermission;
-    }
 
     /**
      * @param lstpermission the lstpermission to set
@@ -297,19 +287,7 @@ public class Utilisateur implements Serializable {
         this.lstDefinitionPeriode = lstDefinitionPeriode;
     }
 
-    /**
-     * @return the lstParamTransaction
-     */
-    public List<ParamTransaction> getLstParamTransaction() {
-        return lstParamTransaction;
-    }
-
-    /**
-     * @param lstParamTransaction the lstParamTransaction to set
-     */
-    public void setLstParamTransaction(List<ParamTransaction> lstParamTransaction) {
-        this.lstParamTransaction = lstParamTransaction;
-    }
+   
 
     /**
      * @return the lstPermission
