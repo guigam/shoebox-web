@@ -6,6 +6,7 @@
 package ModelesShoebox;
 
 import ModelesParametrage.Utilisateur;
+import ModelesParametrage.formatageEntier;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class Cooperative implements Serializable {
     private String reference;
     @OneToMany(mappedBy="cooperative",cascade=CascadeType.ALL)
    private  List<Utilisateur> lstutilisateur = new LinkedList<Utilisateur>();
+    
     public Long getId() {
         return id;
     }
@@ -119,4 +121,5 @@ public class Cooperative implements Serializable {
         this.lstutilisateur = lstutilisateur;
     }
 
+  
 }

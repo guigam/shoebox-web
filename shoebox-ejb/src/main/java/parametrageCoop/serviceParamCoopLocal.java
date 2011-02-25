@@ -4,6 +4,7 @@
  */
 package parametrageCoop;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
@@ -117,5 +118,6 @@ public interface serviceParamCoopLocal {
     public List<Object[]> rechercheSommeEntreeProduit(Produit produit, int grade);
 
     public List<TransactionMagasin> test();
+
 
  }

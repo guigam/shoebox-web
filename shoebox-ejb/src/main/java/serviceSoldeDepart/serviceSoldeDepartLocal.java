@@ -4,6 +4,7 @@
  */
 package serviceSoldeDepart;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.SoldeDepart;
 import java.util.List;

@@ -6,6 +6,7 @@
 package ModelesParametrage;
 
 import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class ParamTransaction implements Serializable {
     @OneToOne
     private CharteCompte charteCompte;
     @ManyToOne
-    private Utilisateur currentuser;
+    private Cooperative cooperative;
     public Long getId() {
         return id;
     }
@@ -120,19 +121,20 @@ public class ParamTransaction implements Serializable {
     }
 
     /**
-     * @return the currentuser
+     * @return the cooperative
      */
-    public Utilisateur getCurrentuser() {
-        return currentuser;
+    public Cooperative getCooperative() {
+        return cooperative;
     }
 
     /**
-     * @param currentuser the currentuser to set
+     * @param cooperative the cooperative to set
      */
-    public void setCurrentuser(Utilisateur currentuser) {
-        this.currentuser = currentuser;
+    public void setCooperative(Cooperative cooperative) {
+        this.cooperative = cooperative;
     }
 
+ 
 
 
 }

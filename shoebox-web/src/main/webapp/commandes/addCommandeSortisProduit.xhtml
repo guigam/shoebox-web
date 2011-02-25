@@ -32,6 +32,8 @@
                         <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterClient">
                             <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
                         </rich:comboBox>
+                        <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                        <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
                     </h:panelGrid>
                     <rich:panel  header="#{msg.lib_rechercheStock}">
                         <h:panelGrid width="50%" style="background-color: white">
@@ -55,7 +57,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantite}"/>
                                 </f:facet>
-                                <h:inputText value="#{rech.quantite}"/>
+                                <h:inputText value="#{rech.quantite}">
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                </h:inputText>
                             </rich:column>
                             <rich:column >
                                 <f:facet name="header">
@@ -67,7 +71,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_pu}"/>
                                 </f:facet>
-                                <h:inputText value="#{rech.pu}" />
+                                <h:inputText value="#{rech.pu}" >
+                                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:inputText>
                             </rich:column>
                               <rich:column >
                                 <f:facet name="header">
@@ -120,19 +126,25 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_quantite}"/>
                             </f:facet>
-                            <h:outputText value="#{rech.quantite}" />
+                            <h:outputText value="#{rech.quantite}" >
+                                <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                            </h:outputText>
                         </rich:column>
                         <rich:column width="20%">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_pu}"/>
                             </f:facet>
-                            <h:outputText value="#{rech.prixUnitaire}" />
+                            <h:outputText value="#{rech.prixUnitaire}" >
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                         </rich:column>
                         <rich:column width="20%">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_montantTotal}"/>
                             </f:facet>
-                            <h:outputText value="#{rech.calculMontant}" />
+                            <h:outputText value="#{rech.calculMontant}" >
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                         </rich:column>
                         <rich:column width="20%">
                             <f:facet name="header">
@@ -145,7 +157,9 @@
                              <div style="text-align: right">
                                  <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
                                  <rich:spacer width="5"/>
-                                 <h:outputText value="#{gsCommandes.calculSommeCommande}" styleClass="titreMontantTotal"/>
+                                 <h:outputText value="#{gsCommandes.calculSommeCommande}" styleClass="titreMontantTotal">
+                                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                 </h:outputText>
                              </div>
                          </a4j:outputPanel>
                   </a4j:outputPanel>

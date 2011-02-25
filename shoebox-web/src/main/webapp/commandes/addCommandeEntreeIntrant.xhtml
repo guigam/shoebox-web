@@ -62,13 +62,17 @@
                                     <f:facet name="header">
                                         <h:outputText value="#{msg.lib_quantite}" />
                                     </f:facet>
-                                   <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}"/>
+                                    <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}">
+                                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                    </h:inputText>
                                 </rich:column>
                                    <rich:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{msg.lib_pu}" />
                                     </f:facet>
-                                       <h:inputText value="#{tsx.prixUnitaire}"  required="true" requiredMessage="#{msg.lib_pu} #{msg.message_Obligatoire}"/>
+                                       <h:inputText value="#{tsx.prixUnitaire}"  required="true" requiredMessage="#{msg.lib_pu} #{msg.message_Obligatoire}">
+                                            <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                       </h:inputText>
                                 </rich:column>
 
 

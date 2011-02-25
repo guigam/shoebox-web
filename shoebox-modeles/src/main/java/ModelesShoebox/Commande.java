@@ -4,6 +4,7 @@
  */
 package ModelesShoebox;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
@@ -34,6 +36,7 @@ public class Commande implements Serializable {
     private Entite m_entite;
     private boolean confirmation = false;
     private Utilisateur currentuser;
+    private DefinitionPeriode defPeriode;
     @Transient
     public float getmontantTotal() {
         float total = 0;
@@ -208,6 +211,21 @@ public class Commande implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the defPeriode
+     */
+    @OneToOne
+    public DefinitionPeriode getDefPeriode() {
+        return defPeriode;
+    }
+
+    /**
+     * @param defPeriode the defPeriode to set
+     */
+    public void setDefPeriode(DefinitionPeriode defPeriode) {
+        this.defPeriode = defPeriode;
     }
 
     /**

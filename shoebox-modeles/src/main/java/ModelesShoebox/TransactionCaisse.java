@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -51,7 +53,8 @@ public class TransactionCaisse implements Serializable {
     private CharteCompte charteCompte;
     @ManyToOne
     private Compte compteEncaisse;
-    
+     @OneToOne
+    private DefinitionPeriode defPeriode;
     public Long getId() {
         return id;
     }
@@ -195,6 +198,20 @@ public class TransactionCaisse implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the defPeriode
+     */
+    public DefinitionPeriode getDefPeriode() {
+        return defPeriode;
+    }
+
+    /**
+     * @param defPeriode the defPeriode to set
+     */
+    public void setDefPeriode(DefinitionPeriode defPeriode) {
+        this.defPeriode = defPeriode;
     }
 
 

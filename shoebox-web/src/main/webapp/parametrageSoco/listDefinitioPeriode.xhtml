@@ -15,8 +15,8 @@
                 <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriode}"  var="item" width="40%" binding="#{gsParamSoco.dataTable}">
-                    <rich:column width="60%">
+                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriode}"  var="item" width="40%" binding="#{gsParamSoco.dataTable}" id="tab">
+                    <rich:column width="50%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_nomMois}"/>
                         </f:facet>
@@ -41,6 +41,14 @@
                               <f:selectItem itemValue="P!2" />
                                <a4j:support event="onselect" reRender="Alias" limitToList="true" ajaxSingle="true"/>
                           </rich:comboBox>
+                    </rich:column>
+                      <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periodeCourante}"/>
+                        </f:facet>
+                          <center><h:commandButton  image="#{item.periodeActif.equals(true) ? '/icons/tick.png' : '/icons/tick_off.png' }" action="#{gsParamSoco.changePeriodeActif}">
+                              <f:setPropertyActionListener value="#{item}"  target="#{gsParamSoco.dePeriode}" />
+                          </h:commandButton></center>
                     </rich:column>
                 </rich:dataTable>
             </h:form>

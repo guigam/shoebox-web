@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,6 +37,8 @@ public class gestionCommandes implements Serializable {
     private GestionCaisse gsCaisse;
      @Inject
     private login session;
+     @Inject
+     Conversation conversation;
     private Commande commade = new Commande();
     private List<TransactionMagasin> lstTsxMagasin = new ArrayList<TransactionMagasin>();
     private List<StockSortieProduit> lstStockSortieProduit = new ArrayList<StockSortieProduit>();
@@ -50,23 +53,27 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeEntreeProduit() {
         commade.setType("EP");
-        setterCurrentUser();
+        commade.setDefPeriode(session.getCurrentPeriode());
+        setterCurrentUserPeriode();
         commade.setCurrentuser(session.getUser());
         commade.setLsttransactionMagasin(lstTsxMagasin);
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
         lstTsxMagasin.clear();
-        return "lstCommandeEntreeProduit";
+        
+        return "lstCommandeEntreeproduit";
     }
 
-    private void setterCurrentUser() {
+    private void setterCurrentUserPeriode() {
         for (TransactionMagasin tsx : lstTsxMagasin) {
             tsx.setCurrentuser(session.getUser());
+            tsx.setDefPeriode(session.getCurrentPeriode());
         }
     }
 
     public String newCommandeEntreeIntrant() {
         commade.setType("EI");
+        commade.setDefPeriode(session.getCurrentPeriode());
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
         return "lstCommandeEntreeIntrant";
@@ -81,17 +88,18 @@ public class gestionCommandes implements Serializable {
     }
 
     public List<Commande> getlstCommandeEntreeProduit() {
-        return serviceGsCommande.lstCommandeByType("EP",session.getUser().getCooperative());
+        return serviceGsCommande.lstCommandeByType("EP",session.getUser().getCooperative(),session.getCurrentPeriode());
     }
 
     public List<Commande> getlstCommandeEntreeIntrant() {
-        return serviceGsCommande.lstCommandeByType("EI",session.getUser().getCooperative());
+        return serviceGsCommande.lstCommandeByType("EI",session.getUser().getCooperative(),session.getCurrentPeriode());
     }
 
     public String newCommandeSortisProduit() {
         commade.setType("SP");
-        setterCurrentUser();
+        setterCurrentUserPeriode();
         commade.setLsttransactionMagasin(lstTsxMagasin);
+        commade.setDefPeriode(session.getCurrentPeriode());
         commade.setCurrentuser(session.getUser());
         serviceGsCommande.newCommnde(commade);
         lstCommandeSortisProduit.add(commade);
@@ -102,6 +110,7 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeSortisIntrant() {
         commade.setType("SI");
+        commade.setDefPeriode(session.getCurrentPeriode());
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
         return "lstCommandeSortisIntrant";
@@ -109,7 +118,7 @@ public class gestionCommandes implements Serializable {
 
 
     public List<Commande> getlstCommandeSortisIntrant() {
-        return serviceGsCommande.lstCommandeByType("SI",session.getUser().getCooperative());
+        return serviceGsCommande.lstCommandeByType("SI",session.getUser().getCooperative(), session.getCurrentPeriode());
     }
 
     public void rechercheStockProduit() {
@@ -142,7 +151,7 @@ public class gestionCommandes implements Serializable {
 
     public float getcalculSommeCommande() {
         float somme = 0;
-        for (TransactionMagasin tsx : commade.getLsttransactionMagasin()) {
+        for (TransactionMagasin tsx : lstTsxMagasin) {
             somme = somme + tsx.getCalculMontant();
         }
         return somme;
@@ -245,7 +254,7 @@ public class gestionCommandes implements Serializable {
      * @return the lstCommandeSortisProduit
      */
     public List<Commande> getLstCommandeSortisProduit() {
-      return serviceGsCommande.lstCommandeByType("SP",session.getUser().getCooperative());
+      return serviceGsCommande.lstCommandeByType("SP",session.getUser().getCooperative(), session.getCurrentPeriode());
     }
 
     /**

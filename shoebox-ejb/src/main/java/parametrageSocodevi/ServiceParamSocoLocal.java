@@ -9,6 +9,7 @@ import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
+import ModelesParametrage.formatageEntier;
 import ModelesShoebox.Cooperative;
 import java.util.List;
 import javax.ejb.Local;
@@ -32,9 +33,15 @@ public interface ServiceParamSocoLocal {
 
    public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop);
 
+   public DefinitionPeriode currentPeriode(Cooperative coop);
+
    public Utilisateur verifUtilisateur(String utilisateur, String password);
 
    public void newCoop(Cooperative coop);
+
+   public formatageEntier formatage(String type);
+
+  
 
 
 }

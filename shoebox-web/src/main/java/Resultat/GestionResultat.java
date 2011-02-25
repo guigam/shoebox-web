@@ -38,14 +38,14 @@ private FournisseurIntrant fi = new FournisseurIntrant();
     }
 
     public List<TransactionCaisse> getetatcompteCoop(){
-        return resultat.lstTsxCaisseCoop(session.getUser().getCooperative());
+        return resultat.lstTsxCaisseCoop(session.getUser().getCooperative(), session.getCurrentPeriode());
     }
 
     public List<TransactionCaisse> getetatcompteClient(){
           List<TransactionCaisse> lstEtatTransactionFP = new LinkedList<TransactionCaisse>();
         if(client.getId() != null){
-             lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClientPourSD(session.getUser().getCooperative(), client));
-         lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClient(session.getUser().getCooperative(),client));
+             lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClientPourSD(session.getUser().getCooperative(), client, session.getCurrentPeriode()));
+         lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClient(session.getUser().getCooperative(),client, session.getCurrentPeriode()));
          return lstEtatTransactionFP;
         }
         return null;
@@ -53,15 +53,15 @@ private FournisseurIntrant fi = new FournisseurIntrant();
       public List<TransactionCaisse> getetatcompteFP(){
           List<TransactionCaisse> lstEtatTransactionFP = new LinkedList<TransactionCaisse>();
         if(fp.getId() != null){
-            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFPPourSD(session.getUser().getCooperative(), fp));
-         lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFP(session.getUser().getCooperative(),fp));
+            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFPPourSD(session.getUser().getCooperative(), fp, session.getCurrentPeriode()));
+         lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFP(session.getUser().getCooperative(),fp, session.getCurrentPeriode()));
          return lstEtatTransactionFP;
         }
         return null;
     }
          public List<TransactionCaisse> getetatcompteFI(){
         if(fp.getId() != null){
-        return resultat.lstTsxCaisseFI(session.getUser().getCooperative(),fi);
+        return resultat.lstTsxCaisseFI(session.getUser().getCooperative(),fi, session.getCurrentPeriode());
         }
         return null;
     }

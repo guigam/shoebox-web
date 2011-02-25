@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+
+    <ui:define name="content">
+        <rich:panel>
+            <h:form>
+                <h:outputText value="#{msg.lib_ParametrageChiffre}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <h:panelGrid columns="3">
+                    <rich:panel header="#{msg.lib_devise}">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_chiffreApresVirgule}"/>
+                            <rich:comboBox value="#{gsParamSoco.formatageDevise.apresVirgule}">
+                                <f:selectItem itemValue="1"/>
+                                <f:selectItem itemValue="2"/>
+                                <f:selectItem itemValue="3"/>
+                                <f:selectItem itemValue="4"/>
+                            </rich:comboBox>
+                            <h:outputText value="#{msg.lib_symbole}"/>
+                            <rich:comboBox value="#{gsParamSoco.formatageDevise.curremcy}">
+                                <f:selectItem itemValue="$"/>
+                                <f:selectItem itemValue="euro"/>
+                                <f:selectItem itemValue="DTN"/>
+                            </rich:comboBox>
+                        </h:panelGrid>
+
+
+                    </rich:panel>
+                    <rich:spacer width="30"/>
+
+
+
+
+                    <rich:panel header="#{msg.lib_unite}">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_chiffreApresVirgule}"/>
+                            <rich:comboBox value="#{gsParamSoco.formatageunite.apresVirgule}">
+                                <f:selectItem itemValue="1"/>
+                                <f:selectItem itemValue="2"/>
+                                <f:selectItem itemValue="3"/>
+                                <f:selectItem itemValue="4"/>
+                            </rich:comboBox>
+
+
+
+
+                            <h:outputText value="#{msg.lib_symbole}"/>
+                            <rich:comboBox value="#{gsParamSoco.formatageunite.curremcy}">
+                                <f:selectItem itemValue="L"/>
+                                <f:selectItem itemValue="Kg"/>
+                                <f:selectItem itemValue="cm3"/>
+                            </rich:comboBox>
+                        </h:panelGrid>
+                    </rich:panel>
+                </h:panelGrid>
+                <div style="text-align: right; margin-right: 150px">
+                    <h:commandButton value="#{msg.btn_valider}"/>
+                </div>
+            </h:form>
+        </rich:panel>
+    </ui:define>
+
+
+</ui:composition>

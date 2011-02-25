@@ -36,13 +36,17 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_debourse}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'E' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'E' ? item.montant : ''}">
+                            <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
                     </rich:column>
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_encaissement}"/>
                         </f:facet>
-                        <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}"/>
+                        <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}">
+                            <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
                     </rich:column>
                 </rich:dataTable>
                 </h:form>

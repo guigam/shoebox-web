@@ -49,6 +49,7 @@ private gestionSoldeDepart gsSoldeDepart;
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getCharteCompte());
         tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
+        tsxCaisse.setDefPeriode(session.getCurrentPeriode());
         affectationTypetransactionCaisse();
     gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
     serviceGsCommande.mergeCommande(gsCommande.getCommade());
@@ -58,6 +59,7 @@ private gestionSoldeDepart gsSoldeDepart;
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative())).getCharteCompte());
         tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
+         tsxCaisse.setDefPeriode(session.getCurrentPeriode());
         affectationTypetransactionSD();
     gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
     serviceSolde.mergeSolde(gsSoldeDepart.getSd());
@@ -66,7 +68,7 @@ private gestionSoldeDepart gsSoldeDepart;
 
     private void affectationTypetransactionSD() {
         
-        if (gsSoldeDepart.getSd().getTypeSolde() == "rmbFP" || gsSoldeDepart.getSd().getTypeSolde() == "rmbFI" || gsSoldeDepart.getSd().getTypeSolde() == "rmbClient") {
+        if (gsSoldeDepart.getSd().getTypeSolde().equals("rmbFP") || gsSoldeDepart.getSd().getTypeSolde().equals("rmbFI") || gsSoldeDepart.getSd().getTypeSolde().equals("rmbClient")) {
             tsxCaisse.setTypeTransaction("D");
         }else{
             tsxCaisse.setTypeTransaction("E");
@@ -74,7 +76,7 @@ private gestionSoldeDepart gsSoldeDepart;
     }
     private void affectationTypetransactionCaisse() {
 
-        if (gsCommande.getCommade().getType() == "EP" || gsCommande.getCommade().getType()  == "EI" ) {
+        if (gsCommande.getCommade().getType().equals("EP") || gsCommande.getCommade().getType().equals("EI")) {
             tsxCaisse.setTypeTransaction("D");
         }else{
             tsxCaisse.setTypeTransaction("E");

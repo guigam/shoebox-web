@@ -37,7 +37,9 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_soldeDepart}" />
                         </f:facet>
-                        <h:outputText value="#{item.soldeDepart.montant}" />
+                        <h:outputText value="#{item.soldeDepart.montant}" >
+                            <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
                     </rich:column>
                       <rich:column width="5%">
                         <f:facet name="header">

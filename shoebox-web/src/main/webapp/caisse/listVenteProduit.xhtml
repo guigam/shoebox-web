@@ -56,14 +56,18 @@
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
                             </a4j:commandButton>
                         </div>
-                        <center> <h:outputText value="#{item.montantPaye}"/></center>
+                        <center> <h:outputText value="#{item.montantPaye}">
+                                  <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
                         <rich:toolTip for="plus" value="#{msg.lib_ajouterPaiement}"/>
                     </rich:column>
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_montantTotal}" />
                         </f:facet>
-                       <center> <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" /></center>
+                        <center> <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" >
+                                  <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
                     </rich:column>
                        <rich:column width="10%">
                         <f:facet name="header">

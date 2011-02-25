@@ -14,16 +14,6 @@
                 <rich:spacer height="10"/>
 
                 <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeEntreeProduit}"  var="item">
-                    <rich:column width="5%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_confirmation}" />
-                        </f:facet>
-                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" action="#{gsCommandes.rowData}" id="link"  reRender="panel">
-                                <rich:componentControl for="panel" attachTo="link" operation="show" event="onclick"/>
-                            </a4j:commandButton></center>
-                        <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
-                    </rich:column>
-                   
                        <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}" />
@@ -32,7 +22,7 @@
                             <h:outputText value="#{item.dateCommande}" styleClass="titreLibelleSimple"/>
                         </h:panelGrid>
                     </rich:column>
-                    <rich:column width="10%">
+                    <rich:column width="15%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_reference}" />
                         </f:facet>
@@ -57,14 +47,18 @@
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
                             </a4j:commandButton>
                         </div>
-                        <center> <h:outputText value="#{item.montantPaye}"/></center>
+                        <center> <h:outputText value="#{item.montantPaye}">
+                                  <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
                         <rich:toolTip for="plus" value="#{msg.lib_ajouterPaiement}"/>
                     </rich:column>
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_montantTotal}" />
                         </f:facet>
-                       <center> <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" /></center>
+                        <center> <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" >
+                                  <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
                     </rich:column>
                        <rich:column width="10%">
                         <f:facet name="header">

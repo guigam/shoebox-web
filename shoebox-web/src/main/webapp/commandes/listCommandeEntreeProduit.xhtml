@@ -21,7 +21,7 @@
                 <rich:spacer height="10"/>
 
                 <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeEntreeProduit}" var="item">
-                    <rich:column width="35%">
+                    <rich:column width="25%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_identification}" />
                         </f:facet>
@@ -32,6 +32,14 @@
                             <h:outputText value="#{item.m_entite.name}" styleClass="titreLibelleSimple"/>
                         </h:panelGrid>
 
+                    </rich:column>
+                     <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_date}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{item.dateCommande}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
                     </rich:column>
 
                     <rich:column width="40%">
@@ -69,13 +77,17 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantite}:" styleClass="titreLibelle"/>
                                 </f:facet>
-                                <h:outputText value="#{tsx.quantite}" styleClass="titreLibelleSimple"/>
+                                <h:outputText value="#{tsx.quantite}" styleClass="titreLibelleSimple">
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                </h:outputText>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_pu}:" styleClass="titreLibelle"/>
                                 </f:facet>
-                                <h:outputText value="#{tsx.prixUnitaire}" styleClass="titreLibelleSimple"/>
+                                <h:outputText value="#{tsx.prixUnitaire}" styleClass="titreLibelleSimple">
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                             </rich:column>
                         </rich:dataTable>
                     </rich:column>
@@ -87,7 +99,9 @@
 
 
                             <h:outputText value="#{msg.lib_montantTotal}:" styleClass="titreLibelle"/>
-                            <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" />
+                            <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" >
+                                <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                         </h:panelGrid>
                     </rich:column>
                     <rich:column width="5%">

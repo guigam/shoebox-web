@@ -8,8 +8,10 @@ import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
+import ModelesParametrage.formatageEntier;
 import ModelesShoebox.Cooperative;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,7 +56,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public ParamTransaction rechercheParamCharteCompte(String typetransction,Cooperative coop) {
-        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 and  p.currentuser.cooperative = ?2 ");
+        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 and  p.cooperative = ?2 ");
         query.setParameter(1, typetransction);
          query.setParameter(2, coop);
         return  (ParamTransaction) query.getSingleResult();
@@ -63,7 +65,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public List<ParamTransaction> lstParamTransaction(Cooperative coop) {
-       Query query = em.createQuery("from ParamTransaction p where p.currentuser.cooperative = ?1 ");
+       Query query = em.createQuery("from ParamTransaction p where p.cooperative = ?1 ");
         query.setParameter(1, coop);
        return query.getResultList();
     }
@@ -97,6 +99,24 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     public void newCoop(Cooperative coop) {
      persist(coop);
     }
+
+    @Override
+    public DefinitionPeriode currentPeriode(Cooperative coop) {
+       for(DefinitionPeriode periode : lstDefinitionPeriode(coop)){
+            if(periode.isPeriodeActif()){
+                return periode;
+            }
+       }
+       return null;
+    }
+
+    @Override
+    public formatageEntier formatage(String type) {
+       Query query=em.createQuery("from formatageEntier f where f.type = ?1");
+       query.setParameter(1, type);
+       return (formatageEntier) query.getSingleResult();
+    }
+
 
   
 

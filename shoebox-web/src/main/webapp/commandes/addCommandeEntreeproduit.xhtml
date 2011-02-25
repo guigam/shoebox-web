@@ -32,6 +32,8 @@
                     <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterFP">
                         <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
                     </rich:comboBox>
+                    <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                    <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
                 </h:panelGrid>
                 <rich:spacer height="30"/>
                   <h:outputText value="#{msg.lib_detailCommande}" styleClass="sousTitrePanel"/>
@@ -80,19 +82,23 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantite}" />
                                 </f:facet>
-                                <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}"/>
+                                <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}">
+                                    <f:convertNumber type="currency"  minFractionDigits ="#{gsLogin.currentFormatUnite.apresVirgule}"  currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                </h:inputText>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_pu}" />
                                 </f:facet>
-                                <h:inputText value="#{tsx.prixUnitaire}"  required="true" requiredMessage="#{msg.lib_pu} #{msg.message_Obligatoire}"/>
+                                <h:inputText value="#{tsx.prixUnitaire}"  required="true" requiredMessage="#{msg.lib_pu} #{msg.message_Obligatoire}">
+                                    <f:convertNumber  minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}" />
+                                </h:inputText>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="--" />
                                 </f:facet>
-                                <a4j:commandButton  image="/icons/pplus.png" action="#{gsCommandes.ajouterLigneVide}" reRender="tab" />
+                               <a4j:commandButton image="/icons/delete.png"/>
                             </rich:column>
 
 

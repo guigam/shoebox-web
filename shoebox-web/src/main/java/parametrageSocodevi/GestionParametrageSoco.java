@@ -7,12 +7,15 @@ package parametrageSocodevi;
 import Login.login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
+import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.faces.component.UIData;
@@ -24,20 +27,37 @@ import javax.inject.Inject;
  * @author guigam
  */
 @Named(value = "gsParamSoco")
-@RequestScoped
+@ConversationScoped
 public class GestionParametrageSoco implements Serializable {
     private Cooperative cooperative = new Cooperative();
     private List<ParamTransaction> lstParamtransaction = new LinkedList<ParamTransaction>();
     private ParamTransaction paramtsx = new ParamTransaction();
     private UIData dataTable;
-    private List<DefinitionPeriode> lstDefPeriode = new LinkedList<DefinitionPeriode>();
+    private DefinitionPeriode dePeriode = new DefinitionPeriode();
+    private formatageEntier formatageDevise = new formatageEntier();
+    private formatageEntier formatageunite = new formatageEntier();
     @Inject
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
-
+    @Inject
+    private Conversation conversation;
     /** Creates a new instance of GestionLangue */
     public GestionParametrageSoco() {
+    }
+
+    public void changePeriodeActif(){
+        for(DefinitionPeriode defPeriode : getlstDefinitionPeriode()){
+            if(defPeriode.equals(dePeriode)){
+                defPeriode.setPeriodeActif(true);
+                serviceSoco.mergeDefPeriode(defPeriode);
+            }else{
+                defPeriode.setPeriodeActif(false);
+                serviceSoco.mergeDefPeriode(defPeriode);
+            }
+        }
+        if(!conversation.isTransient())
+        conversation.end();
     }
 
     public void newCoop(){
@@ -47,7 +67,7 @@ public class GestionParametrageSoco implements Serializable {
 
     public void newParamCharteTransaction() {
         for (ParamTransaction p : lstParamtransaction) {
-            p.setCurrentuser(session.getUser());
+            p.setCooperative(session.getCurrentCoop());
             serviceSoco.mergeParamCharteCompteOfortransaction(p);
         }
     }
@@ -60,7 +80,7 @@ public class GestionParametrageSoco implements Serializable {
         paramtsx = new ParamTransaction();
         paramtsx = (ParamTransaction) dataTable.getRowData();
         paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
-        paramtsx.setCurrentuser(session.getUser());
+        paramtsx.setCooperative(session.getCurrentCoop());
         serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
     }
 
@@ -71,6 +91,14 @@ public class GestionParametrageSoco implements Serializable {
         def.setCurrentuser(session.getUser());
         newDefinitionPeriode(def);
     }
+    
+      public void valueChangeListenerformatage(ValueChangeEvent event) {
+        formatageEntier fe = new formatageEntier();
+        fe = (formatageEntier) dataTable.getRowData();
+        fe.setCurremcy((String) event.getNewValue());
+    }
+
+
 
     /**
      * @return the lstParamtransaction
@@ -80,6 +108,7 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {
+        
         return serviceSoco.lstDefinitionPeriode(session.getUser().getCooperative());
     }
 
@@ -118,24 +147,13 @@ public class GestionParametrageSoco implements Serializable {
         this.dataTable = dataTable;
     }
 
-    /**
-     * @return the lstDefPeriode
-     */
-    public List<DefinitionPeriode> getLstDefPeriode() {
-        return lstDefPeriode;
-    }
 
-    /**
-     * @param lstDefPeriode the lstDefPeriode to set
-     */
-    public void setLstDefPeriode(List<DefinitionPeriode> lstDefPeriode) {
-        this.lstDefPeriode = lstDefPeriode;
-    }
 
     /**
      * @return the cooperative
      */
     public Cooperative getCooperative() {
+
         return cooperative;
     }
 
@@ -145,4 +163,49 @@ public class GestionParametrageSoco implements Serializable {
     public void setCooperative(Cooperative cooperative) {
         this.cooperative = cooperative;
     }
+
+    /**
+     * @return the formatageDevise
+     */
+    public formatageEntier getFormatageDevise() {
+        return serviceSoco.formatage("devise");
+    }
+
+    /**
+     * @param formatageDevise the formatageDevise to set
+     */
+    public void setFormatageDevise(formatageEntier formatageDevise) {
+        this.formatageDevise = formatageDevise;
+    }
+
+    /**
+     * @return the formatageunite
+     */
+    public formatageEntier getFormatageunite() {
+        return serviceSoco.formatage("unite");
+    }
+
+    /**
+     * @param formatageunite the formatageunite to set
+     */
+    public void setFormatageunite(formatageEntier formatageunite) {
+        this.formatageunite = formatageunite;
+    }
+
+    /**
+     * @return the dePeriode
+     */
+    public DefinitionPeriode getDePeriode() {
+        conversation.begin();
+        return dePeriode;
+    }
+
+    /**
+     * @param dePeriode the dePeriode to set
+     */
+    public void setDePeriode(DefinitionPeriode dePeriode) {
+        this.dePeriode = dePeriode;
+    }
+
+   
 }

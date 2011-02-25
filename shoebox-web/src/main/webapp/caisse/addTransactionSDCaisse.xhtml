@@ -15,9 +15,13 @@
                     <h:outputText value="#{gsSoldeDepart.sd.entite.name}"/>
                     <h:panelGrid columns="4">
                         <h:outputText value="#{msg.lib_montantPaye}" styleClass="titreLibelle"/>
-                        <h:outputText value="#{gsSoldeDepart.sd.montantPaye}"/>
+                        <h:outputText value="#{gsSoldeDepart.sd.montantPaye}">
+                            <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
                     <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
-                    <h:outputText value="#{gsSoldeDepart.sd.montant}"/>
+                    <h:outputText value="#{gsSoldeDepart.sd.montant}">
+                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                    </h:outputText>
                     </h:panelGrid>
                 </rich:panel>
                 </rich:panel>
@@ -34,7 +38,9 @@
                         <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
-                    <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"/>
+                    <h:inputText value="#{gestionCaisse.tsxCaisse.montant}">
+                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                    </h:inputText>
                     <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionSD}" />
                 </h:panelGrid>
 

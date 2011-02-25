@@ -32,7 +32,7 @@
                         </tr>
                     </table>
                     <rich:toolBar>
-                       <ui:repeat value="#{gsLogin.user.lstpermission}" var="p">
+                        <ui:repeat value="#{gsLogin.user.lstPermission}" var="p">
                             <h:commandLink value="#{p.name}" action="#{redirectController.redirect}" style="color: #ffffff">
                                 <f:param name="outcome" value="#{p.redirect}"/>
                             </h:commandLink>
@@ -99,6 +99,7 @@
                                         <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{redirectController.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramTransactionSoco}" action="#{redirectController.redirect}"><f:param value="lstParamTransactionCharteCompte" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramDefinitionPeriode}" action="#{redirectController.redirect}"><f:param value="lstDefPeriode" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_ParametrageChiffre}" action="#{redirectController.redirect}"><f:param value="formatage" name="outcome"/></rich:panelMenuItem>
                                     </rich:panelMenuGroup>
                                 </rich:panelMenuGroup>
                             </rich:panelMenu>

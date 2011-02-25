@@ -5,6 +5,7 @@
 
 package gestionCommandesTransaction;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.TransactionMagasin;
@@ -20,13 +21,13 @@ public interface ServiceGestionCommandeTransactionLocal {
 
     public void newCommnde(Commande commande);
 
-    public List<Commande> lstCommande(Cooperative coop);
+    public List<Commande> lstCommande(Cooperative coop, DefinitionPeriode periode);
 
     public void mergeCommande(Commande commande);
 
     public void deleteCommande(Commande commande);
 
-    public List<Commande> lstCommandeByType(String type,Cooperative coop);
+    public List<Commande> lstCommandeByType(String type,Cooperative coop, DefinitionPeriode periode);
 
     public void mergeTransactionMagasin(TransactionMagasin tsx);
     

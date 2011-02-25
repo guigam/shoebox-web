@@ -55,13 +55,17 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantite}:" styleClass="titreLibelle"/>
                                 </f:facet>
-                                <h:outputText value="#{tsx.quantite}" styleClass="titreLibelleSimple"/>
+                                <h:outputText value="#{tsx.quantite}" styleClass="titreLibelleSimple">
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                </h:outputText>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_pu}:" styleClass="titreLibelle"/>
                                 </f:facet>
-                                <h:outputText value="#{tsx.prixUnitaire}" styleClass="titreLibelleSimple"/>
+                                <h:outputText value="#{tsx.prixUnitaire}" styleClass="titreLibelleSimple">
+                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                             </rich:column>
                         </rich:dataTable>
                     </rich:column>
@@ -73,7 +77,9 @@
 
 
                             <h:outputText value="#{msg.lib_montantTotal}:" styleClass="titreLibelle"/>
-                            <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" />
+                            <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" >
+                                <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                         </h:panelGrid>
                     </rich:column>
                     <rich:column width="5%">

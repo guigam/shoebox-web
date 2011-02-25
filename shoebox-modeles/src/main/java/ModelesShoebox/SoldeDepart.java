@@ -4,6 +4,7 @@
  */
 package ModelesShoebox;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -46,7 +47,7 @@ public class SoldeDepart implements Serializable {
     private String typeSolde;
     private Utilisateur currentuser;
     private List<TransactionCaisse> lstTransactionSoldeDepart = new LinkedList<TransactionCaisse>();
-
+    private DefinitionPeriode defPeriode;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -163,6 +164,21 @@ public class SoldeDepart implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the defPeriode
+     */
+    @OneToOne
+    public DefinitionPeriode getDefPeriode() {
+        return defPeriode;
+    }
+
+    /**
+     * @param defPeriode the defPeriode to set
+     */
+    public void setDefPeriode(DefinitionPeriode defPeriode) {
+        this.defPeriode = defPeriode;
     }
 
 
