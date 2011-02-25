@@ -8,6 +8,7 @@ package Login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
+import ModelesParametrage.formatageEntier;
 import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -28,6 +29,8 @@ public class login implements Serializable{
     private Utilisateur user = new Utilisateur();
     private DefinitionPeriode currentPeriode = new DefinitionPeriode();
     private Cooperative currentCoop = new Cooperative();
+    private formatageEntier currentFormatDevise = new formatageEntier();
+    private formatageEntier currentFormatUnite = new formatageEntier();
     @EJB
     private ServiceParamSocoLocal serviceparamSoco;
     /** Creates a new instance of login */
@@ -41,6 +44,10 @@ public class login implements Serializable{
     public String identification(){
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
         currentPeriode = serviceparamSoco.currentPeriode(user.getCooperative());
+        currentFormatDevise = serviceparamSoco.formatage("devise");
+        currentFormatUnite =  serviceparamSoco.formatage("unite");
+
+
         if(user != null){
 
            return "begin";
@@ -104,6 +111,34 @@ public class login implements Serializable{
      */
     public void setCurrentCoop(Cooperative cuurentCoop) {
         this.currentCoop = cuurentCoop;
+    }
+
+    /**
+     * @return the currentFormatDevise
+     */
+    public formatageEntier getCurrentFormatDevise() {
+        return currentFormatDevise;
+    }
+
+    /**
+     * @param currentFormatDevise the currentFormatDevise to set
+     */
+    public void setCurrentFormatDevise(formatageEntier currentFormatDevise) {
+        this.currentFormatDevise = currentFormatDevise;
+    }
+
+    /**
+     * @return the currentFormatUnite
+     */
+    public formatageEntier getCurrentFormatUnite() {
+        return currentFormatUnite;
+    }
+
+    /**
+     * @param currentFormatUnite the currentFormatUnite to set
+     */
+    public void setCurrentFormatUnite(formatageEntier currentFormatUnite) {
+        this.currentFormatUnite = currentFormatUnite;
     }
 
 

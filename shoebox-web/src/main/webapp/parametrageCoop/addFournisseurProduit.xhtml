@@ -37,7 +37,9 @@
                         <f:selectItem itemValue="#{msg['lib_status.cooperative']}"/>
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_soldeDepart}" />
-                    <h:inputText value="#{parametrageShoebox.soldeDepart.montant}" required="true" requiredMessage="#{msg.lib_soldeDepart} #{msg.message_Obligatoire}"/>
+                    <h:inputText value="#{parametrageShoebox.soldeDepart.montant}" required="true" requiredMessage="#{msg.lib_soldeDepart} #{msg.message_Obligatoire}">
+                        <f:convertNumber type=ÓcurrencyÓ maxIntegerDigits =Ó#{gsLogin.currentFormatDevise.apresVirgule}Ó currencySymbol = Ò#{gsLogin.currentFormatDevise.curremcy}Ó
+                    </h:inputText>
                     <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newFournisseurProduit}"/>
                 </h:panelGrid>
             </rich:panel>
