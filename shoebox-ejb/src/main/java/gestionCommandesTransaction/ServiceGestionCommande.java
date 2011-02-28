@@ -62,7 +62,7 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
 
     @Override
     public List<Commande> lstCommande(Cooperative coop, DefinitionPeriode periode) {
-        Query query = em.createQuery("from Commande c where c.currentuser.cooperative = ?1 and c.defPeriode = ?2 ");
+        Query query = em.createQuery("from Commande c where c.coop = ?1 and c.defPeriode = ?2 ");
          query.setParameter(1, coop);
          query.setParameter(2, periode);
        return query.getResultList();
@@ -80,7 +80,7 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
 
     @Override
     public List<Commande> lstCommandeByType(String type,Cooperative coop, DefinitionPeriode periode) {
-        Query query = em.createQuery("from Commande c where c.type = ?1 and c.currentuser.cooperative = ?2 and c.defPeriode = ?3");
+        Query query = em.createQuery("from Commande c where c.type = ?1 and c.coop = ?2 and c.defPeriode = ?3");
         query.setParameter(1, type);
          query.setParameter(2, coop);
          query.setParameter(3, periode);
@@ -96,7 +96,7 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
 
     @Override
     public List<TransactionCharge> lstCharges(Cooperative coop, DefinitionPeriode periode) {
-       Query query = em.createQuery("from TransactionCharge t where t.currentuser.cooperative = ?2 and t.defPeriode = ?3");
+       Query query = em.createQuery("from TransactionCharge t where t.coop = ?2 and t.defPeriode = ?3");
        query.setParameter(2,coop);
        query.setParameter(3,periode);
        return query.getResultList();

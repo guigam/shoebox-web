@@ -55,6 +55,8 @@ public class TransactionCaisse implements Serializable {
     private Compte compteEncaisse;
      @OneToOne
     private DefinitionPeriode defPeriode;
+     @ManyToOne
+private Cooperative coop;
     public Long getId() {
         return id;
     }
@@ -212,6 +214,20 @@ public class TransactionCaisse implements Serializable {
      */
     public void setDefPeriode(DefinitionPeriode defPeriode) {
         this.defPeriode = defPeriode;
+    }
+
+    /**
+     * @return the coop
+     */
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 

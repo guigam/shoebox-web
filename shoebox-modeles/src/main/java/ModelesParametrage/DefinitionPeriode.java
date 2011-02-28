@@ -5,6 +5,7 @@
 
 package ModelesParametrage;
 
+import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class DefinitionPeriode implements Serializable {
     private int numMois;
     private boolean periodeActif;
     @ManyToOne
-    private Utilisateur currentuser;
+    private Cooperative cooperative;
     public Long getId() {
         return id;
     }
@@ -117,19 +118,6 @@ public class DefinitionPeriode implements Serializable {
         this.numMois = numMois;
     }
 
-    /**
-     * @return the currentuser
-     */
-    public Utilisateur getCurrentuser() {
-        return currentuser;
-    }
-
-    /**
-     * @param currentuser the currentuser to set
-     */
-    public void setCurrentuser(Utilisateur currentuser) {
-        this.currentuser = currentuser;
-    }
 
     /**
      * @return the periodeActif
@@ -143,6 +131,20 @@ public class DefinitionPeriode implements Serializable {
      */
     public void setPeriodeActif(boolean periodeActif) {
         this.periodeActif = periodeActif;
+    }
+
+    /**
+     * @return the cooperative
+     */
+    public Cooperative getCooperative() {
+        return cooperative;
+    }
+
+    /**
+     * @param cooperative the cooperative to set
+     */
+    public void setCooperative(Cooperative cooperative) {
+        this.cooperative = cooperative;
     }
 
 }

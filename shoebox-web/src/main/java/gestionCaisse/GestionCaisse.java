@@ -49,9 +49,10 @@ public class GestionCaisse implements Serializable {
     }
 
     public void newtransactionCommande() {
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getUser().getCooperative())).getCharteCompte());
-        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getUser().getCooperative())).getType());
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getCharteCompte());
+        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getCurrentCoop())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
+        tsxCaisse.setCoop(session.getCurrentCoop());
         tsxCaisse.setDefPeriode(session.getCurrentPeriode());
         affectationTypetransactionCaisse();
         gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
@@ -60,9 +61,10 @@ public class GestionCaisse implements Serializable {
     }
 
     public void newtransactionSD() {
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getUser().getCooperative())).getCharteCompte());
-        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getUser().getCooperative()).getType());
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop())).getCharteCompte());
+        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
+        tsxCaisse.setCoop(session.getCurrentCoop());
         tsxCaisse.setDefPeriode(session.getCurrentPeriode());
         affectationTypetransactionSD();
         gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
@@ -91,6 +93,7 @@ public class GestionCaisse implements Serializable {
     public String newTransactionCharge(){
         tsxCaisseCharge.setTypeTransaction("D");
         tsxCaisseCharge.setCurrentuser(session.getUser());
+         tsxCaisseCharge.setCoop(session.getCurrentCoop());
         tsxCaisseCharge.setDefPeriode(session.getCurrentPeriode());
         serviceGsCommande.newTransactionCharge(tsxCaisseCharge);
         tsxCaisse = new TransactionCaisse();
@@ -98,7 +101,7 @@ public class GestionCaisse implements Serializable {
     }
 
     public List<TransactionCharge> getlstTransactionCharge(){
-        return serviceGsCommande.lstCharges(session.getUser().getCooperative(), session.getCurrentPeriode());
+        return serviceGsCommande.lstCharges(session.getCurrentCoop(), session.getCurrentPeriode());
     }
 
 

@@ -79,7 +79,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop) {
-       Query query = em.createQuery("from DefinitionPeriode p where  p.currentuser.cooperative = ?1" );
+       Query query = em.createQuery("from DefinitionPeriode p where  p.coop = ?1" );
         query.setParameter(1, coop);
        return query.getResultList();
     }
@@ -91,7 +91,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public Utilisateur verifUtilisateur(String username, String password) {
-        Query query = em.createQuery("from Utilisateur u where u.username = ?1 and u.password = ?2");
+        Query query = em.createQuery("from Utilisateur u where u.username = ?1 and u.password = ?2 ");
         query.setParameter(1, username);
         query.setParameter(2, password);
         return (Utilisateur) query.getSingleResult();

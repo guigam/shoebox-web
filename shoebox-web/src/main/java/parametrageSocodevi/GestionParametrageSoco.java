@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -18,7 +18,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.faces.component.UIData;
 import javax.faces.event.ValueChangeEvent;
@@ -76,7 +75,7 @@ public class GestionParametrageSoco implements Serializable {
         }
     }
     private void newDefinitionPeriode(DefinitionPeriode def){
-        def.setCurrentuser(session.getUser());
+        def.setCooperative(session.getCurrentCoop());
         serviceSoco.mergeDefPeriode(def);
     }
 
@@ -91,7 +90,7 @@ public class GestionParametrageSoco implements Serializable {
         DefinitionPeriode def = new DefinitionPeriode();
         def = (DefinitionPeriode) dataTable.getRowData();
         def.setPeriode((String) event.getNewValue());
-        def.setCurrentuser(session.getUser());
+        def.setCooperative(session.getCurrentCoop());
         newDefinitionPeriode(def);
     }
     
@@ -118,12 +117,12 @@ public class GestionParametrageSoco implements Serializable {
      * @return the lstParamtransaction
      */
     public List<ParamTransaction> getLstParamtransaction() {
-        return serviceSoco.lstParamTransaction(session.getUser().getCooperative());
+        return serviceSoco.lstParamTransaction(session.getCurrentCoop());
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {
         
-        return serviceSoco.lstDefinitionPeriode(session.getUser().getCooperative());
+        return serviceSoco.lstDefinitionPeriode(session.getCurrentCoop());
     }
 
     /**

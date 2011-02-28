@@ -177,7 +177,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<Client> lstClient(Cooperative coop) {
-        Query query = em.createQuery("from Client c where c.currentuser.cooperative = ?1");
+        Query query = em.createQuery("from Client c where c.coop = ?1");
          query.setParameter(1, coop);
         return query.getResultList();
 
@@ -185,21 +185,21 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<FournisseurProduit> lstFP(Cooperative coop) {
-        Query query = em.createQuery("from FournisseurProduit f where f.currentuser.cooperative = ?1");
+        Query query = em.createQuery("from FournisseurProduit f where f.coop= ?1");
         query.setParameter(1, coop);
         return query.getResultList();
     }
 
     @Override
     public List<FournisseurIntrant> lstFI(Cooperative coop) {
-        Query query = em.createQuery("from FournisseurIntrant f where f.currentuser.cooperative = ?1");
+        Query query = em.createQuery("from FournisseurIntrant f where f.coop = ?1");
          query.setParameter(1, coop);
         return query.getResultList();
     }
 
     @Override
     public List<Produit> lstproduit(Cooperative coop) {
-        Query query = em.createQuery("from Produit p where p.categorie = ?1 and p.currentuser.cooperative = ?2");
+        Query query = em.createQuery("from Produit p where p.categorie = ?1 and p.coop = ?2");
         query.setParameter(1, "produitCoop");
          query.setParameter(2, coop);
         return query.getResultList();
@@ -207,14 +207,14 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<Magasin> lstMagasin(Cooperative coop) {
-        Query query = em.createQuery("from Magasin m where m.currentuser.cooperative = ?1 ");
+        Query query = em.createQuery("from Magasin m where m.coop = ?1 ");
          query.setParameter(1, coop);
         return query.getResultList();
     }
 
     @Override
     public List<Produit> lstproduitIntrant(Cooperative coop) {
-        Query query = em.createQuery("from Produit p where p.categorie = ?1 and p.currentuser.cooperative = ?2");
+        Query query = em.createQuery("from Produit p where p.categorie = ?1 and p.coop = ?2");
         query.setParameter(1, "intrant");
          query.setParameter(2, coop);
         return query.getResultList();
@@ -334,7 +334,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehEntreeProduit(Produit produit, int grade, Cooperative coop) {
         if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.currentuser.cooperative = ?4 group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(2, grade);
             q.setParameter(3, "EP");
@@ -346,7 +346,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehSortisProduit(Produit produit, int grade, Cooperative coop) {
         if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.currentuser.cooperative = ?4  group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4  group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(2, grade);
             q.setParameter(3, "SP");
@@ -357,7 +357,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
     private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop) {
         if (produit != null ) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.currentuser.cooperative = ?4 group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(3, "EI");
             q.setParameter(4, coop);
@@ -368,7 +368,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehSortisProduitIntrant(Produit produit, Cooperative coop) {
         if (produit != null ) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.currentuser.cooperative = ?4  group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.coop = ?4  group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(3, "SI");
             q.setParameter(4, coop);
@@ -389,7 +389,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public List<Compte> lstCompte(Cooperative coop) {
-        Query query = em.createQuery("from Compte c where c.currentuser.cooperative = ?1");
+        Query query = em.createQuery("from Compte c where c.coop = ?1");
         query.setParameter(1, coop);
         return query.getResultList();
     }

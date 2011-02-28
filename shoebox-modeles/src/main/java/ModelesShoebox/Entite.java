@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -44,8 +45,10 @@ public abstract  class Entite implements Serializable {
     private String reference;
     private String name;
     private String distance;
-     @OneToOne
+     @ManyToOne
     private Utilisateur currentuser = new Utilisateur();
+     @ManyToOne
+     private Cooperative coop;
     @OneToMany(mappedBy="m_entite")
     private List<Commande> lstCommande = new LinkedList<Commande>() ;
     @OneToOne(cascade=CascadeType.ALL)
@@ -166,6 +169,20 @@ public abstract  class Entite implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the coop
+     */
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 

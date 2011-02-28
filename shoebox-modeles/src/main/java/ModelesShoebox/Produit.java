@@ -43,6 +43,8 @@ public class Produit implements Serializable {
     private String categorie; // represente si un produit coop ou un intrant
     @ManyToOne
     private Utilisateur currentuser;
+    @ManyToOne
+private Cooperative coop;
     public Long getId() {
         return id;
     }
@@ -146,6 +148,20 @@ public class Produit implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the coop
+     */
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 }

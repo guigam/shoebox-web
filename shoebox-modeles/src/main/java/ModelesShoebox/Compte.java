@@ -46,6 +46,8 @@ public class Compte implements Serializable {
     private String description;
     @ManyToOne
     private Utilisateur currentuser;
+    @ManyToOne
+    private Cooperative coop;
    @OneToMany(mappedBy="compteEncaisse")
    private List<TransactionCaisse> tsxCaisse = new LinkedList<TransactionCaisse>();
 
@@ -164,6 +166,20 @@ public class Compte implements Serializable {
      */
     public void setCurrentuser(Utilisateur currentuser) {
         this.currentuser = currentuser;
+    }
+
+    /**
+     * @return the coop
+     */
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 

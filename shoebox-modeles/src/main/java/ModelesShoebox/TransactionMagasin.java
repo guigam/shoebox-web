@@ -48,6 +48,7 @@ public class TransactionMagasin implements Serializable {
     private Commande m_commande;
     private Utilisateur currentuser;
     private DefinitionPeriode defPeriode;
+private Cooperative coop;
     @Transient
     public float getCalculMontant(){
 
@@ -233,6 +234,21 @@ public class TransactionMagasin implements Serializable {
      */
     public void setDefPeriode(DefinitionPeriode defPeriode) {
         this.defPeriode = defPeriode;
+    }
+
+    /**
+     * @return the coop
+     */
+    @ManyToOne
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 

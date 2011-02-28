@@ -51,6 +51,7 @@ public class SoldeDepart implements Serializable {
     private List<TransactionCaisse> lstTransactionSoldeDepart = new LinkedList<TransactionCaisse>();
     private DefinitionPeriode defPeriode;
     private Date date;
+private Cooperative coop;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -203,6 +204,21 @@ public class SoldeDepart implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     public Date getDate() {
         return date;
+    }
+
+    /**
+     * @return the coop
+     */
+    @ManyToOne
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 

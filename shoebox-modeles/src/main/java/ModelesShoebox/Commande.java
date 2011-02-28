@@ -38,7 +38,7 @@ public class Commande implements Serializable {
     private boolean confirmation = false;
     private Utilisateur currentuser;
     private DefinitionPeriode defPeriode;
-
+    private Cooperative coop;
     @Transient
     public float getmontantTotal() {
         float total = 0;
@@ -271,6 +271,21 @@ public class Commande implements Serializable {
      */
     public void setDefPeriode(DefinitionPeriode defPeriode) {
         this.defPeriode = defPeriode;
+    }
+
+    /**
+     * @return the coop
+     */
+    @ManyToOne
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
     /**
      * @return the lsttransactionCaisse

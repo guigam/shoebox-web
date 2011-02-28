@@ -33,28 +33,28 @@ public class gestionSoldeDepart implements Serializable {
     }
 
     public List<SoldeDepart> getlstRemboursementFP() {
-        return serviceSoldeDepart.remboursementFP(session.getUser().getCooperative());
+        return serviceSoldeDepart.remboursementFP(session.getCurrentCoop());
     }
 
     public List<SoldeDepart> getlstRemboursementFI() {
-        return serviceSoldeDepart.remboursementFI(session.getUser().getCooperative());
+        return serviceSoldeDepart.remboursementFI(session.getCurrentCoop());
     }
 
     public List<SoldeDepart> getlstRemboursementClient() {
-        return serviceSoldeDepart.remboursementClient(session.getUser().getCooperative());
+        return serviceSoldeDepart.remboursementClient(session.getCurrentCoop());
     }
 
     public List<SoldeDepart> getlstDetteFP() {
-        return serviceSoldeDepart.dettesFP(session.getUser().getCooperative());
+        return serviceSoldeDepart.dettesFP(session.getCurrentCoop());
     }
 
     public List<SoldeDepart> getlstDetteFI() {
-        return serviceSoldeDepart.dettesFI(session.getUser().getCooperative());
+        return serviceSoldeDepart.dettesFI(session.getCurrentCoop());
 
     }
 
     public List<SoldeDepart> getlstDetteClient() {
-        return serviceSoldeDepart.dettesClient(session.getUser().getCooperative());
+        return serviceSoldeDepart.dettesClient(session.getCurrentCoop());
     }
 
     /**
