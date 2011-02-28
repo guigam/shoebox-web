@@ -118,9 +118,11 @@ public class parametrageShoebox {
     }
 
     public String newFournisseurProduit() {
+
         if(soldeDepart.getMontant() > 0){
             soldeDepart.setTypeSolde("rmbFP");
-        }else{soldeDepart.setTypeSolde("detteFP");
+        }else{
+            soldeDepart.setTypeSolde("detteFP");
         }
         soldeDepart.setDefPeriode(session.getCurrentPeriode());
         soldeDepart.setEntite(fournisseurproduit);

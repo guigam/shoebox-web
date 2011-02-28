@@ -79,7 +79,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop) {
-       Query query = em.createQuery("from DefinitionPeriode p where  p.coop = ?1" );
+       Query query = em.createQuery("from DefinitionPeriode p where  p.cooperative = ?1" );
         query.setParameter(1, coop);
        return query.getResultList();
     }

@@ -72,8 +72,6 @@ public class Utilisateur implements Serializable {
     private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
     @OneToMany(mappedBy="currentuser")
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
-    @OneToMany(mappedBy="currentuser")
-    private List<DefinitionPeriode> lstDefinitionPeriode = new LinkedList<DefinitionPeriode>();
     @OneToMany(cascade=CascadeType.ALL)
     private List<Permission> lstPermission = new LinkedList<Permission>();
     public Long getId() {
@@ -272,21 +270,6 @@ public class Utilisateur implements Serializable {
     }
 
   
-
-    /**
-     * @return the lstDefinitionPeriode
-     */
-    public List<DefinitionPeriode> getLstDefinitionPeriode() {
-        return lstDefinitionPeriode;
-    }
-
-    /**
-     * @param lstDefinitionPeriode the lstDefinitionPeriode to set
-     */
-    public void setLstDefinitionPeriode(List<DefinitionPeriode> lstDefinitionPeriode) {
-        this.lstDefinitionPeriode = lstDefinitionPeriode;
-    }
-
    
 
     /**

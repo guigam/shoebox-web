@@ -51,7 +51,7 @@ public abstract  class Entite implements Serializable {
      private Cooperative coop;
     @OneToMany(mappedBy="m_entite")
     private List<Commande> lstCommande = new LinkedList<Commande>() ;
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private SoldeDepart soldeDepart;
     public Long getId() {
         return id;

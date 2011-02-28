@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import parametrageSocodevi.ServiceParamSoco;
 import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**
@@ -33,6 +34,8 @@ public class login implements Serializable{
     private formatageEntier currentFormatUnite = new formatageEntier();
     @EJB
     private ServiceParamSocoLocal serviceparamSoco;
+    @EJB
+    private ServiceParamSocoLocal test;
     /** Creates a new instance of login */
     public login() {
 

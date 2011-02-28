@@ -6,9 +6,7 @@
 package Converter;
 
 import ModelesShoebox.FournisseurProduit;
-import ModelesShoebox.Produit;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import parametrageCoop.serviceParamCoopLocal;
 
 /**
  *
