@@ -7,6 +7,8 @@ package parametrageSocodevi;
 import Login.login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
+import ModelesParametrage.Permission;
+import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
@@ -20,6 +22,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.faces.component.UIData;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 /**
@@ -36,12 +39,14 @@ public class GestionParametrageSoco implements Serializable {
     private DefinitionPeriode dePeriode = new DefinitionPeriode();
     private formatageEntier formatageDevise = new formatageEntier();
     private formatageEntier formatageunite = new formatageEntier();
+    private List<Permission> lstPermissions = new LinkedList<Permission>();
     @Inject
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
     @Inject
     private Conversation conversation;
+    private Utilisateur utilisateur = new Utilisateur();;
     /** Creates a new instance of GestionLangue */
     public GestionParametrageSoco() {
     }
@@ -67,7 +72,6 @@ public class GestionParametrageSoco implements Serializable {
 
     public void newParamCharteTransaction() {
         for (ParamTransaction p : lstParamtransaction) {
-            p.setCooperative(session.getCurrentCoop());
             serviceSoco.mergeParamCharteCompteOfortransaction(p);
         }
     }
@@ -80,7 +84,6 @@ public class GestionParametrageSoco implements Serializable {
         paramtsx = new ParamTransaction();
         paramtsx = (ParamTransaction) dataTable.getRowData();
         paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
-        paramtsx.setCooperative(session.getCurrentCoop());
         serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
     }
 
@@ -97,9 +100,20 @@ public class GestionParametrageSoco implements Serializable {
         fe = (formatageEntier) dataTable.getRowData();
         fe.setCurremcy((String) event.getNewValue());
     }
+    public List<Utilisateur> getListUtilisateur(){
+        return serviceSoco.lstUtilisteur(session.getCurrentCoop());
+    }
 
+    public String newUtilisateur(){
+        utilisateur.setCooperative(session.getCurrentCoop());
+        utilisateur.setPassword("soco");
+        serviceSoco.newUtilisateur(utilisateur);
+        return "lstUtilisateurs";
+    }
 
-
+  public List<SelectItem> getListitemPermission() {
+        return serviceSoco.lstItemPermission();
+    }
     /**
      * @return the lstParamtransaction
      */
@@ -205,6 +219,34 @@ public class GestionParametrageSoco implements Serializable {
      */
     public void setDePeriode(DefinitionPeriode dePeriode) {
         this.dePeriode = dePeriode;
+    }
+
+    /**
+     * @return the utilisateur
+     */
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    /**
+     * @param utilisateur the utilisateur to set
+     */
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    /**
+     * @return the lstPermissions
+     */
+    public List<Permission> getLstPermissions() {
+        return lstPermissions;
+    }
+
+    /**
+     * @param lstPermissions the lstPermissions to set
+     */
+    public void setLstPermissions(List<Permission> lstPermissions) {
+        this.lstPermissions = lstPermissions;
     }
 
    

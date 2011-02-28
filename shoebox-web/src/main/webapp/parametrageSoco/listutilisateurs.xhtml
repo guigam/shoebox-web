@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_listUtilisateur}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <div style="margin-left:15px">
+                    <h:commandButton image="/icons/add.png" action="addUtilisateur" />
+                    <h:commandLink value="#{msg.lib_addUtilisateur}" action="addUtilisateur" />
+                </div>
+                <rich:dataTable value="#{gsParamSoco.listUtilisateur}"  var="item" width="100%"  id="tab">
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_etat}"/>
+                        </f:facet>
+                        <center><h:graphicImage value="#{item.etat.equals(false) ? '/icons/actif.png' : '/icons/inactif.png'}"/></center>
+                        <rich:toolTip value="#{item.etat.equals(false) ? msg.lib_inactif : msg.lib_actif }"/>
+                    </rich:column>
+                    <rich:column width="30%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_username}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.username}"/>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_fonction}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fonction}"/>
+                    </rich:column>
+                    <rich:column width="50%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_permission}"/>
+                        </f:facet>
+                        <rich:dataList value="#{item.lstPermission}" var="permission">
+                            <h:outputText value="#{permission.name}"/>
+                        </rich:dataList>
+                    </rich:column>
+                </rich:dataTable>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

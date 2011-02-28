@@ -27,6 +27,7 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Commande implements Serializable {
+
     private Long id;
     private String reference;
     private String type;
@@ -37,6 +38,7 @@ public class Commande implements Serializable {
     private boolean confirmation = false;
     private Utilisateur currentuser;
     private DefinitionPeriode defPeriode;
+
     @Transient
     public float getmontantTotal() {
         float total = 0;
@@ -47,12 +49,61 @@ public class Commande implements Serializable {
     }
 
     @Transient
-    public float getmontantPaye(){
-    float montatPaye = 0;
-    for(TransactionCaisse tsx : getLsttransactionCaisse()){
-        montatPaye = montatPaye + tsx.getMontant();
+    public float getquantiteEntreeProduit() {
+        float tot = 0;
+        if (type.equals("EP")) {
+            for (TransactionMagasin t : lsttransactionMagasin) {
+                tot = tot + t.getQuantite();
+            }
+        }
+        return tot;
     }
+
+    @Transient
+    public float getquantiteEntreeProduitIntrant() {
+        float tot = 0;
+        if (type.equals("EI")) {
+            for (TransactionMagasin t : lsttransactionMagasin) {
+                tot = tot + t.getQuantite();
+            }
+        }
+        return tot;
+    }
+
+    @Transient
+    public float getquantiteSortisProduit() {
+        float tot = 0;
+        if (type.equals("SP")) {
+            for (TransactionMagasin t : lsttransactionMagasin) {
+                tot = tot + t.getQuantite();
+            }
+        }
+        return tot;
+    }
+
+    @Transient
+    public float getquantiteSortisProduitIntrant() {
+        float tot = 0;
+        if (type.equals("SI")) {
+            for (TransactionMagasin t : lsttransactionMagasin) {
+                tot = tot + t.getQuantite();
+            }
+        }
+        return tot;
+    }
+
+    @Transient
+    public float getmontantPaye() {
+        float montatPaye = 0;
+        for (TransactionCaisse tsx : getLsttransactionCaisse()) {
+            montatPaye = montatPaye + tsx.getMontant();
+        }
         return montatPaye;
+    }
+
+    @Transient
+    public float getmontantrestant() {
+        return getmontantTotal() - getmontantPaye();
     }
 
     @Id
@@ -107,9 +158,7 @@ public class Commande implements Serializable {
     /**
      * @return the lsttransactionMagasin
      */
-    
-
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="m_commande")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "m_commande")
     public List<TransactionMagasin> getLsttransactionMagasin() {
         return lsttransactionMagasin;
     }
@@ -120,9 +169,6 @@ public class Commande implements Serializable {
     public void setLsttransactionMagasin(List<TransactionMagasin> lsttransactionMagasin) {
         this.lsttransactionMagasin = lsttransactionMagasin;
     }
-
-
-
 
     /**
      * @return the type
@@ -167,7 +213,6 @@ public class Commande implements Serializable {
         this.m_entite = m_entite;
     }
 
-    
     /**
      * @return the dateCommande
      */
@@ -186,7 +231,7 @@ public class Commande implements Serializable {
     /**
      * @return the lsttransactionCaisse
      */
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     public List<TransactionCaisse> getLsttransactionCaisse() {
         return lsttransactionCaisse;
     }
@@ -227,9 +272,7 @@ public class Commande implements Serializable {
     public void setDefPeriode(DefinitionPeriode defPeriode) {
         this.defPeriode = defPeriode;
     }
-
     /**
      * @return the lsttransactionCaisse
      */
-    
 }

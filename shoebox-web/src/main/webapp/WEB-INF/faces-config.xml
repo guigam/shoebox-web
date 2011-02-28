@@ -34,6 +34,18 @@
             <to-view-id>/resultat/menuResultat.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>comptePayer</from-outcome>
+            <to-view-id>/resultat/comptePayer.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>compteRecevoir</from-outcome>
+            <to-view-id>/resultat/compteRecevoir.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
      <navigation-rule>
         <navigation-case>
             <from-outcome>etatCoop</from-outcome>
@@ -66,6 +78,13 @@
         </navigation-case>
         <redirect/>
     </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>lstCommSortisproduitIntrant</from-outcome>
+            <to-view-id>/commandes/listCommandeSortieProduitIntrant.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
       <navigation-rule>
         <navigation-case>
             <from-outcome>paramSoco</from-outcome>
@@ -75,15 +94,15 @@
     </navigation-rule>
       <navigation-rule>
         <navigation-case>
-            <from-outcome>formatage</from-outcome>
-            <to-view-id>/parametrageSoco/formatge.xhtml</to-view-id>
+            <from-outcome>lstUtilisateurs</from-outcome>
+            <to-view-id>/parametrageSoco/listutilisateurs.xhtml</to-view-id>
         </navigation-case>
         <redirect/>
     </navigation-rule>
-    <navigation-rule>
+      <navigation-rule>
         <navigation-case>
-            <from-outcome>lstFP</from-outcome>
-            <to-view-id>/parametrageCoop/listFournisseurProduit.xhtml</to-view-id>
+            <from-outcome>formatage</from-outcome>
+            <to-view-id>/parametrageSoco/formatge.xhtml</to-view-id>
         </navigation-case>
         <redirect/>
     </navigation-rule>
@@ -110,6 +129,13 @@
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
+            <from-outcome>lstVenteProduitIntrant</from-outcome>
+            <to-view-id>/caisse/listVenteProduitIntrant.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
             <from-outcome>lstCompteEncaisse</from-outcome>
             <to-view-id>/parametrageCoop/listCompteEncaisse.xhtml</to-view-id>
         </navigation-case>
@@ -119,6 +145,26 @@
         <navigation-case>
             <from-outcome>lstAchatProduit</from-outcome>
             <to-view-id>/caisse/listAchatProduit.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>addCharge</from-outcome>
+            <to-view-id>/caisse/addCharge.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>lstTransactionCharge</from-outcome>
+            <to-view-id>/caisse/lstTransactionCharges.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>lstAchatProduitIntrant</from-outcome>
+            <to-view-id>/caisse/listAchatProduitIntrant.xhtml</to-view-id>
         </navigation-case>
         <redirect/>
     </navigation-rule>
@@ -220,6 +266,12 @@
         <navigation-case>
             <from-outcome>addClient</from-outcome>
             <to-view-id>/parametrageCoop/addClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>addSI</from-outcome>
+            <to-view-id>/commandes/addCommandeSortisProduitIntrant.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -333,5 +385,13 @@
     <converter>
         <converter-id>converterCharteCompte</converter-id>
         <converter-class>Converter.CharteCompteConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>CategorieChargeConverter</converter-id>
+        <converter-class>Converter.CategorieChargeConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>permissionConverter</converter-id>
+        <converter-class>Converter.permissionConverter</converter-class>
     </converter>
 </faces-config>

@@ -8,6 +8,8 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.EJB;
@@ -90,6 +92,20 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     @Override
     public void mergeTransactionMagasin(TransactionMagasin tsx) {
         merge(tsx);
+    }
+
+    @Override
+    public List<TransactionCharge> lstCharges(Cooperative coop, DefinitionPeriode periode) {
+       Query query = em.createQuery("from TransactionCharge t where t.currentuser.cooperative = ?2 and t.defPeriode = ?3");
+       query.setParameter(2,coop);
+       query.setParameter(3,periode);
+       return query.getResultList();
+
+    }
+
+    @Override
+    public void newTransactionCharge(TransactionCharge transactionCharge) {
+     persist(transactionCharge);
     }
 
 

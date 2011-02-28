@@ -8,6 +8,8 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.Local;
@@ -30,6 +32,10 @@ public interface ServiceGestionCommandeTransactionLocal {
     public List<Commande> lstCommandeByType(String type,Cooperative coop, DefinitionPeriode periode);
 
     public void mergeTransactionMagasin(TransactionMagasin tsx);
+
+    public List<TransactionCharge> lstCharges(Cooperative coop, DefinitionPeriode periode);
+
+    public void newTransactionCharge(TransactionCharge transactionCharge);
     
 
     

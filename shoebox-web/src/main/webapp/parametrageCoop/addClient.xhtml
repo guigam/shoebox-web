@@ -29,7 +29,7 @@
                     <h:inputText value="#{parametrageShoebox.client.name}" required="true" requiredMessage="#{msg.lib_description} #{msg.message_Obligatoire}"/>
                     <h:outputText value="#{msg.lib_soldeDepart}" />
                     <h:inputText value="#{parametrageShoebox.soldeDepart.montant}" required="true" requiredMessage="#{msg.lib_soldeDepart} #{msg.message_Obligatoire}">
-                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        <f:convertNumber type="currency" maxFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                     </h:inputText>
                     <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newClient}"/>
                 </h:panelGrid>

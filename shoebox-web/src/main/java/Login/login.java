@@ -43,6 +43,7 @@ public class login implements Serializable{
 
     public String identification(){
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
+        currentCoop = user.getCooperative();
         currentPeriode = serviceparamSoco.currentPeriode(user.getCooperative());
         currentFormatDevise = serviceparamSoco.formatage("devise");
         currentFormatUnite =  serviceparamSoco.formatage("unite");

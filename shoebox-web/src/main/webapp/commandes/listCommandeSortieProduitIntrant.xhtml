@@ -1,0 +1,116 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateMagasin.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+
+
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_sortisIntrant}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <div style="margin-left:15px">
+                    <h:commandButton image="/icons/add.png" action="addSI" />
+                    <h:commandLink value="#{msg.lib_addCommande}" action="addSI" />
+                </div>
+                <rich:spacer height="10"/>
+
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisIntrant}" var="item" id="tab">
+                    
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_date}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{item.dateCommande}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_identification}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_reference} : " styleClass="titreLibelle" />
+                            <h:outputText value="#{item.reference}" styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_fournisseurProduit} : " styleClass="titreLibelle"/>
+                            <h:outputText value="#{item.m_entite.name}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
+
+                    </rich:column>
+
+                    <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_Information}" />
+                        </f:facet>
+
+
+                        <rich:dataTable value="#{item.lsttransactionMagasin}" var="tsx" width="100%" >
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_magasin} : " styleClass="titreLibelle" />
+                                </f:facet>
+                                <h:outputText value="#{tsx.magasin.name}" styleClass="titreLibelleSimple"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_produit} : " styleClass="titreLibelle" />
+                                </f:facet>
+                                <h:outputText value="#{tsx.produit.name}" styleClass="titreLibelleSimple"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_quantite}:" styleClass="titreLibelle"/>
+                                </f:facet>
+                                <h:outputText value="#{tsx.quantite}" styleClass="titreLibelleSimple">
+                                    <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_pu}:" styleClass="titreLibelle"/>
+                                </f:facet>
+                                <h:outputText value="#{tsx.prixUnitaire}" styleClass="titreLibelleSimple">
+                                    <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:column>
+                    <rich:column width="17%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_paiement}" />
+                        </f:facet>
+                        <h:panelGrid columns="2">
+
+
+                            <h:outputText value="#{msg.lib_montantTotal}:" styleClass="titreLibelle"/>
+                            <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" >
+                                <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
+                        </h:panelGrid>
+                    </rich:column>
+                    <rich:column width="8%">
+                        <f:facet name="header">
+                            <h:outputText value="--" />
+                        </f:facet>
+                        <h:commandButton id="update" image="/icons/pencil.png"/>
+                        <rich:spacer width="5"/>
+                        <h:commandButton id="delete"  image="/icons/remove.png"/>
+                        <rich:toolTip for="update" value="#{msg.lib_update}"/>
+                        <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
+                    </rich:column>
+
+                </rich:dataTable>
+            </rich:panel>
+</h:form>
+        
+    </ui:define>
+
+
+
+</ui:composition>

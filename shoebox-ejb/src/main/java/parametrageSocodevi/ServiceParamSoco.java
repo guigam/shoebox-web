@@ -10,9 +10,11 @@ import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.Cooperative;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -115,6 +117,27 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
        Query query=em.createQuery("from formatageEntier f where f.type = ?1");
        query.setParameter(1, type);
        return (formatageEntier) query.getSingleResult();
+    }
+
+    @Override
+    public List<Utilisateur> lstUtilisteur(Cooperative coop) {
+       Query query = em.createQuery("from Utilisateur u where u.cooperative = ?1");
+       query.setParameter(1, coop);
+       return query.getResultList();
+    }
+
+    @Override
+    public void newUtilisateur(Utilisateur utilisateur) {
+       persist(utilisateur);
+    }
+
+    @Override
+    public List<SelectItem> lstItemPermission() {
+         List<SelectItem> lstPermission = new ArrayList<SelectItem>();
+        for (Permission c : lstPermission()) {
+            lstPermission.add(new SelectItem(c, c.getName()));
+        }
+        return lstPermission;
     }
 
 

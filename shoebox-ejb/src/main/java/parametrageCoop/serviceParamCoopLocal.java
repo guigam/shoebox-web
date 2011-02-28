@@ -5,6 +5,7 @@
 package parametrageCoop;
 
 import ModelesParametrage.DefinitionPeriode;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
@@ -88,6 +89,8 @@ public interface serviceParamCoopLocal {
 
     public List<Produit> lstproduit(Cooperative coop);
 
+    public List<CategorieCharge> lstCategorieCharge(Cooperative coop);
+
     public List<Magasin> lstMagasin(Cooperative coop);
 
     public List<Produit> lstproduitIntrant(Cooperative coop);
@@ -97,6 +100,8 @@ public interface serviceParamCoopLocal {
     public List<CharteCompte> lstcharteCompte();
 
     public List<SelectItem> lstItemProduit(Cooperative coop);
+
+    public List<SelectItem> lstItemCategorieCharge(Cooperative coop);
 
     public List<SelectItem> lstItemProduitIntrant(Cooperative coop);
 
@@ -112,10 +117,13 @@ public interface serviceParamCoopLocal {
 
     public List<SelectItem> lstItemCharteCompte();
 
+ 
+
     //***************************recherche*********************************//
     public  List<Object[]>  rechercheStockProduit(Produit produit, int grade, Cooperative coop);
     
-    public List<Object[]> rechercheSommeEntreeProduit(Produit produit, int grade);
+    public  List<Object[]>  rechercheStockProduitIntrant(Produit produit, Cooperative coop);
+    
 
     public List<TransactionMagasin> test();
 

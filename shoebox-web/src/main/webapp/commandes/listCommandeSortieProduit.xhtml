@@ -88,7 +88,7 @@
                                     <h:outputText value="#{msg.lib_quantite}:" styleClass="titreLibelle"/>
                                 </f:facet>
                                 <h:outputText value="#{tsx.quantite}" styleClass="titreLibelleSimple">
-                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                                    <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
                                 </h:outputText>
                             </rich:column>
                             <rich:column>
@@ -96,7 +96,7 @@
                                     <h:outputText value="#{msg.lib_pu}:" styleClass="titreLibelle"/>
                                 </f:facet>
                                 <h:outputText value="#{tsx.prixUnitaire}" styleClass="titreLibelleSimple">
-                                    <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                    <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                                 </h:outputText>
                             </rich:column>
                         </rich:dataTable>
@@ -110,7 +110,7 @@
 
                             <h:outputText value="#{msg.lib_montantTotal}:" styleClass="titreLibelle"/>
                             <h:outputText  value="#{item.montantTotal}" styleClass="titreMontantTotal" >
-                                <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                             </h:outputText>
                         </h:panelGrid>
                     </rich:column>

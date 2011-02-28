@@ -5,6 +5,7 @@
 package parametrageCoop;
 
 import ModelesParametrage.DefinitionPeriode;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
@@ -280,6 +281,31 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     @Override
+    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop) {
+        List<Object[]> lstObject = new LinkedList<Object[]>();
+        if (!rechercehEntreeProduitIntrant(produit, coop).isEmpty() && rechercehSortisProduitIntrant(produit,coop).isEmpty()) {
+            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop)) {
+                Object[] obj = new Object[3];
+                obj[0] = (Magasin) (t[0]);
+                obj[1] = (Produit) (t[1]);
+                obj[2] = new Long((Long) t[2]);
+                lstObject.add(obj);
+            }
+        } else {
+            for (Object[] t : rechercehEntreeProduitIntrant(produit,coop)) {
+                for (Object[] o : rechercehSortisProduitIntrant(produit, coop)) {
+                    if (t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])) {
+                        Object[] obj = new Object[3];
+                        obj[0] = (Magasin) (t[0]);
+                        obj[1] = (Produit) (t[1]);
+                        obj[2] = new Long((Long) t[2]).longValue() - new Long((Long) o[2]).longValue();
+                        lstObject.add(obj);
+                    }
+                }
+            }
+        }
+        return lstObject;
+    }
     public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
         if (!rechercehEntreeProduit(produit, grade, coop).isEmpty() && rechercehSortisProduit(produit, grade,coop).isEmpty()) {
@@ -329,17 +355,28 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         }
         return null;
     }
-
-    @Override
-    public List<Object[]> rechercheSommeEntreeProduit(Produit produit, int grade) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop) {
+        if (produit != null ) {
+            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.currentuser.cooperative = ?4 group by x.magasin");
+            q.setParameter(1, produit);
+            q.setParameter(3, "EI");
+            q.setParameter(4, coop);
+            return (List<Object[]>) q.getResultList();
+        }
+        return null;
     }
 
-    @Override
-    public List<TransactionMagasin> test() {
-        Query q = em.createQuery("from TransactionMagasin t where t.m_commande = 1 ");
-        return q.getResultList();
+    private List<Object[]> rechercehSortisProduitIntrant(Produit produit, Cooperative coop) {
+        if (produit != null ) {
+            Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.currentuser.cooperative = ?4  group by x.magasin");
+            q.setParameter(1, produit);
+            q.setParameter(3, "SI");
+            q.setParameter(4, coop);
+            return (List<Object[]>) q.getResultList();
+        }
+        return null;
     }
+
 
     @Override
     public List<SelectItem> lstitemCompte(Cooperative coop) {
@@ -365,6 +402,31 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         }
         return listCharteCompte;
     }
+
+    
+    @Override
+    public List<CategorieCharge> lstCategorieCharge(Cooperative coop){
+        Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1");
+        query.setParameter(1, coop);
+        return query.getResultList();
+    }
+
+
+    @Override
+    public List<SelectItem> lstItemCategorieCharge(Cooperative coop) {
+        List<SelectItem> lstCategItem = new ArrayList<SelectItem>();
+        for (CategorieCharge c : lstCategorieCharge(coop)) {
+            lstCategItem.add(new SelectItem(c, c.getNomCategorie()));
+        }
+        return lstCategItem;
+    }
+
+    @Override
+    public List<TransactionMagasin> test() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
 
    
 }

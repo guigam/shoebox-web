@@ -48,7 +48,21 @@ a:link:hover, a:visited:hover  {
     font-weight: bold;
 }
 .titreLibelle{
-    font-size: 10px;
+    font-size: 11px;
+    font-weight: bold;
+}
+.titrenegatif{
+    font-size: 11px;
+    font-weight: bold;
+    color: #770d0d;
+}
+.titrePositif{
+    font-size: 11px;
+    font-weight: bold;
+    color: darkgreen;
+}
+.titreNormal{
+    font-size: 14px;
     font-weight: bold;
 }
 .titreLibelleSimple{
@@ -58,6 +72,11 @@ a:link:hover, a:visited:hover  {
     font-size: 14px;
     font-weight: bold;
     color: #770d0d;
+}
+.titreMontantPaye{
+    font-size: 14px;
+    font-weight: bold;
+    color: darkgreen;
 }
 
 .top1{

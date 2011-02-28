@@ -1,13 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../templateMagasin.xhtml">
-    
+                template="./../templateMagasin.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
 
 
 
     <ui:define name="content">
-        content
+        <rich:panel>
+            <table  width="100%" border="1">
+                <tr>
+                    <td style="background-color:#dbffd3; color: #000000; font-weight: bold; font-size: 12px; text-align: center">
+                        <h:outputText value="#{msg.lib_produit} #{msg.lib_principal}"/>
+                    </td>
+                    <td style="background-color: #dbffd3; color: #000000; font-weight: bold; font-size: 12px; text-align: center">
+                        <h:outputText value="#{msg.lib_produit} #{msg.lib_secondaire}"/>
+                    </td>
+                    <td style="background-color: #dbffd3; color: #000000; font-weight: bold; font-size: 12px; text-align: center">
+                        <h:outputText value="#{msg.lib_produit} #{msg.lib_intrant}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_quantiteEntree}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.quantiteProduitPrincipalEntree}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{msg.lib_quantiteSortis}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.quantiteProduitPrincipaleSortie}" styleClass="titreLibelle"/>
+                        </h:panelGrid>
+                        <div style="text-align: right;">
+                            <h:commandButton image="/icons/eye.png" id="pp" />
+                            <rich:toolTip for="pp" value="#{msg.lib_detailProduit} #{msg.lib_principal}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_quantiteEntree}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.quantiteProduitSecondairelEntree}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{msg.lib_quantiteSortis}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.quantiteProduitSecondaireSortie}" styleClass="titreLibelle"/>
+                        </h:panelGrid>
+                        <div style="text-align: right;">
+                            <h:commandButton image="/icons/eye.png" id="ps"/>
+                            <rich:toolTip for="ps" value="#{msg.lib_detailProduit} #{msg.lib_secondaire}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_quantiteEntree}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.quantiteProduitIntrantEntre}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{msg.lib_quantiteSortis}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.quantiteProduitIntrantSortie}" styleClass="titreLibelle"/>
+                        </h:panelGrid>
+                        <div style="text-align: right;">
+                            <h:commandButton image="/icons/eye.png" id="pi"/>
+                            <rich:toolTip for="pi" value="#{msg.lib_detailProduit} #{msg.lib_intrant}"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </rich:panel>
     </ui:define>
 
 

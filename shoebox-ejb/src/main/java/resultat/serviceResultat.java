@@ -102,6 +102,22 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
         }
         return lstTsxCaisse;
     }
+
+
+    @Override
+    public List<TransactionCaisse> lstTsxCaisseFIPourSD(Cooperative coop, FournisseurIntrant FI, DefinitionPeriode periode) {
+        List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+        Query query = em.createQuery( "from SoldeDepart t where t.entite = ?1 and t.currentuser.cooperative = ?2 and t.defPeriode = ?3");
+        query.setParameter(1, FI);
+        query.setParameter(2, coop);
+        query.setParameter(3, periode);
+        for(SoldeDepart sd : (List<SoldeDepart>)query.getResultList() ){
+            lstTsxCaisse.addAll(sd.getLstTransactionSoldeDepart());
+        }
+        return lstTsxCaisse;
+    }
+
+    
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

@@ -40,8 +40,6 @@ public class Permission implements Serializable {
     private String Description;
     private String emplacement;
     private String redirect;
-    @ManyToOne
-    private Utilisateur currentuser;
     public Long getId() {
         return id;
     }
@@ -131,18 +129,5 @@ public class Permission implements Serializable {
         this.redirect = redirect;
     }
 
-    /**
-     * @return the currentuser
-     */
-    public Utilisateur getCurrentuser() {
-        return currentuser;
-    }
-
-    /**
-     * @param currentuser the currentuser to set
-     */
-    public void setCurrentuser(Utilisateur currentuser) {
-        this.currentuser = currentuser;
-    }
 
 }

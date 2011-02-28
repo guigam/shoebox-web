@@ -81,6 +81,10 @@ public class parametrageShoebox {
         return parametrageCoop.lstItemProduit(session.getUser().getCooperative());
     }
 
+    public List<SelectItem> getListitemCategorieCharge() {
+        return parametrageCoop.lstItemCategorieCharge(session.getUser().getCooperative());
+    }
+
     public List<SelectItem> getlstitemCharteCompte(){
         return parametrageCoop.lstItemCharteCompte();
     }

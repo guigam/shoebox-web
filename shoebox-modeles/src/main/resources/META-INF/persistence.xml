@@ -6,6 +6,8 @@
     <class>ModelesParametrage.ParamTransaction</class>
     <class>ModelesParametrage.Permission</class>
     <class>ModelesParametrage.Utilisateur</class>
+    <class>ModelesParametrage.formatageEntier</class>
+    <class>ModelesShoebox.CategorieCharge</class>
     <class>ModelesShoebox.CharteCompte</class>
     <class>ModelesShoebox.Client</class>
     <class>ModelesShoebox.Commande</class>
@@ -18,8 +20,8 @@
     <class>ModelesShoebox.Produit</class>
     <class>ModelesShoebox.SoldeDepart</class>
     <class>ModelesShoebox.TransactionCaisse</class>
+    <class>ModelesShoebox.TransactionCharge</class>
     <class>ModelesShoebox.TransactionMagasin</class>
-    <class>ModelesParametrage.formatageEntier</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

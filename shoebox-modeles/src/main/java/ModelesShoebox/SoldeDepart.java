@@ -7,6 +7,7 @@ package ModelesShoebox;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 /**
@@ -48,6 +50,7 @@ public class SoldeDepart implements Serializable {
     private Utilisateur currentuser;
     private List<TransactionCaisse> lstTransactionSoldeDepart = new LinkedList<TransactionCaisse>();
     private DefinitionPeriode defPeriode;
+    private Date date;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -71,6 +74,10 @@ public class SoldeDepart implements Serializable {
             somme = somme + tsx.getMontant();
         }
         return somme;
+    }
+    @Transient
+    public float getmontantrestant(){
+        return getMontant() - getmontantPaye();
     }
 
     @Override
@@ -179,6 +186,23 @@ public class SoldeDepart implements Serializable {
      */
     public void setDefPeriode(DefinitionPeriode defPeriode) {
         this.defPeriode = defPeriode;
+    }
+
+
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    /**
+     * @return the date
+     */
+    @Temporal(javax.persistence.TemporalType.DATE)
+    public Date getDate() {
+        return date;
     }
 
 

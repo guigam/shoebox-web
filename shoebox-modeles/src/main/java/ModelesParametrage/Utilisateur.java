@@ -5,7 +5,6 @@
 
 package ModelesParametrage;
 
-import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Compte;
 import ModelesShoebox.Cooperative;
@@ -23,9 +22,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -53,6 +52,7 @@ public class Utilisateur implements Serializable {
     private Long id;
     private String username;
     private String password;
+    private String fonction;
     private boolean etat;
     @ManyToOne
     private Cooperative cooperative;
@@ -74,7 +74,7 @@ public class Utilisateur implements Serializable {
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
     @OneToMany(mappedBy="currentuser")
     private List<DefinitionPeriode> lstDefinitionPeriode = new LinkedList<DefinitionPeriode>();
-    @OneToMany(mappedBy="currentuser",cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Permission> lstPermission = new LinkedList<Permission>();
     public Long getId() {
         return id;
@@ -300,7 +300,7 @@ public class Utilisateur implements Serializable {
      * @param lstPermission the lstPermission to set
      */
     public void setLstPermission(List<Permission> lstPermission) {
-        this.lstPermission = lstPermission;
+        this.setLstPermission(lstPermission);
     }
 
     /**
@@ -317,8 +317,19 @@ public class Utilisateur implements Serializable {
         this.cooperative = cooperative;
     }
 
-   
+    /**
+     * @return the fonction
+     */
+    public String getFonction() {
+        return fonction;
+    }
 
+    /**
+     * @param fonction the fonction to set
+     */
+    public void setFonction(String fonction) {
+        this.fonction = fonction;
+    }
    
 
 }

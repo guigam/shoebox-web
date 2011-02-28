@@ -11,17 +11,31 @@
              <h:form>
             <rich:panel>
                 <rich:panel style="background-color: white">
-                    <h:outputText value="#{msg.lib_description}"/>
+                    <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_description}" styleClass="titreLibelle"/>
                     <h:outputText value="#{gsSoldeDepart.sd.entite.name}"/>
-                    <h:panelGrid columns="4">
-                        <h:outputText value="#{msg.lib_montantPaye}" styleClass="titreLibelle"/>
-                        <h:outputText value="#{gsSoldeDepart.sd.montantPaye}">
-                            <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                        </h:outputText>
-                    <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
-                    <h:outputText value="#{gsSoldeDepart.sd.montant}">
-                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                    </h:outputText>
+                    </h:panelGrid>
+                    <h:panelGrid columns="5">
+                        <h:panelGrid>
+                            <center><h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
+                                <h:outputText value="#{gsSoldeDepart.sd.montant}" styleClass="titreMontantTotal">
+                                <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
+                        </h:panelGrid>
+                        <rich:spacer width="20"/>
+                        <h:panelGrid >
+                            <center><h:outputText value="#{msg.lib_montantPaye}" styleClass="titreLibelle" />
+                            <h:outputText value="#{gsSoldeDepart.sd.montantPaye}" styleClass="titreMontantPaye">
+                                <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
+                        </h:panelGrid>
+                        <rich:spacer width="20"/>
+                        <h:panelGrid>
+                            <center><h:outputText value="#{msg.lib_montantRestant}" styleClass="titreLibelle"/>
+                                <h:outputText value="#{gsSoldeDepart.sd.montantrestant}" styleClass="titreNormal">
+                                <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText></center>
+                       </h:panelGrid>
                     </h:panelGrid>
                 </rich:panel>
                 </rich:panel>
@@ -39,7 +53,7 @@
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
                     <h:inputText value="#{gestionCaisse.tsxCaisse.montant}">
-                        <f:convertNumber type="currency" maxIntegerDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                     </h:inputText>
                     <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionSD}" />
                 </h:panelGrid>

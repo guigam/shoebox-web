@@ -1,0 +1,64 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templateCaisse.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+    
+ 
+
+    <ui:define name="content">
+       <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_listeTransactionCharges}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <div style="margin-left:15px">
+                    <h:commandButton image="/icons/add.png" action="addCharge" />
+                    <h:commandLink value="#{msg.lib_addCharge}" action="addCharge" style="vertical-align: top" />
+                </div>
+                <rich:spacer height="10"/>
+                <rich:dataTable width="100%" value="#{gestionCaisse.lstTransactionCharge}" var="item">
+                   
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_date}" />
+                        </f:facet>
+                        <h:outputText value="#{item.date}" />
+                    </rich:column>
+                    <rich:column width="15%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_reference}" />
+                        </f:facet>
+                        <h:outputText value="#{item.reference}" />
+                    </rich:column>
+                    <rich:column width="30%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_charteCompte}" />
+                        </f:facet>
+                        <h:outputText value="#{item.charteCompte.nom}" />
+                    </rich:column>
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_categorieDesCharges}" />
+                        </f:facet>
+                        <h:outputText value="#{item.categorieCharge.nomCategorie}" />
+                    </rich:column>
+                    <rich:column width="15%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montantTotal}" />
+                        </f:facet>
+                        <h:outputText value="#{item.montant}" >
+                            <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
+                    </rich:column>
+                   
+                    
+                </rich:dataTable>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

@@ -29,6 +29,8 @@ public interface serviceResultatLocal {
 
     public List<TransactionCaisse> lstTsxCaisseFPPourSD(Cooperative coop,FournisseurProduit FP, DefinitionPeriode periode);
 
+    public List<TransactionCaisse> lstTsxCaisseFIPourSD(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);
+
     public List<TransactionCaisse> lstTsxCaisseClientPourSD(Cooperative coop,Client client, DefinitionPeriode periode);
     
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);

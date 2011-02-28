@@ -43,8 +43,7 @@ public class ParamTransaction implements Serializable {
     private String abrev;
     @OneToOne
     private CharteCompte charteCompte;
-    @ManyToOne
-    private Cooperative cooperative;
+    
     public Long getId() {
         return id;
     }
@@ -119,22 +118,6 @@ public class ParamTransaction implements Serializable {
     public void setAbrev(String abrev) {
         this.abrev = abrev;
     }
-
-    /**
-     * @return the cooperative
-     */
-    public Cooperative getCooperative() {
-        return cooperative;
-    }
-
-    /**
-     * @param cooperative the cooperative to set
-     */
-    public void setCooperative(Cooperative cooperative) {
-        this.cooperative = cooperative;
-    }
-
- 
 
 
 }

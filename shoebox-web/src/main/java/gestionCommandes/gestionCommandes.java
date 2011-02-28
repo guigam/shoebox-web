@@ -71,9 +71,14 @@ public class gestionCommandes implements Serializable {
         }
     }
 
+
+
     public String newCommandeEntreeIntrant() {
         commade.setType("EI");
         commade.setDefPeriode(session.getCurrentPeriode());
+        setterCurrentUserPeriode();
+        commade.setCurrentuser(session.getUser());
+        commade.setLsttransactionMagasin(lstTsxMagasin);
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
         return "lstCommandeEntreeIntrant";
@@ -110,9 +115,14 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeSortisIntrant() {
         commade.setType("SI");
+        setterCurrentUserPeriode();
+        commade.setLsttransactionMagasin(lstTsxMagasin);
+        commade.setConfirmation(true);//il n'y a pas de confirmation avec la sortis de produit intrant 
         commade.setDefPeriode(session.getCurrentPeriode());
+        commade.setCurrentuser(session.getUser());
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
+        lstTsxMagasin.clear();
         return "lstCommandeSortisIntrant";
     }
 
@@ -125,6 +135,17 @@ public class gestionCommandes implements Serializable {
         List<Object[]> lstObject = new LinkedList<Object[]>();
         lstStockSortieProduit.clear();
         lstObject = parametrageCoop.rechercheStockProduit(produit, grade,session.getUser().getCooperative());
+        for (Object[] t : lstObject) {
+            StockSortieProduit ssp = new StockSortieProduit();
+            ssp.setMagasin((Magasin) t[0]);
+            ssp.setQuantite((Long) t[2]);
+            lstStockSortieProduit.add(ssp);
+        }
+    }
+    public void rechercheStockProduitIntrant() {
+        List<Object[]> lstObject = new LinkedList<Object[]>();
+        lstStockSortieProduit.clear();
+        lstObject = parametrageCoop.rechercheStockProduitIntrant(produit,session.getUser().getCooperative());
         for (Object[] t : lstObject) {
             StockSortieProduit ssp = new StockSortieProduit();
             ssp.setMagasin((Magasin) t[0]);

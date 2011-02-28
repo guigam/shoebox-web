@@ -13,6 +13,7 @@ import ModelesParametrage.formatageEntier;
 import ModelesShoebox.Cooperative;
 import java.util.List;
 import javax.ejb.Local;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -40,6 +41,12 @@ public interface ServiceParamSocoLocal {
    public void newCoop(Cooperative coop);
 
    public formatageEntier formatage(String type);
+
+   public List<Utilisateur> lstUtilisteur(Cooperative coop);
+
+   public void newUtilisateur(Utilisateur utilisateur);
+
+   public List<SelectItem> lstItemPermission();
 
   
 

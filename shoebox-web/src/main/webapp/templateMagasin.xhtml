@@ -26,12 +26,22 @@
                         <ui:insert name="message">
                         </ui:insert>
                         </td>
-                        <td width="20%">
-
+                        <td width="14%">
+                            <div style="vertical-align: top;" align="left">
+                        <h:commandButton image="/icons/ico_decon.png"/>
+                        <rich:spacer width="5"/>
+                        <h:commandLink value="Deconnexion" styleClass="titreLibelle"/><br/>
+                        <h:commandButton image="/icons/user_green.png"/>
+                        <rich:spacer width="5"/>
+                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle"/><br/>
+                        <h:outputText value="#{msg.lib_periode}" styleClass="titreLibelle"/>
+                        <rich:spacer width="5"/>
+                        <h:outputText value="#{gsLogin.currentPeriode.periode}" styleClass="titreLibelle"/>
+                            </div>
                         </td>
                         </tr>
                     </table>
-                    <rich:toolBar>
+                    <rich:toolBar height="30">
                         <ui:repeat value="#{gsLogin.user.lstPermission}" var="p">
                             <h:commandLink value="#{p.name}" action="#{redirectController.redirect}" style="color: #ffffff">
                                 <f:param name="outcome" value="#{p.redirect}"/>
@@ -87,7 +97,7 @@
         <div id="content">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td width="20%" style="vertical-align:top; padding-right:5px">
+                    <td width="15%" style="vertical-align:top; padding-right:5px">
                 <h:panelGroup style="width:100%;">
                     <ui:insert name="menu" >
                         <h:form>
@@ -98,7 +108,7 @@
                                         <rich:panelMenuItem  label="#{msg.lib_entreProduit}" action="#{redirectController.redirect}"><f:param value="lstCommandeEntreeproduit" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_sortisProduit}" action="#{redirectController.redirect}"><f:param value="lstCommandeSortieproduit" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem label="#{msg.lib_entreeIntrant}" action="#{redirectController.redirect}"><f:param value="lstCommandeEntreeIntrant" name="outcome"/></rich:panelMenuItem>
-                                        <rich:panelMenuItem label="#{msg.lib_sortisIntrant}" action="#{redirectController.redirect}"><f:param value="lstCommandeEntreeproduit" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem label="#{msg.lib_sortisIntrant}" action="#{redirectController.redirect}"><f:param value="lstCommSortisproduitIntrant" name="outcome"/></rich:panelMenuItem>
                                     </rich:panelMenuGroup>
 
 
@@ -110,7 +120,8 @@
                     </ui:insert>
                 </h:panelGroup>
                 </td>
-                <td  width="77%" style="vertical-align:top;" >
+                <td/>
+                <td  width="84%" style="vertical-align:top;" >
                 <h:panelGroup style="width:100%;">
                     <ui:insert name="content" ></ui:insert>
                 </h:panelGroup>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateCaisse.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_listeTransactionCharges}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                    <rich:calendar value="#{gestionCaisse.tsxCaisseCharge.date}"/>
+                    <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                    <h:inputText value="#{gestionCaisse.tsxCaisseCharge.reference}"/>
+                    <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
+                    <rich:comboBox value="#{gestionCaisse.tsxCaisseCharge.compteEncaisse}" converter="converterCompte">
+                        <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_categorieDesCharges}" styleClass="titreLibelle"/>
+                    <rich:comboBox    value="#{gestionCaisse.tsxCaisseCharge.categorieCharge}"    converter="CategorieChargeConverter" >
+                        <f:selectItems value="#{parametrageShoebox.listitemCategorieCharge}" />
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_charteCompte}" styleClass="titreLibelle"/>
+                    <rich:comboBox    value="#{gestionCaisse.tsxCaisseCharge.charteCompte}"   width="330px" converter="converterCharteCompte" >
+                        <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_montant}"/>
+                    <h:inputText value="#{gestionCaisse.tsxCaisseCharge.montant}">
+                         <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                    </h:inputText>
+                </h:panelGrid>
+                <div align="right">
+                    <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newTransactionCharge}"/>
+                </div>
+            </rich:panel>
+            </h:form>
+                </ui:define>
+        
+
+</ui:composition>

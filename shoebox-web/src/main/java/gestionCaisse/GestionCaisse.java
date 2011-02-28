@@ -6,6 +6,7 @@ package gestionCaisse;
 
 import Login.login;
 import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionCharge;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import java.io.Serializable;
@@ -26,62 +27,80 @@ import soldeDepart.gestionSoldeDepart;
 @Named(value = "gestionCaisse")
 @SessionScoped
 public class GestionCaisse implements Serializable {
-@Inject
-private gestionCommandes gsCommande;
-@Inject
-private gestionSoldeDepart gsSoldeDepart;
-   private TransactionCaisse tsxCaisse =  new TransactionCaisse();
-   private List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
- @EJB
+
+    @Inject
+    private gestionCommandes gsCommande;
+    @Inject
+    private gestionSoldeDepart gsSoldeDepart;
+    private TransactionCaisse tsxCaisse = new TransactionCaisse();
+    private TransactionCharge tsxCaisseCharge = new TransactionCharge();
+    private List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+    @EJB
     private ServiceGestionCommandeTransactionLocal serviceGsCommande;
- @EJB
- private ServiceParamSocoLocal serviceSoco;
- @EJB
- private serviceSoldeDepartLocal serviceSolde;
-   @Inject
+    @EJB
+    private ServiceParamSocoLocal serviceSoco;
+    @EJB
+    private serviceSoldeDepartLocal serviceSolde;
+    @Inject
     private login session;
 
     /** Creates a new instance of gestionCaisse */
     public GestionCaisse() {
     }
 
-    public void newtransactionCommande(){
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getCharteCompte());
-        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getUser().getCooperative())).getType());
+    public void newtransactionCommande() {
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getUser().getCooperative())).getCharteCompte());
+        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getUser().getCooperative())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
         tsxCaisse.setDefPeriode(session.getCurrentPeriode());
         affectationTypetransactionCaisse();
-    gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
-    serviceGsCommande.mergeCommande(gsCommande.getCommade());
+        gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
+        serviceGsCommande.mergeCommande(gsCommande.getCommade());
         tsxCaisse = new TransactionCaisse();
     }
-    public void newtransactionSD(){
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative())).getCharteCompte());
-        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(),session.getUser().getCooperative()).getType());
+
+    public void newtransactionSD() {
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getUser().getCooperative())).getCharteCompte());
+        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getUser().getCooperative()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
-         tsxCaisse.setDefPeriode(session.getCurrentPeriode());
+        tsxCaisse.setDefPeriode(session.getCurrentPeriode());
         affectationTypetransactionSD();
-    gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
-    serviceSolde.mergeSolde(gsSoldeDepart.getSd());
-      tsxCaisse = new TransactionCaisse();
+        gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
+        serviceSolde.mergeSolde(gsSoldeDepart.getSd());
+        tsxCaisse = new TransactionCaisse();
     }
 
     private void affectationTypetransactionSD() {
-        
+
         if (gsSoldeDepart.getSd().getTypeSolde().equals("rmbFP") || gsSoldeDepart.getSd().getTypeSolde().equals("rmbFI") || gsSoldeDepart.getSd().getTypeSolde().equals("rmbClient")) {
             tsxCaisse.setTypeTransaction("D");
-        }else{
+        } else {
             tsxCaisse.setTypeTransaction("E");
         }
     }
+
     private void affectationTypetransactionCaisse() {
 
         if (gsCommande.getCommade().getType().equals("EP") || gsCommande.getCommade().getType().equals("EI")) {
             tsxCaisse.setTypeTransaction("D");
-        }else{
+        } else {
             tsxCaisse.setTypeTransaction("E");
         }
     }
+
+    public String newTransactionCharge(){
+        tsxCaisseCharge.setTypeTransaction("D");
+        tsxCaisseCharge.setCurrentuser(session.getUser());
+        tsxCaisseCharge.setDefPeriode(session.getCurrentPeriode());
+        serviceGsCommande.newTransactionCharge(tsxCaisseCharge);
+        tsxCaisse = new TransactionCaisse();
+        return "lstTransactionCharge";
+    }
+
+    public List<TransactionCharge> getlstTransactionCharge(){
+        return serviceGsCommande.lstCharges(session.getUser().getCooperative(), session.getCurrentPeriode());
+    }
+
 
     /**
      * @return the tsxCiasse
@@ -111,11 +130,17 @@ private gestionSoldeDepart gsSoldeDepart;
         this.lstTsxCaisse = lstTsxCaisse;
     }
 
+    /**
+     * @return the tsxCaisseCharge
+     */
+    public TransactionCharge getTsxCaisseCharge() {
+        return tsxCaisseCharge;
+    }
 
-
-
-
-   
-
-
+    /**
+     * @param tsxCaisseCharge the tsxCaisseCharge to set
+     */
+    public void setTsxCaisseCharge(TransactionCharge tsxCaisseCharge) {
+        this.tsxCaisseCharge = tsxCaisseCharge;
+    }
 }

@@ -1,9 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../templateResultat.xhtml">
+                template="./../templateResultat.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="content">
-        content
+         <rich:panel>
+             <h:outputText value="#{msg.lib_menuResultat}" styleClass="titrePanel"/>
+             <rich:separator/>
+             <rich:spacer height="10"/>
+            <h:panelGrid columns="2">
+                <h:outputText value="#{msg.lib_totalEntree}" styleClass="titreLibelle"/>
+                <h:outputText value="#{gsResultat.totalEntree}" styleClass="titreLibelle"/>
+                <h:outputText value="#{msg.lib_totalSortis}" styleClass="titreLibelle"/>
+                <h:outputText value="#{gsResultat.totalSortis}" styleClass="titreLibelle"/>
+                <h:outputText value="#{msg.lib_totalCharge}" styleClass="titreLibelle"/>
+                <h:outputText value="#{gsResultat.totalCharge}" styleClass="titreLibelle"/>
+            </h:panelGrid>
+             <rich:separator height="1"/>
+                <h:outputText value="#{msg.lib_balance}"/>
+                <h:outputText value="#{gsResultat.totalEntree - gsResultat.totalSortis - gsResultat.totalCharge}"/>
+        </rich:panel>
     </ui:define>
 
 </ui:composition>
