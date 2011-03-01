@@ -28,12 +28,7 @@
             </url>
             <layout>default</layout>
         </repository>
-       <repository>
- <id>prime-repo</id>
- <name>Prime Technology Maven Repository</name>
- <url>http://repository.prime.com.tr/</url>
- <layout>default</layout>
-</repository>
+       
  
         <repository>
             <id>java.net2</id>
@@ -49,16 +44,7 @@
 
     </repositories>
     <dependencies>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>2.2.RC2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2.1</version>
-        </dependency>
+      
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
