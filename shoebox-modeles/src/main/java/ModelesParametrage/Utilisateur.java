@@ -53,6 +53,7 @@ public class Utilisateur implements Serializable {
     private String username;
     private String password;
     private String fonction;
+    private String langue;
     private boolean etat;
     @ManyToOne
     private Cooperative cooperative;
@@ -60,8 +61,6 @@ public class Utilisateur implements Serializable {
     private List<Commande> lstCommande = new LinkedList<Commande>();
     @OneToMany(mappedBy="currentuser")
     private List<Compte> lstCompte = new LinkedList<Compte>();
-    @OneToMany(mappedBy="currentuser")
-    private List<Entite> lstEntite = new LinkedList<Entite>();
     @OneToMany(mappedBy="currentuser")
     private List<Magasin> lstMagasin = new LinkedList<Magasin>();
     @OneToMany(mappedBy="currentuser")
@@ -72,7 +71,7 @@ public class Utilisateur implements Serializable {
     private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
     @OneToMany(mappedBy="currentuser")
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany
     private List<Permission> lstPermission = new LinkedList<Permission>();
     public Long getId() {
         return id;
@@ -185,20 +184,7 @@ public class Utilisateur implements Serializable {
         this.lstCompte = lstCompte;
     }
 
-    /**
-     * @return the lstEntite
-     */
-    public List<Entite> getLstEntite() {
-        return lstEntite;
-    }
-
-    /**
-     * @param lstEntite the lstEntite to set
-     */
-    public void setLstEntite(List<Entite> lstEntite) {
-        this.lstEntite = lstEntite;
-    }
-
+   
     /**
      * @return the lstMagasin
      */
@@ -280,13 +266,6 @@ public class Utilisateur implements Serializable {
     }
 
     /**
-     * @param lstPermission the lstPermission to set
-     */
-    public void setLstPermission(List<Permission> lstPermission) {
-        this.setLstPermission(lstPermission);
-    }
-
-    /**
      * @return the cooperative
      */
     public Cooperative getCooperative() {
@@ -312,6 +291,27 @@ public class Utilisateur implements Serializable {
      */
     public void setFonction(String fonction) {
         this.fonction = fonction;
+    }
+
+    /**
+     * @param lstPermission the lstPermission to set
+     */
+    public void setLstPermission(List<Permission> lstPermission) {
+        this.lstPermission = lstPermission;
+    }
+
+    /**
+     * @return the langue
+     */
+    public String getLangue() {
+        return langue;
+    }
+
+    /**
+     * @param langue the langue to set
+     */
+    public void setLangue(String langue) {
+        this.langue = langue;
     }
    
 

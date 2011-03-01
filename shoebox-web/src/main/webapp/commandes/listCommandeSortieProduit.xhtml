@@ -118,9 +118,9 @@
                         <f:facet name="header">
                             <h:outputText value="--" />
                         </f:facet>
-                        <h:commandButton id="update" image="/icons/pencil.png"/>
+                        <h:commandButton id="update" image="/icons/pencil.png"  disabled="#{item.confirmation.equals(true)}"/>
                         <rich:spacer width="5"/>
-                        <h:commandButton id="delete"  image="/icons/remove.png"/>
+                        <h:commandButton id="delete"  image="/icons/remove.png" disabled="#{item.confirmation.equals(true)}"/>
                         <rich:toolTip for="update" value="#{msg.lib_update}"/>
                         <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
                     </rich:column>

@@ -109,6 +109,10 @@ public class GestionParametrageSoco implements Serializable {
         serviceSoco.newUtilisateur(utilisateur);
         return "lstUtilisateurs";
     }
+    public String updateUtilisateur(){
+        serviceSoco.updateUtilisateur(utilisateur);
+        return "lstUtilisateurs";
+    }
 
   public List<SelectItem> getListitemPermission() {
         return serviceSoco.lstItemPermission();
@@ -117,7 +121,7 @@ public class GestionParametrageSoco implements Serializable {
      * @return the lstParamtransaction
      */
     public List<ParamTransaction> getLstParamtransaction() {
-        return serviceSoco.lstParamTransaction(session.getCurrentCoop());
+        return serviceSoco.lstParamTransaction();
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {

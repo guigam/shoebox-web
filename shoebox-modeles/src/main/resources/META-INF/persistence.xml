@@ -31,4 +31,36 @@
       <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
+    <persistence-unit name="gestion_histo" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>ModelesParametrage.DefinitionPeriode</class>
+    <class>ModelesParametrage.ParamTransaction</class>
+    <class>ModelesParametrage.Permission</class>
+    <class>ModelesParametrage.Utilisateur</class>
+    <class>ModelesParametrage.formatageEntier</class>
+    <class>ModelesShoebox.CategorieCharge</class>
+    <class>ModelesShoebox.CharteCompte</class>
+    <class>ModelesShoebox.Client</class>
+    <class>ModelesShoebox.Commande</class>
+    <class>ModelesShoebox.Compte</class>
+    <class>ModelesShoebox.Cooperative</class>
+    <class>ModelesShoebox.Entite</class>
+    <class>ModelesShoebox.FournisseurIntrant</class>
+    <class>ModelesShoebox.FournisseurProduit</class>
+    <class>ModelesShoebox.Magasin</class>
+    <class>ModelesShoebox.Produit</class>
+    <class>ModelesShoebox.SoldeDepart</class>
+    <class>ModelesShoebox.TransactionCaisse</class>
+    <class>ModelesShoebox.TransactionCharge</class>
+    <class>ModelesShoebox.TransactionMagasin</class>
+    <properties>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.password" value=""/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/shoebox_histo"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+
 </persistence>

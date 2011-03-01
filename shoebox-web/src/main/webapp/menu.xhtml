@@ -8,7 +8,9 @@ and open the template in the editor.
       xmlns:rich="http://richfaces.org/rich"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=MacRoman"/>
         <title>TODO supply a title</title>
@@ -20,28 +22,45 @@ and open the template in the editor.
 
             </div>
             <div id="content">
-                <table border="0" width="100%">
-                    <tr style="height: 80px">
-                        <td>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%"></td>
-                        <ui:repeat value="#{gsLogin.lstpermission}" var="p" >
-                            <td>
-                                <center><h:graphicImage value="#{p.emplacement}"  width="120px" height="120px"/><br/>
-                                
-                                <h:outputText value="#{p.name}"/>
-                                </center>
-                            </td>
 
-                        </ui:repeat>
+                <rich:dataTable cellpadding="" cellspacing="" border="1"
+                                var="list" value="" id="table"
+                                style="text-align:center;" rows="5" width="100%">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column colspan="5">
+                                <h:outputText
+                                    value="Les éléments de paie:" />
+                            </rich:column>
+                            <a4j:repeat value="#{gsParamSoco.lstParamtransaction}" var="aa">
+                            <rich:column >
+                            <f:facet name="header">
+                                <h:outputText  value="#{aa.abrev}" />
+                            </f:facet>
+                            </rich:column>
+                            </a4j:repeat>
+                           
 
-                        <td style="width:20%"></td>
-                    </tr>
+                        </rich:columnGroup>
+                    </f:facet>
+                    <rich:column>
 
-                </table>
+                        <h:outputText styleClass="headerText" value="Gains" />
+
+                    </rich:column>
+                    <rich:column>
+
+                        <h:outputText styleClass="headerText" value="Gains" />
+
+                    </rich:column>
+                    <rich:column filterEvent="onkeyup" >
+                        <h:outputText value="" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="" />
+                    </rich:column>
+                </rich:dataTable>
 
             </div>
             <div id="bottom"></div>

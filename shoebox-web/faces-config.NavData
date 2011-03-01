@@ -15,16 +15,16 @@
         <Node id="parametrageCoop/addClient.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="templateCaisse.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="templateUtilisateur.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="resultat/menuResultat.xhtml" x="1650" y="600" zoom="true"/>
         <Node id="commandes/menuMagasin.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="resultat/menuResultat.xhtml" x="1650" y="600" zoom="true"/>
         <Node id="commandes/listCommandeSortieProduitIntrant.xhtml" x="2400" y="300" zoom="true"/>
         <Node id="parametrageCoop/listFournisseurProduit.xhtml" x="400" y="300" zoom="true"/>
         <Node id="caisse/listVenteProduitIntrant.xhtml" x="1900" y="600" zoom="true"/>
         <Node id="parametrageCoop/listCompteEncaisse.xhtml" x="400" y="1350" zoom="true"/>
         <Node id="parametrageSoco/listutilisateurs.xhtml" x="400" y="1500" zoom="true"/>
         <Node id="parametrageSoco/listDefinitioPeriode.xhtml" x="150" y="1350" zoom="true"/>
-        <Node id="caisse/addTransactionSDCaisse.xhtml" x="400" y="1200" zoom="true"/>
         <Node id="parametrageCoop/addFournisseurIntrant.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="caisse/addTransactionSDCaisse.xhtml" x="400" y="1200" zoom="true"/>
         <Node id="templateResultat.xhtml" x="2150" y="300" zoom="true"/>
         <Node id="parametrageCoop/listMagasin.xhtml" x="650" y="900" zoom="true"/>
         <Node id="resultat/etatCooperative.xhtml" x="2400" y="150" zoom="true"/>
@@ -38,26 +38,28 @@
         <Node id="commandes/listCommandeEntreeProduit.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="commandes/addCommandeEntreeproduit.xhtml" x="2150" y="150" zoom="true"/>
         <Node id="commandes/listCommandeEntreeIntrant.xhtml" x="1400" y="450" zoom="true"/>
-        <Node id="templateMagasin.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="index.jsp" x="150" y="300" zoom="true"/>
+        <Node id="templateMagasin.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="resultat/etatClient.xhtml" x="1400" y="750" zoom="true"/>
         <Node id="caisse/detteFI.xhtml" x="400" y="450" zoom="true"/>
         <Node id="parametrageSoco/addUtilisateur.xhtml" x="650" y="1350" zoom="true"/>
         <Node id="parametrageCoop/listProduit.xhtml" x="650" y="600" zoom="true"/>
         <Node id="parametrageSoco/formatge.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="parametrageSoco/updateUtilisateur.xhtml" x="2900" y="150" zoom="true"/>
         <Node id="parametrageSoco/addCooperative.xhtml" x="1900" y="450" zoom="true"/>
-        <Node id="resultat/compteRecevoir.xhtml" x="900" y="1200" zoom="true"/>
         <Node id="parametrageCoop/menuParam.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="resultat/compteRecevoir.xhtml" x="900" y="1200" zoom="true"/>
         <Node id="parametrageCoop/addMagasin.xhtml" x="400" y="1050" zoom="true"/>
         <Node id="commandes/addCommandeSortisProduit.xhtml" x="900" y="750" zoom="true"/>
         <Node id="resultat/etatFI.xhtml" x="900" y="1050" zoom="true"/>
         <Node id="caisse/detteClient.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="parametrageCoop/listClient.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="caisse/menuCaisse.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="parametrageCoop/listClient.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="parametrageSoco/updateutilisateur.xhtml" x="150" y="1650" zoom="true"/>
         <Node id="parametrageCoop/addProduit.xhtml" x="900" y="450" zoom="true"/>
         <Node id="caisse/listAchatProduitIntrant.xhtml" x="2150" y="450" zoom="true"/>
-        <Node id="caisse/listAchatProduit.xhtml" x="650" y="1050" zoom="true"/>
         <Node id="templateParametrage.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="caisse/listAchatProduit.xhtml" x="650" y="1050" zoom="true"/>
         <Node id="login.xhtml" x="400" y="150" zoom="true"/>
         <Node id="parametrageCoop/addFournisseurProduit.xhtml" x="150" y="450" zoom="true"/>
         <Node id="parametrageCoop/listProduitIntrant.xhtml" x="150" y="900" zoom="true"/>

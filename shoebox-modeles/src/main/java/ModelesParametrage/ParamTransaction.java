@@ -6,7 +6,6 @@
 package ModelesParametrage;
 
 import ModelesShoebox.CharteCompte;
-import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

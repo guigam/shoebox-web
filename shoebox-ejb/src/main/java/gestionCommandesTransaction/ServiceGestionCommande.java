@@ -8,7 +8,6 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
-import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
 import java.util.List;
@@ -30,6 +29,7 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     private ServiceParamSocoLocal serviceParamSoco;
  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
+
 
     
      private void persist(Object objet) {
@@ -54,11 +54,10 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
 
-
     @Override
     public void newCommnde(Commande commande) {
         persist(commande);
-    }
+       }
 
     @Override
     public List<Commande> lstCommande(Cooperative coop, DefinitionPeriode periode) {

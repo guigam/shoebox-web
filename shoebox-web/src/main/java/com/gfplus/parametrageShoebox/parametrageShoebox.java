@@ -129,6 +129,8 @@ public class parametrageShoebox {
         soldeDepart.setCurrentuser(session.getUser());
         soldeDepart.setCoop(session.getCurrentCoop());
         fournisseurproduit.setSoldeDepart(soldeDepart);
+        fournisseurproduit.setCoop(session.getCurrentCoop());
+        fournisseurproduit.setCurrentuser(session.getUser());
         parametrageCoop.newFP(fournisseurproduit);
         return "lstFP";
     }
@@ -141,7 +143,9 @@ public class parametrageShoebox {
         soldeDepart.setDefPeriode(session.getCurrentPeriode());
         soldeDepart.setEntite(fournisseurIntrant);
         soldeDepart.setCurrentuser(session.getUser());
+        soldeDepart.setCoop(session.getCurrentCoop());
         fournisseurIntrant.setSoldeDepart(soldeDepart);
+        fournisseurIntrant.setCurrentuser(session.getUser());
         fournisseurIntrant.setCoop(session.getCurrentCoop());
         parametrageCoop.newFI(fournisseurIntrant);
         return "lstFI";
@@ -154,9 +158,11 @@ public class parametrageShoebox {
         }
         soldeDepart.setDefPeriode(session.getCurrentPeriode());
         soldeDepart.setEntite(client);
+        soldeDepart.setCoop(session.getCurrentCoop());
         soldeDepart.setCurrentuser(session.getUser());
         client.setSoldeDepart(soldeDepart);
         client.setCoop(session.getCurrentCoop());
+        client.setCurrentuser(session.getUser());
         parametrageCoop.newClient(client);
         return "lstClient";
     }

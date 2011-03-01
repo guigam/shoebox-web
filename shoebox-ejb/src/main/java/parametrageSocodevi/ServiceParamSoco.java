@@ -57,18 +57,16 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public ParamTransaction rechercheParamCharteCompte(String typetransction,Cooperative coop) {
-        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 and  p.cooperative = ?2 ");
+    public ParamTransaction rechercheParamCharteCompte(String typetransction) {
+        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 ");
         query.setParameter(1, typetransction);
-         query.setParameter(2, coop);
         return  (ParamTransaction) query.getSingleResult();
     }
 
 
     @Override
-    public List<ParamTransaction> lstParamTransaction(Cooperative coop) {
-       Query query = em.createQuery("from ParamTransaction p where p.cooperative = ?1 ");
-        query.setParameter(1, coop);
+    public List<ParamTransaction> lstParamTransaction() {
+       Query query = em.createQuery("from ParamTransaction p ");
        return query.getResultList();
     }
 
@@ -138,6 +136,11 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
             lstPermission.add(new SelectItem(c, c.getName()));
         }
         return lstPermission;
+    }
+
+    @Override
+    public void updateUtilisateur(Utilisateur utilisateur) {
+        merge(utilisateur);
     }
 
 

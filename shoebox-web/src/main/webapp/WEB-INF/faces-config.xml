@@ -175,6 +175,13 @@
         </navigation-case>
         <redirect/>
     </navigation-rule>
+   <navigation-rule>
+        <navigation-case>
+            <from-outcome>updateUtilisateur</from-outcome>
+            <to-view-id>/parametrageSoco/updateutilisateur.xhtml</to-view-id>
+        </navigation-case>
+        <redirect/>
+    </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>lstCommandeSortieproduit</from-outcome>

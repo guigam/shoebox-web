@@ -2,18 +2,19 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../templateParamSoco.xhtml"
-                xmlns:rich="http://richfaces.org/rich"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core">
 
 
+
     <ui:define name="content">
-        <h:form>
+         <h:form>
             <rich:panel>
-                <h:outputText value="#{msg.lib_addUtilisateur}" styleClass="titrePanel" />
+                <h:outputText value="#{msg.lib_updateUtilisateur}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <h:panelGrid columns="2" styleClass="top,top">
+                 <h:panelGrid columns="2" styleClass="top,top">
                     <h:panelGrid columns="2">
                         <h:outputText value="#{msg.lib_username}"/>
                         <h:inputText value="#{gsParamSoco.utilisateur.username}"/>
@@ -32,9 +33,9 @@
                         <f:selectItems value="#{gsParamSoco.listitemPermission}"/>
                     </rich:pickList>
                 </h:panelGrid>
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.newUtilisateur}"/>
+                <h:commandButton value="#{msg.btn_modifier}" action="#{gsParamSoco.updateUtilisateur}"/>
             </rich:panel>
-        </h:form>
+         </h:form>
     </ui:define>
 
 

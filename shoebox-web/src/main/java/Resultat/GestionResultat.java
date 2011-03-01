@@ -99,7 +99,7 @@ public class GestionResultat implements Serializable {
             rapportCompte rpCompte = new rapportCompte();
             rpCompte.setDate(comm.getDateCommande());
             rpCompte.setReference(comm.getReference());
-            rpCompte.setDescription("Entree Produit");
+            rpCompte.setDescription("Sortis Produit");
             rpCompte.setEntite(comm.getM_entite());
             rpCompte.setMontantPaye(comm.getmontantPaye());
             rpCompte.setMontantTotal(comm.getmontantTotal());

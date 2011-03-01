@@ -49,8 +49,8 @@ public class GestionCaisse implements Serializable {
     }
 
     public void newtransactionCommande() {
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getCharteCompte());
-        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(),session.getCurrentCoop())).getType());
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
+        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
         tsxCaisse.setCoop(session.getCurrentCoop());
         tsxCaisse.setDefPeriode(session.getCurrentPeriode());
@@ -61,8 +61,8 @@ public class GestionCaisse implements Serializable {
     }
 
     public void newtransactionSD() {
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop())).getCharteCompte());
-        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop()).getType());
+        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
+        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
         tsxCaisse.setCoop(session.getCurrentCoop());
         tsxCaisse.setDefPeriode(session.getCurrentPeriode());

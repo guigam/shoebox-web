@@ -24,13 +24,13 @@ public interface ServiceParamSocoLocal {
 
     public List<Permission> lstPermission();
 
-   public ParamTransaction rechercheParamCharteCompte(String typetransction, Cooperative coop);
+   public ParamTransaction rechercheParamCharteCompte(String typetransction);
 
    public void mergeParamCharteCompteOfortransaction(ParamTransaction paramTsx);
 
    public void mergeDefPeriode(DefinitionPeriode def);
 
-   public List<ParamTransaction> lstParamTransaction(Cooperative coop);
+   public List<ParamTransaction> lstParamTransaction();
 
    public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop);
 
@@ -45,6 +45,8 @@ public interface ServiceParamSocoLocal {
    public List<Utilisateur> lstUtilisteur(Cooperative coop);
 
    public void newUtilisateur(Utilisateur utilisateur);
+
+   public void updateUtilisateur(Utilisateur utilisateur);
 
    public List<SelectItem> lstItemPermission();
 
