@@ -54,7 +54,7 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
     @Override
     public List<TransactionCaisse> lstTsxCaisseFP(Cooperative coop, FournisseurProduit FP, DefinitionPeriode periode) {
        List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
-        Query query = em.createQuery( "from Commande t where t.m_entite = ?1 and t.coop = ?2 and t.defPeriode = ?2");
+        Query query = em.createQuery( "from Commande t where t.m_entite = ?1 and t.coop = ?2 and t.defPeriode = ?3");
         query.setParameter(1, FP);
         query.setParameter(2, coop);
         query.setParameter(3, periode);
