@@ -36,4 +36,6 @@ public interface serviceResultatLocal {
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);
 
 
+    public List<Object[]> listResultatCharge();
+
 }

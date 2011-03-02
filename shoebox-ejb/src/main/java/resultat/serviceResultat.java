@@ -117,6 +117,13 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
         return lstTsxCaisse;
     }
 
+    @Override
+    public List<Object[]> listResultatCharge() {
+       Query query = em.createQuery("select t.charteCompte.nom, t.defPeriode.periode, sum(t.montant) from  TransactionCaisse t "
+                      + " group by t.charteCompte.nom, t.defPeriode.periode");
+        return (List<Object[]>) query.getResultList();
+    }
+
     
     
     // Add business logic below. (Right-click in editor and choose

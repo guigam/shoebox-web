@@ -152,6 +152,18 @@ public class GestionResultat implements Serializable {
         }
     }
 
+    public List<resultatCharge> getlstResultatCharge(){
+        List<resultatCharge> rsCharge = new LinkedList<resultatCharge>();
+        for(Object[] o : resultat.listResultatCharge()){
+            resultatCharge rc = new resultatCharge();
+            rc.setNomCharteCompte((String) o[0]);
+            rc.setPeriode((String) o[1]);
+            rc.setResultat((Long) o[2]);
+            rsCharge.add(rc);
+        }
+        return rsCharge;
+    }
+
     public float gettotalEntree() {
         float tot = 0;
         for (Commande com : gsCommande.getLstCommandeSortisProduit()) {
