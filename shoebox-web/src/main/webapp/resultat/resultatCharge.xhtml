@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateResultat.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+    <ui:define name="content">
+        <table border="1" width="100%" class="tableResultatCharge">
+            <tr class="celluleTabPrincipale">
+                <td width="5%"></td>
+                <td width="30%"></td>
+                <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                    <td width="5%"><h:outputText value="#{periode.periode}"/></td>
+                </ui:repeat>
+            </tr>
+
+            <ui:repeat value="#{gsResultat.lstResultatCharge}" var="rs" >
+                <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
+                    <td><h:outputText value="#{rs.refereaffichage}"/></td>
+                    <td><h:outputText value="#{rs.activite}"/></td>
+                    <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                        <td><h:outputText value="#{gsResultat.ResultatCharge(periode.periode, rs.reference)}">
+                                <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
+                            </h:outputText></td>
+                    </ui:repeat>
+
+                </tr>
+            </ui:repeat>
+        </table>
+
+        ////////////////////////////////////
+
+        <rich:dataTable cellpadding="" cellspacing="" border="1"
+                        var="list" value="" id="table"
+                        style="text-align:center;" rows="5" width="100%">
+            <f:facet name="header">
+                      <rich:column >
+                             <h:outputText value="reference"/>
+                    </rich:column>
+                       <rich:column >
+                             <h:outputText value="Activite"/>
+                    </rich:column>
+                    <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                    <rich:column >
+                        <h:outputText value="#{periode.periode}"/>
+
+                    </rich:column>
+                    </ui:repeat>
+
+            </f:facet>
+        </rich:dataTable>
+      
+
+
+
+
+    </ui:define>
+</ui:composition>

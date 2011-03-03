@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParametrage.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+
+    <ui:define name="content">
+        <h:form>
+        <h:outputText value="#{msg.lib_config}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <h:outputText value="#{parametrageShoebox.magasin.name}"/>
+                <a4j:commandLink value="ajouter!!!!!" action="#{parametrageShoebox.addConfigMag}" reRender="tab" />
+                <rich:dataTable value="#{parametrageShoebox.lstconfigMag}" var="mag" id="tab">
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_produit}"/>
+                        </f:facet>
+                        <rich:comboBox value="#{mag.tsxMag.produit}" converter="converterProduit">
+                            <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
+                        </rich:comboBox>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_grade}"/>
+                        </f:facet>
+                        <h:inputText value="#{mag.tsxMag.grade}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_quantite}"/>
+                        </f:facet>
+                        <h:inputText value="#{mag.tsxMag.quantite}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montant}"/>
+                        </f:facet>
+                        <h:inputText value="#{mag.tsxCaisse.montant}"/>
+                    </rich:column>
+                </rich:dataTable>
+                </h:form>
+    </ui:define>
+
+</ui:composition>
