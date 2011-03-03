@@ -7,11 +7,15 @@ package ModelesShoebox;
 
 import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -44,6 +48,8 @@ public class Magasin implements Serializable {
     private Utilisateur currentuser;
 @ManyToOne
 private Cooperative coop;
+@OneToOne
+private Commande commande;
     public Magasin() {
     }
 
@@ -149,5 +155,21 @@ private Cooperative coop;
     public void setCoop(Cooperative coop) {
         this.coop = coop;
     }
+
+    /**
+     * @return the commande
+     */
+    public Commande getCommande() {
+        return commande;
+    }
+
+    /**
+     * @param commande the commande to set
+     */
+    public void setCommande(Commande commande) {
+        this.commande = commande;
+    }
+
+
 
 }

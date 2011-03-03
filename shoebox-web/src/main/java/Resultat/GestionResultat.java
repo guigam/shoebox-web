@@ -5,6 +5,8 @@
 package Resultat;
 
 import Login.login;
+import ModelesParametrage.StructureCharge;
+import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
 import ModelesShoebox.FournisseurIntrant;
@@ -16,6 +18,7 @@ import ModelesShoebox.TransactionMagasin;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -152,17 +155,22 @@ public class GestionResultat implements Serializable {
         }
     }
 
-    public List<resultatCharge> getlstResultatCharge(){
-        List<resultatCharge> rsCharge = new LinkedList<resultatCharge>();
-        for(Object[] o : resultat.listResultatCharge()){
-            resultatCharge rc = new resultatCharge();
-            rc.setNomCharteCompte((String) o[0]);
-            rc.setPeriode((String) o[1]);
-            rc.setResultat((Long) o[2]);
-            rsCharge.add(rc);
+    public Long ResultatCharge(String periode, String charteCompte){
+        if(resultat.listResultatCharge(periode, charteCompte) != null){
+        return resultat.listResultatCharge(periode, charteCompte);
         }
-        return rsCharge;
+        return  null;
     }
+
+    public List<StructureCharge> getlstResultatCharge(){
+        return resultat.lsttructureCharge();
+    }
+
+    public boolean verifTypeChargeAaffichier(StructureCharge sc){
+        if(sc.getReference()!= "ppp" && sc.getRefereaffichage().equals(null));
+            return false;
+    }
+  
 
     public float gettotalEntree() {
         float tot = 0;

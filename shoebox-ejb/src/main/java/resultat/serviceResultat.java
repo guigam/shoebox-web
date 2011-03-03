@@ -6,6 +6,8 @@
 package resultat;
 
 import ModelesParametrage.DefinitionPeriode;
+import ModelesParametrage.StructureCharge;
+import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
@@ -13,6 +15,7 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -118,11 +121,31 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
     }
 
     @Override
-    public List<Object[]> listResultatCharge() {
-       Query query = em.createQuery("select t.charteCompte.nom, t.defPeriode.periode, sum(t.montant) from  TransactionCaisse t "
-                      + " group by t.charteCompte.nom, t.defPeriode.periode");
-        return (List<Object[]>) query.getResultList();
+    public Long listResultatCharge(String periode, String charteCompte) {
+       Query query = em.createQuery("select  sum(t.montant) from  TransactionCaisse t "
+               + "where t.defPeriode.periode = ?1 and t.charteCompte.reference = ?2"
+                      + " group by t.charteCompte.reference, t.defPeriode.periode");
+       query.setParameter(1, periode);
+       query.setParameter(2, charteCompte);
+       if(query.getResultList().isEmpty() ){
+        return null;
+       }
+        return (Long) query.getResultList().get(0);
     }
+
+    @Override
+    public List<CharteCompte> lstCharteCompte(String type) {
+          Query query = em.createQuery("from CharteCompte c where c. type = ?1 ");
+       query.setParameter(1, type);
+       return query.getResultList();
+    }
+
+    @Override
+    public List<StructureCharge> lsttructureCharge() {
+       Query query = em.createQuery("from StructureCharge s");
+       return query.getResultList();
+    }
+
 
     
     

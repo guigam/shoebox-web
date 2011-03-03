@@ -75,7 +75,6 @@ public class GestionParametrageSoco implements Serializable {
         }
     }
     private void newDefinitionPeriode(DefinitionPeriode def){
-        def.setCooperative(session.getCurrentCoop());
         serviceSoco.mergeDefPeriode(def);
     }
 
@@ -90,7 +89,6 @@ public class GestionParametrageSoco implements Serializable {
         DefinitionPeriode def = new DefinitionPeriode();
         def = (DefinitionPeriode) dataTable.getRowData();
         def.setPeriode((String) event.getNewValue());
-        def.setCooperative(session.getCurrentCoop());
         newDefinitionPeriode(def);
     }
     
@@ -126,7 +124,7 @@ public class GestionParametrageSoco implements Serializable {
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {
         
-        return serviceSoco.lstDefinitionPeriode(session.getCurrentCoop());
+        return serviceSoco.lstDefinitionPeriode();
     }
 
     /**

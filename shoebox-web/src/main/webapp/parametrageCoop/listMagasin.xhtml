@@ -20,7 +20,7 @@
                 </div>
                 <rich:spacer height="10"/>
 
-                <rich:dataTable width="100%" value="#{parametrageShoebox.lstMagasin}" var="item">
+                <rich:dataTable width="100%" value="#{parametrageShoebox.lstMagasin }" var="item" id="tab">
                     <rich:column width="30%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_nonMagasin}" />
@@ -43,11 +43,10 @@
                         <f:facet name="header">
                             <h:outputText value="--" />
                         </f:facet>
-                          <h:commandButton id="update" image="/icons/pencil.png"/>
-                          <rich:spacer width="5"/>
-                          <h:commandButton id="delete"  image="/icons/remove.png"/>
-                          <rich:toolTip for="update" value="#{msg.lib_update}"/>
-                          <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
+                          <center><h:commandButton id="config" image="/icons/config.png" action="configurationMagasin.xhtml">
+                                  <f:setPropertyActionListener target="#{parametrageShoebox.magasin}" value="#{item}"/>
+                              </h:commandButton>
+                          <rich:toolTip for="config" value="#{msg.lib_update}"/></center> 
                     </rich:column>
 
                 </rich:dataTable>

@@ -13,11 +13,15 @@ import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.SoldeDepart;
+import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionMagasin;
+import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import parametrageCoop.serviceParamCoopLocal;
@@ -27,8 +31,8 @@ import parametrageCoop.serviceParamCoopLocal;
  * @author guigam
  */
 @Named(value = "parametrageShoebox")
-@RequestScoped
-public class parametrageShoebox {
+@SessionScoped
+public class parametrageShoebox implements Serializable{
 
     private FournisseurProduit fournisseurproduit = new FournisseurProduit();
     private FournisseurIntrant fournisseurIntrant = new FournisseurIntrant();
@@ -37,7 +41,8 @@ public class parametrageShoebox {
     private CharteCompte charteCompte = new CharteCompte();
     private Magasin magasin = new Magasin();
     private SoldeDepart soldeDepart = new SoldeDepart();
-
+    private List<ConfigMag> lstconfigMag = new LinkedList<ConfigMag>();
+    private ConfigMag configmag = new ConfigMag();
     @EJB
     private serviceParamCoopLocal parametrageCoop;
  @Inject
@@ -116,54 +121,60 @@ public class parametrageShoebox {
     public List<CharteCompte> getlstCharteCompte() {
         return parametrageCoop.lstcharteCompte();
     }
+    public void addConfigMag(){
+       this.lstconfigMag.add(new ConfigMag());
+    }
 
     public String newFournisseurProduit() {
 
-        if(soldeDepart.getMontant() > 0){
-            soldeDepart.setTypeSolde("rmbFP");
+        if(getSoldeDepart().getMontant() > 0){
+            getSoldeDepart().setTypeSolde("rmbFP");
         }else{
-            soldeDepart.setTypeSolde("detteFP");
+            getSoldeDepart().setTypeSolde("detteFP");
         }
-        soldeDepart.setDefPeriode(session.getCurrentPeriode());
-        soldeDepart.setEntite(fournisseurproduit);
-        soldeDepart.setCurrentuser(session.getUser());
-        soldeDepart.setCoop(session.getCurrentCoop());
-        fournisseurproduit.setSoldeDepart(soldeDepart);
+        getSoldeDepart().setDefPeriode(session.getCurrentPeriode());
+        getSoldeDepart().setEntite(fournisseurproduit);
+        getSoldeDepart().setCurrentuser(session.getUser());
+        getSoldeDepart().setCoop(session.getCurrentCoop());
+        fournisseurproduit.setSoldeDepart(getSoldeDepart());
         fournisseurproduit.setCoop(session.getCurrentCoop());
         fournisseurproduit.setCurrentuser(session.getUser());
         parametrageCoop.newFP(fournisseurproduit);
+        fournisseurproduit = new FournisseurProduit();
         return "lstFP";
     }
 
     public String newFournisseurIntrant() {
-        if(soldeDepart.getMontant() < 0){
-            soldeDepart.setTypeSolde("rmbFI");
-        }else{soldeDepart.setTypeSolde("detteFI");
+        if(getSoldeDepart().getMontant() < 0){
+            getSoldeDepart().setTypeSolde("rmbFI");
+        }else{getSoldeDepart().setTypeSolde("detteFI");
         }
-        soldeDepart.setDefPeriode(session.getCurrentPeriode());
-        soldeDepart.setEntite(fournisseurIntrant);
-        soldeDepart.setCurrentuser(session.getUser());
-        soldeDepart.setCoop(session.getCurrentCoop());
-        fournisseurIntrant.setSoldeDepart(soldeDepart);
+        getSoldeDepart().setDefPeriode(session.getCurrentPeriode());
+        getSoldeDepart().setEntite(fournisseurIntrant);
+        getSoldeDepart().setCurrentuser(session.getUser());
+        getSoldeDepart().setCoop(session.getCurrentCoop());
+        fournisseurIntrant.setSoldeDepart(getSoldeDepart());
         fournisseurIntrant.setCurrentuser(session.getUser());
         fournisseurIntrant.setCoop(session.getCurrentCoop());
         parametrageCoop.newFI(fournisseurIntrant);
+        fournisseurIntrant = new FournisseurIntrant();
         return "lstFI";
     }
 
     public String newClient() {
-        if(soldeDepart.getMontant() < 0){
-            soldeDepart.setTypeSolde("rmbClient");
-        }else{soldeDepart.setTypeSolde("detteClient");
+        if(getSoldeDepart().getMontant() < 0){
+            getSoldeDepart().setTypeSolde("rmbClient");
+        }else{getSoldeDepart().setTypeSolde("detteClient");
         }
-        soldeDepart.setDefPeriode(session.getCurrentPeriode());
-        soldeDepart.setEntite(client);
-        soldeDepart.setCoop(session.getCurrentCoop());
-        soldeDepart.setCurrentuser(session.getUser());
-        client.setSoldeDepart(soldeDepart);
+        getSoldeDepart().setDefPeriode(session.getCurrentPeriode());
+        getSoldeDepart().setEntite(client);
+        getSoldeDepart().setCoop(session.getCurrentCoop());
+        getSoldeDepart().setCurrentuser(session.getUser());
+        client.setSoldeDepart(getSoldeDepart());
         client.setCoop(session.getCurrentCoop());
         client.setCurrentuser(session.getUser());
         parametrageCoop.newClient(client);
+        client = new Client();
         return "lstClient";
     }
 
@@ -171,6 +182,7 @@ public class parametrageShoebox {
         magasin.setCurrentuser(session.getUser());
         magasin.setCoop(session.getCurrentCoop());
         parametrageCoop.newMagasin(magasin);
+        magasin = new Magasin();
 
         return "lstMagasin";
     }
@@ -180,6 +192,7 @@ public class parametrageShoebox {
         produit.setCurrentuser(session.getUser());
         produit.setCoop(session.getCurrentCoop());
         parametrageCoop.newProduit(getProduit());
+        produit = new Produit();
         return "lstProduit";
     }
 
@@ -188,11 +201,13 @@ public class parametrageShoebox {
         produit.setCurrentuser(session.getUser());
         produit.setCoop(session.getCurrentCoop());
         parametrageCoop.newProduit(getProduit());
+        produit = new Produit();
         return "lstProduitIntrant";
     }
 
     public String newCharteCompte() {
         parametrageCoop.newCharteCompte(charteCompte);
+        charteCompte = new CharteCompte();
         return "lstCharteCompte";
     }
 
@@ -294,6 +309,42 @@ public class parametrageShoebox {
     public void setMagasin(Magasin magasin) {
         this.magasin = magasin;
     }
+
+    /**
+     * @return the lstconfigMag
+     */
+    public List<ConfigMag> getLstconfigMag() {
+
+        if(this.lstconfigMag.isEmpty()){
+            this.lstconfigMag.add(new ConfigMag());
+        }
+        return lstconfigMag;
+    }
+
+    /**
+     * @param lstconfigMag the lstconfigMag to set
+     */
+    public void setLstconfigMag(List<ConfigMag> lstconfigMag) {
+        this.lstconfigMag = lstconfigMag;
+    }
+
+    /**
+     * @return the configmag
+     */
+    public ConfigMag getConfigmag() {
+        return configmag;
+    }
+
+    /**
+     * @param configmag the configmag to set
+     */
+    public void setConfigmag(ConfigMag configmag) {
+        this.configmag = configmag;
+    }
+
+ 
+
+
 
  
 }

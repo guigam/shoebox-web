@@ -6,11 +6,14 @@
 package resultat;
 
 import ModelesParametrage.DefinitionPeriode;
+import ModelesParametrage.StructureCharge;
+import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.TransactionCaisse;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -36,6 +39,10 @@ public interface serviceResultatLocal {
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);
 
 
-    public List<Object[]> listResultatCharge();
+    public Long listResultatCharge(String periode, String charteCompte);
+
+    public List<CharteCompte> lstCharteCompte(String type);
+
+    public List<StructureCharge> lsttructureCharge();
 
 }
