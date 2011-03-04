@@ -70,11 +70,11 @@ CREATE TABLE `Commande` (
   KEY `FKDFF06E9A75047F3D` (`currentuser_id`),
   KEY `FKDFF06E9A12A1262D` (`m_entite_id`),
   KEY `FKDFF06E9A131A1E70` (`defPeriode_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `Commande` */
 
-insert  into `Commande`(`id`,`confirmation`,`dateCommande`,`reference`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_entite_id`) values (1,'\0','2011-02-23','werfds','EP',1,1,4,12),(2,'','2011-02-25','awsde','SP',1,1,4,13),(3,'\0','2011-02-27','ghjaj','EI',1,1,4,14),(4,'\0','2011-02-24','entreeproduit2','EP',1,1,4,15),(5,'','2011-02-26','sortisprod','SP',1,1,4,13);
+insert  into `Commande`(`id`,`confirmation`,`dateCommande`,`reference`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_entite_id`) values (1,'\0','2011-02-23','werfds','EP',1,1,4,12),(2,'','2011-02-25','awsde','SP',1,1,4,13),(3,'\0','2011-02-27','ghjaj','EI',1,1,4,14),(4,'\0','2011-02-24','entreeproduit2','EP',1,1,4,15),(5,'','2011-02-26','sortisprod','SP',1,1,4,13),(6,'',NULL,'magasin1','EMI',1,1,7,NULL),(7,'',NULL,'magasin2','EMI',1,1,7,NULL),(8,'\0','2011-03-25','WWWWW','SP',1,1,7,13);
 
 /*Table structure for table `Commande_TransactionCaisse` */
 
@@ -90,7 +90,7 @@ CREATE TABLE `Commande_TransactionCaisse` (
 
 /*Data for the table `Commande_TransactionCaisse` */
 
-insert  into `Commande_TransactionCaisse`(`Commande_id`,`lsttransactionCaisse_id`) values (2,1),(1,4),(5,5);
+insert  into `Commande_TransactionCaisse`(`Commande_id`,`lsttransactionCaisse_id`) values (2,1),(1,4),(5,5),(6,20),(6,11),(7,18),(7,13),(7,17),(6,10),(6,22),(7,23);
 
 /*Table structure for table `Compte` */
 
@@ -143,7 +143,7 @@ CREATE TABLE `DefinitionPeriode` (
 
 /*Data for the table `DefinitionPeriode` */
 
-insert  into `DefinitionPeriode`(`id`,`mois`,`numMois`,`periode`,`periodeActif`) values (1,'Janvier',1,'P1','\0'),(2,'Fevrier',2,'P2','\0'),(3,'Mars',3,'P3','\0'),(4,'Avril',4,'P4','\0'),(5,'Mai',0,'P5','\0'),(6,'Juin',0,'P6','\0'),(7,'Juillet',0,'P7',''),(8,'Aout',0,'P8','\0'),(9,'Septembre',0,'P9','\0'),(10,'Octobre',0,'P10','\0'),(11,'Novembre',0,'P11','\0'),(12,'Decembre',0,'P12','\0');
+insert  into `DefinitionPeriode`(`id`,`mois`,`numMois`,`periode`,`periodeActif`) values (1,'Janvier',1,'P1',''),(2,'Fevrier',2,'P2','\0'),(3,'Mars',3,'P3','\0'),(4,'Avril',4,'P4','\0'),(5,'Mai',0,'P5','\0'),(6,'Juin',0,'P6','\0'),(7,'Juillet',0,'P7','\0'),(8,'Aout',0,'P8','\0'),(9,'Septembre',0,'P9','\0'),(10,'Octobre',0,'P10','\0'),(11,'Novembre',0,'P11','\0'),(12,'Decembre',0,'P12','\0');
 
 /*Table structure for table `Entite` */
 
@@ -181,42 +181,16 @@ CREATE TABLE `Magasin` (
   `name` varchar(255) DEFAULT NULL,
   `currentuser_id` bigint(20) DEFAULT NULL,
   `coop_id` bigint(20) DEFAULT NULL,
+  `commande_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK949F308A75047F3D` (`currentuser_id`),
-  KEY `FK949F308AE1B9D193` (`coop_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  KEY `FK949F308AE1B9D193` (`coop_id`),
+  KEY `FK949F308A5E4B965F` (`commande_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `Magasin` */
 
-insert  into `Magasin`(`id`,`description`,`distance`,`name`,`currentuser_id`,`coop_id`) values (1,'',34890234,'mag1 ',1,1),(2,'',13322,'magasin2 ',1,1);
-
-/*Table structure for table `Magasin_TransactionCaisse` */
-
-DROP TABLE IF EXISTS `Magasin_TransactionCaisse`;
-
-CREATE TABLE `Magasin_TransactionCaisse` (
-  `Magasin_id` bigint(20) NOT NULL,
-  `lstTsxcaisseMagasin_id` bigint(20) NOT NULL,
-  UNIQUE KEY `lstTsxcaisseMagasin_id` (`lstTsxcaisseMagasin_id`),
-  KEY `FK73B2D24340927F29` (`lstTsxcaisseMagasin_id`),
-  KEY `FK73B2D2437604D9F5` (`Magasin_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-/*Data for the table `Magasin_TransactionCaisse` */
-
-/*Table structure for table `Magasin_TransactionMagasin` */
-
-DROP TABLE IF EXISTS `Magasin_TransactionMagasin`;
-
-CREATE TABLE `Magasin_TransactionMagasin` (
-  `Magasin_id` bigint(20) NOT NULL,
-  `lstTsxMagasinProduit_id` bigint(20) NOT NULL,
-  UNIQUE KEY `lstTsxMagasinProduit_id` (`lstTsxMagasinProduit_id`),
-  KEY `FK138169E17FE4C6C0` (`lstTsxMagasinProduit_id`),
-  KEY `FK138169E17604D9F5` (`Magasin_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-/*Data for the table `Magasin_TransactionMagasin` */
+insert  into `Magasin`(`id`,`description`,`distance`,`name`,`currentuser_id`,`coop_id`,`commande_id`) values (1,'',34890234,'mag1 ',1,1,6),(2,'',13322,'magasin2 ',1,1,7),(3,'qeqweqeqweqweqe',12333,'magasin3',1,1,NULL);
 
 /*Table structure for table `ParamTransaction` */
 
@@ -317,7 +291,7 @@ CREATE TABLE `SoldeDepart_TransactionCaisse` (
 
 /*Data for the table `SoldeDepart_TransactionCaisse` */
 
-insert  into `SoldeDepart_TransactionCaisse`(`SoldeDepart_id`,`lstTransactionSoldeDepart_id`) values (6,2),(7,3),(8,6);
+insert  into `SoldeDepart_TransactionCaisse`(`SoldeDepart_id`,`lstTransactionSoldeDepart_id`) values (6,2),(7,3),(8,6),(6,12);
 
 /*Table structure for table `StructureCharge` */
 
@@ -360,11 +334,11 @@ CREATE TABLE `TransactionCaisse` (
   KEY `FK668406B89529CF75` (`categorieCharge_id`),
   KEY `FK668406B8131A1E70` (`defPeriode_id`),
   KEY `FK668406B83746C8DF` (`charteCompte_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 /*Data for the table `TransactionCaisse` */
 
-insert  into `TransactionCaisse`(`DTYPE`,`id`,`date`,`description`,`montant`,`reference`,`typeTransaction`,`charteCompte_id`,`compteEncaisse_id`,`coop_id`,`currentuser_id`,`defPeriode_id`,`categorieCharge_id`) values ('TransactionCaisse',1,'2011-02-24','Sortie produit',3000,'werrr','E','3',1,1,1,4,1),('TransactionCaisse',2,'2011-02-23','Dette Client',1200,'asd','E','19',1,1,1,2,1),('TransactionCaisse',3,'2011-03-16','Dette fournisseur d\'intrant',7000,'asd','E','25',1,1,1,4,1),('TransactionCaisse',4,'2011-02-24','Entree Produit',12000,'qweyui','D','4',2,1,1,4,1),('TransactionCaisse',5,'2011-02-25','Sortie produit',200000,'ffffff','E','3',1,1,1,7,1),('TransactionCaisse',6,'2011-02-24','Dette fournisseur de produit',5800,'foufou','E','21',2,1,1,4,NULL),('TransactionCharge',7,'2011-03-31',NULL,10250,'charge1','D','16',2,1,1,3,1),('TransactionCharge',8,'2011-03-31',NULL,1200,'charge1','D','56',1,1,1,4,2),('TransactionCharge',9,'2011-03-30',NULL,5300,'errrrrr','D','56',1,1,1,7,2);
+insert  into `TransactionCaisse`(`DTYPE`,`id`,`date`,`description`,`montant`,`reference`,`typeTransaction`,`charteCompte_id`,`compteEncaisse_id`,`coop_id`,`currentuser_id`,`defPeriode_id`,`categorieCharge_id`) values ('TransactionCaisse',1,'2011-02-24','Sortie produit',3000,'werrr','E','3',1,1,1,4,1),('TransactionCaisse',2,'2011-02-23','Dette Client',1200,'asd','E','19',1,1,1,2,1),('TransactionCaisse',3,'2011-03-16','Dette fournisseur d\'intrant',7000,'asd','E','25',1,1,1,4,1),('TransactionCaisse',4,'2011-02-24','Entree Produit',12000,'qweyui','D','4',2,1,1,4,1),('TransactionCaisse',5,'2011-02-25','Sortie produit',200000,'ffffff','E','3',1,1,1,7,1),('TransactionCaisse',6,'2011-02-24','Dette fournisseur de produit',5800,'foufou','E','21',2,1,1,4,1),('TransactionCharge',7,'2011-03-31',NULL,10250,'charge1','D','16',2,1,1,3,1),('TransactionCharge',8,'2011-03-31',NULL,1200,'charge1','D','56',1,1,1,4,2),('TransactionCharge',9,'2011-03-30',NULL,5300,'errrrrr','D','56',1,1,1,7,2),('TransactionCaisse',10,NULL,'entree magasin',1111,'magasin','E','61',1,1,1,7,2),('TransactionCaisse',11,NULL,'entree magasin',435465,NULL,'E','61',1,1,1,7,1),('TransactionCaisse',12,'2011-03-25','Dette Client',35,'foufou','E','19',1,1,1,7,1),('TransactionCaisse',13,'2011-03-22','entree magasin',15000,'magasin2','E','61',2,1,1,7,1),('TransactionCaisse',17,'2011-03-04','Entree Magasin',4444,'magasin2','E','60',1,1,1,7,NULL),('TransactionCaisse',18,'2011-03-04','Entree Magasin',56222,'magasin2','E','61',2,1,1,7,NULL),('TransactionCaisse',20,'2011-03-04','Entree Magasin',111222,'magasin1','E','60',1,1,1,7,NULL),('TransactionCharge',21,'2011-04-09',NULL,5622,'refcharge2','D','57',2,1,1,7,2),('TransactionCaisse',22,'2011-03-04','Entree Magasin',2,'magasin1','E','61',1,1,1,7,NULL),('TransactionCaisse',23,'2011-03-04','Entree Magasin',444,'magasin2','E','60',2,1,1,7,NULL);
 
 /*Table structure for table `TransactionMagasin` */
 
@@ -390,11 +364,11 @@ CREATE TABLE `TransactionMagasin` (
   KEY `FK7AD6C40C7604D9F5` (`magasin_id`),
   KEY `FK7AD6C40C131A1E70` (`defPeriode_id`),
   KEY `FK7AD6C40CC701B98D` (`m_commande_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 /*Data for the table `TransactionMagasin` */
 
-insert  into `TransactionMagasin`(`id`,`grade`,`humidite`,`prixUnitaire`,`quantite`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_commande_id`,`magasin_id`,`produit_id`) values (1,1,1,10,1235,0,1,1,4,1,1,1),(2,1,0,13,235,0,1,1,4,2,1,1),(3,0,0,10,123,0,1,1,4,3,1,4),(4,0,0,20,253,0,1,1,4,3,2,4),(5,3,1,12,12333,0,1,1,4,4,1,1),(6,3,0,20,12000,0,1,1,4,5,1,1),(7,1,0,10,450,0,1,1,4,5,1,1);
+insert  into `TransactionMagasin`(`id`,`grade`,`humidite`,`prixUnitaire`,`quantite`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_commande_id`,`magasin_id`,`produit_id`) values (1,1,1,10,1235,0,1,1,4,1,1,1),(2,1,0,13,235,0,1,1,4,2,1,1),(3,0,0,10,123,0,1,1,4,3,1,4),(4,0,0,20,253,0,1,1,4,3,2,4),(5,3,1,12,12333,0,1,1,4,4,1,1),(6,3,0,20,12000,0,1,1,4,5,1,1),(7,1,0,10,450,0,1,1,4,5,1,1),(8,1,0,0,1233,0,1,1,7,6,1,1),(9,2,0,0,11334,0,1,1,7,6,1,1),(10,1,0,0,900,0,1,1,7,6,1,1),(19,1,0,0,3123,0,1,1,7,6,2,1),(18,1,0,12,123123,0,1,1,7,8,2,3),(17,1,0,0,312312,0,1,1,7,6,2,3),(20,1,0,0,2111,0,1,1,7,7,2,3);
 
 /*Table structure for table `Utilisateur` */
 
