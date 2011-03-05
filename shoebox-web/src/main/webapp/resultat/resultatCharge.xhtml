@@ -20,10 +20,10 @@
 
             <ui:repeat value="#{gsResultat.lstResultatCharge}" var="rs" >
                 <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
-                    <td><h:outputText value="#{rs.refereaffichage}"/></td>
-                    <td><h:outputText value="#{rs.activite}"/></td>
+                    <td><h:outputText value="#{rs.refereaffichage}" styleClass="titreLibelle"/></td>
+                    <td><h:outputText value="#{rs.activite}" styleClass="titreLibelle"/></td>
                     <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                        <td><h:outputText value="#{gsResultat.ResultatCharge(periode.periode, rs.reference)}">
+                        <td><h:outputText value="#{gsResultat.ResultatCharge(periode.periode, rs.reference)}" styleClass="titreLibelleSimple">
                                 <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
                             </h:outputText></td>
                     </ui:repeat>

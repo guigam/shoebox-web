@@ -7,6 +7,7 @@ package com.gfplus.parametrageShoebox;
 import Login.login;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
+import ModelesShoebox.Commande;
 import ModelesShoebox.Compte;
 import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
@@ -16,14 +17,15 @@ import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionMagasin;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.xml.crypto.Data;
 import parametrageCoop.serviceParamCoopLocal;
 
 /**
@@ -32,7 +34,7 @@ import parametrageCoop.serviceParamCoopLocal;
  */
 @Named(value = "parametrageShoebox")
 @SessionScoped
-public class parametrageShoebox implements Serializable{
+public class parametrageShoebox implements Serializable {
 
     private FournisseurProduit fournisseurproduit = new FournisseurProduit();
     private FournisseurIntrant fournisseurIntrant = new FournisseurIntrant();
@@ -45,13 +47,14 @@ public class parametrageShoebox implements Serializable{
     private ConfigMag configmag = new ConfigMag();
     @EJB
     private serviceParamCoopLocal parametrageCoop;
- @Inject
+    @Inject
     private login session;
+
     /** Creates a new instance of parametrageShoebox */
     public parametrageShoebox() {
     }
 
-    public List<TransactionMagasin> gettest(){
+    public List<TransactionMagasin> gettest() {
         return parametrageCoop.test();
     }
 
@@ -67,14 +70,15 @@ public class parametrageShoebox implements Serializable{
         return parametrageCoop.lstClient(session.getCurrentCoop());
     }
 
-    public List<SelectItem> getlstItemCompte(){
+    public List<SelectItem> getlstItemCompte() {
         return parametrageCoop.lstitemCompte(session.getCurrentCoop());
     }
 
     public List<Magasin> getlstMagasin() {
         return parametrageCoop.lstMagasin(session.getCurrentCoop());
     }
-     public List<Compte> getlstCompteEncaisse() {
+
+    public List<Compte> getlstCompteEncaisse() {
         return parametrageCoop.lstCompte(session.getCurrentCoop());
     }
 
@@ -90,7 +94,7 @@ public class parametrageShoebox implements Serializable{
         return parametrageCoop.lstItemCategorieCharge(session.getCurrentCoop());
     }
 
-    public List<SelectItem> getlstitemCharteCompte(){
+    public List<SelectItem> getlstitemCharteCompte() {
         return parametrageCoop.lstItemCharteCompte();
     }
 
@@ -121,15 +125,16 @@ public class parametrageShoebox implements Serializable{
     public List<CharteCompte> getlstCharteCompte() {
         return parametrageCoop.lstcharteCompte();
     }
-    public void addConfigMag(){
-       this.lstconfigMag.add(new ConfigMag());
+
+    public void addConfigMag() {
+        this.lstconfigMag.add(new ConfigMag());
     }
 
     public String newFournisseurProduit() {
 
-        if(getSoldeDepart().getMontant() > 0){
+        if (getSoldeDepart().getMontant() > 0) {
             getSoldeDepart().setTypeSolde("rmbFP");
-        }else{
+        } else {
             getSoldeDepart().setTypeSolde("detteFP");
         }
         getSoldeDepart().setDefPeriode(session.getCurrentPeriode());
@@ -144,10 +149,83 @@ public class parametrageShoebox implements Serializable{
         return "lstFP";
     }
 
+    public String newInitMagasinConfig() {
+        if (magasin.getCommande() == null) {
+            Commande commande = new Commande();
+            if (verifierCharteComptePourConfigMagasin(configmag)) {
+                afectationFieldsCommande(commande);
+                magasin.setCommande(commande);
+                parametrageCoop.updateMagasin(magasin);
+                magasin = new Magasin();
+                configmag = new ConfigMag();
+                return "/parametrageCoop/listMagasin.xhtml";
+
+            }
+            return null;
+        }else{
+         if (verifierCharteComptePourConfigMagasin(configmag)) {
+                afectationFieldsCommande(magasin.getCommande());
+                parametrageCoop.updateMagasin(magasin);
+                magasin = new Magasin();
+                configmag = new ConfigMag();
+                return "/parametrageCoop/listMagasin.xhtml";
+        }
+         return null;
+    }
+    }
+
+     private void afectationFieldsCommande(Commande commande) {
+         TransactionMagasin tsxm = new TransactionMagasin();
+         TransactionCaisse tsxc = new TransactionCaisse();
+        commande.setConfirmation(true);
+        commande.setCoop(session.getCurrentCoop());
+        commande.setCurrentuser(session.getUser());
+        commande.setDefPeriode(session.getCurrentPeriode());
+        commande.setReference("magasin" + magasin.getId());
+        commande.setType("EMI");
+        affectationMagasinCaisse(tsxc, tsxm);
+
+        commande.getLsttransactionCaisse().add(tsxc);
+        commande.getLsttransactionMagasin().add(tsxm);
+    }
+
+    private void affectationMagasinCaisse(TransactionCaisse tsxc, TransactionMagasin tsxm) {
+        tsxc.setCoop(session.getCurrentCoop());
+        tsxc.setDescription("Entree Magasin");
+        tsxc.setReference("magasin" + magasin.getId());
+        tsxc.setTypeTransaction("E");
+        tsxc.setCharteCompte(configmag.getTsxCaisse().getCharteCompte());
+        tsxc.setCompteEncaisse(configmag.getTsxCaisse().getCompteEncaisse());
+        tsxc.setMontant(configmag.getTsxCaisse().getMontant());
+        tsxc.setCoop(session.getCurrentCoop());
+        tsxc.setDate(new Date());
+        tsxc.setCurrentuser(session.getUser());
+        tsxc.setDefPeriode(session.getCurrentPeriode());
+        tsxm.setCoop(session.getCurrentCoop());
+        tsxm.setGrade(configmag.getTsxMag().getGrade());
+        tsxm.setM_commande(magasin.getCommande());
+        tsxm.setMagasin(configmag.getTsxMag().getMagasin());
+        tsxm.setProduit(configmag.getTsxMag().getProduit());
+        tsxm.setQuantite(configmag.getTsxMag().getQuantite());
+        tsxm.setCurrentuser(session.getUser());
+        tsxm.setDefPeriode(session.getCurrentPeriode());
+
+    }
+
+    private boolean verifierCharteComptePourConfigMagasin(ConfigMag c) {
+        if (c.getTsxMag().getProduit().getType().equals("Principal") && c.getTsxCaisse().getCharteCompte().getReference().equals("RA-1-SD")) {
+            return true;
+        } else if (c.getTsxMag().getProduit().getType().equals("Secondaire") && c.getTsxCaisse().getCharteCompte().getReference().equals("RA-2-SD")) {
+            return true;
+        }
+        return false;
+    }
+
     public String newFournisseurIntrant() {
-        if(getSoldeDepart().getMontant() < 0){
+        if (getSoldeDepart().getMontant() < 0) {
             getSoldeDepart().setTypeSolde("rmbFI");
-        }else{getSoldeDepart().setTypeSolde("detteFI");
+        } else {
+            getSoldeDepart().setTypeSolde("detteFI");
         }
         getSoldeDepart().setDefPeriode(session.getCurrentPeriode());
         getSoldeDepart().setEntite(fournisseurIntrant);
@@ -162,9 +240,10 @@ public class parametrageShoebox implements Serializable{
     }
 
     public String newClient() {
-        if(getSoldeDepart().getMontant() < 0){
+        if (getSoldeDepart().getMontant() < 0) {
             getSoldeDepart().setTypeSolde("rmbClient");
-        }else{getSoldeDepart().setTypeSolde("detteClient");
+        } else {
+            getSoldeDepart().setTypeSolde("detteClient");
         }
         getSoldeDepart().setDefPeriode(session.getCurrentPeriode());
         getSoldeDepart().setEntite(client);
@@ -210,7 +289,6 @@ public class parametrageShoebox implements Serializable{
         charteCompte = new CharteCompte();
         return "lstCharteCompte";
     }
-
 
     /**
      * @return the fournisseurproduit
@@ -314,10 +392,11 @@ public class parametrageShoebox implements Serializable{
      * @return the lstconfigMag
      */
     public List<ConfigMag> getLstconfigMag() {
+        ConfigMag cm = new ConfigMag();
+        for(TransactionMagasin m : magasin.getCommande().getLsttransactionMagasin()){
+            cm.setTsxMag(m);
+         }
 
-        if(this.lstconfigMag.isEmpty()){
-            this.lstconfigMag.add(new ConfigMag());
-        }
         return lstconfigMag;
     }
 
@@ -341,10 +420,4 @@ public class parametrageShoebox implements Serializable{
     public void setConfigmag(ConfigMag configmag) {
         this.configmag = configmag;
     }
-
- 
-
-
-
- 
 }

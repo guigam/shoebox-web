@@ -9,6 +9,7 @@ import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,7 +49,7 @@ public class Magasin implements Serializable {
     private Utilisateur currentuser;
 @ManyToOne
 private Cooperative coop;
-@OneToOne
+@OneToOne(cascade=CascadeType.ALL)
 private Commande commande;
     public Magasin() {
     }
