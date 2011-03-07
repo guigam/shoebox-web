@@ -72,6 +72,7 @@ public class GestionResultat implements Serializable {
         compteApayerSoldeDepart(lstRapportCompte, soldeDepart.getlstRemboursementFI());
         return lstRapportCompte;
     }
+
     public List<rapportCompte> getcompteArecevoir() {
         List<rapportCompte> lstRapportCompte = new LinkedList<rapportCompte>();
         compteArecevoirSortisProduit(lstRapportCompte);
@@ -84,93 +85,105 @@ public class GestionResultat implements Serializable {
 
     private void compteApayerEntreeProduit(List<rapportCompte> lstRapportCompte) {
         for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
-            if(comm.getmontantrestant() != 0){
-            rapportCompte rpCompte = new rapportCompte();
-            rpCompte.setDate(comm.getDateCommande());
-            rpCompte.setReference(comm.getReference());
-            rpCompte.setDescription("Entree Produit");
-            rpCompte.setEntite(comm.getM_entite());
-            rpCompte.setMontantPaye(comm.getmontantPaye());
-            rpCompte.setMontantTotal(comm.getmontantTotal());
-            lstRapportCompte.add(rpCompte);
+            if (comm.getmontantrestant() != 0) {
+                rapportCompte rpCompte = new rapportCompte();
+                rpCompte.setDate(comm.getDateCommande());
+                rpCompte.setReference(comm.getReference());
+                rpCompte.setDescription("Entree Produit");
+                rpCompte.setEntite(comm.getM_entite());
+                rpCompte.setMontantPaye(comm.getmontantPaye());
+                rpCompte.setMontantTotal(comm.getmontantTotal());
+                lstRapportCompte.add(rpCompte);
+            }
         }
-       }
     }
+
     private void compteArecevoirSortisProduit(List<rapportCompte> lstRapportCompte) {
         for (Commande comm : gsCommande.getLstCommandeSortisProduit()) {
-            if(comm.getmontantrestant() != 0){
-            rapportCompte rpCompte = new rapportCompte();
-            rpCompte.setDate(comm.getDateCommande());
-            rpCompte.setReference(comm.getReference());
-            rpCompte.setDescription("Sortis Produit");
-            rpCompte.setEntite(comm.getM_entite());
-            rpCompte.setMontantPaye(comm.getmontantPaye());
-            rpCompte.setMontantTotal(comm.getmontantTotal());
-            lstRapportCompte.add(rpCompte);
+            if (comm.getmontantrestant() != 0) {
+                rapportCompte rpCompte = new rapportCompte();
+                rpCompte.setDate(comm.getDateCommande());
+                rpCompte.setReference(comm.getReference());
+                rpCompte.setDescription("Sortis Produit");
+                rpCompte.setEntite(comm.getM_entite());
+                rpCompte.setMontantPaye(comm.getmontantPaye());
+                rpCompte.setMontantTotal(comm.getmontantTotal());
+                lstRapportCompte.add(rpCompte);
+            }
         }
-       }
     }
 
     private void compteApayerEntreeIntrant(List<rapportCompte> lstRapportCompte) {
         for (Commande comm : gsCommande.getlstCommandeEntreeIntrant()) {
-            if(comm.getmontantrestant() != 0){
-            rapportCompte rpCompte = new rapportCompte();
-            rpCompte.setDate(comm.getDateCommande());
-            rpCompte.setReference(comm.getReference());
-            rpCompte.setDescription("Entree Produit Intrant");
-            rpCompte.setEntite(comm.getM_entite());
-            rpCompte.setMontantPaye(comm.getmontantPaye());
-            rpCompte.setMontantTotal(comm.getmontantTotal());
-            lstRapportCompte.add(rpCompte);
+            if (comm.getmontantrestant() != 0) {
+                rapportCompte rpCompte = new rapportCompte();
+                rpCompte.setDate(comm.getDateCommande());
+                rpCompte.setReference(comm.getReference());
+                rpCompte.setDescription("Entree Produit Intrant");
+                rpCompte.setEntite(comm.getM_entite());
+                rpCompte.setMontantPaye(comm.getmontantPaye());
+                rpCompte.setMontantTotal(comm.getmontantTotal());
+                lstRapportCompte.add(rpCompte);
             }
         }
     }
+
     private void compteArecevoirSortisIntrant(List<rapportCompte> lstRapportCompte) {
         for (Commande comm : gsCommande.getlstCommandeSortisIntrant()) {
-            if(comm.getmontantrestant() != 0){
-            rapportCompte rpCompte = new rapportCompte();
-            rpCompte.setDate(comm.getDateCommande());
-            rpCompte.setReference(comm.getReference());
-            rpCompte.setDescription("Entree Produit Intrant");
-            rpCompte.setEntite(comm.getM_entite());
-            rpCompte.setMontantPaye(comm.getmontantPaye());
-            rpCompte.setMontantTotal(comm.getmontantTotal());
-            lstRapportCompte.add(rpCompte);
+            if (comm.getmontantrestant() != 0) {
+                rapportCompte rpCompte = new rapportCompte();
+                rpCompte.setDate(comm.getDateCommande());
+                rpCompte.setReference(comm.getReference());
+                rpCompte.setDescription("Entree Produit Intrant");
+                rpCompte.setEntite(comm.getM_entite());
+                rpCompte.setMontantPaye(comm.getmontantPaye());
+                rpCompte.setMontantTotal(comm.getmontantTotal());
+                lstRapportCompte.add(rpCompte);
             }
         }
     }
 
     private void compteApayerSoldeDepart(List<rapportCompte> lstRapportCompte, List<SoldeDepart> lstSoldeDepart) {
         for (SoldeDepart sd : lstSoldeDepart) {
-            if(sd.getmontantrestant() != 0){
-            rapportCompte rpCompte = new rapportCompte();
-            rpCompte.setDate(sd.getDate());
-            rpCompte.setReference(sd.getEntite().getReference());
-            rpCompte.setDescription("Remboursement solde de depart");
-            rpCompte.setEntite(sd.getEntite());
-            rpCompte.setMontantPaye(sd.getmontantPaye());
-            rpCompte.setMontantTotal(sd.getMontant());
-            lstRapportCompte.add(rpCompte);
-           }
+            if (sd.getmontantrestant() != 0) {
+                rapportCompte rpCompte = new rapportCompte();
+                rpCompte.setDate(sd.getDate());
+                rpCompte.setReference(sd.getEntite().getReference());
+                rpCompte.setDescription("Remboursement solde de depart");
+                rpCompte.setEntite(sd.getEntite());
+                rpCompte.setMontantPaye(sd.getmontantPaye());
+                rpCompte.setMontantTotal(sd.getMontant());
+                lstRapportCompte.add(rpCompte);
+            }
         }
     }
 
-    public Long ResultatCharge(String periode, String charteCompte){
-        if(resultat.listResultatCharge(periode, charteCompte) != null){
-        return resultat.listResultatCharge(periode, charteCompte);
+    public Double ResultatCharge(String periode, String charteCompte) {
+        if(charteCompte.equals("RB-1") ){
+            return (double) resultat.listResultatCharge(periode, "RA-1-SD") - (double) resultat.listResultatCharge(periode, "RA-1-SF");
+        }else if(charteCompte.equals("RB-2")){
+            return (double) resultat.listResultatCharge(periode, "RA-2-SD") - (double) resultat.listResultatCharge(periode, "RA-2-SF");
+        }else  if(charteCompte.equals("RD")){
+           return  (double) resultat.listResultatCharge(periode, "RC-SD") - (double) resultat.listResultatCharge(periode, "RC-SF");
+        }else if(charteCompte.equals("RH")){
+            return   (double) resultat.listResultatCharge(periode, "RE-SD") - (double) resultat.listResultatCharge(periode, "RE-SF");
+        }else if(!charteCompte.equals("ppp") && resultat.listResultatCharge(periode, charteCompte) != 0 ){
+            return (double)resultat.listResultatCharge(periode, charteCompte);
+
         }
-        return  null;
+      
+
+        return null;
     }
 
-    public List<StructureCharge> getlstResultatCharge(){
+    public List<StructureCharge> getlstResultatCharge() {
         return resultat.lsttructureCharge();
     }
 
-    public boolean verifTypeChargeAaffichier(StructureCharge sc){
-        if(sc.getReference()!= "ppp" && sc.getRefereaffichage().equals(null));
-            return false;
+    public boolean verifTypeChargeAaffichier(StructureCharge sc) {
+        if (sc.getReference() != "ppp" && sc.getRefereaffichage().equals(null));
+        return false;
     }
-  
 
     public float gettotalEntree() {
         float tot = 0;

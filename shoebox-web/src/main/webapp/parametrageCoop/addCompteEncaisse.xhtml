@@ -1,10 +1,41 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../templateParametrage.xhtml">
+                template="./../templateParametrage.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
 
 
+        <ui:define name="message" >
+            <rich:messages styleClass="globalMessages" >
+                                <f:facet name="message">
+                                    <h:graphicImage  value="/img/error.png"/>
+                                </f:facet>
+                            </rich:messages>
+    </ui:define>
     <ui:define name="content">
-        content
+         <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_folio}" />
+                    <h:inputText value="#{parametrageShoebox.compte.folio}" required="true" requiredMessage="#{msg.lib_folio} #{msg.message_Obligatoire}"/>
+                    <h:outputText value="#{msg.lib_nomCompte}" />
+                    <h:inputText value="#{parametrageShoebox.compte.nomCompte}" required="true" requiredMessage="#{msg.lib_nomCompte} #{msg.message_Obligatoire}"/>
+                    <h:outputText value="#{msg.lib_type}" />
+                    <rich:comboBox value="#{parametrageShoebox.compte.typeCompte}" required="true" requiredMessage="#{msg.lib_type} #{msg.message_Obligatoire}">
+                        <f:selectItem itemValue="Banque"/>
+                        <f:selectItem itemValue="Caisse"/>
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_description}" />
+                    <h:inputTextarea cols="30" rows="3" value="#{parametrageShoebox.compte.description}" />
+                    <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newCompteEncaisse}"/>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
     </ui:define>
 </ui:composition>

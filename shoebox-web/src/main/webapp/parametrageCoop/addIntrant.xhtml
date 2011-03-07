@@ -6,9 +6,8 @@
 
 
 
-
         <ui:define name="message" >
-        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+            <rich:messages styleClass="globalMessages" >
                                 <f:facet name="message">
                                     <h:graphicImage  value="/img/error.png"/>
                                 </f:facet>
@@ -24,9 +23,9 @@
 
                 <h:panelGrid columns="2">
                     <h:outputText value="#{msg.lib_NomProduit}" />
-                    <h:inputText value="#{parametrageShoebox.produit.name}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                    <h:inputText value="#{parametrageShoebox.produit.name}" required="true" requiredMessage="#{msg.lib_NomProduit} #{msg.message_Obligatoire}"/>
                     <h:outputText value="#{msg.lib_description}" />
-                    <h:inputTextarea cols="30" rows="2" value="#{parametrageShoebox.produit.description}" required="true" requiredMessage="#{msg.lib_description} #{msg.message_Obligatoire}"/>
+                    <h:inputTextarea cols="30" rows="2" value="#{parametrageShoebox.produit.description}" />
                     
                     <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newProduitIntrant}"/>
                 </h:panelGrid>

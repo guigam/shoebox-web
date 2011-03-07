@@ -87,11 +87,7 @@ a:link:hover, a:visited:hover  {
     width: 35%;
     vertical-align:top;
 }
-.message{
-    color: #D20005;
-    border: 1px;
-    background-color: #7ea25d;
-}
+
 
 .top{
      width: 50%;
@@ -111,9 +107,41 @@ a:link:hover, a:visited:hover  {
     font-weight:bold;
     font-size: 12px;
     text-align: center
-
 }
-.tableResultatCharge{
-   border-bottom : 1px solid #32cd32;
 
+.titreTabResultat{
+  font-size: 10px;
+    font-weight: bold;
 }
+
+.contenuTabResultat{
+  font-size: 10px;
+}
+.messageInfo {
+	vertical-align:middle;
+}
+
+.messageWarn {
+}
+
+.messageError {
+}
+
+.messageFatal {
+}
+
+.globalMessages {
+	color: #D20005;
+	font-size: 12px;
+	border: 1px solid #90BB8F;
+	width:98%;
+	padding: 5px;
+        background-color: #f1ecf0;
+	font-family: arial, sans-serif;
+}
+.header {
+	width:80%;
+	background-image:url('images/ban.png');
+	background-repeat:no-repeat;
+}
+

@@ -9,10 +9,12 @@
 
 
     <ui:define name="content">
-        <table border="1" width="100%" class="tableResultatCharge">
+        <rich:tabPanel>
+            <rich:tab label="#{msg.lib_charge}">
+                        <table border="1" width="100%" class="tableResultatCharge">
             <tr class="celluleTabPrincipale">
-                <td width="5%"></td>
-                <td width="30%"></td>
+                <td width="3%"></td>
+                <td width="20%"></td>
                 <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
                     <td width="5%"><h:outputText value="#{periode.periode}"/></td>
                 </ui:repeat>
@@ -20,10 +22,10 @@
 
             <ui:repeat value="#{gsResultat.lstResultatCharge}" var="rs" >
                 <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
-                    <td><h:outputText value="#{rs.refereaffichage}" styleClass="titreLibelle"/></td>
-                    <td><h:outputText value="#{rs.activite}" styleClass="titreLibelle"/></td>
+                    <td><h:outputText value="#{rs.refereaffichage}" styleClass="titreTabResultat"/></td>
+                    <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
                     <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                        <td><h:outputText value="#{gsResultat.ResultatCharge(periode.periode, rs.reference)}" styleClass="titreLibelleSimple">
+                        <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
                                 <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
                             </h:outputText></td>
                     </ui:repeat>
@@ -31,6 +33,15 @@
                 </tr>
             </ui:repeat>
         </table>
+            </rich:tab>
+            <rich:tab label="#{msg.lib_produit}">
+
+            </rich:tab>
+            <rich:tab label="#{msg.lib_analyse}">
+
+            </rich:tab>
+        </rich:tabPanel>
+
 
         ////////////////////////////////////
 

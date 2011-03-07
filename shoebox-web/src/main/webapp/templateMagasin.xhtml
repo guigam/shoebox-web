@@ -19,10 +19,10 @@
                 <ui:insert name="top">
                     <table width="100%" border="0">
                         <tr>
-                            <td  width="20%">
+                            <td  width="19%">
                         <h:graphicImage value="/images/soco.png"/>
                         </td>
-                        <td width="60%" style="text-align: center">
+                        <td width="60%" style="text-align: center" >
                         <ui:insert name="message">
                         </ui:insert>
                         </td>
@@ -48,47 +48,6 @@
                             </h:commandLink>
                                 <rich:spacer width="50"/>
                         </ui:repeat>  
-
-
-                        <rich:dropDownMenu>
-                            <f:facet name="label">
-                                <h:panelGroup>
-                                    <h:outputText value="#{msg.lib_magasin}"/>
-                                </h:panelGroup>
-                            </f:facet>
-
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_entreProduit}" action="lstFP"/>
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_sortisProduit}" action="lstFP"/>
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_entreeIntrant}" action="lstFP"/>
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_sortisIntrant}" action="lstFP"/>
-                        </rich:dropDownMenu>
-                        <rich:dropDownMenu>
-                            <f:facet name="label">
-                                <h:panelGroup>
-                                    <h:outputText value="#{msg.lib_caisse}"/>
-                                </h:panelGroup>
-                            </f:facet>
-                            <rich:menuGroup value="#{msg.lib_encaissement}">
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_venteproduit}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_venteIntrant}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteFournisseurProduit}" action="detteFP" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteFournisseurIntrant}" action="detteFI"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteClient}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_encaissementAvanceClient}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_partSocialDesMembres}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_diversPorduitEtAutresEncaissement}" action="lstFP"/>
-                            </rich:menuGroup>
-                            <rich:menuGroup value="#{msg.lib_debourse}">
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_achatProduit}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_achatIntrant}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_paiementCharges}" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementavanceClient}" action="lstFP" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementDettesFournisseurProduit}" action="rmbFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementDettesFournisseurIntrant}" action="rmbFI" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_avanceFournisseurproduit}" action="addSP"/>
-                            </rich:menuGroup>
-                        </rich:dropDownMenu>
-
                     </rich:toolBar>
                 </ui:insert>
                 <rich:spacer height="5"/>

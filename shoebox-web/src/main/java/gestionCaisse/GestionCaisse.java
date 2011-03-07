@@ -83,7 +83,7 @@ public class GestionCaisse implements Serializable {
 
     private void affectationTypetransactionCaisse() {
 
-        if (gsCommande.getCommade().getType().equals("EP") || gsCommande.getCommade().getType().equals("EI")) {
+        if (gsCommande.getCommade().getType().equals("EPP") || gsCommande.getCommade().getType().equals("EPI")) {
             tsxCaisse.setTypeTransaction("D");
         } else {
             tsxCaisse.setTypeTransaction("E");

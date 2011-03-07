@@ -178,7 +178,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<Client> lstClient(Cooperative coop) {
         Query query = em.createQuery("from Client c where c.coop = ?1");
-         query.setParameter(1, coop);
+        query.setParameter(1, coop);
         return query.getResultList();
 
     }
@@ -193,7 +193,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<FournisseurIntrant> lstFI(Cooperative coop) {
         Query query = em.createQuery("from FournisseurIntrant f where f.coop = ?1");
-         query.setParameter(1, coop);
+        query.setParameter(1, coop);
         return query.getResultList();
     }
 
@@ -201,14 +201,14 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     public List<Produit> lstproduit(Cooperative coop) {
         Query query = em.createQuery("from Produit p where p.categorie = ?1 and p.coop = ?2");
         query.setParameter(1, "produitCoop");
-         query.setParameter(2, coop);
+        query.setParameter(2, coop);
         return query.getResultList();
     }
 
     @Override
     public List<Magasin> lstMagasin(Cooperative coop) {
         Query query = em.createQuery("from Magasin m where m.coop = ?1 ");
-         query.setParameter(1, coop);
+        query.setParameter(1, coop);
         return query.getResultList();
     }
 
@@ -216,7 +216,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     public List<Produit> lstproduitIntrant(Cooperative coop) {
         Query query = em.createQuery("from Produit p where p.categorie = ?1 and p.coop = ?2");
         query.setParameter(1, "intrant");
-         query.setParameter(2, coop);
+        query.setParameter(2, coop);
         return query.getResultList();
     }
 
@@ -283,7 +283,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduitIntrant(produit, coop).isEmpty() && rechercehSortisProduitIntrant(produit,coop).isEmpty()) {
+        if (!rechercehEntreeProduitIntrant(produit, coop).isEmpty() && rechercehSortisProduitIntrant(produit, coop).isEmpty()) {
             for (Object[] t : rechercehEntreeProduitIntrant(produit, coop)) {
                 Object[] obj = new Object[3];
                 obj[0] = (Magasin) (t[0]);
@@ -292,7 +292,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
                 lstObject.add(obj);
             }
         } else {
-            for (Object[] t : rechercehEntreeProduitIntrant(produit,coop)) {
+            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop)) {
                 for (Object[] o : rechercehSortisProduitIntrant(produit, coop)) {
                     if (t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])) {
                         Object[] obj = new Object[3];
@@ -306,9 +306,10 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         }
         return lstObject;
     }
+
     public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduit(produit, grade, coop).isEmpty() && rechercehSortisProduit(produit, grade,coop).isEmpty()) {
+        if (!rechercehEntreeProduit(produit, grade, coop).isEmpty() && rechercehSortisProduit(produit, grade, coop).isEmpty()) {
             for (Object[] t : rechercehEntreeProduit(produit, grade, coop)) {
                 Object[] obj = new Object[3];
                 obj[0] = (Magasin) (t[0]);
@@ -317,7 +318,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
                 lstObject.add(obj);
             }
         } else {
-            for (Object[] t : rechercehEntreeProduit(produit, grade,coop)) {
+            for (Object[] t : rechercehEntreeProduit(produit, grade, coop)) {
                 for (Object[] o : rechercehSortisProduit(produit, grade, coop)) {
                     if (t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])) {
                         Object[] obj = new Object[3];
@@ -334,12 +335,22 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehEntreeProduit(Produit produit, int grade, Cooperative coop) {
         if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 group by x.magasin");
-            q.setParameter(1, produit);
-            q.setParameter(2, grade);
-            q.setParameter(3, "EP");
-            q.setParameter(4, coop);
-            return (List<Object[]>) q.getResultList();
+            if (produit.getType().equals("Principal")) {
+                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 group by x.magasin");
+                q.setParameter(1, produit);
+                q.setParameter(2, grade);
+                q.setParameter(3, "EPP");
+                q.setParameter(4, coop);
+                return (List<Object[]>) q.getResultList();
+            } else {
+                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 group by x.magasin");
+                q.setParameter(1, produit);
+                q.setParameter(2, grade);
+                q.setParameter(3, "EPS");
+                q.setParameter(4, coop);
+                return (List<Object[]>) q.getResultList();
+            }
+
         }
         return null;
     }
@@ -355,11 +366,12 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         }
         return null;
     }
+
     private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop) {
-        if (produit != null ) {
+        if (produit != null) {
             Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 group by x.magasin");
             q.setParameter(1, produit);
-            q.setParameter(3, "EI");
+            q.setParameter(3, "EPI");
             q.setParameter(4, coop);
             return (List<Object[]>) q.getResultList();
         }
@@ -367,7 +379,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     private List<Object[]> rechercehSortisProduitIntrant(Produit produit, Cooperative coop) {
-        if (produit != null ) {
+        if (produit != null) {
             Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.coop = ?4  group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(3, "SI");
@@ -376,7 +388,6 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         }
         return null;
     }
-
 
     @Override
     public List<SelectItem> lstitemCompte(Cooperative coop) {
@@ -403,14 +414,12 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return listCharteCompte;
     }
 
-    
     @Override
-    public List<CategorieCharge> lstCategorieCharge(Cooperative coop){
+    public List<CategorieCharge> lstCategorieCharge(Cooperative coop) {
         Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1");
         query.setParameter(1, coop);
         return query.getResultList();
     }
-
 
     @Override
     public List<SelectItem> lstItemCategorieCharge(Cooperative coop) {
@@ -426,7 +435,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-
-
-   
+    @Override
+    public void newCompte(Compte compte) {
+        persist(compte);
+    }
 }

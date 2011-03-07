@@ -10,7 +10,7 @@
 
 
     <ui:define name="message" >
-        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+        <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
@@ -29,27 +29,28 @@
                     <h:outputText value="#{msg.lib_reference}" />
                     <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
                     <h:outputText value="#{msg.lib_fournisseurProduit}" />
-                    <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterFP">
+                    <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterFP" required="true" requiredMessage="#{msg.lib_fournisseurProduit} #{msg.message_Obligatoire}">
                         <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                    <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                    <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_date} #{msg.message_Obligatoire}"/>
                 </h:panelGrid>
                 <rich:spacer height="30"/>
-                  <h:outputText value="#{msg.lib_detailCommande}" styleClass="sousTitrePanel"/>
-                  <rich:spacer width="10"/>
-                   <a4j:commandLink value="Ajouter" action="#{gsCommandes.ajouterLigneVide}" reRender="tot" />
-                <rich:separator width="100%"/>
+                <h:outputText value="#{msg.lib_detailCommande}" styleClass="sousTitrePanel"/>
+                <rich:spacer width="10"/>
+                <a4j:commandLink value="Ajouter" action="#{gsCommandes.ajouterLigneVide}" reRender="tot" />
+                <rich:separator width="100%" height="2"/>
                 <rich:spacer height="10"/>
-                
-                   
 
-                    <a4j:outputPanel id="tot">
-                        <a4j:outputPanel rendered="#{empty gsCommandes.lstTsxMagasin}">
-                            <h:outputText value="#{msg.message_pasDenregistrement}"/>
-                        </a4j:outputPanel>
 
-                        <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="tsx" id="tab" rendered="#{not empty gsCommandes.lstTsxMagasin}">
+
+                <a4j:outputPanel id="tot">
+                    <a4j:outputPanel rendered="#{empty gsCommandes.lstTsxMagasin}">
+                        <h:outputText value="#{msg.message_pasDenregistrement}"/>
+                    </a4j:outputPanel>
+
+                    <a4j:outputPanel rendered="#{not empty gsCommandes.lstTsxMagasin}">
+                        <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="tsx" id="tab" >
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_magasin}"/>
@@ -98,14 +99,17 @@
                                 <f:facet name="header">
                                     <h:outputText value="--" />
                                 </f:facet>
-                               <a4j:commandButton image="/icons/delete.png"/>
+                                <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
+                                    <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{tsx}"/>
+                                </a4j:commandButton>
                             </rich:column>
 
 
                         </rich:dataTable>
+                        <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeEntreeProduit}"/>
                     </a4j:outputPanel>
+                </a4j:outputPanel>
 
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeEntreeProduit}"/>
             </rich:panel>
         </h:form>
     </ui:define>

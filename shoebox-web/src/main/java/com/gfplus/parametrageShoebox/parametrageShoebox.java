@@ -35,7 +35,7 @@ import parametrageCoop.serviceParamCoopLocal;
 @Named(value = "parametrageShoebox")
 @SessionScoped
 public class parametrageShoebox implements Serializable {
-
+    private Compte compte = new Compte();
     private FournisseurProduit fournisseurproduit = new FournisseurProduit();
     private FournisseurIntrant fournisseurIntrant = new FournisseurIntrant();
     private Client client = new Client();
@@ -265,6 +265,14 @@ public class parametrageShoebox implements Serializable {
 
         return "lstMagasin";
     }
+    public String newCompteEncaisse() {
+        compte.setCurrentuser(session.getUser());
+        compte.setCoop(session.getCurrentCoop());
+        parametrageCoop.newCompte(compte);
+        compte = new Compte();
+
+        return "/parametrageCoop/listCompteEncaisse.xhtml";
+    }
 
     public String newProduit() {
         produit.setCategorie("produitCoop");
@@ -419,5 +427,19 @@ public class parametrageShoebox implements Serializable {
      */
     public void setConfigmag(ConfigMag configmag) {
         this.configmag = configmag;
+    }
+
+    /**
+     * @return the compte
+     */
+    public Compte getCompte() {
+        return compte;
+    }
+
+    /**
+     * @param compte the compte to set
+     */
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 }

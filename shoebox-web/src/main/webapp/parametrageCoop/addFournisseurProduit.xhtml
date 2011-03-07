@@ -4,14 +4,13 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="message" >
-        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+ <ui:define name="message" >
+            <rich:messages styleClass="globalMessages" >
                                 <f:facet name="message">
                                     <h:graphicImage  value="/img/error.png"/>
                                 </f:facet>
                             </rich:messages>
     </ui:define>
-    
     <ui:define name="content">
         <h:form>
             <rich:panel>

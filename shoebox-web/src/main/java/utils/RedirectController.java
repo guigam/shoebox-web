@@ -31,6 +31,8 @@ private gestionCommandes gsCommande;
     public String redirect(){
         String outcome = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
         gsCommande.setCommade(new Commande());
+        gsCommande.getLstTsxMagasin().clear();
+        gsCommande.getLstStockSortieProduit().clear();
         return outcome;
     }
 

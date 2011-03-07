@@ -9,13 +9,15 @@
 
 
 
+
     <ui:define name="message" >
-        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+        <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
     </ui:define>
+
 
     <ui:define name="content">
         <h:form>
@@ -28,15 +30,15 @@
                     <h:panelGrid columns="2" width="50%">
                         <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                         <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
-                        <h:outputText value="#{msg.lib_client}" styleClass="titreLibelle"/>
-                        <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterClient">
+                        <h:outputText value="#{msg.lib_client}" styleClass="titreLibelle" />
+                        <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterClient" requiredMessage="#{msg.lib_client} #{msg.message_Obligatoire}">
                             <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
                         </rich:comboBox>
                         <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                        <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                        <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_date} #{msg.message_Obligatoire}"/>
                     </h:panelGrid>
-                    <rich:panel  header="#{msg.lib_rechercheStock}">
-                        <h:panelGrid width="50%" style="background-color: white">
+                    <rich:panel  header="#{msg.lib_rechercheStock}" style="width: 100%">
+                        <h:panelGrid  style="background-color: white" width="100%">
                         <h:panelGrid columns="5">
                             <h:outputText value="#{msg.lib_produit}" styleClass="titreLibelle"/>
                             <rich:comboBox value="#{gsCommandes.produit}" converter="converterProduit">
@@ -46,28 +48,28 @@
                             <h:inputText value="#{gsCommandes.grade}"/>
                             <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab"/>
                         </h:panelGrid>
-                        <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab" >
-                            <rich:column >
+                            <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab"  width="100%">
+                                <rich:column width="35%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_magasin}"/>
                                 </f:facet>
-                                <h:inputText value="#{rech.magasin.name}"/>
+                                <h:outputText value="#{rech.magasin.name}"/>
                             </rich:column>
-                            <rich:column >
+                                <rich:column width="25%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantite}"/>
                                 </f:facet>
-                                <h:inputText value="#{rech.quantite}">
+                                <h:outputText value="#{rech.quantite}">
                                     <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
-                                </h:inputText>
+                                </h:outputText>
                             </rich:column>
-                            <rich:column >
+                                <rich:column width="20%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantiteCommande}"/>
                                 </f:facet>
                                 <h:inputText value="#{rech.quantiteSaisie}" />
                             </rich:column>
-                            <rich:column >
+                                <rich:column width="20%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_pu}"/>
                                 </f:facet>
@@ -150,7 +152,9 @@
                             <f:facet name="header">
                                 <h:outputText value="--"/>
                             </f:facet>
-                            <a4j:commandButton image="/icons/delete.png"/>
+                            <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
+                                    <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{tsx}"/>
+                                </a4j:commandButton>
                         </rich:column>
                     </rich:dataTable>
                              <rich:spacer height="10"/>

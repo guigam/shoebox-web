@@ -18,6 +18,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import parametrageCoop.serviceParamCoopLocal;
@@ -46,13 +48,15 @@ public class gestionCommandes implements Serializable {
     private Produit produit = new Produit();
     private int grade = 0;
     private List<Commande> lstCommandeSortisProduit = new LinkedList<Commande>();
+    private TransactionMagasin tsxMag = new TransactionMagasin();
 
     /** Creates a new instance of gestionCommandes */
     public gestionCommandes() {
     }
 
     public String newCommandeEntreeProduit() {
-        commade.setType("EP");
+        if(verifHomogeniteEntreeProduit()){
+        commade.setType(detectTypeEntreeProduit());
         commade.setDefPeriode(session.getCurrentPeriode());
         setterCurrentUserPeriode();
         commade.setCurrentuser(session.getUser());
@@ -61,8 +65,18 @@ public class gestionCommandes implements Serializable {
         serviceGsCommande.newCommnde(commade);
         commade = new Commande();
         lstTsxMagasin.clear();
-        
         return "lstCommandeEntreeproduit";
+        }
+        return null;
+    }
+
+    private String detectTypeEntreeProduit() {
+        TransactionMagasin tsxx = lstTsxMagasin.get(0);
+        if (tsxx.getProduit().getType().equals("Principal")) {
+            return "EPP";
+        } else {
+            return "EPS";
+        }
     }
 
     private void setterCurrentUserPeriode() {
@@ -73,10 +87,13 @@ public class gestionCommandes implements Serializable {
         }
     }
 
+    public void removeTsxMAG(){
+        lstTsxMagasin.remove(tsxMag);
+    }
 
 
     public String newCommandeEntreeIntrant() {
-        commade.setType("EI");
+        commade.setType("EPI");
         commade.setDefPeriode(session.getCurrentPeriode());
         setterCurrentUserPeriode();
         commade.setCurrentuser(session.getUser());
@@ -87,20 +104,53 @@ public class gestionCommandes implements Serializable {
         return "lstCommandeEntreeIntrant";
     }
 
-    public void ajouterLigneVide() {
-        TransactionMagasin tsx = new TransactionMagasin();
+    public void  ajouterLigneVide() {
+         if(verifHomogeniteEntreeProduit()){
+        
+            TransactionMagasin tsx = new TransactionMagasin();
         tsx.setM_commande(commade);
         lstTsxMagasin.add(tsx);
+        }
+         
+    }
 
+    private boolean  verifDuplicSortisProduit() {
+        for (TransactionMagasin t : lstTsxMagasin) {
+            if (t.getProduit().equals(produit) && t.getGrade() == grade) {
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention dupplication de donnée", "Attention dupplication de donnée");
+            FacesContext.getCurrentInstance().addMessage("type produit", msg);
+                return false;
+            }
+        }
+        return true;
+    }
 
+    private boolean verifHomogeniteEntreeProduit() {
+        if(!lstTsxMagasin.isEmpty()){
+        TransactionMagasin tsxz = lstTsxMagasin.get(0);
+        for (TransactionMagasin t : lstTsxMagasin) {
+            if (!t.getProduit().getType().equals(tsxz.getProduit().getType())) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "le produit ajouter n'esy pas du meme type", "le produit ajouter n'esy pas du meme type");
+            FacesContext.getCurrentInstance().addMessage("type produit", msg);
+
+                return false;
+            }
+          }
+        }
+        
+        return true;
     }
 
     public List<Commande> getlstCommandeEntreeProduit() {
-        return serviceGsCommande.lstCommandeByType("EP",session.getCurrentCoop(),session.getCurrentPeriode());
+        List<Commande> listCommandes = new LinkedList<Commande>();
+        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPP",session.getCurrentCoop(),session.getCurrentPeriode()));
+        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPS",session.getCurrentCoop(),session.getCurrentPeriode()));
+
+        return listCommandes;
     }
 
     public List<Commande> getlstCommandeEntreeIntrant() {
-        return serviceGsCommande.lstCommandeByType("EI",session.getCurrentCoop(),session.getCurrentPeriode());
+        return serviceGsCommande.lstCommandeByType("EPI",session.getCurrentCoop(),session.getCurrentPeriode());
     }
 
     public String newCommandeSortisProduit() {
@@ -163,6 +213,8 @@ public class gestionCommandes implements Serializable {
 
     public void ajouterSortieProduit() {
         if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
+           if(verifDuplicSortisProduit()){
+
             TransactionMagasin tsx = new TransactionMagasin();
             tsx.setM_commande(commade);
             tsx.setGrade(grade);
@@ -173,6 +225,7 @@ public class gestionCommandes implements Serializable {
             lstTsxMagasin.add(tsx);
             m_ssp = new StockSortieProduit();
         }
+           }
     }
 
     public float getcalculSommeCommande() {
@@ -288,6 +341,20 @@ public class gestionCommandes implements Serializable {
      */
     public void setLstCommandeSortisProduit(List<Commande> lstCommandeSortisProduit) {
         this.lstCommandeSortisProduit = lstCommandeSortisProduit;
+    }
+
+    /**
+     * @return the tsxMag
+     */
+    public TransactionMagasin getTsxMag() {
+        return tsxMag;
+    }
+
+    /**
+     * @param tsxMag the tsxMag to set
+     */
+    public void setTsxMag(TransactionMagasin tsxMag) {
+        this.tsxMag = tsxMag;
     }
 
 }

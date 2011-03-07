@@ -121,16 +121,16 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
     }
 
     @Override
-    public Long listResultatCharge(String periode, String charteCompte) {
+    public double listResultatCharge(String periode, String charteCompte) {
        Query query = em.createQuery("select  sum(t.montant) from  TransactionCaisse t "
                + "where t.defPeriode.periode = ?1 and t.charteCompte.reference = ?2"
                       + " group by t.charteCompte.reference, t.defPeriode.periode");
        query.setParameter(1, periode);
        query.setParameter(2, charteCompte);
        if(query.getResultList().isEmpty() ){
-        return null;
+        return 0;
        }
-        return (Long) query.getResultList().get(0);
+        return  (Double) query.getSingleResult();
     }
 
     @Override

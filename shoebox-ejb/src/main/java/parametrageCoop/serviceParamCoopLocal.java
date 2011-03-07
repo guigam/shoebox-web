@@ -42,6 +42,8 @@ public interface serviceParamCoopLocal {
     public void newCharteCompte(CharteCompte charteCompte);
 
     public void newMagasin(Magasin magasin);
+
+    public void newCompte(Compte compte);
     
     //***********************************modification***************************************************//
 

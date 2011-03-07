@@ -30,38 +30,44 @@
     </navigation-rule>
         <navigation-rule>
         <navigation-case>
-            <from-outcome>menuResultat</from-outcome>
-            <to-view-id>/resultat/menuResultat.xhtml</to-view-id>
+            <from-outcome>menuRapport</from-outcome>
+            <to-view-id>/rapport/menuRapport.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>resultatCoop</from-outcome>
+            <to-view-id>/resultat/resultatCoop.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
         <navigation-rule>
         <navigation-case>
             <from-outcome>comptePayer</from-outcome>
-            <to-view-id>/resultat/comptePayer.xhtml</to-view-id>
+            <to-view-id>/rapport/comptePayer.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
         <navigation-rule>
         <navigation-case>
             <from-outcome>compteRecevoir</from-outcome>
-            <to-view-id>/resultat/compteRecevoir.xhtml</to-view-id>
+            <to-view-id>/rapport/compteRecevoir.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
      <navigation-rule>
         <navigation-case>
             <from-outcome>etatCoop</from-outcome>
-            <to-view-id>/resultat/etatCooperative.xhtml</to-view-id>
+            <to-view-id>/rapport/etatCooperative.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
          <navigation-rule>
         <navigation-case>
             <from-outcome>etatFourProd</from-outcome>
-            <to-view-id>/resultat/etatFP.xhtml</to-view-id>
+            <to-view-id>/rapport/etatFP.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
          <navigation-rule>
         <navigation-case>
             <from-outcome>etatFourIntrant</from-outcome>
-            <to-view-id>/resultat/etatFI.xhtml</to-view-id>
+            <to-view-id>/rapport/etatFI.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

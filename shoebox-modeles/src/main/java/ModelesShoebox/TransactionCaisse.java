@@ -42,7 +42,7 @@ public class TransactionCaisse implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
-    private int montant;
+    private float montant;
     private String typeTransaction;
     private String description;
     @ManyToOne
@@ -107,14 +107,14 @@ private Cooperative coop;
     /**
      * @return the montant
      */
-    public int getMontant() {
+    public float getMontant() {
         return montant;
     }
 
     /**
      * @param montant the montant to set
      */
-    public void setMontant(int montant) {
+    public void setMontant(float montant) {
         this.montant = montant;
     }
 

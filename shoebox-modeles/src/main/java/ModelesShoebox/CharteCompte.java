@@ -5,44 +5,57 @@
 
 package ModelesShoebox;
 
-import ModelesParametrage.Utilisateur;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author guigam
+ * @author guigamehdi
  */
 @Entity
 @Table(name = "CharteCompte")
-@NamedQueries({
-    @NamedQuery(name = "CharteCompte.findAll", query = "SELECT c FROM CharteCompte c")})
 public class CharteCompte implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
+    @Basic(optional = false)
     @Column(name = "numero")
     private String numero;
+    @Basic(optional = false)
     @Column(name = "nom")
     private String nom;
+    @Basic(optional = false)
     @Column(name = "type")
     private String type;
+    @Basic(optional = false)
     @Column(name = "reference")
     private String reference;
+    @Basic(optional = false)
+    @Column(name = "nature")
+    private String nature;
+
     public CharteCompte() {
     }
 
     public CharteCompte(String id) {
         this.id = id;
+    }
+
+    public CharteCompte(String id, String numero, String nom, String type, String reference, String nature) {
+        this.id = id;
+        this.numero = numero;
+        this.nom = nom;
+        this.type = type;
+        this.reference = reference;
+        this.nature = nature;
     }
 
     public String getId() {
@@ -85,6 +98,14 @@ public class CharteCompte implements Serializable {
         this.reference = reference;
     }
 
+    public String getNature() {
+        return nature;
+    }
+
+    public void setNature(String nature) {
+        this.nature = nature;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,7 +130,5 @@ public class CharteCompte implements Serializable {
     public String toString() {
         return "ModelesShoebox.CharteCompte[id=" + id + "]";
     }
-
-  
 
 }

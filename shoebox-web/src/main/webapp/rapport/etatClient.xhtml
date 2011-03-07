@@ -1,25 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../templateResultat.xhtml"
+                template="./../templateRapport.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j">
     <ui:define name="content">
          <h:form>
-             <h:outputText value="#{msg.lib_etatDuCompte} #{msg.lib_fournisseurIntrant}" styleClass="titrePanel" />
+        <h:outputText value="#{msg.lib_etatDuCompte} #{msg.lib_client}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <h:outputText value="#{msg.lib_fournisseurIntrant}"/>
+                <h:outputText value="#{msg.lib_client}"/>
                
-                <rich:comboBox value="#{gsResultat.fi}"   valueChangeListener="#{gsResultat.etatcompteFI}"   converter="converterFI"  >
-                    <f:selectItems value="#{parametrageShoebox.listitemFI}"/>
+                <rich:comboBox value="#{gsResultat.client}"   valueChangeListener="#{gsResultat.etatcompteClient}"   converter="converterClient"  >
+                   <f:selectItems value="#{parametrageShoebox.listitemClient}"/>
                    <a4j:support event="onselect" reRender="tab"/>
                 </rich:comboBox>
                 
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsResultat.etatcompteFI}"  var="item" width="100%" id="tab">
+                <rich:dataTable value="#{gsResultat.etatcompteClient}"  var="item" width="100%" id="tab">
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}"/>
@@ -45,8 +45,8 @@
                             <h:outputText value="#{msg.lib_encaissement}"/>
                         </f:facet>
                         <h:outputText value="#{item.typeTransaction == 'D' ? item.montant : ''}">
-                            <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                        </h:outputText>
+                        <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                     </rich:column>
                 </rich:dataTable>
                 </h:form>

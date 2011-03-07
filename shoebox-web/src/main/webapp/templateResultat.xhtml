@@ -49,91 +49,13 @@
                             </h:commandLink>
                                 <rich:spacer width="50"/>
                         </ui:repeat>  
-                      
-                    
-                  
-                        <rich:dropDownMenu>
-                            <f:facet name="label">
-                                <h:panelGroup>
-                                    <h:outputText value="#{msg.lib_magasin}"/>
-                                </h:panelGroup>
-                            </f:facet>
-
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_entreProduit}" action="lstFP"/>
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_sortisProduit}" action="lstFP"/>
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_entreeIntrant}" action="lstFP"/>
-                            <rich:menuItem submitMode="ajax" value="#{msg.lib_sortisIntrant}" action="lstFP"/>
-                        </rich:dropDownMenu>
-                        <rich:dropDownMenu>
-                            <f:facet name="label">
-                                <h:panelGroup>
-                                    <h:outputText value="#{msg.lib_caisse}"/>
-                                </h:panelGroup>
-                            </f:facet>
-                            <rich:menuGroup value="#{msg.lib_encaissement}">
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_venteproduit}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_venteIntrant}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteFournisseurProduit}" action="detteFP" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteFournisseurIntrant}" action="detteFI"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_detteClient}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_encaissementAvanceClient}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_partSocialDesMembres}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_diversPorduitEtAutresEncaissement}" action="lstFP"/>
-                            </rich:menuGroup>
-                            <rich:menuGroup value="#{msg.lib_debourse}">
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_achatProduit}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_achatIntrant}" action="lstFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_paiementCharges}" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementavanceClient}" action="lstFP" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementDettesFournisseurProduit}" action="rmbFP"/>
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_remboursementDettesFournisseurIntrant}" action="rmbFI" />
-                                <rich:menuItem submitMode="ajax" value="#{msg.lib_avanceFournisseurproduit}" action="lstFP"/>
-                            </rich:menuGroup>
-                        </rich:dropDownMenu>
-
                     </rich:toolBar>
                 </ui:insert>
                 <rich:spacer height="5"/>
             </h:form>
         </div>
         <div id="content">
-            <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td width="20%" style="vertical-align:top; padding-right:5px">
-                <h:panelGroup style="width:100%;">
-                    <ui:insert name="menu" >
-                        <h:form>
-
-                            <rich:panelMenu label="Menu">
-                                <rich:panelMenuGroup  label="Menu" expanded="true"  >
-                                        <rich:panelMenuGroup  label="#{msg.lib_etatDuCompte}" expanded="true"  >
-                                            <rich:panelMenuItem  label="#{msg.lib_cooperative}" action="etatCoop" />
-                                                 <rich:panelMenuItem  label="#{msg.lib_client}" action="etatClient" />
-                                                 <rich:panelMenuItem  label="#{msg.lib_fournisseurProduit}" action="etatFourProd" />
-                                                 <rich:panelMenuItem  label="#{msg.lib_fournisseurIntrant}" action="etatFourIntrant" />
-                                        </rich:panelMenuGroup>
-                                    <rich:panelMenuGroup  label="#{msg.lib_rapport}" expanded="true"  >
-                                        <rich:panelMenuItem  label="#{msg.lib_comptePayer}" action="comptePayer" />
-                                        <rich:panelMenuItem  label="#{msg.lib_compteRecevoir}" action="compteRecevoir" />
-                                    </rich:panelMenuGroup>
-                            
-                                </rich:panelMenuGroup>
-
-                            </rich:panelMenu>
-
-                        </h:form>
-                    </ui:insert>
-                </h:panelGroup>
-                </td>
-                <td/>
-                <td  width="79%" style="vertical-align:top;" >
-                <h:panelGroup style="width:100%;">
-                    <ui:insert name="content" ></ui:insert>
-                </h:panelGroup>
-                </td>
-
-                </tr>
-            </table>
+            <ui:insert name="content"></ui:insert>
         </div>
         <center><div id="bottom">
                 <ui:insert name="bottom">Copyright @ 2011 Gfplus CANADA </ui:insert>
