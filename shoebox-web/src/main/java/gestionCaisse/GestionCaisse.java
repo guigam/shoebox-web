@@ -16,6 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import parametrageSocodevi.ServiceParamSocoLocal;
@@ -53,7 +55,7 @@ public class GestionCaisse implements Serializable {
     }
 
     public void newtransactionCommande() {
-            if(paramShoebox.validerDate(tsxCaisse.getDate())){
+      if(validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(),tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())){
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
         tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
@@ -64,6 +66,21 @@ public class GestionCaisse implements Serializable {
         serviceGsCommande.mergeCommande(gsCommande.getCommade());
         tsxCaisse = new TransactionCaisse();
         }
+    }
+
+    private boolean validerTransaction(Date datetsx,Date dateOrigine, float montant, float montantRestant) {
+        if(!paramShoebox.validerDate(datetsx)){
+            return false;
+        }else if(montant > montantRestant){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", "montant saisie incorrect");
+                FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
+                return false;
+        }else if (dateOrigine.after(datetsx)){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date transaction ne doit pas etre inferieur a la date de la commande", "Date transaction ne doit pas etre inferieur a la date de la commande");
+                FacesContext.getCurrentInstance().addMessage("date", msg);
+                return false;
+        }
+        return true;
     }
 
     public void newtransactionSD() {
