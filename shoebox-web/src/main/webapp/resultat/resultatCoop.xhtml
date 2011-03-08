@@ -34,8 +34,32 @@
             </ui:repeat>
         </table>
             </rich:tab>
-            <rich:tab label="#{msg.lib_produit}">
 
+
+
+            <rich:tab label="#{msg.lib_produit}">
+                       <table border="1" width="100%" class="tableResultatCharge">
+            <tr class="celluleTabPrincipale">
+                <td width="3%"></td>
+                <td width="20%"></td>
+                <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                    <td width="5%"><h:outputText value="#{periode.periode}"/></td>
+                </ui:repeat>
+            </tr>
+
+                           <ui:repeat value="#{gsResultat.lstResultatProduit}" var="rs" >
+                <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
+                    <td><h:outputText value="#{rs.referenceAffichage}" styleClass="titreTabResultat"/></td>
+                    <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
+                    <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                        <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
+                                <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
+                            </h:outputText></td>
+                    </ui:repeat>
+
+                </tr>
+            </ui:repeat>
+        </table>
             </rich:tab>
             <rich:tab label="#{msg.lib_analyse}">
 

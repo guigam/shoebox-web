@@ -23,6 +23,7 @@
     <class>ModelesShoebox.TransactionCharge</class>
     <class>ModelesShoebox.TransactionMagasin</class>
     <class>ModelesParametrage.StructureCharge</class>
+    <class>ModelesParametrage.StructureProduit</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

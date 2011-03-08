@@ -7,6 +7,7 @@ package resultat;
 
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.StructureCharge;
+import ModelesParametrage.StructureProduit;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Cooperative;
@@ -39,10 +40,12 @@ public interface serviceResultatLocal {
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);
 
 
-    public double  listResultatCharge(String periode, String charteCompte);
+    public double  rechercheResultat(String periode, String charteCompte);
 
     public List<CharteCompte> lstCharteCompte(String type);
 
     public List<StructureCharge> lsttructureCharge();
+    
+    public List<StructureProduit> lsttructureProduit();
 
 }

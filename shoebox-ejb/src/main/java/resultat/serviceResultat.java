@@ -7,6 +7,7 @@ package resultat;
 
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.StructureCharge;
+import ModelesParametrage.StructureProduit;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
@@ -121,7 +122,7 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
     }
 
     @Override
-    public double listResultatCharge(String periode, String charteCompte) {
+    public double rechercheResultat(String periode, String charteCompte) {
        Query query = em.createQuery("select  sum(t.montant) from  TransactionCaisse t "
                + "where t.defPeriode.periode = ?1 and t.charteCompte.reference = ?2"
                       + " group by t.charteCompte.reference, t.defPeriode.periode");
@@ -143,6 +144,12 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
     @Override
     public List<StructureCharge> lsttructureCharge() {
        Query query = em.createQuery("from StructureCharge s");
+       return query.getResultList();
+    }
+
+    @Override
+    public List<StructureProduit> lsttructureProduit() {
+       Query query = em.createQuery("from StructureProduit p");
        return query.getResultList();
     }
 

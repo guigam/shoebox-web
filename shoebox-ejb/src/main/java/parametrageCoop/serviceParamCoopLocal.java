@@ -16,6 +16,7 @@ import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionMagasin;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import javax.faces.model.SelectItem;
@@ -27,6 +28,7 @@ import javax.faces.model.SelectItem;
 @Local
 public interface serviceParamCoopLocal {
 //**********************************insertion*************************************
+
     public void newClient(Client client);
 
     public void newFP(FournisseurProduit fp);
@@ -44,9 +46,8 @@ public interface serviceParamCoopLocal {
     public void newMagasin(Magasin magasin);
 
     public void newCompte(Compte compte);
-    
-    //***********************************modification***************************************************//
 
+    //***********************************modification***************************************************//
     public void updateClient(Client client);
 
     public void updateFP(FournisseurProduit fp);
@@ -64,7 +65,6 @@ public interface serviceParamCoopLocal {
     public void updateMagasin(Magasin magasin);
 
     //*************************************Suppression***************************************//
-
     public void deleteClient(Client client);
 
     public void deleteFP(FournisseurProduit fp);
@@ -82,7 +82,6 @@ public interface serviceParamCoopLocal {
     public void deleteMagasin(Magasin magasin);
 
     //***************************************les liste ******************************************************//
-
     public List<Client> lstClient(Cooperative coop);
 
     public List<FournisseurProduit> lstFP(Cooperative coop);
@@ -119,15 +118,10 @@ public interface serviceParamCoopLocal {
 
     public List<SelectItem> lstItemCharteCompte();
 
- 
-
     //***************************recherche*********************************//
-    public  List<Object[]>  rechercheStockProduit(Produit produit, int grade, Cooperative coop);
-    
-    public  List<Object[]>  rechercheStockProduitIntrant(Produit produit, Cooperative coop);
-    
+    public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop);
 
-    public List<TransactionMagasin> test();
+    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop);
 
-
- }
+    public boolean verifdate(Date date, DefinitionPeriode defPer);
+}

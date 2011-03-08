@@ -7,9 +7,11 @@ package gestionCaisse;
 import Login.login;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
+import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -43,12 +45,15 @@ public class GestionCaisse implements Serializable {
     private serviceSoldeDepartLocal serviceSolde;
     @Inject
     private login session;
+    @Inject
+    private parametrageShoebox paramShoebox;
 
     /** Creates a new instance of gestionCaisse */
     public GestionCaisse() {
     }
 
     public void newtransactionCommande() {
+            if(paramShoebox.validerDate(tsxCaisse.getDate())){
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
         tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
         tsxCaisse.setCurrentuser(session.getUser());
@@ -58,9 +63,11 @@ public class GestionCaisse implements Serializable {
         gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
         serviceGsCommande.mergeCommande(gsCommande.getCommade());
         tsxCaisse = new TransactionCaisse();
+        }
     }
 
     public void newtransactionSD() {
+        if(paramShoebox.validerDate(tsxCaisse.getDate())){
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
         tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
         tsxCaisse.setCurrentuser(session.getUser());
@@ -70,6 +77,7 @@ public class GestionCaisse implements Serializable {
         gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
         serviceSolde.mergeSolde(gsSoldeDepart.getSd());
         tsxCaisse = new TransactionCaisse();
+        }
     }
 
     private void affectationTypetransactionSD() {
@@ -91,6 +99,7 @@ public class GestionCaisse implements Serializable {
     }
 
     public String newTransactionCharge(){
+        if(paramShoebox.validerDate(tsxCaisseCharge.getDate())){
         tsxCaisseCharge.setTypeTransaction("D");
         tsxCaisseCharge.setCurrentuser(session.getUser());
          tsxCaisseCharge.setCoop(session.getCurrentCoop());
@@ -98,6 +107,8 @@ public class GestionCaisse implements Serializable {
         serviceGsCommande.newTransactionCharge(tsxCaisseCharge);
         tsxCaisse = new TransactionCaisse();
         return "lstTransactionCharge";
+        }
+        return null;
     }
 
     public List<TransactionCharge> getlstTransactionCharge(){

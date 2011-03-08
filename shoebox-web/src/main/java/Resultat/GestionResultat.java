@@ -6,7 +6,7 @@ package Resultat;
 
 import Login.login;
 import ModelesParametrage.StructureCharge;
-import ModelesShoebox.CharteCompte;
+import ModelesParametrage.StructureProduit;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
 import ModelesShoebox.FournisseurIntrant;
@@ -18,7 +18,6 @@ import ModelesShoebox.TransactionMagasin;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -160,24 +159,25 @@ public class GestionResultat implements Serializable {
 
     public Double ResultatCharge(String periode, String charteCompte) {
         if(charteCompte.equals("RB-1") ){
-            return (double) resultat.listResultatCharge(periode, "RA-1-SD") - (double) resultat.listResultatCharge(periode, "RA-1-SF");
+            return (double) resultat.rechercheResultat(periode, "RA-1-SD") - (double) resultat.rechercheResultat(periode, "RA-1-SF");
         }else if(charteCompte.equals("RB-2")){
-            return (double) resultat.listResultatCharge(periode, "RA-2-SD") - (double) resultat.listResultatCharge(periode, "RA-2-SF");
+            return (double) resultat.rechercheResultat(periode, "RA-2-SD") - (double) resultat.rechercheResultat(periode, "RA-2-SF");
         }else  if(charteCompte.equals("RD")){
-           return  (double) resultat.listResultatCharge(periode, "RC-SD") - (double) resultat.listResultatCharge(periode, "RC-SF");
+           return  (double) resultat.rechercheResultat(periode, "RC-SD") - (double) resultat.rechercheResultat(periode, "RC-SF");
         }else if(charteCompte.equals("RH")){
-            return   (double) resultat.listResultatCharge(periode, "RE-SD") - (double) resultat.listResultatCharge(periode, "RE-SF");
-        }else if(!charteCompte.equals("ppp") && resultat.listResultatCharge(periode, charteCompte) != 0 ){
-            return (double)resultat.listResultatCharge(periode, charteCompte);
-
+            return   (double) resultat.rechercheResultat(periode, "RE-SD") - (double) resultat.rechercheResultat(periode, "RE-SF");
+        }else if(!charteCompte.equals("ppp") && resultat.rechercheResultat(periode, charteCompte) != 0 ){
+            return (double)resultat.rechercheResultat(periode, charteCompte);
         }
-      
-
         return null;
     }
 
+
     public List<StructureCharge> getlstResultatCharge() {
         return resultat.lsttructureCharge();
+    }
+    public List<StructureProduit> getlstResultatProduit() {
+        return resultat.lsttructureProduit();
     }
 
     public boolean verifTypeChargeAaffichier(StructureCharge sc) {
