@@ -63,7 +63,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantiteCommande}"/>
                                 </f:facet>
-                                <h:inputText value="#{rech.quantiteSaisie}" />
+                               <a4j:region>
+                                    <h:inputText value="#{rech.quantiteSaisie}">
+                                        <a4j:support event="onchange" action="#{gsCommandes.verifquantiteSaisie}" immediate="false">
+                                               <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
+                                        </a4j:support>
+                                    </h:inputText>
+                                        </a4j:region>
                             </rich:column>
                             <rich:column >
                                 <f:facet name="header">
@@ -142,7 +148,9 @@
                             <f:facet name="header">
                                 <h:outputText value="--"/>
                             </f:facet>
-                            <a4j:commandButton image="/icons/delete.png"/>
+                             <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
+                                    <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{rech}"/>
+                                </a4j:commandButton>
                         </rich:column>
                     </rich:dataTable>
                              <rich:spacer height="10"/>

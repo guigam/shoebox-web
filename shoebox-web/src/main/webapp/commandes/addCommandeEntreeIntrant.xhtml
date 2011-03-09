@@ -86,7 +86,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="--" />
                                 </f:facet>
-                               <a4j:commandButton image="/icons/delete.png"/>
+                                <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
+                                    <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{tsx}"/>
+                                </a4j:commandButton>
                             </rich:column>
 
 

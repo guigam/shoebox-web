@@ -15,9 +15,9 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
-import ModelesShoebox.TransactionMagasin;
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -294,7 +294,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         } else {
             for (Object[] t : rechercehEntreeProduitIntrant(produit, coop)) {
                 for (Object[] o : rechercehSortisProduitIntrant(produit, coop)) {
-                    if (t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])) {
+                    if (t[0].equals(o[0]) && t[1].equals(o[1])) {
                         Object[] obj = new Object[3];
                         obj[0] = (Magasin) (t[0]);
                         obj[1] = (Produit) (t[1]);
@@ -357,10 +357,11 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehSortisProduit(Produit produit, int grade, Cooperative coop) {
         if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4  group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type in (?3,?5) and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4  group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(2, grade);
-            q.setParameter(3, "SP");
+            q.setParameter(3, "SPP");
+            q.setParameter(5, "SPS");
             q.setParameter(4, coop);
             return (List<Object[]>) q.getResultList();
         }
@@ -431,12 +432,17 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     @Override
-    public List<TransactionMagasin> test() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void newCompte(Compte compte) {
+        persist(compte);
     }
 
     @Override
-    public void newCompte(Compte compte) {
-        persist(compte);
+    public boolean verifdate(Date date, DefinitionPeriode defPer) {
+        int madate = date.getMonth() + 1;
+        System.out.println(madate);
+        if (defPer.getNumMois() == madate) {
+            return true;
+        }
+        return false;
     }
 }

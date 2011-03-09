@@ -33,7 +33,7 @@
                         <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                    <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_date} #{msg.message_Obligatoire}"/>
+                    <rich:calendar value="#{gsCommandes.commade.dateCommande}" datePattern="dd/MM/yyyy" required="true" requiredMessage="#{msg.lib_date} #{msg.message_Obligatoire}"/>
                 </h:panelGrid>
                 <rich:spacer height="30"/>
                 <h:outputText value="#{msg.lib_detailCommande}" styleClass="sousTitrePanel"/>
