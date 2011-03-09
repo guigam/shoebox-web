@@ -21,6 +21,9 @@
                 <h:outputText value="#{msg.lib_balance}"/>
                 <h:outputText value="#{gsResultat.totalEntree - gsResultat.totalSortis - gsResultat.totalCharge}"/>
         </rich:panel>
+        <h:form>
+            <h:commandLink value="report" action="/resultat/report1.jasper"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>
