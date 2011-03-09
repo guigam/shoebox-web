@@ -113,6 +113,11 @@ a:link:hover, a:visited:hover  {
   font-size: 10px;
     font-weight: bold;
 }
+.titreBleu{
+    font-size: 12px;
+    font-weight: bold;
+    color: #1d2460
+}
 
 .contenuTabResultat{
   font-size: 10px;

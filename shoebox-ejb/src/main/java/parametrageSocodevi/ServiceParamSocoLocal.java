@@ -10,6 +10,7 @@ import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
+import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.util.List;
 import javax.ejb.Local;
@@ -25,6 +26,8 @@ public interface ServiceParamSocoLocal {
     public List<Permission> lstPermission();
 
    public ParamTransaction rechercheParamCharteCompte(String typetransction);
+
+   public CharteCompte charteCompteByReference(String reference);
 
    public void mergeParamCharteCompteOfortransaction(ParamTransaction paramTsx);
 

@@ -28,9 +28,9 @@
                         </td>
                         <td width="14%">
                             <div style="vertical-align: top;" align="left">
-                        <h:commandButton image="/icons/ico_decon.png"/>
+                        <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
                         <rich:spacer width="5"/>
-                        <h:commandLink value="Deconnexion" styleClass="titreLibelle"/><br/>
+                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
                         <h:commandButton image="/icons/user_green.png"/>
                         <rich:spacer width="5"/>
                         <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle"/><br/>

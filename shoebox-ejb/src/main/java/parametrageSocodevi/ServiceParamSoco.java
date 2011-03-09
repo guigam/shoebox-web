@@ -9,10 +9,10 @@ import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
+import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Stateless;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
@@ -141,6 +141,14 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     public void updateUtilisateur(Utilisateur utilisateur) {
         merge(utilisateur);
     }
+
+    @Override
+    public CharteCompte charteCompteByReference(String reference) {
+        Query query = em.createQuery("from CharteCompte c where c.reference = ?1");
+        query.setParameter(1, reference);
+        return (CharteCompte) query.getSingleResult();
+    }
+
 
 
   

@@ -15,7 +15,6 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
-import ModelesShoebox.TransactionMagasin;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;

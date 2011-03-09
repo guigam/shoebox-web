@@ -16,6 +16,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import parametrageSocodevi.ServiceParamSoco;
 import parametrageSocodevi.ServiceParamSocoLocal;
 
@@ -57,6 +59,11 @@ public class login implements Serializable{
            return "begin";
         }
         return null;
+    }
+    public String logout(){
+((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+
+        return "/login.xhtml";
     }
 
     /**

@@ -38,6 +38,47 @@
 
 
             <rich:tab label="#{msg.lib_produit}">
+                <rich:panel style="width: 100%; background-color: white">
+                    <h:panelGrid columns="3">
+                        <h:panelGrid columns="3">
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_margebrutcafeTB1}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_margebrutautreProduit}:" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_margebrutautreMatiere}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_valeurAjouter}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_excedentBrut}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu"/>
+                        </h:panelGrid>
+                        <rich:spacer width="20"/>
+                         <h:panelGrid columns="3">
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_margebrutcafeTB1}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_margebrutautreProduit}:" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_margebrutautreMatiere}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_valeurAjouter}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu"/>
+                            <h:graphicImage value="/icons/puce.png"/>
+                            <h:outputText value="#{msg.lib_excedentBrut}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </rich:panel>
+                <rich:spacer height="10"/>
+
                        <table border="1" width="100%" class="tableResultatCharge">
             <tr class="celluleTabPrincipale">
                 <td width="3%"></td>

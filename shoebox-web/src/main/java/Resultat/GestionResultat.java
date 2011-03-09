@@ -5,6 +5,7 @@
 package Resultat;
 
 import Login.login;
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.StructureCharge;
 import ModelesParametrage.StructureProduit;
 import ModelesShoebox.Client;
@@ -15,6 +16,7 @@ import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
+import antlr.DefineGrammarSymbols;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
 import java.io.Serializable;
@@ -25,6 +27,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import parametrageCoop.serviceParamCoopLocal;
+import parametrageSocodevi.GestionParametrageSoco;
+import parametrageSocodevi.ServiceParamSocoLocal;
 import resultat.serviceResultatLocal;
 import soldeDepart.gestionSoldeDepart;
 
@@ -37,7 +41,7 @@ import soldeDepart.gestionSoldeDepart;
 public class GestionResultat implements Serializable {
 
     @EJB
-    private serviceResultatLocal resultat;
+    private serviceResultatLocal serviceResultat;
     @Inject
     private login session;
     @Inject
@@ -45,9 +49,13 @@ public class GestionResultat implements Serializable {
     @Inject
     private GestionCaisse gsCaisse;
     @EJB
-    private serviceParamCoopLocal parametrageCoop;
+    private serviceParamCoopLocal serviceParametrageCoop;
+    @EJB
+    private ServiceParamSocoLocal servicearamSoco;
     @Inject
     private gestionSoldeDepart soldeDepart;
+    @Inject
+    private GestionParametrageSoco gsParamSoco;
     private Client client = new Client();
     private FournisseurProduit fp = new FournisseurProduit();
     private FournisseurIntrant fi = new FournisseurIntrant();
@@ -58,7 +66,7 @@ public class GestionResultat implements Serializable {
 
     public List<TransactionCaisse> getetatcompteCoop() {
         List<TransactionCaisse> lstEtatTransactionCoop = new LinkedList<TransactionCaisse>();
-        lstEtatTransactionCoop.addAll(resultat.lstTsxCaisseCoop(session.getUser().getCooperative(), session.getCurrentPeriode()));
+        lstEtatTransactionCoop.addAll(serviceResultat.lstTsxCaisseCoop(session.getUser().getCooperative(), session.getCurrentPeriode()));
         return lstEtatTransactionCoop;
     }
 
@@ -80,6 +88,14 @@ public class GestionResultat implements Serializable {
         compteApayerSoldeDepart(lstRapportCompte, soldeDepart.getlstDetteFI());
         compteApayerSoldeDepart(lstRapportCompte, soldeDepart.getlstDetteFP());
         return lstRapportCompte;
+    }
+
+    private Double calculSommePeriodeCharteCompte(String reference) {
+        double calcul = 0;
+        for (DefinitionPeriode d : gsParamSoco.getlstDefinitionPeriode()) {
+            calcul = calcul + (double) serviceResultat.rechercheResultat(d.getPeriode(), reference);
+        }
+        return calcul;
     }
 
     private void compteApayerEntreeProduit(List<rapportCompte> lstRapportCompte) {
@@ -159,25 +175,52 @@ public class GestionResultat implements Serializable {
 
     public Double ResultatCharge(String periode, String charteCompte) {
         if(charteCompte.equals("RB-1") ){
-            return (double) resultat.rechercheResultat(periode, "RA-1-SD") - (double) resultat.rechercheResultat(periode, "RA-1-SF");
+            return (double) serviceResultat.rechercheResultat(periode, "RA-1-SD") - (double) serviceResultat.rechercheResultat(periode, "RA-1-SF");
         }else if(charteCompte.equals("RB-2")){
-            return (double) resultat.rechercheResultat(periode, "RA-2-SD") - (double) resultat.rechercheResultat(periode, "RA-2-SF");
+            return (double) serviceResultat.rechercheResultat(periode, "RA-2-SD") - (double) serviceResultat.rechercheResultat(periode, "RA-2-SF");
         }else  if(charteCompte.equals("RD")){
-           return  (double) resultat.rechercheResultat(periode, "RC-SD") - (double) resultat.rechercheResultat(periode, "RC-SF");
+           return  (double) serviceResultat.rechercheResultat(periode, "RC-SD") - (double) serviceResultat.rechercheResultat(periode, "RC-SF");
         }else if(charteCompte.equals("RH")){
-            return   (double) resultat.rechercheResultat(periode, "RE-SD") - (double) resultat.rechercheResultat(periode, "RE-SF");
-        }else if(!charteCompte.equals("ppp") && resultat.rechercheResultat(periode, charteCompte) != 0 ){
-            return (double)resultat.rechercheResultat(periode, charteCompte);
+            return   (double) serviceResultat.rechercheResultat(periode, "RE-SD") - (double) serviceResultat.rechercheResultat(periode, "RE-SF");
+        }else if(!charteCompte.equals("ppp") && serviceResultat.rechercheResultat(periode, charteCompte) != 0 ){
+            return (double)serviceResultat.rechercheResultat(periode, charteCompte);
         }
         return null;
     }
 
+    //////////////////////// calcul du resultat produit //////////////////////////
+    public Double getcalculTB1(){
+        return calculSommePeriodeCharteCompte("TA-1") -  calculSommePeriodeCharteCompte("RA-1") - (calculSommePeriodeCharteCompte("RA-1-SD") - calculSommePeriodeCharteCompte("RA-1-SF"));
+        
+    }
+    
+    public Double getcalculTB2(){
+        return calculSommePeriodeCharteCompte("TA-2") -  calculSommePeriodeCharteCompte("RA-2") - (calculSommePeriodeCharteCompte("RA-2-SD") - calculSommePeriodeCharteCompte("RA-2-SF"));
+     
+    }
+    public Double getcalculTG(){
+        
+        return calculSommePeriodeCharteCompte("TC") +  calculSommePeriodeCharteCompte("TD") + calculSommePeriodeCharteCompte("TE") + calculSommePeriodeCharteCompte("TF")
+                - calculSommePeriodeCharteCompte("RC") - calculSommePeriodeCharteCompte("RD") - calculSommePeriodeCharteCompte("RE") - calculSommePeriodeCharteCompte("RH");
+        
+    }
+    public Double getcalculTN(){
+
+        return getcalculTB1()+ getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
+                 - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL") ;
+    }
+    public Double getcalculeTQ(){
+
+        return getcalculTB1()+ getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
+                 - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL") ;
+    }
+
 
     public List<StructureCharge> getlstResultatCharge() {
-        return resultat.lsttructureCharge();
+        return serviceResultat.lsttructureCharge();
     }
     public List<StructureProduit> getlstResultatProduit() {
-        return resultat.lsttructureProduit();
+        return serviceResultat.lsttructureProduit();
     }
 
     public boolean verifTypeChargeAaffichier(StructureCharge sc) {
@@ -276,8 +319,8 @@ public class GestionResultat implements Serializable {
     public List<TransactionCaisse> getetatcompteClient() {
         List<TransactionCaisse> lstEtatTransactionFP = new LinkedList<TransactionCaisse>();
         if (client.getId() != null) {
-            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClientPourSD(session.getUser().getCooperative(), client, session.getCurrentPeriode()));
-            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseClient(session.getUser().getCooperative(), client, session.getCurrentPeriode()));
+            lstEtatTransactionFP.addAll(serviceResultat.lstTsxCaisseClientPourSD(session.getUser().getCooperative(), client, session.getCurrentPeriode()));
+            lstEtatTransactionFP.addAll(serviceResultat.lstTsxCaisseClient(session.getUser().getCooperative(), client, session.getCurrentPeriode()));
             return lstEtatTransactionFP;
         }
         return null;
@@ -286,8 +329,8 @@ public class GestionResultat implements Serializable {
     public List<TransactionCaisse> getetatcompteFP() {
         List<TransactionCaisse> lstEtatTransactionFP = new LinkedList<TransactionCaisse>();
         if (fp.getId() != null) {
-            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFPPourSD(session.getUser().getCooperative(), fp, session.getCurrentPeriode()));
-            lstEtatTransactionFP.addAll(resultat.lstTsxCaisseFP(session.getUser().getCooperative(), fp, session.getCurrentPeriode()));
+            lstEtatTransactionFP.addAll(serviceResultat.lstTsxCaisseFPPourSD(session.getUser().getCooperative(), fp, session.getCurrentPeriode()));
+            lstEtatTransactionFP.addAll(serviceResultat.lstTsxCaisseFP(session.getUser().getCooperative(), fp, session.getCurrentPeriode()));
             return lstEtatTransactionFP;
         }
         return null;
@@ -296,8 +339,8 @@ public class GestionResultat implements Serializable {
     public List<TransactionCaisse> getetatcompteFI() {
         List<TransactionCaisse> lstEtatTransactionFI = new LinkedList<TransactionCaisse>();
         if (fi.getId() != null) {
-            lstEtatTransactionFI.addAll(resultat.lstTsxCaisseFIPourSD(session.getUser().getCooperative(), fi, session.getCurrentPeriode()));
-            lstEtatTransactionFI.addAll(resultat.lstTsxCaisseFI(session.getUser().getCooperative(), fi, session.getCurrentPeriode()));
+            lstEtatTransactionFI.addAll(serviceResultat.lstTsxCaisseFIPourSD(session.getUser().getCooperative(), fi, session.getCurrentPeriode()));
+            lstEtatTransactionFI.addAll(serviceResultat.lstTsxCaisseFI(session.getUser().getCooperative(), fi, session.getCurrentPeriode()));
             return lstEtatTransactionFI;
         }
         return null;

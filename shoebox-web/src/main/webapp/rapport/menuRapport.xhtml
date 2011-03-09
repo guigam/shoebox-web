@@ -3,24 +3,38 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../templateRapport.xhtml"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
          <rich:panel>
              <h:outputText value="#{msg.lib_menuResultat}" styleClass="titrePanel"/>
              <rich:separator/>
              <rich:spacer height="10"/>
-            <h:panelGrid columns="2">
-                <h:outputText value="#{msg.lib_totalEntree}" styleClass="titreLibelle"/>
-                <h:outputText value="#{gsResultat.totalEntree}" styleClass="titreLibelle"/>
-                <h:outputText value="#{msg.lib_totalSortis}" styleClass="titreLibelle"/>
-                <h:outputText value="#{gsResultat.totalSortis}" styleClass="titreLibelle"/>
-                <h:outputText value="#{msg.lib_totalCharge}" styleClass="titreLibelle"/>
-                <h:outputText value="#{gsResultat.totalCharge}" styleClass="titreLibelle"/>
-            </h:panelGrid>
-             <rich:separator height="1"/>
-                <h:outputText value="#{msg.lib_balance}"/>
-                <h:outputText value="#{gsResultat.totalEntree - gsResultat.totalSortis - gsResultat.totalCharge}"/>
-        </rich:panel>
+                <h:panelGrid columns="3" width="100%">
+                    <rich:panel header="#{msg.lib_totalEntree}">
+                        <h:outputText value="#{gsResultat.totalEntree}" styleClass="titreLibelle">
+                            <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
+                    </rich:panel>
+                    <rich:panel header="#{msg.lib_totalSortis}">
+                        <h:outputText value="#{gsResultat.totalSortis}" styleClass="titreLibelle">
+                        <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
+                    </rich:panel>
+                    <rich:panel header="#{msg.lib_totalCharge}">
+                        <h:outputText value="#{gsResultat.totalCharge}" styleClass="titreLibelle">
+                        <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
+                    </rich:panel>
+                </h:panelGrid>
+                <rich:panel style="background-color: white; width: 100%" >
+                <h:outputText value="#{msg.lib_balance}" styleClass="sousTitrePanel"/>
+                <rich:spacer width="10"/>
+                <h:outputText value="#{gsResultat.totalEntree - gsResultat.totalSortis - gsResultat.totalCharge}" styleClass="titreMontantTotal">
+                <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                </h:outputText>
+                </rich:panel>
+                </rich:panel>
         <h:form>
             
         </h:form>
