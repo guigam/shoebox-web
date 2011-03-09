@@ -84,7 +84,7 @@ public class GestionCaisse implements Serializable {
     }
 
     public void newtransactionSD() {
-        if(paramShoebox.validerDate(tsxCaisse.getDate())){
+        if(validerTransaction(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(),tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())){
         tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
         tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
         tsxCaisse.setCurrentuser(session.getUser());

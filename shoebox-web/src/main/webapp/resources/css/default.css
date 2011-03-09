@@ -131,13 +131,14 @@ a:link:hover, a:visited:hover  {
 }
 
 .globalMessages {
-	color: #D20005;
-	font-size: 12px;
+	color: darkred;
+	font-size: 14px;
+        font-weight: bold;
 	border: 1px solid #90BB8F;
 	width:98%;
 	padding: 5px;
         background-color: #f1ecf0;
-	font-family: arial, sans-serif;
+	font-family: Lucida sans Unicode, sans-serif;
 }
 .header {
 	width:80%;

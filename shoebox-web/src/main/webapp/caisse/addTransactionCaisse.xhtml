@@ -7,6 +7,15 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j">
 
+
+    <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+    </ui:define>
+
     <ui:define name="content">
         <rich:panel>
             <h:form>
@@ -14,49 +23,91 @@
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
                 <rich:panel style="background-color: white">
-                    <h:panelGrid columns="2">
-                    <h:outputText value="#{msg.lib_description}" styleClass="titreLibelle"/>
-                    <h:outputText value="#{gsCommandes.commade.m_entite.name}"/>
-                    </h:panelGrid>
+                    <h:outputText value="#{msg.lib_detail}" styleClass="sousTitrePanel"/>
+                    <h:outputText value="#{gsCommandes.commade.m_entite.name}"  styleClass="sousTitrePanel"/>
+                    <rich:spacer width="2"/>
+                    <rich:separator width="100%" height="2"/>
                     <h:panelGrid columns="5">
                         <h:panelGrid>
                             <center><h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsCommandes.commade.montantTotal}" styleClass="titreMontantTotal">
-                                <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                            </h:outputText></center>
+                                <h:outputText value="#{gsCommandes.commade.montantTotal}" styleClass="titreMontantTotal">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText></center>
                         </h:panelGrid>
                         <rich:spacer width="20"/>
                         <h:panelGrid >
                             <center><h:outputText value="#{msg.lib_montantPaye}" styleClass="titreLibelle" />
-                            <h:outputText value="#{gsCommandes.commade.montantPaye}" styleClass="titreMontantPaye">
-                                <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                            </h:outputText></center>
+                                <h:outputText value="#{gsCommandes.commade.montantPaye}" styleClass="titreMontantPaye">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText></center>
                         </h:panelGrid>
                         <rich:spacer width="20"/>
                         <h:panelGrid>
                             <center><h:outputText value="#{msg.lib_montantRestant}" styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsCommandes.commade.montantrestant}" styleClass="titreNormal">
-                                <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                            </h:outputText></center>
-                       </h:panelGrid>
+                                <h:outputText value="#{gsCommandes.commade.montantrestant}" styleClass="titreNormal">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText></center>
+                        </h:panelGrid>
                     </h:panelGrid>
                 </rich:panel>
-
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                    <rich:calendar value="#{gestionCaisse.tsxCaisse.date}"/>
-                    <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
-                    <h:inputText value="#{gestionCaisse.tsxCaisse.reference}"/>
-                    <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
-                    <rich:comboBox value="#{gestionCaisse.tsxCaisse.compteEncaisse}" converter="converterCompte">
-                        <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
-                    </rich:comboBox>
-                    <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
-                    <h:inputText value="#{gestionCaisse.tsxCaisse.montant}">
-                        <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                    </h:inputText>
-                    <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionCommande}" />
-                </h:panelGrid>
+                <h:panelGrid columns="3" width="100%">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                        <rich:calendar value="#{gestionCaisse.tsxCaisse.date}"/>
+                        <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gestionCaisse.tsxCaisse.reference}"/>
+                        <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
+                        <rich:comboBox value="#{gestionCaisse.tsxCaisse.compteEncaisse}" converter="converterCompte">
+                            <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
+                        </rich:comboBox>
+                        <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gestionCaisse.tsxCaisse.montant}">
+                            <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:inputText>
+                        <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionCommande}" />
+                    </h:panelGrid>
+                    <rich:spacer width="50"/>
+                    <rich:panel header="#{msg.lib_listTransaction}" style="vertical-align: top; width: 100%" >
+                    <rich:dataTable value="#{gsCommandes.commade.lsttransactionCaisse}" var="tsx" width="100%" style="vertical-align:top;">
+                        <rich:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_date}"/>
+                            </f:facet>
+                        <h:outputText value="#{tsx.date}"/>
+                        </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_reference}"/>
+                        </f:facet>
+                        <h:outputText value="#{tsx.reference}"/>
+                    </rich:column>
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periode}"/>
+                        </f:facet>
+                        <h:outputText value="#{tsx.defPeriode.periode}"/>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_montant}"/>
+                        </f:facet>
+                        <h:outputText value="#{tsx.montant}"/>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_compteEncaisse}"/>
+                        </f:facet>
+                        <h:outputText value="#{tsx.compteEncaisse.nomCompte}"/>
+                    </rich:column>
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_utilisateurs}"/>
+                        </f:facet>
+                        <h:outputText value="#{tsx.currentuser.username}"/>
+                    </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+                        </h:panelGrid>
 
 
 
