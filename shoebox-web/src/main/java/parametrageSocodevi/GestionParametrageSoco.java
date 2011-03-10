@@ -10,6 +10,7 @@ import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.io.Serializable;
@@ -100,6 +101,8 @@ public class GestionParametrageSoco implements Serializable {
     public List<Utilisateur> getListUtilisateur(){
         return serviceSoco.lstUtilisteur(session.getCurrentCoop());
     }
+
+   
 
     public String newUtilisateur(){
         utilisateur.setCooperative(session.getCurrentCoop());

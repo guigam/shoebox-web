@@ -48,4 +48,6 @@ public interface serviceResultatLocal {
     
     public List<StructureProduit> lsttructureProduit();
 
+  
+
 }

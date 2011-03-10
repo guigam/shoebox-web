@@ -11,28 +11,28 @@
     <ui:define name="content">
         <rich:tabPanel>
             <rich:tab label="#{msg.lib_charge}">
-                        <table border="1" width="100%" class="tableResultatCharge">
-            <tr class="celluleTabPrincipale">
-                <td width="3%"></td>
-                <td width="20%"></td>
-                <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                    <td width="5%"><h:outputText value="#{periode.periode}"/></td>
-                </ui:repeat>
-            </tr>
+                <table border="1" width="100%" class="tableResultatCharge">
+                    <tr class="celluleTabPrincipale">
+                        <td width="3%"></td>
+                        <td width="20%"></td>
+                        <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                            <td width="5%"><h:outputText value="#{periode.periode}"/></td>
+                        </ui:repeat>
+                    </tr>
 
-            <ui:repeat value="#{gsResultat.lstResultatCharge}" var="rs" >
-                <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
-                    <td><h:outputText value="#{rs.refereaffichage}" styleClass="titreTabResultat"/></td>
-                    <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
-                    <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                        <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
-                                <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
-                            </h:outputText></td>
+                    <ui:repeat value="#{gsResultat.lstResultatCharge}" var="rs" >
+                        <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
+                            <td><h:outputText value="#{rs.refereaffichage}" styleClass="titreTabResultat"/></td>
+                            <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
+                            <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                                <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
+                                        <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
+                                    </h:outputText></td>
+                            </ui:repeat>
+
+                        </tr>
                     </ui:repeat>
-
-                </tr>
-            </ui:repeat>
-        </table>
+                </table>
             </rich:tab>
 
 
@@ -57,82 +57,200 @@
                             <h:outputText value="#{msg.lib_excedentBrut}: " styleClass="titreLibelle"/>
                             <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu"/>
                         </h:panelGrid>
-                        <rich:spacer width="20"/>
-                         <h:panelGrid columns="3">
+                        <rich:spacer width="200"/>
+                        <h:panelGrid columns="3">
                             <h:graphicImage value="/icons/puce.png"/>
-                            <h:outputText value="#{msg.lib_margebrutcafeTB1}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu"/>
+                            <h:outputText value="#{msg.lib_resultatExploitation}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeTX} " styleClass="titreBleu"/>
                             <h:graphicImage value="/icons/puce.png"/>
-                            <h:outputText value="#{msg.lib_margebrutautreProduit}:" styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu"/>
+                            <h:outputText value="#{msg.lib_resultatFinancier}:" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeUG} " styleClass="titreBleu"/>
                             <h:graphicImage value="/icons/puce.png"/>
-                            <h:outputText value="#{msg.lib_margebrutautreMatiere}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu"/>
+                            <h:outputText value="#{msg.lib_resultatActiviteOrdinaire}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeUI}" styleClass="titreBleu"/>
                             <h:graphicImage value="/icons/puce.png"/>
-                            <h:outputText value="#{msg.lib_valeurAjouter}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu"/>
+                            <h:outputText value="#{msg.lib_resultatHAO}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeUP}" styleClass="titreBleu"/>
                             <h:graphicImage value="/icons/puce.png"/>
-                            <h:outputText value="#{msg.lib_excedentBrut}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu"/>
+                            <h:outputText value="#{msg.lib_resultatNet}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsResultat.calculeUZ}" styleClass="titreMontantTotal"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </rich:panel>
                 <rich:spacer height="10"/>
 
-                       <table border="1" width="100%" class="tableResultatCharge">
-            <tr class="celluleTabPrincipale">
-                <td width="3%"></td>
-                <td width="20%"></td>
-                <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                    <td width="5%"><h:outputText value="#{periode.periode}"/></td>
-                </ui:repeat>
-            </tr>
+                <table border="1" width="100%" class="tableResultatCharge">
+                    <tr class="celluleTabPrincipale">
+                        <td width="3%"></td>
+                        <td width="20%"></td>
+                        <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                            <td width="5%"><h:outputText value="#{periode.periode}"/></td>
+                        </ui:repeat>
+                    </tr>
 
-                           <ui:repeat value="#{gsResultat.lstResultatProduit}" var="rs" >
-                <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
-                    <td><h:outputText value="#{rs.referenceAffichage}" styleClass="titreTabResultat"/></td>
-                    <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
-                    <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                        <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
-                                <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
-                            </h:outputText></td>
+                    <ui:repeat value="#{gsResultat.lstResultatProduit}" var="rs" >
+                        <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
+                            <td><h:outputText value="#{rs.referenceAffichage}" styleClass="titreTabResultat"/></td>
+                            <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
+                            <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
+                                <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
+                                        <f:convertNumber minFractionDigits="#{gsParamSoco.formatageDevise.apresVirgule}" currencySymbol="#{gsParamSoco.formatageDevise.curremcy}"/>
+                                    </h:outputText></td>
+                            </ui:repeat>
+
+                        </tr>
                     </ui:repeat>
-
-                </tr>
-            </ui:repeat>
-        </table>
+                </table>
             </rich:tab>
-            <rich:tab label="#{msg.lib_analyse}">
 
+
+
+
+
+
+
+            <rich:tab label="#{msg.lib_analyse}">
+                <rich:panel style="width: 100%; background-color: white">
+                    <h:outputText value="#{msg.lib_quantiteProduitAchete}"/>
+                    <h:outputText value="#{gsResultat.calculQuantiteProduitTotal}"/>
+                </rich:panel>
+
+
+                <table border="1" width="100%">
+                    <tr>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_venteproduit}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_valeurPar} #{gsLogin.currentFormatUnite.curremcy}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_coutChargeValeurNette}" styleClass="titreTabResultat"/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top">
+                            <h:panelGrid columns="3" width="100%">
+                                <h:graphicImage value="/icons/puce.png"/>
+                                <h:outputText value="#{msg.lib_venteCafeCacao}" styleClass="titreLibelle"/>
+                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao}" styleClass="contenuTabResultat"/>
+                                <h:graphicImage value="/icons/puce.png"/>
+                                <h:outputText value="#{msg.lib_taxePreleve}" styleClass="titreLibelle"/>
+                                <h:outputText value="0" styleClass="contenuTabResultat"/>
+                            </h:panelGrid>
+                            <rich:separator height="1"/>
+                            <div style="text-align: center; background-color: #ffffff">
+                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao}"  styleClass="titreBleu" />
+                            </div>
+                        </td>
+
+                        <td >
+                            <center>
+                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao / gsResultat.calculQuantiteProduitTotal}" styleClass="titreBleu"  >
+                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                </h:outputText>
+                            </center>
+                        </td>
+                        <td colspan="2"  >
+                            <center>
+                                <h:outputText value="#{gsResultat.pourcentage1}" styleClass="titreLibelle" >
+                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                </h:outputText><br/>
+                                <rich:spacer height="10"/>
+                                <h:outputText value="#{gsResultat.variationStock / (gsResultat.sommeVenteCafeCacao)}" styleClass="titreLibelle" >
+                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                </h:outputText><br/>
+                                <h:outputText value="#{gsResultat.variationStock / (gsResultat.sommeVenteCafeCacao)}" styleClass="titreBleu" >
+                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                </h:outputText>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:panelGrid columns="3" width="100%">
+                                <h:graphicImage value="/icons/puce.png"/>
+                                <h:outputText value="#{msg.lib_achatProduit}" styleClass="titreLibelle"/>
+                                <h:outputText value="#{gsResultat.sommeAchatProduit}" styleClass="contenuTabResultat"/>
+                                <h:graphicImage value="/icons/puce.png"/>
+                                <h:outputText value="#{msg.lib_variationStock}" styleClass="titreLibelle"/>
+                                <h:outputText value="#{gsResultat.variationStock}"  styleClass="contenuTabResultat"/>
+                            </h:panelGrid>
+                            <rich:separator height="1"/>
+                            <div style="text-align: center; background-color: #ffffff">
+                                <h:outputText value="#{gsResultat.sommeAchatProduit + gsResultat.variationStock}"  styleClass="titreBleu" />
+                            </div>
+                        </td>
+                        <td >
+                            <center>
+                                <h:outputText value="#{gsResultat.sommeAchatProduit / gsResultat.calculQuantiteProduitTotal}" styleClass="titreBleu">
+                                    <f:convertNumber minFractionDigits="2" currencySymbol="%"/>
+                                </h:outputText>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+                <rich:spacer height="2"/>
+                <table width="100%" border="1" style="background-color: white">
+                    <tr>
+                        <td width="25%"><h:outputText value="#{msg.lib_margeBrutSurProduit}" styleClass="titreMontantTotal" /></td>
+                        <td style="background-color: #036fab; color: white" width="20%">sssssssssss</td>
+                        <td width="5%"></td>
+                        <td style="background-color: #036fab; color: white" width="20%">ccccccccccccccccc</td>
+                        <td width="5%"></td>
+                        <td style="background-color: #036fab; color: white" width="20%">edddddddddddddddddd</td>
+                    </tr>
+                </table>
+                <rich:spacer height="5"/>
+                <table border="1" width="100%">
+                    <ui:repeat value="#{parametrageShoebox.lstCategorieCharge}" var="categ">
+                        <tr>
+
+
+                            <td width="30%">
+                                <h:panelGrid columns="3">
+                                    <h:graphicImage value="/icons/puce.png"/>
+                                    <h:outputText value="#{categ.nomCategorie}" styleClass="titreLibelle"/>
+                                    <h:outputText value="valeur" styleClass="contenuTabResultat"/>
+                                </h:panelGrid>
+                            </td>
+                            <td width="30%">
+                                <h:outputText value="valeur" styleClass="titrePositif"/>
+                            </td>
+                            <td width="30%">
+                                <h:outputText value="valeur"  styleClass="titreBleu"/>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </table>
+                <rich:spacer height="2"/>
+                <table width="100%" border="1" style="background-color: white">
+                    <tr>
+                        <td width="25%"><h:outputText value="#{msg.lib_margeBrutExploitation}" styleClass="titreMontantTotal" /></td>
+                        <td style="background-color: #036fab; color: white" width="20%">sssssssssss</td>
+                        <td width="5%"></td>
+                        <td style="background-color: #036fab; color: white" width="20%">ccccccccccccccccc</td>
+                        <td width="5%"></td>
+                        <td style="background-color: #036fab; color: white" width="20%">edddddddddddddddddd</td>
+                    </tr>
+                </table>
+                <rich:spacer height="5"/>
+                <table border="1" width="100%">
+                    <tr>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_sommeDesCharges}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_resultatExploit}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_autres}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_resultatExploitConsolide}" styleClass="titreTabResultat"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="valeur" styleClass="titreLibelle"/></td>
+                        <td><h:outputText value="valeur" styleClass="titreLibelle"/></td>
+                        <td>
+                            <h:panelGrid columns="2">
+                            <h:outputText value="valeur1" styleClass="titreLibelle"/>
+                            <h:outputText value="valeur2" styleClass="titrePositif"/>
+                            <h:outputText value="valeur1" styleClass="titreLibelle"/>
+                            <h:outputText value="valeur2" styleClass="titreBleu"/>
+                            </h:panelGrid>
+                        </td>
+                        <td style="background-color: white"><h:outputText value="valeur" styleClass="titreMontantTotal" /></td>
+                    </tr>
+                </table>
             </rich:tab>
         </rich:tabPanel>
-
-
-        ////////////////////////////////////
-
-        <rich:dataTable cellpadding="" cellspacing="" border="1"
-                        var="list" value="" id="table"
-                        style="text-align:center;" rows="5" width="100%">
-            <f:facet name="header">
-                      <rich:column >
-                             <h:outputText value="reference"/>
-                    </rich:column>
-                       <rich:column >
-                             <h:outputText value="Activite"/>
-                    </rich:column>
-                    <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                    <rich:column >
-                        <h:outputText value="#{periode.periode}"/>
-
-                    </rich:column>
-                    </ui:repeat>
-
-            </f:facet>
-        </rich:dataTable>
-      
-
-
-
-
     </ui:define>
 </ui:composition>

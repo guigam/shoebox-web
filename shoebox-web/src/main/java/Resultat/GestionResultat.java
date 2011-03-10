@@ -19,6 +19,8 @@ import ModelesShoebox.TransactionMagasin;
 import antlr.DefineGrammarSymbols;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
+import gestionCommandesTransaction.ServiceGestionCommande;
+import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +42,8 @@ import soldeDepart.gestionSoldeDepart;
 @RequestScoped
 public class GestionResultat implements Serializable {
 
+    @EJB
+    private ServiceGestionCommandeTransactionLocal serviceGestionCommande;
     @EJB
     private serviceResultatLocal serviceResultat;
     @Inject
@@ -90,7 +94,7 @@ public class GestionResultat implements Serializable {
         return lstRapportCompte;
     }
 
-    private Double calculSommePeriodeCharteCompte(String reference) {
+    public Double calculSommePeriodeCharteCompte(String reference) {
         double calcul = 0;
         for (DefinitionPeriode d : gsParamSoco.getlstDefinitionPeriode()) {
             calcul = calcul + (double) serviceResultat.rechercheResultat(d.getPeriode(), reference);
@@ -174,51 +178,92 @@ public class GestionResultat implements Serializable {
     }
 
     public Double ResultatCharge(String periode, String charteCompte) {
-        if(charteCompte.equals("RB-1") ){
+        if (charteCompte.equals("RB-1")) {
             return (double) serviceResultat.rechercheResultat(periode, "RA-1-SD") - (double) serviceResultat.rechercheResultat(periode, "RA-1-SF");
-        }else if(charteCompte.equals("RB-2")){
+        } else if (charteCompte.equals("RB-2")) {
             return (double) serviceResultat.rechercheResultat(periode, "RA-2-SD") - (double) serviceResultat.rechercheResultat(periode, "RA-2-SF");
-        }else  if(charteCompte.equals("RD")){
-           return  (double) serviceResultat.rechercheResultat(periode, "RC-SD") - (double) serviceResultat.rechercheResultat(periode, "RC-SF");
-        }else if(charteCompte.equals("RH")){
-            return   (double) serviceResultat.rechercheResultat(periode, "RE-SD") - (double) serviceResultat.rechercheResultat(periode, "RE-SF");
-        }else if(!charteCompte.equals("ppp") && serviceResultat.rechercheResultat(periode, charteCompte) != 0 ){
-            return (double)serviceResultat.rechercheResultat(periode, charteCompte);
+        } else if (charteCompte.equals("RD")) {
+            return (double) serviceResultat.rechercheResultat(periode, "RC-SD") - (double) serviceResultat.rechercheResultat(periode, "RC-SF");
+        } else if (charteCompte.equals("RH")) {
+            return (double) serviceResultat.rechercheResultat(periode, "RE-SD") - (double) serviceResultat.rechercheResultat(periode, "RE-SF");
+        } else if (!charteCompte.equals("ppp") && serviceResultat.rechercheResultat(periode, charteCompte) != 0) {
+            return (double) serviceResultat.rechercheResultat(periode, charteCompte);
         }
         return null;
     }
 
     //////////////////////// calcul du resultat produit //////////////////////////
-    public Double getcalculTB1(){
-        return calculSommePeriodeCharteCompte("TA-1") -  calculSommePeriodeCharteCompte("RA-1") - (calculSommePeriodeCharteCompte("RA-1-SD") - calculSommePeriodeCharteCompte("RA-1-SF"));
-        
-    }
     
-    public Double getcalculTB2(){
-        return calculSommePeriodeCharteCompte("TA-2") -  calculSommePeriodeCharteCompte("RA-2") - (calculSommePeriodeCharteCompte("RA-2-SD") - calculSommePeriodeCharteCompte("RA-2-SF"));
-     
+    public Double getcalculTB1() {
+        return (double)(calculSommePeriodeCharteCompte("TA-1") - calculSommePeriodeCharteCompte("RA-1") - (calculSommePeriodeCharteCompte("RA-1-SD") - calculSommePeriodeCharteCompte("RA-1-SF")));
     }
-    public Double getcalculTG(){
-        
-        return calculSommePeriodeCharteCompte("TC") +  calculSommePeriodeCharteCompte("TD") + calculSommePeriodeCharteCompte("TE") + calculSommePeriodeCharteCompte("TF")
-                - calculSommePeriodeCharteCompte("RC") - calculSommePeriodeCharteCompte("RD") - calculSommePeriodeCharteCompte("RE") - calculSommePeriodeCharteCompte("RH");
-        
-    }
-    public Double getcalculTN(){
 
-        return getcalculTB1()+ getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
-                 - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL") ;
+    public Double getcalculTB2() {
+        return calculSommePeriodeCharteCompte("TA-2") - calculSommePeriodeCharteCompte("RA-2") - (calculSommePeriodeCharteCompte("RA-2-SD") - calculSommePeriodeCharteCompte("RA-2-SF"));
     }
-    public Double getcalculeTQ(){
 
-        return getcalculTB1()+ getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
-                 - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL") ;
+    public Double getcalculTG() {
+        return (double)(calculSommePeriodeCharteCompte("TC") + calculSommePeriodeCharteCompte("TD") + calculSommePeriodeCharteCompte("TE") + calculSommePeriodeCharteCompte("TF")
+                - calculSommePeriodeCharteCompte("RC") - calculSommePeriodeCharteCompte("RD") - calculSommePeriodeCharteCompte("RE") - calculSommePeriodeCharteCompte("RH"));
+
+    }
+
+    public Double getcalculTN() {
+        return getcalculTB1() + getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
+                - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL");
+    }
+
+    public Double getcalculeTQ() {
+
+        return (double)(getcalculTB1() + getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
+                - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL"));
+    }
+
+    public Double getcalculeTX() {
+        return (double)(getcalculeTQ() + calculSommePeriodeCharteCompte("TS") + calculSommePeriodeCharteCompte("TT") - calculSommePeriodeCharteCompte("RS"));
+    }
+
+    public Double getcalculeUG() {
+        return (double)(getcalculeTQ() + calculSommePeriodeCharteCompte("UF") - calculSommePeriodeCharteCompte("SF"));
+    }
+
+    public Double getcalculeUI() {
+        return (double)(getcalculeTQ() + calculSommePeriodeCharteCompte("TX") + calculSommePeriodeCharteCompte("UG"));
+    }
+
+    public Double getcalculeUP() {
+        return (double)(getcalculeTQ() + calculSommePeriodeCharteCompte("UO") - calculSommePeriodeCharteCompte("SO"));
+    }
+
+    public Double getcalculeUZ() {
+        return (double)(getcalculeTQ() + calculSommePeriodeCharteCompte("UI") + getcalculeTQ() + calculSommePeriodeCharteCompte("UP") - calculSommePeriodeCharteCompte("SS"));
+    }
+
+//////////////////////////////////////Resultat analyse ////////////////////////////////////////////////
+    public Long getcalculQuantiteProduitTotal() {
+        return serviceGestionCommande.calculTotalQuantiteProduit();
+    }
+
+    public Double getSommeVenteCafeCacao() {
+         return (double)calculSommePeriodeCharteCompte("TA-1");
+    }
+
+    public Double getSommeAchatProduit() {
+        return (double)calculSommePeriodeCharteCompte("RA-1");
+    }
+
+    public Double getVariationStock() {
+        return (double)calculSommePeriodeCharteCompte("RA-1-SD") - calculSommePeriodeCharteCompte("RA-1-SF");
+    }
+    public Double getPourcentage1(){
+        return (double)calculSommePeriodeCharteCompte("TA-1") / calculSommePeriodeCharteCompte("RA-1");
     }
 
 
     public List<StructureCharge> getlstResultatCharge() {
         return serviceResultat.lsttructureCharge();
     }
+
     public List<StructureProduit> getlstResultatProduit() {
         return serviceResultat.lsttructureProduit();
     }
