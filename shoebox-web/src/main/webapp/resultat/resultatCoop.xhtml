@@ -43,37 +43,57 @@
                         <h:panelGrid columns="3">
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutcafeTB1}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutautreProduit}:" styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu">
+                                <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutautreMatiere}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_valeurAjouter}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_excedentBrut}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                         </h:panelGrid>
-                        <rich:spacer width="20"/>
+                        <rich:spacer width="200"/>
                          <h:panelGrid columns="3">
-                            <h:graphicImage value="/icons/puce.png"/>
+                                     <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutcafeTB1}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutautreProduit}:" styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTB2} " styleClass="titreBleu">
+                                <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutautreMatiere}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTG}" styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_valeurAjouter}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculTN}" styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_excedentBrut}: " styleClass="titreLibelle"/>
-                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu"/>
+                            <h:outputText value="#{gsResultat.calculeTQ}" styleClass="titreBleu">
+                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                            </h:outputText>
                         </h:panelGrid>
                     </h:panelGrid>
                 </rich:panel>
