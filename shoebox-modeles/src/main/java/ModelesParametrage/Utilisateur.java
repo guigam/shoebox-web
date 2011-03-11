@@ -71,8 +71,8 @@ public class Utilisateur implements Serializable {
     private List<TransactionCaisse> lsttransactionCaisse = new LinkedList<TransactionCaisse>();
     @OneToMany(mappedBy="currentuser")
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
-    @OneToMany
-    private List<Permission> lstPermission = new LinkedList<Permission>();
+    @ManyToMany(cascade=CascadeType.ALL)
+    private List<Permission> lstPermission;
     public Long getId() {
         return id;
     }
@@ -148,13 +148,6 @@ public class Utilisateur implements Serializable {
         this.etat = etat;
     }
 
-
-    /**
-     * @param lstpermission the lstpermission to set
-     */
-    public void setLstpermission(List<Permission> lstpermission) {
-        this.setLstpermission(lstpermission);
-    }
 
     /**
      * @return the lstCommande
@@ -293,12 +286,6 @@ public class Utilisateur implements Serializable {
         this.fonction = fonction;
     }
 
-    /**
-     * @param lstPermission the lstPermission to set
-     */
-    public void setLstPermission(List<Permission> lstPermission) {
-        this.lstPermission = lstPermission;
-    }
 
     /**
      * @return the langue
@@ -313,6 +300,15 @@ public class Utilisateur implements Serializable {
     public void setLangue(String langue) {
         this.langue = langue;
     }
+
+    /**
+     * @param lstPermission the lstPermission to set
+     */
+    public void setLstPermission(List<Permission> lstPermission) {
+        this.lstPermission = lstPermission;
+    }
+
+
    
 
 }

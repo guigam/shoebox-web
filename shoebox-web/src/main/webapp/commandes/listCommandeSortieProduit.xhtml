@@ -128,7 +128,7 @@
                 </rich:dataTable>
             </rich:panel>
 </h:form>
-        <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}">
+        <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}" rendered="#{gsCommandes.commade.confirmation.equals(false)}">
                 <h:form>
                 <rich:panel>
                     <rich:dataTable value="#{gsCommandes.commade.lsttransactionMagasin}" var="tsx" width="100%" >
@@ -160,7 +160,7 @@
                     </rich:dataTable>
                     <rich:spacer height="20"/>
                     <div style="text-align: right">
-                        <a4j:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.confirmerCommande}" reRender="tab"/>
+                        <a4j:commandButton value="#{msg.btn_valider}" reRender="tab" action="#{gsCommandes.confirmerCommande}" onclick="#{rich:component('panel')}.hide()" />
                     </div>
                     <h:commandButton value="#{msg.btn_fermer}" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"/>
                 </rich:panel>

@@ -6,11 +6,13 @@
 package ModelesParametrage;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -18,21 +20,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Permission implements Serializable {
-    private static long serialVersionUID = 1L;
-
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
+   
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -40,6 +28,8 @@ public class Permission implements Serializable {
     private String Description;
     private String emplacement;
     private String redirect;
+    @ManyToMany(mappedBy="lstPermission")
+    private List<Utilisateur> lstutilisateur = new LinkedList<Utilisateur>();
     public Long getId() {
         return id;
     }
@@ -127,6 +117,20 @@ public class Permission implements Serializable {
      */
     public void setRedirect(String redirect) {
         this.redirect = redirect;
+    }
+
+    /**
+     * @return the lstutilisateur
+     */
+    public List<Utilisateur> getLstutilisateur() {
+        return lstutilisateur;
+    }
+
+    /**
+     * @param lstutilisateur the lstutilisateur to set
+     */
+    public void setLstutilisateur(List<Utilisateur> lstutilisateur) {
+        this.lstutilisateur = lstutilisateur;
     }
 
 

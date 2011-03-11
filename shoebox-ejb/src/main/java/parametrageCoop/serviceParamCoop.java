@@ -15,6 +15,7 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
+import ModelesShoebox.TransactionCaisse;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Date;
@@ -320,12 +321,21 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         } else {
             for (Object[] t : rechercehEntreeProduit(produit, grade, coop)) {
                 for (Object[] o : rechercehSortisProduit(produit, grade, coop)) {
-                    if (t[0].equals(o[0]) && t[1].equals(o[1]) && t[2].equals(o[2])) {
+                    if (t[1].equals(o[1]) && t[2].equals(o[2])) {
+                        if(t[0].equals(o[0])){//le produit chercher est dans le meme magasin
                         Object[] obj = new Object[3];
                         obj[0] = (Magasin) (t[0]);
                         obj[1] = (Produit) (t[1]);
                         obj[2] = new Long((Long) t[3]).longValue() - new Long((Long) o[3]).longValue();
                         lstObject.add(obj);
+                        }else{ //le produit existe uniquement dans ce magasin
+                        Object[] obj = new Object[3];
+                        obj[0] = (Magasin) (t[0]);
+                        obj[1] = (Produit) (t[1]);
+                        obj[2] = new Long((Long) t[3]).longValue();
+                        lstObject.add(obj);
+
+                        }
                     }
                 }
             }
@@ -446,6 +456,24 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return false;
     }
 
-  
+    @Override
+    public Double calculCategorie(CategorieCharge categ) {
+        double somme = 0;
+       for(TransactionCaisse c : categ.getLsttransactionCharge()){
+            somme  = somme + c.getMontant();
+       }
+       return somme;
+    }
+
+    @Override
+    public Double sommeCharges(Cooperative coop) {
+        double somme = 0;
+        for(CategorieCharge c : lstCategorieCharge(coop)){
+            somme =  somme + calculCategorie(c);
+        }
+        return somme;
+    }
+
+
 
 }

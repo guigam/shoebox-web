@@ -103,6 +103,8 @@ public interface serviceParamCoopLocal {
 
     public List<SelectItem> lstItemCategorieCharge(Cooperative coop);
 
+    public Double calculCategorie(CategorieCharge categ);
+
     public List<SelectItem> lstItemProduitIntrant(Cooperative coop);
 
     public List<SelectItem> lstItemFP(Cooperative coop);
@@ -123,6 +125,8 @@ public interface serviceParamCoopLocal {
     public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop);
 
     public boolean verifdate(Date date, DefinitionPeriode defPer);
+
+    public Double sommeCharges(Cooperative coop);
 
      
 }

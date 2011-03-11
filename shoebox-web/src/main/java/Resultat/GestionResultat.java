@@ -8,6 +8,7 @@ import Login.login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.StructureCharge;
 import ModelesParametrage.StructureProduit;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
 import ModelesShoebox.FournisseurIntrant;
@@ -16,10 +17,8 @@ import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
-import antlr.DefineGrammarSymbols;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
-import gestionCommandesTransaction.ServiceGestionCommande;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -55,7 +54,7 @@ public class GestionResultat implements Serializable {
     @EJB
     private serviceParamCoopLocal serviceParametrageCoop;
     @EJB
-    private ServiceParamSocoLocal servicearamSoco;
+    private ServiceParamSocoLocal serviceParamSoco;
     @Inject
     private gestionSoldeDepart soldeDepart;
     @Inject
@@ -258,6 +257,16 @@ public class GestionResultat implements Serializable {
     public Double getPourcentage1(){
         return (double)calculSommePeriodeCharteCompte("TA-1") / calculSommePeriodeCharteCompte("RA-1");
     }
+
+    public Double calculSommeChargeGroupByCategorie(CategorieCharge categ){
+        return serviceParametrageCoop.calculCategorie(categ);
+    }
+
+    public Double coutEtCharge(CategorieCharge categ){
+        return getSommeAchatProduit() +  calculSommeChargeGroupByCategorie(categ);
+    }
+
+
 
 
     public List<StructureCharge> getlstResultatCharge() {

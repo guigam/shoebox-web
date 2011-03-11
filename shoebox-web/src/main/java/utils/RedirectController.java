@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import parametrageSocodevi.GestionParametrageSoco;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.inject.Inject;
 public class RedirectController {
 @Inject
 private gestionCommandes gsCommande;
+@Inject
+private GestionParametrageSoco paramSoco;
     /** Creates a new instance of redirectController */
     public RedirectController() {
     }

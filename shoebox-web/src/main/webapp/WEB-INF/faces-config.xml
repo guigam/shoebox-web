@@ -28,6 +28,12 @@
             <to-view-id>/caisse/menuCaisse.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>lstAvanceproduit</from-outcome>
+            <to-view-id>/caisse/lstTransactionAvanceproduit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
         <navigation-rule>
         <navigation-case>
             <from-outcome>menuRapport</from-outcome>

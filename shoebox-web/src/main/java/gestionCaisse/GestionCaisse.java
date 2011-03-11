@@ -5,6 +5,7 @@
 package gestionCaisse;
 
 import Login.login;
+import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
@@ -38,6 +39,7 @@ public class GestionCaisse implements Serializable {
     private gestionSoldeDepart gsSoldeDepart;
     private TransactionCaisse tsxCaisse = new TransactionCaisse();
     private TransactionCharge tsxCaisseCharge = new TransactionCharge();
+    private TransactionAvanceProduit tsxCaisseAvanceProduit = new TransactionAvanceProduit();
     private List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
     @EJB
     private ServiceGestionCommandeTransactionLocal serviceGsCommande;
@@ -54,47 +56,51 @@ public class GestionCaisse implements Serializable {
     public GestionCaisse() {
     }
 
-    public void newtransactionCommande() {
-      if(validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(),tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())){
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
-        tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
-        tsxCaisse.setCurrentuser(session.getUser());
-        tsxCaisse.setCoop(session.getCurrentCoop());
-        tsxCaisse.setDefPeriode(session.getCurrentPeriode());
-        affectationTypetransactionCaisse();
-        gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
-        serviceGsCommande.mergeCommande(gsCommande.getCommade());
-        tsxCaisse = new TransactionCaisse();
+    public String newtransactionCommande() {
+        if (validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(), tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())) {
+            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
+            tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
+            tsxCaisse.setCurrentuser(session.getUser());
+            tsxCaisse.setCoop(session.getCurrentCoop());
+            tsxCaisse.setDefPeriode(session.getCurrentPeriode());
+            affectationTypetransactionCaisse();
+            gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
+            serviceGsCommande.mergeCommande(gsCommande.getCommade());
+            tsxCaisse = new TransactionCaisse();
+            return "/caisse/menuCaisse.xhtml";
         }
+        return null;
     }
 
-    private boolean validerTransaction(Date datetsx,Date dateOrigine, float montant, float montantRestant) {
-        if(!paramShoebox.validerDate(datetsx)){
+    private boolean validerTransaction(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
+        if (!paramShoebox.validerDate(datetsx)) {
             return false;
-        }else if(montant > montantRestant){
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", "montant saisie incorrect");
-                FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
-                return false;
-        }else if (dateOrigine.after(datetsx)){
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date transaction ne doit pas etre inferieur a la date de la commande", "Date transaction ne doit pas etre inferieur a la date de la commande");
-                FacesContext.getCurrentInstance().addMessage("date", msg);
-                return false;
+        } else if (montant > montantRestant) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", "montant saisie incorrect");
+            FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
+            return false;
+        } else if (dateOrigine.after(datetsx)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date transaction ne doit pas etre inferieur a la date de la commande", "Date transaction ne doit pas etre inferieur a la date de la commande");
+            FacesContext.getCurrentInstance().addMessage("date", msg);
+            return false;
         }
         return true;
     }
 
-    public void newtransactionSD() {
-        if(validerTransaction(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(),tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())){
-        tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
-        tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
-        tsxCaisse.setCurrentuser(session.getUser());
-        tsxCaisse.setCoop(session.getCurrentCoop());
-        tsxCaisse.setDefPeriode(session.getCurrentPeriode());
-        affectationTypetransactionSD();
-        gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
-        serviceSolde.mergeSolde(gsSoldeDepart.getSd());
-        tsxCaisse = new TransactionCaisse();
+    public String newtransactionSD() {
+        if (validerTransaction(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(), tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())) {
+            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
+            tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
+            tsxCaisse.setCurrentuser(session.getUser());
+            tsxCaisse.setCoop(session.getCurrentCoop());
+            tsxCaisse.setDefPeriode(session.getCurrentPeriode());
+            affectationTypetransactionSD();
+            gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
+            serviceSolde.mergeSolde(gsSoldeDepart.getSd());
+            tsxCaisse = new TransactionCaisse();
+            return "/caisse/menuCaisse.xhtml";
         }
+        return null;
     }
 
     private void affectationTypetransactionSD() {
@@ -107,31 +113,45 @@ public class GestionCaisse implements Serializable {
     }
 
     private void affectationTypetransactionCaisse() {
-
-        if (gsCommande.getCommade().getType().equals("EPP") || gsCommande.getCommade().getType().equals("EPI")) {
+        if (gsCommande.getCommade().getType().equals("EPP") || gsCommande.getCommade().getType().equals("EPS") || gsCommande.getCommade().getType().equals("EPI")) {
             tsxCaisse.setTypeTransaction("D");
         } else {
             tsxCaisse.setTypeTransaction("E");
         }
     }
 
-    public String newTransactionCharge(){
-        if(paramShoebox.validerDate(tsxCaisseCharge.getDate())){
-        tsxCaisseCharge.setTypeTransaction("D");
-        tsxCaisseCharge.setCurrentuser(session.getUser());
-         tsxCaisseCharge.setCoop(session.getCurrentCoop());
-        tsxCaisseCharge.setDefPeriode(session.getCurrentPeriode());
-        serviceGsCommande.newTransactionCharge(tsxCaisseCharge);
-        tsxCaisse = new TransactionCaisse();
-        return "lstTransactionCharge";
+    public String newTransactionCharge() {
+        if (paramShoebox.validerDate(tsxCaisseCharge.getDate())) {
+            tsxCaisseCharge.setTypeTransaction("D");
+            tsxCaisseCharge.setCurrentuser(session.getUser());
+            tsxCaisseCharge.setCoop(session.getCurrentCoop());
+            tsxCaisseCharge.setDefPeriode(session.getCurrentPeriode());
+            serviceGsCommande.newTransactionCharge(tsxCaisseCharge);
+            tsxCaisseCharge = new TransactionCharge();
+            return "lstTransactionCharge";
+        }
+        return null;
+    }
+    public String newTransactionAvanceproduit() {
+        if(paramShoebox.validerDate(tsxCaisseAvanceProduit.getDate())) {
+            tsxCaisseAvanceProduit.setTypeTransaction("E");
+            tsxCaisseAvanceProduit.setCurrentuser(session.getUser());
+            tsxCaisseAvanceProduit.setCoop(session.getCurrentCoop());
+            tsxCaisseAvanceProduit.setDefPeriode(session.getCurrentPeriode());
+            serviceGsCommande.newTransactionAvanceProduit(tsxCaisseAvanceProduit);
+            tsxCaisseAvanceProduit = new TransactionAvanceProduit();
+            return "/caisse/addAvanceProduit.xhtml";
         }
         return null;
     }
 
-    public List<TransactionCharge> getlstTransactionCharge(){
-        return serviceGsCommande.lstCharges(session.getCurrentCoop(), session.getCurrentPeriode());
+    public List<TransactionCharge> getlstTransactionCharge() {
+        return serviceGsCommande.lstCharges(session.getCurrentCoop());
     }
-
+    
+    public List<TransactionAvanceProduit> getlstTransactionAvanceProduit() {
+        return serviceGsCommande.lstAvanceProduit(session.getCurrentCoop());
+    }
 
     /**
      * @return the tsxCiasse
@@ -173,5 +193,19 @@ public class GestionCaisse implements Serializable {
      */
     public void setTsxCaisseCharge(TransactionCharge tsxCaisseCharge) {
         this.tsxCaisseCharge = tsxCaisseCharge;
+    }
+
+    /**
+     * @return the tsxCaisseAvanceProduit
+     */
+    public TransactionAvanceProduit getTsxCaisseAvanceProduit() {
+        return tsxCaisseAvanceProduit;
+    }
+
+    /**
+     * @param tsxCaisseAvanceProduit the tsxCaisseAvanceProduit to set
+     */
+    public void setTsxCaisseAvanceProduit(TransactionAvanceProduit tsxCaisseAvanceProduit) {
+        this.tsxCaisseAvanceProduit = tsxCaisseAvanceProduit;
     }
 }
