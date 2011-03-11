@@ -16,7 +16,6 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
-import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -152,6 +151,8 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
        Query query = em.createQuery("from StructureProduit p");
        return query.getResultList();
     }
+
+
 
 
     

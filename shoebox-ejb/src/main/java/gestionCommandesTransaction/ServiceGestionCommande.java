@@ -8,6 +8,7 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
 import java.util.List;
@@ -66,6 +67,20 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
          query.setParameter(2, periode);
        return query.getResultList();
     }
+    
+    @Override
+    public List<Commande> allSortisCommandeProduitPrincipal() {
+        Query query = em.createQuery("from Commande c where c.type = ?1");
+        query.setParameter(1, "SPP");
+        return query.getResultList();
+    }
+
+        @Override
+    public List<Commande> allEntreeCommandeProduitPrincipal() {
+          Query query = em.createQuery("from Commande c where c.type = ?1");
+        query.setParameter(1, "EPP");
+        return query.getResultList();
+    }
 
     @Override
     public void mergeCommande(Commande commande) {
@@ -106,6 +121,14 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     public void newTransactionCharge(TransactionCharge transactionCharge) {
      persist(transactionCharge);
     }
+
+    @Override
+    public Long calculTotalQuantiteProduit() {
+        Query query = em.createQuery("select sum(quantite) from TransactionMagasin t where t.produit.type = ?1");
+        query.setParameter(1, "Principal");
+        return  (Long) query.getSingleResult();
+    }
+
 
 
 

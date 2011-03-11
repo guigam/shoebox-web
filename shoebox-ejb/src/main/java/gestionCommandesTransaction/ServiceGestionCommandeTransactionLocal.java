@@ -25,7 +25,11 @@ public interface ServiceGestionCommandeTransactionLocal {
 
     public List<Commande> lstCommande(Cooperative coop, DefinitionPeriode periode);
 
-    public void mergeCommande(Commande commande);
+     public List<Commande> allSortisCommandeProduitPrincipal();
+     
+     public List<Commande> allEntreeCommandeProduitPrincipal();
+
+     public void mergeCommande(Commande commande);
 
     public void deleteCommande(Commande commande);
 
@@ -36,6 +40,10 @@ public interface ServiceGestionCommandeTransactionLocal {
     public List<TransactionCharge> lstCharges(Cooperative coop, DefinitionPeriode periode);
 
     public void newTransactionCharge(TransactionCharge transactionCharge);
+
+     public Long calculTotalQuantiteProduit();
+
+
     
 
     

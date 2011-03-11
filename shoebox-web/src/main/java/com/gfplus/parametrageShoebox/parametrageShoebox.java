@@ -5,6 +5,7 @@
 package com.gfplus.parametrageShoebox;
 
 import Login.login;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
 import ModelesShoebox.Commande;
@@ -129,6 +130,9 @@ public class parametrageShoebox implements Serializable {
         this.lstconfigMag.add(new ConfigMag());
     }
 
+     public List<CategorieCharge> getlstCategorieCharge(){
+       return parametrageCoop.lstCategorieCharge(session.getCurrentCoop());
+    }
     public boolean validerDate(Date date) {
         if (parametrageCoop.verifdate(date, session.getCurrentPeriode())) {
             return true;

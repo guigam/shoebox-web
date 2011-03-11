@@ -103,7 +103,8 @@ public class gestionCommandes implements Serializable {
     }
 
     public void removeTsxMAG() {
-        lstTsxMagasin.remove(tsxMag);
+        if(lstTsxMagasin.remove(tsxMag));
+        getLstTsxMagasin();
     }
 
     public String newCommandeEntreeIntrant() {
@@ -133,7 +134,7 @@ public class gestionCommandes implements Serializable {
 
     private boolean verifDuplicSortisProduit() {
         for (TransactionMagasin t : lstTsxMagasin) {
-            if (t.getProduit().equals(produit) && t.getGrade() == grade) {
+            if (t.getProduit().equals(produit) && t.getGrade() == grade && t.getMagasin().equals(m_ssp.getMagasin())) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention dupplication de donnee", "Attention dupplication de donnee");
                 FacesContext.getCurrentInstance().addMessage("type produit", msg);
                 return false;
@@ -147,6 +148,20 @@ public class gestionCommandes implements Serializable {
             TransactionMagasin tsxz = lstTsxMagasin.get(0);
             for (TransactionMagasin t : lstTsxMagasin) {
                 if (!t.getProduit().getType().equals(tsxz.getProduit().getType())) {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "le produit ajouter n'esy pas du meme type", "le produit ajouter n'esy pas du meme type");
+                    FacesContext.getCurrentInstance().addMessage("type produit", msg);
+
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean verifHomogeniteSortisProduit() {
+        if (!lstTsxMagasin.isEmpty()) {
+
+            for (TransactionMagasin t : lstTsxMagasin) {
+                if (!t.getProduit().getType().equals(produit.getType())) {
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "le produit ajouter n'esy pas du meme type", "le produit ajouter n'esy pas du meme type");
                     FacesContext.getCurrentInstance().addMessage("type produit", msg);
 
@@ -234,6 +249,7 @@ public class gestionCommandes implements Serializable {
     public void ajouterSortieProduit() {
         if (paramShoebox.validerDate(commade.getDateCommande())) {
             if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
+                if(verifHomogeniteSortisProduit())
                 if (verifDuplicSortisProduit()) {
                     TransactionMagasin tsx = new TransactionMagasin();
                     tsx.setM_commande(commade);
