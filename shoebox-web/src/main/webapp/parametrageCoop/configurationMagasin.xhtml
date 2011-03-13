@@ -20,10 +20,6 @@
             <rich:comboBox value="#{parametrageShoebox.configmag.tsxMag.produit}" converter="converterProduit">
                 <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
             </rich:comboBox>
-            <h:outputText value="#{msg.lib_magasin}"/>
-            <rich:comboBox value="#{parametrageShoebox.configmag.tsxMag.magasin}" converter="converterMagasin">
-                <f:selectItems value="#{parametrageShoebox.listitemMagasin}"/>
-            </rich:comboBox>
             <h:outputText value="#{msg.lib_grade}"/>
             <h:inputText value="#{parametrageShoebox.configmag.tsxMag.grade}"/>
             <h:outputText value="#{msg.lib_quantite}"/>

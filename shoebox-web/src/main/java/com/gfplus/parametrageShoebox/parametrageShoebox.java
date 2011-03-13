@@ -28,8 +28,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
-import javax.xml.crypto.Data;
 import parametrageCoop.serviceParamCoopLocal;
+import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**
  *
@@ -53,6 +53,8 @@ public class parametrageShoebox implements Serializable {
     private serviceParamCoopLocal parametrageCoop;
     @Inject
     private login session;
+    @EJB
+    private ServiceParamSocoLocal serviceSoco;
 
     /** Creates a new instance of parametrageShoebox */
     public parametrageShoebox() {
@@ -165,28 +167,36 @@ public class parametrageShoebox implements Serializable {
     public String newInitMagasinConfig() {
         if (magasin.getCommande() == null) {
             Commande commande = new Commande();
-            if (verifierCharteComptePourConfigMagasin(configmag)) {
-                afectationFieldsCommande(commande);
+            TransactionCaisse tsxc = new TransactionCaisse();
+            TransactionMagasin tsxm = new TransactionMagasin();
+               retourneCharteCompteSelonProduit(configmag);
+             affectationMagasinCaisse(tsxc, tsxm);
+             commande.getLsttransactionCaisse().add(tsxc);
+             commande.getLsttransactionMagasin().add(tsxm);
                 magasin.setCommande(commande);
                 parametrageCoop.updateMagasin(magasin);
                 magasin = new Magasin();
                 configmag = new ConfigMag();
                 return "/parametrageCoop/listMagasin.xhtml";
-
-            }
-            return null;
+            
         } else {
-            if (verifierCharteComptePourConfigMagasin(configmag)) {
+             Commande commande = new Commande();
+             commande.getLsttransactionCaisse().add(configmag.getTsxCaisse());
+               commande.getLsttransactionMagasin().add(configmag.getTsxMag());
+               commande.setConfirmation(true);
+               commande.setCoop(session.getCurrentCoop());
+               commande.setCurrentuser(session.getUser());
+               commande.setDefPeriode(session.getCurrentPeriode());
+                 retourneCharteCompteSelonProduit(configmag);
                 afectationFieldsCommande(magasin.getCommande());
                 parametrageCoop.updateMagasin(magasin);
                 magasin = new Magasin();
                 configmag = new ConfigMag();
                 return "/parametrageCoop/listMagasin.xhtml";
-            }
-            return null;
-        }
+            
     }
 
+ }
     private void afectationFieldsCommande(Commande commande) {
         TransactionMagasin tsxm = new TransactionMagasin();
         TransactionCaisse tsxc = new TransactionCaisse();
@@ -225,13 +235,17 @@ public class parametrageShoebox implements Serializable {
 
     }
 
-    private boolean verifierCharteComptePourConfigMagasin(ConfigMag c) {
-        if (c.getTsxMag().getProduit().getType().equals("Principal") && c.getTsxCaisse().getCharteCompte().getReference().equals("RA-1-SD")) {
-            return true;
-        } else if (c.getTsxMag().getProduit().getType().equals("Secondaire") && c.getTsxCaisse().getCharteCompte().getReference().equals("RA-2-SD")) {
-            return true;
+    private void retourneCharteCompteSelonProduit(ConfigMag c) {
+        if (c.getTsxMag().getProduit().getType().equals("Principal")) {
+            if(serviceSoco.charteCompteByReference("RA-1-SD") != null){
+                c.getTsxCaisse().setCharteCompte(serviceSoco.charteCompteByReference("RA-1-SD"));
+            }
+        } else if (c.getTsxMag().getProduit().getType().equals("Secondaire")) {
+              c.getTsxCaisse().setCharteCompte(serviceSoco.charteCompteByReference("RA-2-SD"));
+        }else{
+              c.getTsxCaisse().setCharteCompte(serviceSoco.charteCompteByReference("RC-SD"));
         }
-        return false;
+      
     }
 
     public String newFournisseurIntrant() {
