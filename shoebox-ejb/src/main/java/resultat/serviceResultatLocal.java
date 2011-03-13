@@ -14,7 +14,6 @@ import ModelesShoebox.Cooperative;
 import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.TransactionCaisse;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 

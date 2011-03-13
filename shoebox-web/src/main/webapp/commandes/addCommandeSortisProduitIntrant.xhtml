@@ -83,7 +83,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="--"/>
                                 </f:facet>
-                                  <a4j:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduit}" reRender="tab2">
+                                  <a4j:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduitIntrant}" reRender="tab2">
                                      <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
                                   </a4j:commandButton>  
                             </rich:column>
@@ -161,10 +161,10 @@
                                         <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                                  </h:outputText>
                              </div>
+                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeSortisIntrant}"/>
                          </a4j:outputPanel>
                   </a4j:outputPanel>
                 </h:panelGrid>
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeSortisIntrant}"/>
 
 
             </rich:panel>

@@ -78,7 +78,7 @@ public class gestionCommandes implements Serializable {
 
     private void affectationTypeCommandesSelonProduit() {
         String typeCommande = lstTsxMagasin.get(0).getProduit().getType();
-        if (typeCommande.equals("EPP")) {
+        if (typeCommande.equals("Principal")) {
             commade.setType("SPP");
         } else {
             commade.setType("SPS");
@@ -131,6 +131,11 @@ public class gestionCommandes implements Serializable {
         }
 
     }
+    public void ajouterLigneVideIntrant() {
+            TransactionMagasin tsx = new TransactionMagasin();
+            tsx.setM_commande(commade);
+            lstTsxMagasin.add(tsx);
+    }
 
     private boolean verifDuplicSortisProduit() {
         for (TransactionMagasin t : lstTsxMagasin) {
@@ -174,14 +179,14 @@ public class gestionCommandes implements Serializable {
 
     public List<Commande> getlstCommandeEntreeProduit() {
         List<Commande> listCommandes = new LinkedList<Commande>();
-        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPP", session.getCurrentCoop(), session.getCurrentPeriode()));
-        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPS", session.getCurrentCoop(), session.getCurrentPeriode()));
+        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPP", session.getCurrentCoop()));
+        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPS", session.getCurrentCoop()));
 
         return listCommandes;
     }
 
     public List<Commande> getlstCommandeEntreeIntrant() {
-        return serviceGsCommande.lstCommandeByType("EPI", session.getCurrentCoop(), session.getCurrentPeriode());
+        return serviceGsCommande.lstCommandeByType("EPI", session.getCurrentCoop());
     }
 
     public String newCommandeSortisProduit() {
@@ -213,13 +218,13 @@ public class gestionCommandes implements Serializable {
             serviceGsCommande.newCommnde(commade);
             commade = new Commande();
             lstTsxMagasin.clear();
-            return "lstCommandeSortisIntrant";
+            return "/commandes/listCommandeSortieProduitIntrant.xhtml";
         }
         return null;
     }
 
     public List<Commande> getlstCommandeSortisIntrant() {
-        return serviceGsCommande.lstCommandeByType("SI", session.getCurrentCoop(), session.getCurrentPeriode());
+        return serviceGsCommande.lstCommandeByType("SI", session.getCurrentCoop());
     }
 
     public void rechercheStockProduit() {
@@ -250,6 +255,24 @@ public class gestionCommandes implements Serializable {
         if (paramShoebox.validerDate(commade.getDateCommande())) {
             if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
                 if(verifHomogeniteSortisProduit())
+                if (verifDuplicSortisProduit()) {
+                    TransactionMagasin tsx = new TransactionMagasin();
+                    tsx.setM_commande(commade);
+                    tsx.setGrade(grade);
+                    tsx.setMagasin(m_ssp.getMagasin());
+                    tsx.setPrixUnitaire(m_ssp.getPu());
+                    tsx.setProduit(produit);
+                    tsx.setQuantite(m_ssp.getQuantiteSaisie());
+                    lstTsxMagasin.add(tsx);
+                    m_ssp = new StockSortieProduit();
+                }
+            }
+        }
+
+    }
+    public void ajouterSortieProduitIntrant() {
+        if (paramShoebox.validerDate(commade.getDateCommande())) {
+            if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
                 if (verifDuplicSortisProduit()) {
                     TransactionMagasin tsx = new TransactionMagasin();
                     tsx.setM_commande(commade);
@@ -303,9 +326,10 @@ public class gestionCommandes implements Serializable {
         this.lstTsxMagasin = lstTsxMagasin;
     }
 
-    public void confirmerCommande() {
+    public String confirmerCommande() {
         commade.setConfirmation(true);
         serviceGsCommande.mergeCommande(commade);
+        return "/commandes/listCommandeSortieProduit.xhtml";
     }
 
     public void verifquantiteSaisie() {
@@ -376,8 +400,8 @@ public class gestionCommandes implements Serializable {
      */
     public List<Commande> getLstCommandeSortisProduit() {
         List<Commande> lstCommandes = new LinkedList<Commande>();
-        lstCommandes.addAll(serviceGsCommande.lstCommandeByType("SPP", session.getCurrentCoop(), session.getCurrentPeriode()));
-        lstCommandes.addAll(serviceGsCommande.lstCommandeByType("SPS", session.getCurrentCoop(), session.getCurrentPeriode()));
+        lstCommandes.addAll(serviceGsCommande.lstCommandeByType("SPP", session.getCurrentCoop()));
+        lstCommandes.addAll(serviceGsCommande.lstCommandeByType("SPS", session.getCurrentCoop()));
         return lstCommandes;
     }
 

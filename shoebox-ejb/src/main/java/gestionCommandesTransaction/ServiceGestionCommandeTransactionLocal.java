@@ -8,6 +8,7 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
@@ -33,13 +34,17 @@ public interface ServiceGestionCommandeTransactionLocal {
 
     public void deleteCommande(Commande commande);
 
-    public List<Commande> lstCommandeByType(String type,Cooperative coop, DefinitionPeriode periode);
+    public List<Commande> lstCommandeByType(String type,Cooperative coop);
 
     public void mergeTransactionMagasin(TransactionMagasin tsx);
 
-    public List<TransactionCharge> lstCharges(Cooperative coop, DefinitionPeriode periode);
+    public List<TransactionCharge> lstCharges(Cooperative coop);
+    
+    public List<TransactionAvanceProduit> lstAvanceProduit(Cooperative coop);
 
     public void newTransactionCharge(TransactionCharge transactionCharge);
+    
+    public void newTransactionAvanceProduit(TransactionAvanceProduit transactionAvanceProduit);
 
      public Long calculTotalQuantiteProduit();
 

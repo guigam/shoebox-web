@@ -44,7 +44,7 @@
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutcafeTB1}: " styleClass="titreLibelle"/>
                             <h:outputText value="#{gsResultat.calculTB1} " styleClass="titreBleu">
-                            <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                             </h:outputText>
                             <h:graphicImage value="/icons/puce.png"/>
                             <h:outputText value="#{msg.lib_margebrutautreProduit}:" styleClass="titreLibelle"/>
@@ -122,7 +122,9 @@
             <rich:tab label="#{msg.lib_analyse}">
                 <rich:panel style="width: 100%; background-color: white">
                     <h:outputText value="#{msg.lib_quantiteProduitAchete}"/>
-                    <h:outputText value="#{gsResultat.calculQuantiteProduitTotal}"/>
+                    <h:outputText value="#{gsResultat.calculQuantiteProduitTotal}">
+                        <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatUnite.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
+                    </h:outputText>
                 </rich:panel>
 
 
@@ -134,64 +136,82 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: top">
-                            <h:panelGrid columns="3" width="100%">
+                            <h:panelGrid columns="4" >
                                 <h:graphicImage value="/icons/puce.png"/>
                                 <h:outputText value="#{msg.lib_venteCafeCacao}" styleClass="titreLibelle"/>
-                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao}" styleClass="contenuTabResultat"/>
+                                <rich:spacer width="30"/>
+                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao}" styleClass="contenuTabResultat">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                                 <h:graphicImage value="/icons/puce.png"/>
                                 <h:outputText value="#{msg.lib_taxePreleve}" styleClass="titreLibelle"/>
-                                <h:outputText value="0" styleClass="contenuTabResultat"/>
+                                <rich:spacer width="30"/>
+                                <h:outputText styleClass="contenuTabResultat">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                             </h:panelGrid>
                             <rich:separator height="1"/>
                             <div style="text-align: center; background-color: #ffffff">
-                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao}"  styleClass="titreBleu" />
+                                <h:outputText value="#{gsResultat.sommeVenteCafeCacao}"  styleClass="titreBleu" >
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                             </div>
                         </td>
 
                         <td >
                             <center>
                                 <h:outputText value="#{gsResultat.sommeVenteCafeCacao / gsResultat.calculQuantiteProduitTotal}" styleClass="titreBleu"  >
-                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                    <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
                                 </h:outputText>
                             </center>
                         </td>
-                        <td colspan="2"  >
+                        <td>
                             <center>
                                 <h:outputText value="#{gsResultat.pourcentage1}" styleClass="titreLibelle" >
-                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                    <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
                                 </h:outputText><br/>
                                 <rich:spacer height="10"/>
                                 <h:outputText value="#{gsResultat.variationStock / (gsResultat.sommeVenteCafeCacao)}" styleClass="titreLibelle" >
-                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                    <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
                                 </h:outputText><br/>
                                 <h:outputText value="#{gsResultat.variationStock / (gsResultat.sommeVenteCafeCacao)}" styleClass="titreBleu" >
-                                    <f:convertNumber currencySymbol="%" maxFractionDigits="2"/>
+                                    <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
                                 </h:outputText>
                             </center>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h:panelGrid columns="3" width="100%">
+                            <h:panelGrid columns="4">
                                 <h:graphicImage value="/icons/puce.png"/>
                                 <h:outputText value="#{msg.lib_achatProduit}" styleClass="titreLibelle"/>
-                                <h:outputText value="#{gsResultat.sommeAchatProduit}" styleClass="contenuTabResultat"/>
+                                <rich:spacer width="30"/>
+                                <h:outputText value="#{gsResultat.sommeAchatProduit}" styleClass="contenuTabResultat">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
+                                
                                 <h:graphicImage value="/icons/puce.png"/>
                                 <h:outputText value="#{msg.lib_variationStock}" styleClass="titreLibelle"/>
-                                <h:outputText value="#{gsResultat.variationStock}"  styleClass="contenuTabResultat"/>
+                                <rich:spacer width="30"/>
+                                <h:outputText value="#{gsResultat.variationStock}"  styleClass="contenuTabResultat">
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                             </h:panelGrid>
                             <rich:separator height="1"/>
                             <div style="text-align: center; background-color: #ffffff">
-                                <h:outputText value="#{gsResultat.sommeAchatProduit + gsResultat.variationStock}"  styleClass="titreBleu" />
+                                <h:outputText value="#{gsResultat.sommeAchatProduit + gsResultat.variationStock}"  styleClass="titreBleu" >
+                                    <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                </h:outputText>
                             </div>
                         </td>
                         <td >
                             <center>
                                 <h:outputText value="#{gsResultat.sommeAchatProduit / gsResultat.calculQuantiteProduitTotal}" styleClass="titreBleu">
-                                    <f:convertNumber minFractionDigits="2" currencySymbol="%"/>
+                                    <f:convertNumber minFractionDigits="2" currencySymbol="%" type="currency"/>
                                 </h:outputText>
                             </center>
                         </td>
+                        
                     </tr>
                 </table>
                 <rich:spacer height="2"/>
@@ -212,17 +232,28 @@
 
 
                             <td width="30%">
-                                <h:panelGrid columns="3">
+                                <h:panelGrid columns="4">
                                     <h:graphicImage value="/icons/puce.png"/>
                                     <h:outputText value="#{categ.nomCategorie}" styleClass="titreLibelle"/>
-                                    <h:outputText value="valeur" styleClass="contenuTabResultat"/>
+                                     <rich:spacer width="30"/>
+                                    <h:outputText value="#{gsResultat.calculSommeChargeGroupByCategorie(categ)}" styleClass="contenuTabResultat">
+                                        <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                                    </h:outputText>
                                 </h:panelGrid>
                             </td>
                             <td width="30%">
-                                <h:outputText value="valeur" styleClass="titrePositif"/>
+                                <center>
+                                <h:outputText value="#{gsResultat.calculSommeChargeGroupByCategorie(categ)/gsResultat.calculQuantiteProduitTotal}" styleClass="titrePositif">
+                                     <f:convertNumber minFractionDigits="2" />
+                                </h:outputText>
+                                    </center>
                             </td>
                             <td width="30%">
-                                <h:outputText value="valeur"  styleClass="titreBleu"/>
+                                <center>
+                                    <h:outputText value="#{gsResultat.coutEtCharge(categ)/gsResultat.sommeVenteCafeCacao}"  styleClass="titreBleu">
+                                         <f:convertNumber minFractionDigits="2" currencySymbol="%" type="currency"/>
+                                    </h:outputText>
+                                </center>
                             </td>
                         </tr>
                     </ui:repeat>

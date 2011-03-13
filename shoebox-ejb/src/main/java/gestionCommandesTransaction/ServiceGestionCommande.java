@@ -8,6 +8,7 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
@@ -93,11 +94,10 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
     @Override
-    public List<Commande> lstCommandeByType(String type,Cooperative coop, DefinitionPeriode periode) {
-        Query query = em.createQuery("from Commande c where c.type = ?1 and c.coop = ?2 and c.defPeriode = ?3");
+    public List<Commande> lstCommandeByType(String type,Cooperative coop) {
+        Query query = em.createQuery("from Commande c where c.type = ?1 and c.coop = ?2");
         query.setParameter(1, type);
          query.setParameter(2, coop);
-         query.setParameter(3, periode);
        return query.getResultList();
     }
 
@@ -109,10 +109,9 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     }
 
     @Override
-    public List<TransactionCharge> lstCharges(Cooperative coop, DefinitionPeriode periode) {
-       Query query = em.createQuery("from TransactionCharge t where t.coop = ?2 and t.defPeriode = ?3");
+    public List<TransactionCharge> lstCharges(Cooperative coop) {
+       Query query = em.createQuery("from TransactionCharge t where t.coop = ?2 ");
        query.setParameter(2,coop);
-       query.setParameter(3,periode);
        return query.getResultList();
 
     }
@@ -127,6 +126,18 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         Query query = em.createQuery("select sum(quantite) from TransactionMagasin t where t.produit.type = ?1");
         query.setParameter(1, "Principal");
         return  (Long) query.getSingleResult();
+    }
+
+    @Override
+    public void newTransactionAvanceProduit(TransactionAvanceProduit transactionAvanceProduit) {
+        persist(transactionAvanceProduit);
+    }
+
+    @Override
+    public List<TransactionAvanceProduit> lstAvanceProduit(Cooperative coop) {
+      Query query = em.createQuery("from TransactionAvanceProduit t where t.coop = ?2 ");
+       query.setParameter(2,coop);
+       return query.getResultList();
     }
 
 

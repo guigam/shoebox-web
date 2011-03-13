@@ -88,11 +88,11 @@ CREATE TABLE `Commande` (
   KEY `FKDFF06E9A75047F3D` (`currentuser_id`),
   KEY `FKDFF06E9A12A1262D` (`m_entite_id`),
   KEY `FKDFF06E9A131A1E70` (`defPeriode_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 /*Data for the table `Commande` */
 
-insert  into `Commande`(`id`,`confirmation`,`dateCommande`,`reference`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_entite_id`) values (1,'\0','2011-03-27','bhujjj','EPP',1,1,7,12),(2,'\0','2011-03-27','etrert','EPI',1,1,7,14),(3,'\0','2011-03-20','ghjtyu','EPS',1,1,7,12),(4,'\0','2011-03-25','wtrwuryiwye','EPP',1,1,2,12),(5,'','2011-03-19','yuyuiwey','SPP',1,1,2,13),(6,'','2011-03-25','ty7876','SPP',1,1,2,13),(7,'','2011-03-24','adfsdfsf','SI',1,1,7,12),(8,'','2011-03-25','wer','SPS',1,1,7,13),(9,'','2011-03-26','123','SPS',1,1,7,13),(10,'','2011-03-25','qwreer','SI',1,1,7,12),(11,'\0','2011-07-15','defrgthy','EPP',1,1,7,15),(12,'','2011-07-07','werer','SI',1,1,7,12);
+insert  into `Commande`(`id`,`confirmation`,`dateCommande`,`reference`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_entite_id`) values (28,'','2011-08-31','gggg','SPS',1,1,8,13),(27,'\0','2011-08-27','vvvvvv','EPS',1,1,8,15),(26,'','2011-08-13','zzzzz','SI',1,1,8,12),(25,'','2011-08-19','qweeeee','SI',1,1,8,12),(24,'\0','2011-08-27','eeeeeeeeeee','EPI',1,1,8,14),(23,'','2011-08-14','aaaaaa','SPP',1,1,8,13),(22,'','2011-08-26','zzzzz','SPP',1,1,8,13),(21,'','2011-08-20','xxxxx','SPP',1,1,8,13),(20,'\0','2011-08-28','cccccc','EPP',1,1,8,12);
 
 /*Table structure for table `Commande_TransactionCaisse` */
 
@@ -108,7 +108,7 @@ CREATE TABLE `Commande_TransactionCaisse` (
 
 /*Data for the table `Commande_TransactionCaisse` */
 
-insert  into `Commande_TransactionCaisse`(`Commande_id`,`lsttransactionCaisse_id`) values (1,1),(2,3),(2,2),(2,4),(5,5),(5,7),(6,8),(7,20),(8,14),(9,15),(10,16),(3,17),(9,18),(8,19),(7,13),(7,21),(11,23),(11,22),(11,24),(3,25);
+insert  into `Commande_TransactionCaisse`(`Commande_id`,`lsttransactionCaisse_id`) values (23,2),(22,3),(21,4),(20,5),(21,6),(24,7),(26,8),(28,9),(27,10),(24,11),(27,12),(28,13);
 
 /*Table structure for table `Compte` */
 
@@ -140,11 +140,11 @@ CREATE TABLE `Cooperative` (
   `name` varchar(255) DEFAULT NULL,
   `reference` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `Cooperative` */
 
-insert  into `Cooperative`(`id`,`name`,`reference`) values (1,'coop1','kldksl');
+insert  into `Cooperative`(`id`,`name`,`reference`) values (1,'coop1','kldksl'),(2,'coop2','njknnknkn');
 
 /*Table structure for table `DefinitionPeriode` */
 
@@ -161,7 +161,7 @@ CREATE TABLE `DefinitionPeriode` (
 
 /*Data for the table `DefinitionPeriode` */
 
-insert  into `DefinitionPeriode`(`id`,`mois`,`numMois`,`periode`,`periodeActif`) values (1,'Janvier',1,'P1','\0'),(2,'Fevrier',2,'P2','\0'),(3,'Mars',3,'P3','\0'),(4,'Avril',4,'P4','\0'),(5,'Mai',5,'P5','\0'),(6,'Juin',6,'P6','\0'),(7,'Juillet',7,'P7',''),(8,'Aout',8,'P8','\0'),(9,'Septembre',9,'P9','\0'),(10,'Octobre',10,'P10','\0'),(11,'Novembre',11,'P11','\0'),(12,'Decembre',12,'P12','\0');
+insert  into `DefinitionPeriode`(`id`,`mois`,`numMois`,`periode`,`periodeActif`) values (1,'Janvier',1,'P1','\0'),(2,'Fevrier',2,'P2','\0'),(3,'Mars',3,'P3','\0'),(4,'Avril',4,'P4','\0'),(5,'Mai',5,'P5','\0'),(6,'Juin',6,'P6','\0'),(7,'Juillet',7,'P7','\0'),(8,'Aout',8,'P8',''),(9,'Septembre',9,'P9','\0'),(10,'Octobre',10,'P10','\0'),(11,'Novembre',11,'P11','\0'),(12,'Decembre',12,'P12','\0');
 
 /*Table structure for table `Entite` */
 
@@ -229,7 +229,7 @@ CREATE TABLE `ParamTransaction` (
 
 /*Data for the table `ParamTransaction` */
 
-insert  into `ParamTransaction`(`id`,`abrev`,`type`,`charteCompte_id`,`currentuser_id`,`cooperative_id`) values (1,'SPP','Sortie produit','107',1,1),(2,'EPP','Entree Produit Principale','48',1,1),(4,'SI','Sortie Intrant','109',1,1),(5,'rmbClient','Remboursement Client','123',1,1),(6,'rmbFP','Remboursement fournisseur e produit','122',1,1),(7,'rmbFI','Remboursement fournisseur d\'intrant','121',1,1),(8,'detteClient','Dette Client','14',1,1),(9,'detteFP','Dette fournisseur de produit','115',1,1),(10,'detteFI','Dette fournisseur d\'intrant','45',1,1),(11,'EPI','Entree Produit Intrant','50',1,1),(12,'EPS','Entree Produit Secondaire','22',NULL,NULL),(14,'SPS','Sortis produit secondaire','108',1,1);
+insert  into `ParamTransaction`(`id`,`abrev`,`type`,`charteCompte_id`,`currentuser_id`,`cooperative_id`) values (1,'SPP','Sortie produit Principal','107',1,1),(2,'EPP','Entree Produit Principale','48',1,1),(4,'SI','Sortie Intrant','109',1,1),(5,'rmbClient','Remboursement Client','123',1,1),(6,'rmbFP','Remboursement fournisseur e produit','122',1,1),(7,'rmbFI','Remboursement fournisseur d\'intrant','121',1,1),(8,'detteClient','Dette Client','14',1,1),(9,'detteFP','Dette fournisseur de produit','115',1,1),(10,'detteFI','Dette fournisseur d\'intrant','45',1,1),(11,'EPI','Entree Produit Intrant','50',1,1),(12,'EPS','Entree Produit Secondaire','49',NULL,NULL),(14,'SPS','Sortis produit secondaire','108',1,1);
 
 /*Table structure for table `Permission` */
 
@@ -309,8 +309,6 @@ CREATE TABLE `SoldeDepart_TransactionCaisse` (
 
 /*Data for the table `SoldeDepart_TransactionCaisse` */
 
-insert  into `SoldeDepart_TransactionCaisse`(`SoldeDepart_id`,`lstTransactionSoldeDepart_id`) values (5,6),(6,9),(7,10);
-
 /*Table structure for table `StructureCharge` */
 
 DROP TABLE IF EXISTS `StructureCharge`;
@@ -352,11 +350,11 @@ CREATE TABLE `TransactionCaisse` (
   KEY `FK668406B89529CF75` (`categorieCharge_id`),
   KEY `FK668406B8131A1E70` (`defPeriode_id`),
   KEY `FK668406B83746C8DF` (`charteCompte_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 /*Data for the table `TransactionCaisse` */
 
-insert  into `TransactionCaisse`(`DTYPE`,`id`,`date`,`description`,`montant`,`reference`,`typeTransaction`,`charteCompte_id`,`compteEncaisse_id`,`coop_id`,`currentuser_id`,`defPeriode_id`,`categorieCharge_id`) values ('TransactionCaisse',1,'2011-03-20','Entree Produit Principale',44000,'yuitty','D','48',2,1,1,7,NULL),('TransactionCaisse',2,'2011-03-30','Entree Produit Secondaire',958985,'uio8','D','50',1,1,1,7,NULL),('TransactionCaisse',3,'2011-03-18','Entree Produit Secondaire',500,'vbnnbv','D','50',1,1,1,7,NULL),('TransactionCaisse',4,'2011-03-31','Entree Produit Secondaire',500000,'uio908','D','50',2,1,1,7,NULL),('TransactionCaisse',5,'2011-03-13','Sortie produit',12000,'wererw','E','107',2,1,1,2,NULL),('TransactionCaisse',6,'2011-03-17','Remboursement fournisseur e produit',550,'dfsdfsf','D','122',1,1,1,2,NULL),('TransactionCaisse',7,'2011-03-20','Sortie produit',500,'7899','E','107',1,1,1,2,NULL),('TransactionCaisse',8,'2011-03-27','Sortie produit',40000,'ghjyy','E','107',1,1,1,2,NULL),('TransactionCaisse',9,'2011-03-13','Dette Client',1200,'erttttee','E','14',1,1,1,2,NULL),('TransactionCaisse',10,'2011-03-20','Dette fournisseur d\'intrant',7000,'bhuvgy','E','45',1,1,1,2,NULL),('TransactionCharge',11,'2011-03-27',NULL,6780,'6788','D','58',2,1,1,2,2),('TransactionCharge',12,'2011-03-26',NULL,12440,'afe444','D','63',1,1,1,7,1),('TransactionCaisse',13,'2011-03-19','Sortie Intrant',4000,'rer','E','109',2,1,1,7,NULL),('TransactionCaisse',14,'2011-03-25','Sortie produit secondaire',10,'234411','E','107',1,1,1,7,NULL),('TransactionCaisse',15,'2011-03-20','Sortis produit secondaire',12200,'qewe','E','108',2,1,1,7,NULL),('TransactionCaisse',16,'2011-03-31','Sortie Intrant',600,'erttt','E','109',2,1,1,7,NULL),('TransactionCaisse',17,'2011-07-22','Entree Produit Secondaire',60000,'qweeee','E','49',1,1,1,8,NULL),('TransactionCaisse',18,'2011-07-31','Sortis produit secondaire',37000,'defr','E','108',2,1,1,7,NULL),('TransactionCaisse',19,'2011-07-31','Sortis produit secondaire',5000,'vfgnh','E','108',2,1,1,7,NULL),('TransactionCaisse',20,'2011-07-31','Sortie Intrant',500,'decvvf','E','109',1,1,1,7,NULL),('TransactionCaisse',21,'2011-07-31','Sortie Intrant',500,'cdvfbg','E','109',2,1,1,7,NULL),('TransactionCaisse',22,'2011-07-21','Entree Produit Principale',60000,'cdvfbg','D','48',2,1,1,7,NULL),('TransactionCaisse',23,'2011-07-31','Entree Produit Principale',800,'cdvfxs','D','48',2,1,1,7,NULL),('TransactionCaisse',24,'2011-07-16','Entree Produit Principale',2000,'xszadss','D','48',1,1,1,7,NULL),('TransactionCaisse',25,'2011-07-31','Entree Produit Secondaire',2000,'cdvfaa','E','49',1,1,1,7,NULL);
+insert  into `TransactionCaisse`(`DTYPE`,`id`,`date`,`description`,`montant`,`reference`,`typeTransaction`,`charteCompte_id`,`compteEncaisse_id`,`coop_id`,`currentuser_id`,`defPeriode_id`,`categorieCharge_id`) values ('TransactionCharge',1,'2011-08-21',NULL,2330,'dddddddd','D','37',1,1,1,8,2),('TransactionCaisse',2,'2011-08-28','Sortie produit Principal',10000,'axadcdcdcd','E','107',1,1,1,8,NULL),('TransactionCaisse',3,'2011-08-31','Sortie produit Principal',100000,'ededede','E','107',1,1,1,8,NULL),('TransactionCaisse',4,'2011-08-31','Sortie produit Principal',40000,'vvvvvv','E','107',1,1,1,8,NULL),('TransactionCaisse',5,'2011-08-28','Entree Produit Principale',100000,'vcvvv','D','48',2,1,1,8,NULL),('TransactionCaisse',6,'2011-08-28','Sortie produit Principal',1665,'xzccc','E','107',1,1,1,8,NULL),('TransactionCaisse',7,'2011-08-27','Entree Produit Intrant',100000,'ddddd','D','50',2,1,1,8,NULL),('TransactionCaisse',8,'2011-08-20','Sortie Intrant',500,'sdfsdf','E','109',2,1,1,8,NULL),('TransactionCaisse',9,'2011-08-31','Sortis produit secondaire',1222,'ssdd','E','108',2,1,1,8,NULL),('TransactionCaisse',10,'2011-08-28','Entree Produit Secondaire',500000,'pppppp','D','49',1,1,1,8,NULL),('TransactionCaisse',11,'2011-08-27','Entree Produit Intrant',134400,'qqrr2r','D','50',1,1,1,8,NULL),('TransactionCaisse',12,'2011-08-31','Entree Produit Secondaire',50000,'rrff','D','49',2,1,1,8,NULL),('TransactionCaisse',13,'2011-08-31','Sortis produit secondaire',100000,'bgnhh','E','108',1,1,1,8,NULL),('TransactionCharge',14,'2011-08-21',NULL,19790,'gggtttttt','D','57',2,1,1,8,1),('TransactionCharge',15,'2011-08-28',NULL,1000,'xscdss','D','59',1,1,1,8,1),('TransactionAvanceProduit',16,'2011-08-19',NULL,2.21133e+06,'sdfff','E','111',1,1,1,8,NULL);
 
 /*Table structure for table `TransactionMagasin` */
 
@@ -382,11 +380,11 @@ CREATE TABLE `TransactionMagasin` (
   KEY `FK7AD6C40C7604D9F5` (`magasin_id`),
   KEY `FK7AD6C40C131A1E70` (`defPeriode_id`),
   KEY `FK7AD6C40CC701B98D` (`m_commande_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `TransactionMagasin` */
 
-insert  into `TransactionMagasin`(`id`,`grade`,`humidite`,`prixUnitaire`,`quantite`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_commande_id`,`magasin_id`,`produit_id`) values (1,1,12,12,560,0,1,1,7,1,2,1),(2,2,11,11,450,0,1,1,7,1,3,2),(3,2,1,15,2220,0,1,1,7,1,1,3),(4,0,0,3455,567,0,1,1,7,2,2,4),(5,1,1,10,5670,0,1,1,7,3,2,3),(6,2,1,11,890,0,1,1,7,3,1,3),(7,1,3,11,144,0,1,1,2,4,2,2),(8,122,12,120,12,0,1,1,2,4,2,2),(9,1,0,50,100,0,1,1,2,5,2,2),(10,2,0,20,400,0,1,1,2,5,3,2),(11,1,0,10,5000,0,1,1,2,6,2,3),(12,0,0,10,500,0,1,1,7,7,2,4),(13,1,0,10,600,0,1,1,7,8,2,3),(14,1,0,10,5000,0,1,1,7,9,2,3),(15,0,0,10,60,0,1,1,7,10,2,4),(16,1,1,20,3240,0,1,1,7,11,3,1),(17,0,0,10,6,0,1,1,7,12,2,4);
+insert  into `TransactionMagasin`(`id`,`grade`,`humidite`,`prixUnitaire`,`quantite`,`type`,`coop_id`,`currentuser_id`,`defPeriode_id`,`m_commande_id`,`magasin_id`,`produit_id`) values (1,1,1,10,11110,0,1,1,8,20,1,1),(2,1,1,20,2220,0,1,1,8,20,2,2),(3,1,0,15,111,0,1,1,8,21,1,1),(4,1,0,20,2000,0,1,1,8,21,2,2),(5,1,0,12,10000,0,1,1,8,22,1,1),(6,1,0,20,500,0,1,1,8,23,1,1),(7,0,0,10,123330,0,1,1,8,24,1,5),(8,0,0,10,110,0,1,1,8,24,2,5),(9,0,0,12,1000,0,1,1,8,25,1,5),(10,0,0,10,11,0,1,1,8,25,2,5),(11,0,0,10,100000,0,1,1,8,26,1,5),(12,1,1,40,14330,0,1,1,8,27,1,3),(13,1,0,12,14000,0,1,1,8,28,1,3);
 
 /*Table structure for table `Utilisateur` */
 
@@ -402,27 +400,26 @@ CREATE TABLE `Utilisateur` (
   `langue` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK407FDB635C9314D5` (`cooperative_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `Utilisateur` */
 
-insert  into `Utilisateur`(`id`,`etat`,`password`,`username`,`cooperative_id`,`fonction`,`langue`) values (1,'','momo','momo',1,NULL,NULL),(4,'\0','soco','qweq',1,'qwe',NULL),(5,'',NULL,'momo',NULL,'test de fonction',''),(6,'',NULL,'momo',NULL,'',''),(7,'\0',NULL,'qweq',NULL,'qwe',''),(8,'',NULL,'momo',NULL,'','');
+insert  into `Utilisateur`(`id`,`etat`,`password`,`username`,`cooperative_id`,`fonction`,`langue`) values (1,'','momo','momo',1,NULL,NULL),(10,'\0','soco','taktouk',2,'cdcd','???lib_francais???');
 
 /*Table structure for table `Utilisateur_Permission` */
 
 DROP TABLE IF EXISTS `Utilisateur_Permission`;
 
 CREATE TABLE `Utilisateur_Permission` (
-  `Utilisateur_id` bigint(20) NOT NULL,
-  `lstpermission_id` bigint(20) NOT NULL,
-  UNIQUE KEY `lstpermission_id` (`lstpermission_id`),
-  KEY `FK5522304B5A5BA41E` (`Utilisateur_id`),
-  KEY `FK5522304B55CFDEE9` (`lstpermission_id`)
+  `lstutilisateur_id` bigint(20) NOT NULL,
+  `lstPermission_id` bigint(20) NOT NULL,
+  KEY `FK5522304B6DF81D2B` (`lstutilisateur_id`),
+  KEY `FK5522304B55CFDEE9` (`lstPermission_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `Utilisateur_Permission` */
 
-insert  into `Utilisateur_Permission`(`Utilisateur_id`,`lstpermission_id`) values (1,1),(1,2),(1,3),(1,4),(1,6),(1,7);
+insert  into `Utilisateur_Permission`(`lstutilisateur_id`,`lstPermission_id`) values (1,1),(10,1),(1,2),(10,4),(1,3),(1,4),(1,6),(10,2),(10,3),(10,6),(1,7);
 
 /*Table structure for table `formatageEntier` */
 

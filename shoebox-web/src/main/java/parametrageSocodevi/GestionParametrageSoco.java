@@ -39,7 +39,7 @@ public class GestionParametrageSoco implements Serializable {
     private DefinitionPeriode dePeriode = new DefinitionPeriode();
     private formatageEntier formatageDevise = new formatageEntier();
     private formatageEntier formatageunite = new formatageEntier();
-    private List<Permission> lstPermissions = new LinkedList<Permission>();
+    private List<Permission> maLstPermissionChoisit = new LinkedList<Permission>();
     @Inject
     private login session;
     @EJB
@@ -105,6 +105,7 @@ public class GestionParametrageSoco implements Serializable {
    
 
     public String newUtilisateur(){
+        utilisateur.setLstPermission(maLstPermissionChoisit);
         utilisateur.setCooperative(session.getCurrentCoop());
         utilisateur.setPassword("soco");
         serviceSoco.newUtilisateur(utilisateur);
@@ -240,17 +241,17 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     /**
-     * @return the lstPermissions
+     * @return the maLstPermissionChoisit
      */
-    public List<Permission> getLstPermissions() {
-        return lstPermissions;
+    public List<Permission> getMaLstPermissionChoisit() {
+        return maLstPermissionChoisit;
     }
 
     /**
-     * @param lstPermissions the lstPermissions to set
+     * @param maLstPermissionChoisit the maLstPermissionChoisit to set
      */
-    public void setLstPermissions(List<Permission> lstPermissions) {
-        this.lstPermissions = lstPermissions;
+    public void setMaLstPermissionChoisit(List<Permission> maLstPermissionChoisit) {
+        this.maLstPermissionChoisit = maLstPermissionChoisit;
     }
 
    
