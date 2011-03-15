@@ -13,31 +13,31 @@
             <h:outputText value="#{msg.lib_config}" styleClass="titrePanel"/>
             <rich:separator width="100%"/>
             <rich:spacer height="10"/>
+            <h:outputText value="#{msg.lib_magasin}"/>
+            <rich:spacer width="5"/>
             <h:outputText value="#{parametrageShoebox.magasin.name}"/>
-            <a4j:commandLink value="ajouter!!!!!" action="#{parametrageShoebox.addConfigMag}" reRender="tab" />
             <h:panelGrid columns="2">
-            <h:outputText value="#{msg.lib_produit}"/>
+            <h:outputText value="#{msg.lib_produit}" styleClass="titreLibelle"/>
             <rich:comboBox value="#{parametrageShoebox.configmag.tsxMag.produit}" converter="converterProduit">
                 <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
             </rich:comboBox>
-            <h:outputText value="#{msg.lib_grade}"/>
-            <h:inputText value="#{parametrageShoebox.configmag.tsxMag.grade}"/>
-            <h:outputText value="#{msg.lib_quantite}"/>
-            <h:inputText value="#{parametrageShoebox.configmag.tsxMag.quantite}"/>
-            <h:outputText value="#{msg.lib_montant}"/>
-            <h:inputText value="#{parametrageShoebox.configmag.tsxCaisse.montant}"/>
-            <h:outputText value="#{msg.lib_compteEncaisse}"/>
+            <h:outputText value="#{msg.lib_grade}" styleClass="titreLibelle"/>
+            <h:inputText value="#{parametrageShoebox.configmag.tsxMag.grade}" />
+            <h:outputText value="#{msg.lib_quantite}" styleClass="titreLibelle"/>
+            <h:inputText value="#{parametrageShoebox.configmag.tsxMag.quantite}" />
+            <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
+            <h:inputText value="#{parametrageShoebox.configmag.tsxCaisse.montant}" />
+            <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
             <rich:comboBox value="#{parametrageShoebox.configmag.tsxCaisse.compteEncaisse}" converter="converterCompte">
                 <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
             </rich:comboBox>
-                <h:outputText value="#{msg.lib_compteEncaisse}"/>
-                <rich:comboBox value="#{parametrageShoebox.configmag.tsxCaisse.charteCompte}" converter="converterCharteCompte" width="300">
-                    <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}"/>
-                </rich:comboBox>
             </h:panelGrid>
+            <rich:spacer height="10"/>
+            <div>
                 <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newInitMagasinConfig}"/>
-                 <rich:spacer height="20"/>
-                <rich:separator/>
+                </div>
+                <rich:spacer height="20"/>
+                <rich:separator height="1"/>
                 <rich:spacer height="10"/>
              <rich:dataTable  value="#{parametrageShoebox.magasin.commande.lsttransactionMagasin}" var="mag" width="70%">
                             <f:facet name="header">

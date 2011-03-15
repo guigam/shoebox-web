@@ -63,47 +63,7 @@
         <div id="content">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td width="20%" style="vertical-align:top; padding-right:5px">
-                <h:panelGroup style="width:100%;">
-                    <ui:insert name="menu" >
-                        <h:form>
-
-                            <rich:panelMenu label="Menu">
-                                <rich:panelMenuGroup  label="Menu" expanded="true"  >
-                                    <rich:panelMenuGroup  label="#{msg.Lib_parametrage}" expanded="true"  >
-                                        <rich:panelMenuItem  label="#{msg.lib_fournisseurProduit}" action="lstFP" />
-                                        <rich:panelMenuItem label="#{msg.lib_fournisseurIntrant}" action="lstFI" />
-                                        <rich:panelMenuItem label="#{msg.lib_client}" action="lstClient" />
-                                        <rich:panelMenuItem  label="#{msg.lib_produit}" action="lstProduit" />
-                                        <rich:panelMenuItem  label="#{msg.lib_intrant}" action="lstProduitIntrant" />
-                                        <rich:panelMenuItem  label="#{msg.lib_magasin}" action="lstFP" />
-                                        <rich:panelMenuItem  label="#{msg.lib_charteCompte}" action="lstCharteCompte" />
-                                    </rich:panelMenuGroup>
-
-                                    <rich:panelMenuGroup label="#{msg.lib_caisse}" expanded="true"   >
-                                        <rich:panelMenuGroup label="#{msg.lib_encaissement}" expanded="true">
-                                            <rich:panelMenuItem  label="#{msg.lib_detteFournisseurProduit}" action="detteFP" />
-                                            <rich:panelMenuItem  label="#{msg.lib_detteFournisseurIntrant}" action="detteFI"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_detteClient}" action="detteClient"/>
-                                        </rich:panelMenuGroup>
-                                        <rich:panelMenuGroup label="#{msg.lib_debourse}" expanded="true">
-                                            <rich:panelMenuItem label="#{msg.lib_achatProduit}" action="lstFP"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_achatIntrant}" action="lstFP"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_remboursementavanceClient}" action="rmbClient" />
-                                            <rich:panelMenuItem label="#{msg.lib_remboursementDettesFournisseurProduit}" action="rmbFP"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_remboursementDettesFournisseurIntrant}" action="rmbFI" />
-                                            <rich:panelMenuItem  label="#{msg.lib_paiementCharges}" />
-                                            <rich:panelMenuItem  label="#{msg.lib_avanceFournisseurproduit}" action="lstFP"/>
-                                        </rich:panelMenuGroup>
-                                    </rich:panelMenuGroup>
-                                </rich:panelMenuGroup>
-
-                            </rich:panelMenu>
-
-                        </h:form>
-                    </ui:insert>
-                </h:panelGroup>
-                </td>
+                   
                 <td  width="79%" style="vertical-align:top;" >
                 <h:panelGroup style="width:100%;">
                     <ui:insert name="content" ></ui:insert>

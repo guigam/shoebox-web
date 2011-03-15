@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="MacRoman"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=MacRoman"/>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <p>
+            <div id="top">
+                <h:graphicImage value="/images/soco.png"/>
+
+            </div>
+            <div id="content">
+
+
+                <rich:dataTable cellpadding="" cellspacing="" border="1"
+                                var="list" value="" id="table"
+                                style="text-align:center;" rows="5" width="100%">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column colspan="5">
+                                <h:outputText
+                                    value="Les éléments de paie:" />
+                            </rich:column>
+                            <a4j:repeat value="#{gsParamSoco.lstParamtransaction}" var="aa">
+                            <rich:column >
+                            <f:facet name="header">
+                                <h:outputText  value="#{aa.abrev}" />
+                            </f:facet>
+                            </rich:column>
+                            </a4j:repeat>
+                           
+
+                        </rich:columnGroup>
+                    </f:facet>
+                    <rich:column>
+
+                        <h:outputText styleClass="headerText" value="Gains" />
+
+                    </rich:column>
+                    <rich:column>
+
+                        <h:outputText styleClass="headerText" value="Gains" />
+
+                    </rich:column>
+                    <rich:column filterEvent="onkeyup" >
+                        <h:outputText value="" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="" />
+                    </rich:column>
+                </rich:dataTable>
+
+            </div>
+            <div id="bottom"></div>
+        </p>
+    </body>
+</html>

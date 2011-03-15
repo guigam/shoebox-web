@@ -13,6 +13,10 @@ import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +28,8 @@ import javax.faces.component.UIData;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 
 /**
  *
@@ -40,12 +46,15 @@ public class GestionParametrageSoco implements Serializable {
     private formatageEntier formatageDevise = new formatageEntier();
     private formatageEntier formatageunite = new formatageEntier();
     private List<Permission> maLstPermissionChoisit = new LinkedList<Permission>();
+    
     @Inject
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
     @Inject
     private Conversation conversation;
+    @Inject
+    private fileuploadBean fup;
     private Utilisateur utilisateur = new Utilisateur();;
     /** Creates a new instance of GestionLangue */
     public GestionParametrageSoco() {
@@ -65,10 +74,23 @@ public class GestionParametrageSoco implements Serializable {
         conversation.end();
     }
 
-    public void newCoop(){
+    public void newCoop() throws FileNotFoundException, IOException{
+        String chemin = "/home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/webapp/logo/";
+        saveFile(chemin);
+        cooperative.setLinkLogo(chemin+fup.getFile().getFileName());
         cooperative.getLstutilisateur().add(session.getUser());
         serviceSoco.newCoop(cooperative);
     }
+
+
+
+    protected void saveFile(String chemin) throws FileNotFoundException, IOException{
+       
+        FileOutputStream fos = new FileOutputStream(chemin+fup.getFile().getFileName());
+        fos.write(fup.getFile().getData());
+
+    }
+    
 
     public void newParamCharteTransaction() {
         for (ParamTransaction p : lstParamtransaction) {

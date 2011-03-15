@@ -18,14 +18,14 @@
                 <h:panelGrid columns="3">
                     <rich:panel header="#{msg.lib_devise}">
                         <h:panelGrid columns="2">
-                            <h:outputText value="#{msg.lib_chiffreApresVirgule}"/>
+                            <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
                             <rich:comboBox value="#{gsParamSoco.formatageDevise.apresVirgule}">
                                 <f:selectItem itemValue="1"/>
                                 <f:selectItem itemValue="2"/>
                                 <f:selectItem itemValue="3"/>
                                 <f:selectItem itemValue="4"/>
                             </rich:comboBox>
-                            <h:outputText value="#{msg.lib_symbole}"/>
+                            <h:outputText value="#{msg.lib_symbole}" styleClass="titreLibelle"/>
                             <rich:comboBox value="#{gsParamSoco.formatageDevise.curremcy}">
                                 <f:selectItem itemValue="$"/>
                                 <f:selectItem itemValue="euro"/>
@@ -42,7 +42,7 @@
 
                     <rich:panel header="#{msg.lib_unite}">
                         <h:panelGrid columns="2">
-                            <h:outputText value="#{msg.lib_chiffreApresVirgule}"/>
+                            <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
                             <rich:comboBox value="#{gsParamSoco.formatageunite.apresVirgule}">
                                 <f:selectItem itemValue="1"/>
                                 <f:selectItem itemValue="2"/>
@@ -53,7 +53,7 @@
 
 
 
-                            <h:outputText value="#{msg.lib_symbole}"/>
+                            <h:outputText value="#{msg.lib_symbole}" styleClass="titreLibelle"/>
                             <rich:comboBox value="#{gsParamSoco.formatageunite.curremcy}">
                                 <f:selectItem itemValue="L"/>
                                 <f:selectItem itemValue="Kg"/>
@@ -62,7 +62,7 @@
                         </h:panelGrid>
                     </rich:panel>
                 </h:panelGrid>
-                <div style="text-align: right; margin-right: 150px">
+                <div style="text-align: right; margin-right: 450px">
                     <h:commandButton value="#{msg.btn_valider}"/>
                 </div>
             </h:form>
