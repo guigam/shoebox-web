@@ -27,6 +27,7 @@ public class CategorieCharge implements Serializable {
     private Long id;
     private String nomCategorie;
     private String Description;
+    private String type;
     @ManyToOne
     private Cooperative cooperative;
     @OneToMany(mappedBy="categorieCharge")
@@ -104,6 +105,20 @@ public class CategorieCharge implements Serializable {
      */
     public void setLsttransactionCharge(List<TransactionCharge> lsttransactionCharge) {
         this.lsttransactionCharge = lsttransactionCharge;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

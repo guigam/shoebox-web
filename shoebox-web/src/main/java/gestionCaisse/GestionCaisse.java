@@ -76,19 +76,29 @@ public class GestionCaisse implements Serializable {
         if (!paramShoebox.validerDate(datetsx)) {
             return false;
         } else if (montant > montantRestant) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", "montant saisie incorrect");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", null);
             FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
             return false;
         } else if (dateOrigine.after(datetsx)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date transaction ne doit pas etre inferieur a la date de la commande", "Date transaction ne doit pas etre inferieur a la date de la commande");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date transaction ne doit pas etre inferieur a la date de la commande",null);
             FacesContext.getCurrentInstance().addMessage("date", msg);
             return false;
         }
         return true;
     }
+    private boolean validerTransactionSD(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
+        if (!paramShoebox.validerDate(datetsx)) {
+            return false;
+        } else if (montant > montantRestant) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", null);
+            FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
+            return false;
+        } 
+        return true;
+    }
 
     public String newtransactionSD() {
-        if (validerTransaction(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(), tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())) {
+        if (validerTransactionSD(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(), tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())) {
             tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
             tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
             tsxCaisse.setCurrentuser(session.getUser());

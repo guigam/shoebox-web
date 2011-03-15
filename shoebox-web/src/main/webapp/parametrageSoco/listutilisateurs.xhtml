@@ -23,7 +23,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_etat}"/>
                         </f:facet>
-                        <center><h:graphicImage value="#{item.etat.equals(false) ? '/icons/actif.png' : '/icons/inactif.png'}"/></center>
+                        <center><h:graphicImage value="#{item.etat.equals(true) ? '/icons/actif.png' : '/icons/inactif.png'}"/></center>
                         <rich:toolTip value="#{item.etat.equals(false) ? msg.lib_inactif : msg.lib_actif }"/>
                     </rich:column>
                     <rich:column width="30%">

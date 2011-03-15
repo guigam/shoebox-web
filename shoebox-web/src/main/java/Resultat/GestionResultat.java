@@ -17,6 +17,7 @@ import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
+import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
@@ -49,6 +50,8 @@ public class GestionResultat implements Serializable {
     private login session;
     @Inject
     private gestionCommandes gsCommande;
+    @Inject
+    private parametrageShoebox paramShoebox;
     @Inject
     private GestionCaisse gsCaisse;
     @EJB
@@ -266,6 +269,21 @@ public class GestionResultat implements Serializable {
         return getSommeAchatProduit() +  calculSommeChargeGroupByCategorie(categ);
     }
 
+    public Double getmargeBrutSurProduit(){
+        return getSommeVenteCafeCacao() - getSommeAchatProduit();
+    }
+
+    public Double getmargeBrutExploitation(){
+        return getmargeBrutSurProduit() - getsommeFraisExploitation();
+    }
+
+      public Double getsommeFraisExploitation(){
+          double somme = 0;
+        for(CategorieCharge c : paramShoebox.getlstCategorieChargeExploitation()){
+            somme = somme + calculSommeChargeGroupByCategorie(c);
+        }
+        return somme;
+      }
 
 
 

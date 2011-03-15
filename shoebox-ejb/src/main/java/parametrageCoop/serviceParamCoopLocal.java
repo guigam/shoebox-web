@@ -89,6 +89,8 @@ public interface serviceParamCoopLocal {
 
     public List<Produit> lstproduit(Cooperative coop);
 
+    public List<CategorieCharge> lstCategorieChargeByType(Cooperative coop, String type);
+
     public List<CategorieCharge> lstCategorieCharge(Cooperative coop);
 
     public List<Magasin> lstMagasin(Cooperative coop);

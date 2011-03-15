@@ -132,8 +132,12 @@ public class parametrageShoebox implements Serializable {
         this.lstconfigMag.add(new ConfigMag());
     }
 
+     public List<CategorieCharge> getlstCategorieChargeExploitation(){
+       return parametrageCoop.lstCategorieChargeByType(session.getCurrentCoop(), "Exploitation");
+    }
+
      public List<CategorieCharge> getlstCategorieCharge(){
-       return parametrageCoop.lstCategorieCharge(session.getCurrentCoop());
+       return parametrageCoop.lstCategorieChargeByType(session.getCurrentCoop(), "Charge");
     }
     public boolean validerDate(Date date) {
         if (parametrageCoop.verifdate(date, session.getCurrentPeriode())) {

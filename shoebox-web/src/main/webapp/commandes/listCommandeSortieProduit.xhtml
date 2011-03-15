@@ -31,7 +31,7 @@
                             </a4j:commandButton></center>
                         <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
                     </rich:column>
-                    <rich:column width="10%">
+                    <rich:column width="8%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}" />
                         </f:facet>
@@ -52,7 +52,7 @@
 
                     </rich:column>
 
-                    <rich:column width="40%">
+                    <rich:column width="45%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_Information}" />
                         </f:facet>
@@ -101,7 +101,7 @@
                             </rich:column>
                         </rich:dataTable>
                     </rich:column>
-                    <rich:column width="17%">
+                    <rich:column width="22%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_paiement}" />
                         </f:facet>
@@ -114,16 +114,7 @@
                             </h:outputText>
                         </h:panelGrid>
                     </rich:column>
-                    <rich:column width="8%">
-                        <f:facet name="header">
-                            <h:outputText value="--" />
-                        </f:facet>
-                        <h:commandButton id="update" image="/icons/pencil.png"  disabled="#{item.confirmation.equals(true)}"/>
-                        <rich:spacer width="5"/>
-                        <h:commandButton id="delete"  image="/icons/remove.png" disabled="#{item.confirmation.equals(true)}"/>
-                        <rich:toolTip for="update" value="#{msg.lib_update}"/>
-                        <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
-                    </rich:column>
+           
 
                 </rich:dataTable>
             </rich:panel>

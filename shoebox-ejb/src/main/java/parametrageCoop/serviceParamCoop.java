@@ -426,8 +426,15 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     @Override
+    public List<CategorieCharge> lstCategorieChargeByType(Cooperative coop, String type) {
+        Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1 and f.type = ?2");
+        query.setParameter(1, coop);
+        query.setParameter(2, type);
+        return query.getResultList();
+    }
+    @Override
     public List<CategorieCharge> lstCategorieCharge(Cooperative coop) {
-        Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1");
+        Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1 and f.type = ?2");
         query.setParameter(1, coop);
         return query.getResultList();
     }
