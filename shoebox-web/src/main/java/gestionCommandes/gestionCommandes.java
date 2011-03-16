@@ -12,10 +12,14 @@ import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionMagasin;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCaisse.GestionCaisse;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
@@ -139,6 +143,14 @@ public class gestionCommandes implements Serializable {
 
     private boolean verifDuplicSortisProduit() {
         for (TransactionMagasin t : lstTsxMagasin) {
+            Properties p = new Properties();
+            try {
+                p.load(this.getClass().getResourceAsStream("bundles/Mess"));
+            } catch (IOException ex) {
+                Logger.getLogger(gestionCommandes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            p.getProperty("key");
+
             if (t.getProduit().equals(produit) && t.getGrade() == grade && t.getMagasin().equals(m_ssp.getMagasin())) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention dupplication de donnee", "Attention dupplication de donnee");
                 FacesContext.getCurrentInstance().addMessage("type produit", msg);
