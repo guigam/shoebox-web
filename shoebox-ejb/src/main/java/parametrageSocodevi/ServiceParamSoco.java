@@ -125,7 +125,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public void newUtilisateur(Utilisateur utilisateur) {
-       persist(utilisateur);
+       merge(utilisateur);
     }
 
     @Override

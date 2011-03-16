@@ -72,7 +72,7 @@ public class Utilisateur implements Serializable {
     @OneToMany(mappedBy="currentuser")
     private List<TransactionMagasin> lstTransactionMagasin = new LinkedList<TransactionMagasin>();
     @ManyToMany(cascade=CascadeType.ALL)
-    private List<Permission> lstPermission;
+    private List<Permission> lstPermission = new LinkedList<Permission>() ;
     public Long getId() {
         return id;
     }
