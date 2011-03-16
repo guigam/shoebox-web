@@ -45,7 +45,7 @@ public class Cooperative implements Serializable {
     private String reference;
     private String pays;
     private String linkLogo;
-    @OneToMany(mappedBy="cooperative",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="cooperative")
    private  List<Utilisateur> lstutilisateur = new LinkedList<Utilisateur>();
     
     public Long getId() {

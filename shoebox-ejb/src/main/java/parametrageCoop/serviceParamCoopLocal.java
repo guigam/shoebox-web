@@ -121,6 +121,11 @@ public interface serviceParamCoopLocal {
 
     public List<SelectItem> lstItemCharteCompte();
 
+    public List<SelectItem> lstItemCoop();
+
+    public List<Cooperative> lstCoop();
+
+
     //***************************recherche*********************************//
     public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop);
 

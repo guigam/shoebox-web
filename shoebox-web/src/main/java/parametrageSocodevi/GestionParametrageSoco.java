@@ -26,6 +26,7 @@ import javax.faces.component.UIData;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import parametrageCoop.serviceParamCoopLocal;
 
 /**
  *
@@ -47,6 +48,8 @@ public class GestionParametrageSoco implements Serializable {
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
+    @EJB
+    private serviceParamCoopLocal serviceParamCoop;
     @Inject
     private Conversation conversation;
     @Inject
@@ -76,9 +79,29 @@ public class GestionParametrageSoco implements Serializable {
         cooperative.setLinkLogo(chemin+fup.getFile().getFileName());
         cooperative.getLstutilisateur().add(session.getUser());
         serviceSoco.newCoop(cooperative);
+        verifConfiguration();
     }
 
-
+    public String verifConfiguration(){
+        if(serviceParamCoop.lstCoop().isEmpty()){
+            return "/firstTime/addCooperative.xhtml";
+        }else if(!serviceSoco.lstParamTransaction().isEmpty()){
+                for(ParamTransaction p :serviceSoco.lstParamTransaction()){
+                    if(p.getCharteCompte() == null){
+                        return "/parametrageSoco/parametragetransactionCharteSoco.xhtml";
+                    }
+                }
+        }else if(serviceSoco.lstFormatEntier().size() < 2){
+            return "/parametrageSoco/formatage.xhtml";
+        }else if(!serviceSoco.lstDefinitionPeriode().isEmpty()){
+            for(DefinitionPeriode d :serviceSoco.lstDefinitionPeriode()){
+                if(d.isPeriodeActif() == true){
+                    return "menu.xhtml";
+                }
+            }
+        }
+        return null;
+    }
 
     protected void saveFile(String chemin) throws FileNotFoundException, IOException{
        
@@ -94,6 +117,10 @@ public class GestionParametrageSoco implements Serializable {
     }
     private void newDefinitionPeriode(DefinitionPeriode def){
         serviceSoco.mergeDefPeriode(def);
+    }
+
+    public List<Cooperative> getlstCoop(){
+        return serviceParamCoop.lstCoop();
     }
 
     public void valueChangeListener(ValueChangeEvent event) {
@@ -115,10 +142,14 @@ public class GestionParametrageSoco implements Serializable {
         fe = (formatageEntier) dataTable.getRowData();
         fe.setCurremcy((String) event.getNewValue());
     }
+
     public List<Utilisateur> getListUtilisateur(){
         return serviceSoco.lstUtilisteur(session.getCurrentCoop());
     }
-
+    
+    public List<Utilisateur> getListAllUtilisateur(){
+        return serviceSoco.lstAllUtilisteur();
+    }
    
 
     public String newUtilisateur(){

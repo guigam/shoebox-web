@@ -481,6 +481,20 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return somme;
     }
 
+    @Override
+    public List<SelectItem> lstItemCoop() {
+        List<SelectItem> lstCategItem = new ArrayList<SelectItem>();
+        for (Cooperative c : lstCoop()) {
+            lstCategItem.add(new SelectItem(c, c.getName()));
+        }
+        return lstCategItem;
+    }
+
+      @Override
+    public List<Cooperative> lstCoop() {
+        Query query = em.createQuery("from Cooperative");
+        return query.getResultList();
+    }
 
 
 }

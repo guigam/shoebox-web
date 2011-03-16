@@ -151,6 +151,20 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
 
 
+    @Override
+    public List<formatageEntier> lstFormatEntier() {
+        Query query = em.createQuery("from formatageEntier");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Utilisateur> lstAllUtilisteur() {
+         Query query = em.createQuery("from Utilisateur u ");
+       return query.getResultList();
+    }
+
+
+
   
 
  

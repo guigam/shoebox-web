@@ -104,6 +104,10 @@ public class parametrageShoebox implements Serializable {
         return parametrageCoop.lstItemMagasin(session.getCurrentCoop());
     }
 
+    public List<SelectItem> getListitemCooperative() {
+        return parametrageCoop.lstItemCoop();
+    }
+
     public List<SelectItem> getListitemProduitIntrant() {
         return parametrageCoop.lstItemProduitIntrant(session.getCurrentCoop());
     }

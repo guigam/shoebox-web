@@ -19,13 +19,13 @@
                         <h:inputText value="#{gsParamSoco.utilisateur.username}"/>
                         <h:outputText value="#{msg.lib_fonction}"/>
                         <h:inputText value="#{gsParamSoco.utilisateur.fonction}"/>
-                        <h:outputText value="#{msg.lib_etat}"/>
-                        <h:inputText value="#{gsParamSoco.utilisateur.etat}"/>
                         <h:outputText value="#{msg.lib_langue}"/>
                         <rich:comboBox value="#{gsParamSoco.utilisateur.langue}">
                             <f:selectItem itemValue="#{msg.lib_francais}"/>
                             <f:selectItem itemValue="#{msg.lib_anglais}"/>
                         </rich:comboBox>
+                        <h:outputText value="#{msg.lib_etat}"/>
+                        <h:inputText value="#{gsParamSoco.utilisateur.etat}"/>
 
                     </h:panelGrid>
                     <rich:pickList value="#{gsParamSoco.utilisateur.lstPermission}" converter="permissionConverter">

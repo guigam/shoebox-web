@@ -65,6 +65,7 @@
                             <rich:panelMenu label="Menu">
                                 <rich:panelMenuGroup  label="Menu" expanded="true"  >
                                     <rich:panelMenuGroup  label="#{msg.lib_magasin}" expanded="true"  >
+                                        <rich:panelMenuItem  label="#{msg.lib_listCooperative}" action="#{redirectController.redirect}"><f:param value="lstCooperative" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{redirectController.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramTransactionSoco}" action="#{redirectController.redirect}"><f:param value="lstParamTransactionCharteCompte" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramDefinitionPeriode}" action="#{redirectController.redirect}"><f:param value="lstDefPeriode" name="outcome"/></rich:panelMenuItem>
