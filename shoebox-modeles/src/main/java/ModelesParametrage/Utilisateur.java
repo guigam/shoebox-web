@@ -8,7 +8,6 @@ package ModelesParametrage;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Compte;
 import ModelesShoebox.Cooperative;
-import ModelesShoebox.Entite;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.SoldeDepart;

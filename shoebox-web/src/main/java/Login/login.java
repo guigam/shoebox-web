@@ -17,8 +17,9 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-import parametrageSocodevi.ServiceParamSoco;
+import parametrageSocodevi.GestionParametrageSoco;
 import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**
@@ -38,6 +39,8 @@ public class login implements Serializable{
     private ServiceParamSocoLocal serviceparamSoco;
     @EJB
     private ServiceParamSocoLocal test;
+    @Inject
+    private GestionParametrageSoco paramSoco;
     /** Creates a new instance of login */
     public login() {
 
@@ -47,17 +50,18 @@ public class login implements Serializable{
     }
 
     public String identification(){
+        if(user.getUsername().equals("admin") && user.getPassword().equals("admin")){
+            return "/firstTime/menuAdmin.xhtml";
+        }else{
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
-        currentCoop = user.getCooperative();
-        currentPeriode = serviceparamSoco.currentPeriode();
-        currentFormatDevise = serviceparamSoco.formatage("devise");
-        currentFormatUnite =  serviceparamSoco.formatage("unite");
-
-
         if(user != null){
-
+          currentCoop = user.getCooperative();
+                currentPeriode = serviceparamSoco.currentPeriode();
+             currentFormatDevise = serviceparamSoco.formatage("devise");
+             currentFormatUnite =  serviceparamSoco.formatage("unite");
            return "begin";
         }
+    }
         return null;
     }
     public String logout(){

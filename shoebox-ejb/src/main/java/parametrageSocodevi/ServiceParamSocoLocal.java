@@ -47,11 +47,16 @@ public interface ServiceParamSocoLocal {
 
    public List<Utilisateur> lstUtilisteur(Cooperative coop);
 
+   public List<Utilisateur> lstAllUtilisteur();
+
    public void newUtilisateur(Utilisateur utilisateur);
 
    public void updateUtilisateur(Utilisateur utilisateur);
 
    public List<SelectItem> lstItemPermission();
+
+
+   public List<formatageEntier> lstFormatEntier();
 
   
 
