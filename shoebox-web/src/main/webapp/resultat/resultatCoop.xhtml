@@ -166,18 +166,21 @@
                                 </h:outputText>
                             </center>
                         </td>
-                        <td>
+                        <td rowspan="2">
                             <center>
+                                <h:panelGrid>
                                 <h:outputText value="#{gsResultat.pourcentage1}" styleClass="titreLibelle" >
                                     <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
-                                </h:outputText><br/>
+                                </h:outputText>
                                 <rich:spacer height="10"/>
                                 <h:outputText value="#{gsResultat.variationStock / (gsResultat.sommeVenteCafeCacao)}" styleClass="titreLibelle" >
                                     <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
-                                </h:outputText><br/>
+                                </h:outputText>
+                                 <rich:spacer height="10"/>
                                 <h:outputText value="#{gsResultat.variationStock / (gsResultat.sommeVenteCafeCacao)}" styleClass="titreBleu" >
                                     <f:convertNumber currencySymbol="%" minFractionDigits="2" type="currency"/>
                                 </h:outputText>
+                                 </h:panelGrid>
                             </center>
                         </td>
                     </tr>
