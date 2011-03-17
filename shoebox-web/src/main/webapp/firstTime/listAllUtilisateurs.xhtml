@@ -18,7 +18,7 @@
                     <h:commandButton image="/icons/add.png" action="addUtilisateur" />
                     <h:commandLink value="#{msg.lib_addUtilisateur}" action="addUtilisateur" />
                 </div>
-                <rich:dataTable value="#{gsParamSoco.listUtilisateur}"  var="item" width="100%"  id="tab">
+                <rich:dataTable value="#{gsParamSoco.listAllUtilisateur}"  var="item" width="100%"  id="tab">
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_etat}"/>
