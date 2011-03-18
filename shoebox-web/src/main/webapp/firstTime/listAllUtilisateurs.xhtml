@@ -15,8 +15,8 @@
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
                 <div style="margin-left:15px">
-                    <h:commandButton image="/icons/add.png" action="addUtilisateur" />
-                    <h:commandLink value="#{msg.lib_addUtilisateur}" action="addUtilisateur" />
+                    <h:commandButton image="/icons/add.png" action="/firstTime/addUtilisateurAdmin.xhtml" />
+                    <h:commandLink value="#{msg.lib_addUtilisateur}" action="/firstTime/addUtilisateurAdmin.xhtml" />
                 </div>
                 <rich:dataTable value="#{gsParamSoco.listAllUtilisateur}"  var="item" width="100%"  id="tab">
                     <rich:column width="10%">
@@ -25,6 +25,12 @@
                         </f:facet>
                         <center><h:graphicImage value="#{item.etat.equals(true) ? '/icons/actif.png' : '/icons/inactif.png'}"/></center>
                         <rich:toolTip value="#{item.etat.equals(false) ? msg.lib_inactif : msg.lib_actif }"/>
+                    </rich:column>
+                    <rich:column width="30%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_cooperative}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cooperative.name}"/>
                     </rich:column>
                     <rich:column width="30%">
                         <f:facet name="header">
@@ -50,7 +56,7 @@
                         <f:facet name="header">
                             <h:outputText value="--" />
                         </f:facet>
-                         <h:commandButton id="update" image="/icons/pencil.png" action="updateUtilisateur">
+                         <h:commandButton id="update" image="/icons/pencil.png" action="/firstTime/updateutilisateurAdmin.xhtml">
                              <f:setPropertyActionListener target="#{gsParamSoco.utilisateur}" value="#{item}"/>
                          </h:commandButton>
                           <rich:spacer width="5"/>

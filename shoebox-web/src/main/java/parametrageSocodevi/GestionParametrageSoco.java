@@ -153,8 +153,12 @@ public class GestionParametrageSoco implements Serializable {
    
 
     public String newUtilisateur(){
-//        utilisateur.setLstPermission(maLstPermissionChoisit);
         utilisateur.setCooperative(session.getCurrentCoop());
+        utilisateur.setPassword("soco");
+        serviceSoco.newUtilisateur(utilisateur);
+        return "lstUtilisateurs";
+    }
+    public String newUtilisateurAdmin(){
         utilisateur.setPassword("soco");
         serviceSoco.newUtilisateur(utilisateur);
         return "lstUtilisateurs";

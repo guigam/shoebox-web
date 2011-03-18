@@ -28,8 +28,6 @@ public class Permission implements Serializable {
     private String Description;
     private String emplacement;
     private String redirect;
-    @ManyToMany(mappedBy="lstPermission")
-    private List<Utilisateur> lstutilisateur = new LinkedList<Utilisateur>();
     public Long getId() {
         return id;
     }
@@ -119,19 +117,6 @@ public class Permission implements Serializable {
         this.redirect = redirect;
     }
 
-    /**
-     * @return the lstutilisateur
-     */
-    public List<Utilisateur> getLstutilisateur() {
-        return lstutilisateur;
-    }
-
-    /**
-     * @param lstutilisateur the lstutilisateur to set
-     */
-    public void setLstutilisateur(List<Utilisateur> lstutilisateur) {
-        this.lstutilisateur = lstutilisateur;
-    }
 
 
 }

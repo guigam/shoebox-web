@@ -39,7 +39,7 @@ public interface serviceResultatLocal {
     public List<TransactionCaisse> lstTsxCaisseFI(Cooperative coop,FournisseurIntrant FI, DefinitionPeriode periode);
 
 
-    public double  rechercheResultat(String periode, String charteCompte);
+    public double  rechercheResultat(String periode, String charteCompte, Cooperative coop);
 
     public List<CharteCompte> lstCharteCompte(String type);
 
