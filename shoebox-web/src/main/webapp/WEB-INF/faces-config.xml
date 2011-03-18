@@ -189,9 +189,15 @@
    <navigation-rule>
         <navigation-case>
             <from-outcome>lstDefPeriode</from-outcome>
-            <to-view-id>/parametrageSoco/listDefinitioPeriode.xhtml</to-view-id>
+            <to-view-id>/parametrageCoop/listDefinitioPeriode.xhtml</to-view-id>
         </navigation-case>
         <redirect/>
+    </navigation-rule>
+   <navigation-rule>
+        <navigation-case>
+            <from-outcome>lstDefPeriodeAdmin</from-outcome>
+            <to-view-id>/firstTime/listDefinitioPeriodeAdmin.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
    <navigation-rule>
         <navigation-case>

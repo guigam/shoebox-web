@@ -26,29 +26,14 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_mois}"/>
                         </f:facet>
-                          <rich:comboBox value="#{def.mois}" valueChangeListener="#{gsParamSoco.valueChangeListenerDefinitionPeriode}">
-                              <f:selectItem itemValue="Janvier" />
-                              <f:selectItem itemValue="Fevrier" />
-                              <f:selectItem itemValue="Mars" />
-                              <f:selectItem itemValue="Avril" />
-                              <f:selectItem itemValue="Mai" />
-                              <f:selectItem itemValue="Juin" />
-                              <f:selectItem itemValue="Juillet" />
-                              <f:selectItem itemValue="Aout" />
-                              <f:selectItem itemValue="Septembre" />
-                              <f:selectItem itemValue="Octobre" />
-                              <f:selectItem itemValue="Novembre" />
-                              <f:selectItem itemValue="Decembre" />
-                               <a4j:support event="onselect" reRender="Alias" limitToList="true" ajaxSingle="true"/>
-                          </rich:comboBox>
+                          <h:outputText value="#{def.mois}"/>
                     </rich:column>
                       <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periodeCourante}"/>
                         </f:facet>
-                          <center><h:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/tick.png' : '/icons/tick_off.png' }" action="#{gsParamSoco.changePeriodeActif}">
-                              <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
-                          </h:commandButton></center>
+                          <center><h:graphicImage  value="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico' }">
+                          </h:graphicImage></center>
                     </rich:column>
                 </rich:dataTable>
             </h:form>

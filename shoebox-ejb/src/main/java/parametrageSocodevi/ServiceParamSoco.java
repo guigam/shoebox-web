@@ -76,8 +76,9 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public List<DefinitionPeriode> lstDefinitionPeriode() {
-       Query query = em.createQuery("from DefinitionPeriode p order by p.id" );
+    public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop) {
+       Query query = em.createQuery("from DefinitionPeriode p where p.coop =?1 order by p.id" );
+       query.setParameter(1, coop);
        return query.getResultList();
     }
 
@@ -100,8 +101,8 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public DefinitionPeriode currentPeriode() {
-       for(DefinitionPeriode periode : lstDefinitionPeriode()){
+    public DefinitionPeriode currentPeriode(Cooperative coop) {
+       for(DefinitionPeriode periode : lstDefinitionPeriode(coop)){
             if(periode.isPeriodeActif()){
                 return periode;
             }

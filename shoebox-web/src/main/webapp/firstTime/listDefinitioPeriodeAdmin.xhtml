@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                 template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+ 
+
+
+    <ui:define name="content">
+         <rich:panel>
+            <h:form>
+                <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="40%" binding="#{gsParamSoco.dataTable}" id="tab">
+                    <rich:column width="50%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periode}"/>
+                        </f:facet>
+                       <h:outputText value="#{def.periode}"/>
+                    </rich:column>
+                      <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_mois}"/>
+                        </f:facet>
+                          <rich:comboBox value="#{def.mois}" >
+                              <f:selectItem itemValue="Janvier" />
+                              <f:selectItem itemValue="Fevrier" />
+                              <f:selectItem itemValue="Mars" />
+                              <f:selectItem itemValue="Avril" />
+                              <f:selectItem itemValue="Mai" />
+                              <f:selectItem itemValue="Juin" />
+                              <f:selectItem itemValue="Juillet" />
+                              <f:selectItem itemValue="Aout" />
+                              <f:selectItem itemValue="Septembre" />
+                              <f:selectItem itemValue="Octobre" />
+                              <f:selectItem itemValue="Novembre" />
+                              <f:selectItem itemValue="Decembre" />
+                               
+                          </rich:comboBox>
+                    </rich:column>
+                      <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periodeCourante}"/>
+                        </f:facet>
+                          <center><a4j:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
+                              <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
+                          </a4j:commandButton></center>
+                    </rich:column>
+                </rich:dataTable>
+                <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>
+            </h:form>
+         </rich:panel>
+    </ui:define>
+
+
+</ui:composition>

@@ -35,9 +35,9 @@ public interface ServiceParamSocoLocal {
 
    public List<ParamTransaction> lstParamTransaction();
 
-   public List<DefinitionPeriode> lstDefinitionPeriode();
+   public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop);
 
-   public DefinitionPeriode currentPeriode();
+   public DefinitionPeriode currentPeriode(Cooperative coop);
 
    public Utilisateur verifUtilisateur(String utilisateur, String password);
 

@@ -5,6 +5,7 @@
 
 package ModelesShoebox;
 
+import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -47,6 +49,8 @@ public class Cooperative implements Serializable {
     private String linkLogo;
     @OneToMany(mappedBy="cooperative")
    private  List<Utilisateur> lstutilisateur = new LinkedList<Utilisateur>();
+    @OneToMany(mappedBy="coop")
+    private List<DefinitionPeriode> lstDef = new LinkedList<DefinitionPeriode>();
     
     public Long getId() {
         return id;
@@ -150,6 +154,21 @@ public class Cooperative implements Serializable {
     public void setLinkLogo(String linkLogo) {
         this.linkLogo = linkLogo;
     }
+
+    /**
+     * @return the lstDef
+     */
+    public List<DefinitionPeriode> getLstDef() {
+        return lstDef;
+    }
+
+    /**
+     * @param lstDef the lstDef to set
+     */
+    public void setLstDef(List<DefinitionPeriode> lstDef) {
+        this.lstDef = lstDef;
+    }
+
 
   
 }

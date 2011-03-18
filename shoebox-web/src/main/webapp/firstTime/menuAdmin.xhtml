@@ -45,21 +45,15 @@
                     </rich:column>
                      <rich:column width="5%">
                         <f:facet name="header">
-                            <h:outputText value="--" />
+                            <h:outputText value="#{msg.lib_paramDefinitionPeriode}" />
                         </f:facet>
-                         <h:commandButton id="update" image="/icons/pencil.png" action="updateUtilisateur">
-                             <f:setPropertyActionListener target="#{gsParamSoco.utilisateur}" value="#{item}"/>
-                         </h:commandButton>
-                          <rich:spacer width="5"/>
-                          <h:commandButton id="delete"  image="/icons/remove.png"/>
-                          <rich:toolTip for="update" value="#{msg.lib_update}"/>
-                          <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
+                         <center><h:commandButton id="periode"  image="/icons/calender.png" action="/firstTime/listDefinitioPeriodeAdmin.xhtml">
+                              <f:setPropertyActionListener target="#{gsLogin.currentCoop}" value="#{item}"/>
+                             </h:commandButton></center>
+                          <rich:toolTip for="periode" value="#{msg.lib_periode}"/>
                     </rich:column>
                 </rich:dataTable>
             </rich:panel>
         </h:form>
     </ui:define>
-
-
-
 </ui:composition>

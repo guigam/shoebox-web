@@ -56,7 +56,7 @@ public class login implements Serializable{
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
         if(user != null){
           currentCoop = user.getCooperative();
-                currentPeriode = serviceparamSoco.currentPeriode();
+                currentPeriode = serviceparamSoco.currentPeriode(currentCoop);
              currentFormatDevise = serviceparamSoco.formatage("devise");
              currentFormatUnite =  serviceparamSoco.formatage("unite");
            return "begin";
