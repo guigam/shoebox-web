@@ -7,6 +7,7 @@ package parametrageSocodevi;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
+import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
@@ -65,8 +66,9 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
 
     @Override
-    public List<ParamTransaction> lstParamTransaction() {
-       Query query = em.createQuery("from ParamTransaction p ");
+    public List<ParamTransaction> lstParamTransaction(Cooperative coop) {
+       Query query = em.createQuery("from ParamTransaction p where p.coop = ?1 ");
+       query.setParameter(1, coop);
        return query.getResultList();
     }
 
@@ -111,10 +113,11 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public formatageEntier formatage(String type) {
-       Query query=em.createQuery("from formatageEntier f where f.type = ?1");
-       query.setParameter(1, type);
-       return (formatageEntier) query.getSingleResult();
+    public List<formatageEntier> formatage(Cooperative coop) {
+       Query query=em.createQuery("from formatageEntier f where f.coop = ?1");
+
+       query.setParameter(1, coop);
+       return query.getResultList();
     }
 
     @Override
@@ -161,6 +164,17 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     @Override
     public List<Utilisateur> lstAllUtilisteur() {
          Query query = em.createQuery("from Utilisateur u ");
+       return query.getResultList();
+    }
+
+    @Override
+    public void newformatage(formatageEntier f) {
+        persist(f);
+    }
+
+    @Override
+    public List<TemplateParamTransaction> lstTemplateParamTransaction() {
+       Query query = em.createQuery("from TemplateParamTransaction");
        return query.getResultList();
     }
 

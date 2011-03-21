@@ -455,9 +455,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     @Override
     public boolean verifdate(Date date, DefinitionPeriode defPer) {
-        int madate = date.getMonth() + 1;
-        System.out.println(madate);
-        if (defPer.getNumMois() == madate) {
+        if (defPer.getDateDebut().before(date) && defPer.getDateFin().after(date)) {
             return true;
         }
         return false;

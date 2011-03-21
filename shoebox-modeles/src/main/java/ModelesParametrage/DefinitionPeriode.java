@@ -7,11 +7,13 @@ package ModelesParametrage;
 
 import ModelesShoebox.Cooperative;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -38,8 +40,10 @@ public class DefinitionPeriode implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String periode;
-    private String mois;
-    private int numMois;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateDebut;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateFin;
     private boolean periodeActif;
     @ManyToOne
     private Cooperative coop;
@@ -91,34 +95,7 @@ public class DefinitionPeriode implements Serializable {
         this.periode = periode;
     }
 
-    /**
-     * @return the mois
-     */
-    public String getMois() {
-        return mois;
-    }
-
-    /**
-     * @param mois the mois to set
-     */
-    public void setMois(String mois) {
-        this.mois = mois;
-    }
-
-    /**
-     * @return the numMois
-     */
-    public int getNumMois() {
-        return numMois;
-    }
-
-    /**
-     * @param numMois the numMois to set
-     */
-    public void setNumMois(int numMois) {
-        this.numMois = numMois;
-    }
-
+   
 
     /**
      * @return the periodeActif
@@ -146,6 +123,34 @@ public class DefinitionPeriode implements Serializable {
      */
     public void setCoop(Cooperative coop) {
         this.coop = coop;
+    }
+
+    /**
+     * @return the dateDebut
+     */
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    /**
+     * @param dateDebut the dateDebut to set
+     */
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    /**
+     * @return the dateFin
+     */
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    /**
+     * @param dateFin the dateFin to set
+     */
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
 

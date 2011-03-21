@@ -6,6 +6,7 @@
 package ModelesShoebox;
 
 import ModelesParametrage.DefinitionPeriode;
+import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import java.io.Serializable;
@@ -47,11 +48,14 @@ public class Cooperative implements Serializable {
     private String reference;
     private String pays;
     private String linkLogo;
-    @OneToMany(mappedBy="cooperative")
+    @OneToMany(mappedBy="cooperative",cascade=CascadeType.ALL)
    private  List<Utilisateur> lstutilisateur = new LinkedList<Utilisateur>();
-    @OneToMany(mappedBy="coop")
+    @OneToMany(mappedBy="coop",cascade=CascadeType.ALL)
     private List<DefinitionPeriode> lstDef = new LinkedList<DefinitionPeriode>();
-    
+    @OneToMany(mappedBy="coop",cascade=CascadeType.ALL)
+private List<formatageEntier> lstFormatEntier = new LinkedList<formatageEntier>();
+    @OneToMany(mappedBy="coop", cascade=CascadeType.ALL)
+    private List<ParamTransaction> lstParametrage = new LinkedList<ParamTransaction>();
     public Long getId() {
         return id;
     }
@@ -167,6 +171,34 @@ public class Cooperative implements Serializable {
      */
     public void setLstDef(List<DefinitionPeriode> lstDef) {
         this.lstDef = lstDef;
+    }
+
+    /**
+     * @return the lstFormatEntier
+     */
+    public List<formatageEntier> getLstFormatEntier() {
+        return lstFormatEntier;
+    }
+
+    /**
+     * @param lstFormatEntier the lstFormatEntier to set
+     */
+    public void setLstFormatEntier(List<formatageEntier> lstFormatEntier) {
+        this.lstFormatEntier = lstFormatEntier;
+    }
+
+    /**
+     * @return the lstParametrage
+     */
+    public List<ParamTransaction> getLstParametrage() {
+        return lstParametrage;
+    }
+
+    /**
+     * @param lstParametrage the lstParametrage to set
+     */
+    public void setLstParametrage(List<ParamTransaction> lstParametrage) {
+        this.lstParametrage = lstParametrage;
     }
 
 

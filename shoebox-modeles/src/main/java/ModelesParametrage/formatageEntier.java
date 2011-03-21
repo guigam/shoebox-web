@@ -26,6 +26,8 @@ public class formatageEntier implements Serializable {
     private int apresVirgule;
     private String curremcy;
     private String type;
+    @ManyToOne
+    private Cooperative coop;
 
 
     public Long getId() {
@@ -101,6 +103,20 @@ public class formatageEntier implements Serializable {
      */
     public void setApresVirgule(int apresVirgule) {
         this.apresVirgule = apresVirgule;
+    }
+
+    /**
+     * @return the coop
+     */
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 }

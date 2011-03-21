@@ -31,8 +31,11 @@
                                 <f:selectItem itemValue="euro"/>
                                 <f:selectItem itemValue="DTN"/>
                             </rich:comboBox>
-                        </h:panelGrid>
 
+                        </h:panelGrid>
+                        <div style="text-align: right;">
+                            <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.newFormatageDevise}"/>
+                </div>
 
                     </rich:panel>
                     <rich:spacer width="30"/>
@@ -60,11 +63,11 @@
                                 <f:selectItem itemValue="cm3"/>
                             </rich:comboBox>
                         </h:panelGrid>
+                <div style="text-align: right;">
+                    <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.newFormatageUnite}"/>
+                </div>
                     </rich:panel>
                 </h:panelGrid>
-                <div style="text-align: right; margin-right: 450px">
-                    <h:commandButton value="#{msg.btn_valider}"/>
-                </div>
             </h:form>
         </rich:panel>
     </ui:define>

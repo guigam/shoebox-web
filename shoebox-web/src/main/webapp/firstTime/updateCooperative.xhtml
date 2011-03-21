@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <rich:panel>
+            <h:outputText value="#{msg.lib_mettreAJourCooperative} #{gsParamSoco.cooperative.name}" styleClass="titrePanel" />
+            <rich:separator width="100%"/>
+            <rich:spacer height="10"/>
+
+            <rich:tabPanel>
+                <rich:tab label="#{msg.lib_identification}" >
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                            <h:inputText value="#{gsParamSoco.cooperative.reference}" styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_nomCooperative}" styleClass="titreLibelle"/>
+                            <h:inputText value="#{gsParamSoco.cooperative.name}" styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_pays}" styleClass="titreLibelle"/>
+                            <h:inputText value="#{gsParamSoco.cooperative.pays}" styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
+                        <rich:spacer height="5"/>
+                        <div style="margin-left:  200px;">
+                            <a4j:commandButton value="#{msg.btn_valider}" />
+                        </div>
+                    </h:form>
+                </rich:tab>
+
+
+                <rich:tab label="#{msg.lib_paramDeviseUnite}">
+                    <h:form>
+                        <h:panelGrid columns="3">
+                            <a4j:outputPanel rendered="#{not empty gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}">
+                                <rich:panel>
+                                        <ui:repeat value="#{gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}" var="f">
+                                            <a4j:outputPanel rendered="#{f.type.equals('Devise')}">
+                                    <h:panelGrid columns="2" >
+                                                <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
+                                                <rich:comboBox value="#{f.curremcy}">
+                                                    <f:selectItem itemValue="$"/>
+                                                    <f:selectItem itemValue="euro"/>
+                                                    <f:selectItem itemValue="DTN"/>
+                                                </rich:comboBox>
+                                                <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                                                <rich:comboBox value="#{f.apresVirgule}">
+                                                    <f:selectItem itemValue="1"/>
+                                                    <f:selectItem itemValue="2"/>
+                                                    <f:selectItem itemValue="3"/>
+                                                    <f:selectItem itemValue="4"/>
+                                                </rich:comboBox>
+                                            </h:panelGrid>
+                                            </a4j:outputPanel>
+                                            <rich:spacer height="10"/>
+                                            <a4j:outputPanel rendered="#{f.type.equals('Unite')}">
+                                                <h:panelGrid columns="2">
+                                                <h:outputText value="#{msg.lib_unite}" styleClass="titreLibelle"/>
+                                                <rich:comboBox value="#{f.curremcy}">
+                                                  <f:selectItem itemValue="Kg"/>
+                                            <f:selectItem itemValue="L"/>
+                                            <f:selectItem itemValue="Cm3"/>
+                                                </rich:comboBox>
+                                                <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                                                <rich:comboBox value="#{f.apresVirgule}">
+                                                    <f:selectItem itemValue="1"/>
+                                                    <f:selectItem itemValue="2"/>
+                                                    <f:selectItem itemValue="3"/>
+                                                    <f:selectItem itemValue="4"/>
+                                                </rich:comboBox>
+                                    </h:panelGrid>
+                                            </a4j:outputPanel>
+                                        </ui:repeat>
+                                    <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateCoopFormatage}"/>
+
+                                </rich:panel>
+                            </a4j:outputPanel>
+
+
+                               <a4j:outputPanel rendered="#{empty gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}">
+                                <rich:panel>
+                                    <h:panelGrid columns="4" >
+                                        <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
+                                        <rich:comboBox value="#{gsParamSoco.devise.curremcy}">
+                                            <f:selectItem itemValue="$"/>
+                                            <f:selectItem itemValue="euro"/>
+                                            <f:selectItem itemValue="DTN"/>
+                                        </rich:comboBox>
+                                        <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                                        <rich:comboBox value="#{gsParamSoco.devise.apresVirgule}">
+                                            <f:selectItem itemValue="1"/>
+                                            <f:selectItem itemValue="2"/>
+                                            <f:selectItem itemValue="3"/>
+                                            <f:selectItem itemValue="4"/>
+                                        </rich:comboBox>
+                                        <h:outputText value="#{msg.lib_unite}" styleClass="titreLibelle"/>
+                                        <rich:comboBox  value="#{gsParamSoco.unite.curremcy}">
+                                            <f:selectItem itemValue="Kg"/>
+                                            <f:selectItem itemValue="L"/>
+                                            <f:selectItem itemValue="Cm3"/>
+                                        </rich:comboBox>
+                                        <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                                        <rich:comboBox value="#{gsParamSoco.unite.apresVirgule}">
+                                            <f:selectItem itemValue="1"/>
+                                            <f:selectItem itemValue="2"/>
+                                            <f:selectItem itemValue="3"/>
+                                            <f:selectItem itemValue="4"/>
+                                        </rich:comboBox>
+                                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateCoopFormatage}"/>
+                                    </h:panelGrid>
+                                </rich:panel>
+                            </a4j:outputPanel>
+
+                        </h:panelGrid>
+                    </h:form>
+                </rich:tab>
+
+
+
+
+                <rich:tab label="#{msg.lib_paramDefinitionPeriode}">
+                    <h:form>
+                        <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="70%" id="tab">
+                            <rich:column width="20%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_periode}"/>
+                                </f:facet>
+                                <h:outputText value="#{def.periode}"/>
+                            </rich:column>
+                            <rich:column width="30%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
+                                </f:facet>
+                                  <rich:calendar value="#{def.dateDebut}"/>
+                            </rich:column>
+                            <rich:column width="30%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_dateFinPeriode}"/>
+                                </f:facet>
+                              <rich:calendar value="#{def.dateFin}"/>
+                            </rich:column>
+                            <rich:column width="10%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_periodeCourante}"/>
+                                </f:facet>
+                                <center><a4j:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
+                                        <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
+                                    </a4j:commandButton></center>
+                            </rich:column>
+                        </rich:dataTable>
+                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>
+                    </h:form>
+                </rich:tab>
+
+                <rich:tab label="#{msg.lib_paramTransactionSoco}">
+                    <h:form>
+                        <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}">
+                            <rich:column width="20%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_codeTransaction}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.abrev}"/>
+                            </rich:column>
+                            <rich:column width="40%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_transaction}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.type}"/>
+                            </rich:column>
+                            <rich:column width="40%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
+                                </f:facet>
+                                <center><rich:comboBox  valueChangeListener="#{gsParamSoco.valueChangeListener}"  value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte" >
+                                        <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
+                                        <a4j:support event="onselect"  limitToList="true" ajaxSingle="true"/>
+                                    </rich:comboBox></center>
+                            </rich:column>
+                        </rich:dataTable>
+                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateParamTransaction}"/>
+                    </h:form>
+                </rich:tab>
+
+
+            </rich:tabPanel>
+
+        </rich:panel>
+    </ui:define>
+
+
+</ui:composition>

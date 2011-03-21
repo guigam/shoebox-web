@@ -169,6 +169,7 @@ public class parametrageShoebox implements Serializable {
         fournisseurproduit.setCurrentuser(session.getUser());
         parametrageCoop.newFP(fournisseurproduit);
         fournisseurproduit = new FournisseurProduit();
+        soldeDepart = new SoldeDepart();
         return "lstFP";
     }
 
@@ -271,6 +272,7 @@ public class parametrageShoebox implements Serializable {
         fournisseurIntrant.setCoop(session.getCurrentCoop());
         parametrageCoop.newFI(fournisseurIntrant);
         fournisseurIntrant = new FournisseurIntrant();
+        soldeDepart  = new SoldeDepart();
         return "lstFI";
     }
 
@@ -289,6 +291,7 @@ public class parametrageShoebox implements Serializable {
         client.setCurrentuser(session.getUser());
         parametrageCoop.newClient(client);
         client = new Client();
+        soldeDepart = new SoldeDepart();
         return "lstClient";
     }
 

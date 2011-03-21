@@ -6,6 +6,7 @@
 package ModelesParametrage;
 
 import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Cooperative;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,6 +43,8 @@ public class ParamTransaction implements Serializable {
     private String abrev;
     @OneToOne
     private CharteCompte charteCompte;
+    @ManyToOne
+    private Cooperative coop;
     
     public Long getId() {
         return id;
@@ -116,6 +119,20 @@ public class ParamTransaction implements Serializable {
      */
     public void setAbrev(String abrev) {
         this.abrev = abrev;
+    }
+
+    /**
+     * @return the coop
+     */
+    public Cooperative getCoop() {
+        return coop;
+    }
+
+    /**
+     * @param coop the coop to set
+     */
+    public void setCoop(Cooperative coop) {
+        this.coop = coop;
     }
 
 

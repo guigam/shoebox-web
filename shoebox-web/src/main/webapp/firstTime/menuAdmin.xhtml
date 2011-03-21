@@ -4,7 +4,8 @@
                 template="./../templateParamSoco.xhtml"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j">
     
 
 
@@ -16,42 +17,85 @@
                 <rich:spacer height="10"/>
                 <div style="margin-left:15px">
                     <h:commandButton image="/icons/add.png" action="/firstTime/addCooperative.xhtml" />
-                    <h:commandLink value="#{msg.lib_addUtilisateur}" action="/firstTime/addCooperative.xhtml" />
+                    <h:commandLink value="#{msg.lib_addCooperative}" action="/firstTime/addCooperative.xhtml" />
                 </div>
-                <rich:dataTable value="#{gsParamSoco.lstCoop}"  var="item" width="100%"  id="tab">
+                <rich:dataTable value="#{gsParamSoco.lstCoop}"  var="item" width="100%"  id="tab" >
+                    <rich:column width="1%">
+                        <f:facet name="header">
+                            <h:outputText  />
+                        </f:facet>
+                         <center>
+                             <h:commandButton id="delete"  image="/icons/remove.png" >
+                              <f:setPropertyActionListener target="#{gsLogin.currentCoop}" value="#{item}"/>
+                             </h:commandButton>
+                         </center>
+                    </rich:column>
+                    <rich:column width="1%">
+                        <f:facet name="header">
+                            <h:outputText />
+                        </f:facet>
+                         <center>
+                             <h:commandButton id="update"  image="/icons/pencil.png" action="/firstTime/updateCooperative.xhtml">
+                                 <f:setPropertyActionListener target="#{gsParamSoco.cooperative}" value="#{item}"/>
+                             </h:commandButton>
+                         </center>
+                    </rich:column>
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_logo}"/>
                         </f:facet>
-                        <h:graphicImage value="#{item.linkLogo}" width="30%" height="30%"/>
-                    </rich:column>
-                    <rich:column width="10%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_reference}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.reference}"/>
-                    </rich:column>
-                    <rich:column width="30%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_nomCooperative}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.name}"/>
+                        <center>
+                        <h:graphicImage value="#{item.linkLogo}" width="40%" height="30%"/>
+                        </center>
                     </rich:column>
                     <rich:column width="20%">
                         <f:facet name="header">
-                            <h:outputText value="#{msg.lib_pays}"/>
+                            <h:outputText value="#{msg.lib_identification}"/>
                         </f:facet>
-                        <h:outputText value="#{item.pays}"/>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_reference}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{item.reference} " styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_nomCooperative}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{item.name} " styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_pays}: " styleClass="titreLibelle"/>
+                            <h:outputText value="#{item.pays} " styleClass="titreLibelleSimple"/>
+                        </h:panelGrid>
                     </rich:column>
-                     <rich:column width="5%">
+                    
+                       <rich:column width="20%">
                         <f:facet name="header">
-                            <h:outputText value="#{msg.lib_paramDefinitionPeriode}" />
+                            <h:outputText value="#{msg.lib_ParametrageChiffre}"/>
+                        </f:facet>
+                           <rich:dataList value="#{gsParamSoco.formatageByCoop(item)}" var="f">
+                           <h:panelGrid columns="5" >
+                               <h:outputText value="#{f.type.equals('Devise') ? msg.lib_devise : msg.lib_unite}" styleClass="titreLibelle" />
+                               <h:outputText value="#{f.curremcy}" styleClass="titreLibelleSimple"/>
+                               <rich:spacer width="10"/>
+                               <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                               <h:outputText value="#{f.apresVirgule}" styleClass="titreLibelleSimple"/>
+                           </h:panelGrid>
+                           </rich:dataList>
+                    </rich:column>
+                    <rich:column width="3%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periode}" />
                         </f:facet>
                          <center><h:commandButton id="periode"  image="/icons/calender.png" action="/firstTime/listDefinitioPeriodeAdmin.xhtml">
                               <f:setPropertyActionListener target="#{gsLogin.currentCoop}" value="#{item}"/>
                              </h:commandButton></center>
-                          <rich:toolTip for="periode" value="#{msg.lib_periode}"/>
                     </rich:column>
+                          <rich:column width="3%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_transaction}" />
+                        </f:facet>
+                         <center>  <h:commandButton id="transaction"  image="/icons/tsx.gif" action="/firstTime/listDefinitioPeriodeAdmin.xhtml">
+                              <f:setPropertyActionListener target="#{gsLogin.currentCoop}" value="#{item}"/>
+                             </h:commandButton></center>
+                    </rich:column>
+                          <rich:toolTip for="periode" value="#{msg.lib_periode}"/>
+                          <rich:toolTip for="update" value="#{msg.lib_modifier}"/>
+                          <rich:toolTip for="delete" value="#{msg.lib_supprimer}"/>
+                          <rich:toolTip for="transaction" value="#{msg.lib_transaction}"/>
                 </rich:dataTable>
             </rich:panel>
         </h:form>

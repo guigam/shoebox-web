@@ -8,6 +8,7 @@ package parametrageSocodevi;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
+import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
@@ -33,7 +34,9 @@ public interface ServiceParamSocoLocal {
 
    public void mergeDefPeriode(DefinitionPeriode def);
 
-   public List<ParamTransaction> lstParamTransaction();
+   public List<ParamTransaction> lstParamTransaction(Cooperative coop);
+
+   public List<TemplateParamTransaction> lstTemplateParamTransaction();
 
    public List<DefinitionPeriode> lstDefinitionPeriode(Cooperative coop);
 
@@ -43,7 +46,9 @@ public interface ServiceParamSocoLocal {
 
    public void newCoop(Cooperative coop);
 
-   public formatageEntier formatage(String type);
+   public List<formatageEntier> formatage(Cooperative coop);
+
+   public void newformatage(formatageEntier f);
 
    public List<Utilisateur> lstUtilisteur(Cooperative coop);
 

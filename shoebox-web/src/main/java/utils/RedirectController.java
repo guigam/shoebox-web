@@ -5,7 +5,9 @@
 
 package utils;
 
+import ModelesParametrage.Utilisateur;
 import ModelesShoebox.Commande;
+import ModelesShoebox.Cooperative;
 import gestionCommandes.gestionCommandes;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -36,6 +38,9 @@ private GestionParametrageSoco paramSoco;
         gsCommande.setCommade(new Commande());
         gsCommande.getLstTsxMagasin().clear();
         gsCommande.getLstStockSortieProduit().clear();
+        paramSoco.setUtilisateur(new Utilisateur());
+        paramSoco.setCooperative(new Cooperative());
+
         return outcome;
     }
 

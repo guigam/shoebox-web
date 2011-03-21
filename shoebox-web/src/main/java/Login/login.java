@@ -57,8 +57,7 @@ public class login implements Serializable{
         if(user != null){
           currentCoop = user.getCooperative();
                 currentPeriode = serviceparamSoco.currentPeriode(currentCoop);
-             currentFormatDevise = serviceparamSoco.formatage("devise");
-             currentFormatUnite =  serviceparamSoco.formatage("unite");
+                formatage();
            return "begin";
         }
     }
@@ -68,6 +67,15 @@ public class login implements Serializable{
 ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
 
         return "/login.xhtml";
+    }
+    private void formatage(){
+        for(formatageEntier f : serviceparamSoco.formatage(currentCoop)){
+            if(f.getType().equals("Devise")){
+                currentFormatDevise = f;
+            }else{
+                currentFormatUnite = f;
+            }
+        }
     }
 
     /**

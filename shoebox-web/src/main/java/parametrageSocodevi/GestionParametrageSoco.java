@@ -8,6 +8,7 @@ import Login.login;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesParametrage.ParamTransaction;
 import ModelesParametrage.Permission;
+import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
@@ -16,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -44,8 +46,6 @@ public class GestionParametrageSoco implements Serializable {
     private ParamTransaction paramtsx = new ParamTransaction();
     private UIData dataTable;
     private DefinitionPeriode dePeriode = new DefinitionPeriode();
-    private formatageEntier formatageDevise = new formatageEntier();
-    private formatageEntier formatageunite = new formatageEntier();
     private List<Permission> maLstPermissionChoisit = new LinkedList<Permission>();
     private List<DefinitionPeriode> lstDefPeriode = new LinkedList<DefinitionPeriode>();
     @Inject
@@ -59,8 +59,9 @@ public class GestionParametrageSoco implements Serializable {
     @Inject
     private fileuploadBean fup;
     private Utilisateur utilisateur = new Utilisateur();
-
-    ;
+    private formatageEntier devise = new formatageEntier();
+    private formatageEntier unite = new formatageEntier();
+    
 
     /** Creates a new instance of GestionLangue */
     public GestionParametrageSoco() {
@@ -70,6 +71,33 @@ public class GestionParametrageSoco implements Serializable {
 
         return "/caisse/listAchatProduitIntrant.xhtml";
     }
+
+    public String updateParamTransaction(){
+            cooperative.setLstParametrage(lstParamtransaction);
+            serviceParamCoop.updateCoop(cooperative);
+            cooperative = new Cooperative();
+            return "/firstTime/menuAdmin.xhtml";
+    }
+
+    public String updateCoopFormatage(){
+        if(!cooperative.getLstFormatEntier().isEmpty()){
+        cooperative.setLstFormatEntier(formatageByCoop(cooperative));
+        }else{
+            unite.setType("Unite");
+            devise.setType("Devise");
+            unite.setCoop(cooperative);
+            devise.setCoop(cooperative);
+            cooperative.getLstFormatEntier().add(unite);
+            cooperative.getLstFormatEntier().add(devise);
+
+        }
+        serviceParamCoop.updateCoop(cooperative);
+        return "/firstTime/menuAdmin.xhtml";
+    }
+
+public void recupID(ValueChangeEvent event){
+System.out.println(event.getSource());
+}
 
     public void changePeriodeActif() {
         if (!lstDefPeriode.isEmpty()) {
@@ -93,34 +121,35 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public void newCoop() throws FileNotFoundException, IOException {
+        if(fup.getFile()!=null){
         String chemin = "/home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/webapp/logo/";
         saveFile(chemin);
         cooperative.setLinkLogo(chemin + fup.getFile().getFileName());
-        cooperative.getLstutilisateur().add(session.getUser());
+        }
         serviceSoco.newCoop(cooperative);
-        verifConfiguration();
+        cooperative = new Cooperative();
     }
 
-    public String verifConfiguration() {
-        if (serviceParamCoop.lstCoop().isEmpty()) {
-            return "/firstTime/addCooperative.xhtml";
-        } else if (!serviceSoco.lstParamTransaction().isEmpty()) {
-            for (ParamTransaction p : serviceSoco.lstParamTransaction()) {
-                if (p.getCharteCompte() == null) {
-                    return "/parametrageSoco/parametragetransactionCharteSoco.xhtml";
-                }
-            }
-        } else if (serviceSoco.lstFormatEntier().size() < 2) {
-            return "/parametrageSoco/formatage.xhtml";
-        } else if (!serviceSoco.lstDefinitionPeriode(session.getCurrentCoop()).isEmpty()) {
-            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(session.getCurrentCoop())) {
-                if (d.isPeriodeActif() == true) {
-                    return "menu.xhtml";
-                }
-            }
-        }
-        return null;
-    }
+//    public String verifConfiguration() {
+//        if (serviceParamCoop.lstCoop().isEmpty()) {
+//            return "/firstTime/addCooperative.xhtml";
+//        } else if (!serviceSoco.lstParamTransaction(cooperative).isEmpty()) {
+//            for (ParamTransaction p : serviceSoco.lstParamTransaction(cooperative)) {
+//                if (p.getCharteCompte() == null) {
+//                    return "/parametrageSoco/parametragetransactionCharteSoco.xhtml";
+//                }
+//            }
+//        } else if (serviceSoco.lstFormatEntier().size() < 2) {
+//            return "/parametrageSoco/formatage.xhtml";
+//        } else if (!serviceSoco.lstDefinitionPeriode(session.getCurrentCoop()).isEmpty()) {
+//            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(session.getCurrentCoop())) {
+//                if (d.isPeriodeActif() == true) {
+//                    return "menu.xhtml";
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
     protected void saveFile(String chemin) throws FileNotFoundException, IOException {
 
@@ -128,10 +157,18 @@ public class GestionParametrageSoco implements Serializable {
         fos.write(fup.getFile().getData());
     }
 
-    public void newParamCharteTransaction() {
-        for (ParamTransaction p : lstParamtransaction) {
-            serviceSoco.mergeParamCharteCompteOfortransaction(p);
+
+
+    private List<ParamTransaction> initLstParamTransaction() {
+        List<ParamTransaction> lstParamTransaction = new ArrayList<ParamTransaction>();
+        for (TemplateParamTransaction p : serviceSoco.lstTemplateParamTransaction()) {
+            ParamTransaction param = new ParamTransaction();
+            param.setAbrev(p.getAbrev());
+            param.setType(p.getType());
+            param.setCoop(cooperative);
+            lstParamTransaction.add(param);
         }
+        return lstParamTransaction;
     }
 
     private void newDefinitionPeriode(DefinitionPeriode def) {
@@ -146,7 +183,8 @@ public class GestionParametrageSoco implements Serializable {
         paramtsx = new ParamTransaction();
         paramtsx = (ParamTransaction) dataTable.getRowData();
         paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
-        serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
+        lstParamtransaction.add(paramtsx);
+//        serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
     }
 
     public void valueChangeListenerDefinitionPeriode(ValueChangeEvent event) {
@@ -183,7 +221,7 @@ public class GestionParametrageSoco implements Serializable {
 
     private boolean verifDonneePeriode() {
         for (DefinitionPeriode d : lstDefPeriode) {
-            if (d.getMois().equals("")) {
+            if (d.getDateDebut().equals("") || d.getDateFin().equals("")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "La configuration de la definition de la periode n'est pas complete ");
                 FacesContext.getCurrentInstance().addMessage("defPeriode", msg);
                 lstDefPeriode.clear();
@@ -202,6 +240,7 @@ public class GestionParametrageSoco implements Serializable {
     public List<Utilisateur> getListUtilisateur() {
         return serviceSoco.lstUtilisteur(session.getCurrentCoop());
     }
+
 
     public List<Utilisateur> getListAllUtilisateur() {
         return serviceSoco.lstAllUtilisteur();
@@ -232,12 +271,15 @@ public class GestionParametrageSoco implements Serializable {
     /**
      * @return the lstParamtransaction
      */
-    public List<ParamTransaction> getLstParamtransaction() {
-        return serviceSoco.lstParamTransaction();
+    public List<ParamTransaction> getlstParamtransaction() {
+        if(serviceSoco.lstParamTransaction(cooperative).isEmpty()){
+            return initLstParamTransaction();
+        }
+        return serviceSoco.lstParamTransaction(cooperative);
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriodeAdmin() {
-        if (serviceSoco.lstDefinitionPeriode(session.getCurrentCoop()).isEmpty()) {
+        if (serviceSoco.lstDefinitionPeriode(cooperative).isEmpty()) {
             if (lstDefPeriode.isEmpty()) {
                 for (int i = 1; i <= 12; i++) {
                     DefinitionPeriode def = new DefinitionPeriode();
@@ -249,7 +291,7 @@ public class GestionParametrageSoco implements Serializable {
                 return lstDefPeriode;
             }
         }
-        return serviceSoco.lstDefinitionPeriode(session.getCurrentCoop());
+        return serviceSoco.lstDefinitionPeriode(cooperative);
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {
@@ -260,6 +302,10 @@ public class GestionParametrageSoco implements Serializable {
         }
         return serviceSoco.lstDefinitionPeriode(session.getCurrentCoop());
     }
+
+
+
+
 
     /**
      * @param lstParamtransaction the lstParamtransaction to set
@@ -311,33 +357,12 @@ public class GestionParametrageSoco implements Serializable {
         this.cooperative = cooperative;
     }
 
-    /**
-     * @return the formatageDevise
-     */
-    public formatageEntier getFormatageDevise() {
-        return serviceSoco.formatage("devise");
+    public List<formatageEntier> formatageByCoop(Cooperative coop){
+        return serviceSoco.formatage(coop);
     }
 
-    /**
-     * @param formatageDevise the formatageDevise to set
-     */
-    public void setFormatageDevise(formatageEntier formatageDevise) {
-        this.formatageDevise = formatageDevise;
-    }
 
-    /**
-     * @return the formatageunite
-     */
-    public formatageEntier getFormatageunite() {
-        return serviceSoco.formatage("unite");
-    }
 
-    /**
-     * @param formatageunite the formatageunite to set
-     */
-    public void setFormatageunite(formatageEntier formatageunite) {
-        this.formatageunite = formatageunite;
-    }
 
     /**
      * @return the dePeriode
@@ -381,4 +406,34 @@ public class GestionParametrageSoco implements Serializable {
     public void setMaLstPermissionChoisit(List<Permission> maLstPermissionChoisit) {
         this.maLstPermissionChoisit = maLstPermissionChoisit;
     }
+
+    /**
+     * @return the devise
+     */
+    public formatageEntier getDevise() {
+        return devise;
+    }
+
+    /**
+     * @param devise the devise to set
+     */
+    public void setDevise(formatageEntier devise) {
+        this.devise = devise;
+    }
+
+    /**
+     * @return the unite
+     */
+    public formatageEntier getUnite() {
+        return unite;
+    }
+
+    /**
+     * @param unite the unite to set
+     */
+    public void setUnite(formatageEntier unite) {
+        this.unite = unite;
+    }
+
+
 }
