@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+
+
+    <ui:define name="content">
+        <rich:panel>
+            <h:form>
+                <h:outputText value="#{msg.lib_paramTransactionSoco}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                        <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" >
+                            <rich:column width="20%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_codeTransaction}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.abrev}"/>
+                            </rich:column>
+                            <rich:column width="40%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_transaction}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.type}"/>
+                            </rich:column>
+                            <rich:column width="40%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.charteCompte.nom}"  />
+                            </rich:column>
+                        </rich:dataTable>
+                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateParamTransaction}"/>
+            </h:form>
+        </rich:panel>
+    </ui:define>
+
+
+</ui:composition>

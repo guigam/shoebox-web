@@ -16,6 +16,7 @@ import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionCharge;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Date;
@@ -434,7 +435,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
     @Override
     public List<CategorieCharge> lstCategorieCharge(Cooperative coop) {
-        Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1 and f.type = ?2");
+        Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1");
         query.setParameter(1, coop);
         return query.getResultList();
     }
@@ -464,7 +465,10 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     @Override
     public Double calculCategorie(CategorieCharge categ) {
         double somme = 0;
-       for(TransactionCaisse c : categ.getLsttransactionCharge()){
+        Query query = em.createQuery("from TransactionCharge t  where t.categorieCharge = ?1");
+        query.setParameter(1, categ);
+        List<TransactionCharge> lst = query.getResultList();
+       for(TransactionCharge c : lst){
             somme  = somme + c.getMontant();
        }
        return somme;

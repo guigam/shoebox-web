@@ -83,9 +83,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantite}" />
                                 </f:facet>
-                                <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}">
-                                    <f:convertNumber type="currency"  minFractionDigits ="#{gsLogin.currentFormatUnite.apresVirgule}"  currencySymbol = "#{gsLogin.currentFormatUnite.curremcy}"/>
-                                </h:inputText>
+                                <h:inputText value="#{tsx.quantite}"  required="true" requiredMessage="#{msg.lib_quantite} #{msg.message_Obligatoire}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">

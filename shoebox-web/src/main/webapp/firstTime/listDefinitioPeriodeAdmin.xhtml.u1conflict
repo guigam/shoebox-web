@@ -15,7 +15,7 @@
                 <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" binding="#{gsParamSoco.dataTable}" id="tab">
+                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" >
                     <rich:column width="30%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periode}"/>
@@ -26,22 +26,21 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
                         </f:facet>
-                          <rich:calendar value="#{def.dateDebut}"
+                          <h:outputText value="#{def.dateDebut}"/>
                     </rich:column>
                       <rich:column width="30%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_dateFinPeriode}"/>
                         </f:facet>
-                          <rich:calendar value="#{def.dateFin}"
+                          <h:outputText value="#{def.dateFin}"/>
                     </rich:column>
                       <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periodeCourante}"/>
                         </f:facet>
-                          <center><h:graphicImage  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" /></center>
+                          <center><h:graphicImage  value="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" /></center>
                     </rich:column>
                 </rich:dataTable>
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>
             </h:form>
          </rich:panel>
     </ui:define>

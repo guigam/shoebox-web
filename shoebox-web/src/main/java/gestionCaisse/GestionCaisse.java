@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import parametrageSocodevi.ServiceParamSocoLocal;
@@ -41,6 +42,7 @@ public class GestionCaisse implements Serializable {
     private TransactionCharge tsxCaisseCharge = new TransactionCharge();
     private TransactionAvanceProduit tsxCaisseAvanceProduit = new TransactionAvanceProduit();
     private List<TransactionCaisse> lstTsxCaisse = new LinkedList<TransactionCaisse>();
+    private String typeRemboursement = null;
     @EJB
     private ServiceGestionCommandeTransactionLocal serviceGsCommande;
     @EJB
@@ -70,6 +72,13 @@ public class GestionCaisse implements Serializable {
             return "/caisse/menuCaisse.xhtml";
         }
         return null;
+    }
+
+    public void payerRestant(){
+            tsxCaisse.setMontant(gsCommande.getCommade().getmontantrestant());
+    }
+    public void resetMontant(){
+            tsxCaisse.setMontant(0);
     }
 
     private boolean validerTransaction(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
@@ -217,5 +226,24 @@ public class GestionCaisse implements Serializable {
      */
     public void setTsxCaisseAvanceProduit(TransactionAvanceProduit tsxCaisseAvanceProduit) {
         this.tsxCaisseAvanceProduit = tsxCaisseAvanceProduit;
+    }
+
+    /**
+     * @return the typeRemboursement
+     */
+    public String getTypeRemboursement() {
+        return typeRemboursement;
+    }
+
+    /**
+     * @param typeRemboursement the typeRemboursement to set
+     */
+    public void setTypeRemboursement(String typeRemboursement) {
+        this.typeRemboursement = typeRemboursement;
+         if(typeRemboursement.equals("Payer montant restant")){
+            tsxCaisse.setMontant(gsCommande.getCommade().getmontantrestant());
+        }else{
+        tsxCaisse.setMontant(0);
+        }
     }
 }

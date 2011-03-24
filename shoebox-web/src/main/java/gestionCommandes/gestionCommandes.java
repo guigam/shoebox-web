@@ -12,14 +12,13 @@ import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionMagasin;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCaisse.GestionCaisse;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
@@ -141,21 +140,25 @@ public class gestionCommandes implements Serializable {
             lstTsxMagasin.add(tsx);
     }
 
-    private boolean verifDuplicSortisProduit() {
+    private boolean verifDuplicSortisProduit() throws IOException {
         for (TransactionMagasin t : lstTsxMagasin) {
-            Properties p = new Properties();
-            try {
-                p.load(this.getClass().getResourceAsStream("bundles/Mess"));
-            } catch (IOException ex) {
-                Logger.getLogger(gestionCommandes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            p.getProperty("key");
+///home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/resources/bundles/MessageResources_fr_CA.properties
+//            /home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/webapp/bundles/MessageResources_fr_CA.properties
+//            String propertiePath = "src/properties/MessageResources_fr_CA.properties";
+//             Properties p = new Properties();
+// p.load(new FileInputStream(propertiePath));
+//            Properties p = new Properties();
+//            try {
+//                p.load(this.getClass().getResourceAsStream("resources/bundles/MessageResources_fr_CA"));
+//            } catch (IOException ex) {
+//                Logger.getLogger(gestionCommandes.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
-            if (t.getProduit().equals(produit) && t.getGrade() == grade && t.getMagasin().equals(m_ssp.getMagasin())) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention dupplication de donnee", "Attention dupplication de donnee");
-                FacesContext.getCurrentInstance().addMessage("type produit", msg);
-                return false;
-            }
+//            if (t.getProduit().equals(produit) && t.getGrade() == grade && t.getMagasin().equals(m_ssp.getMagasin())) {
+//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, p.getProperty("messageDuplicationDonnee"), p.getProperty("messageDuplicationDonnee"));
+//                FacesContext.getCurrentInstance().addMessage("type produit", msg);
+//                return false;
+//            }
         }
         return true;
     }
@@ -263,10 +266,9 @@ public class gestionCommandes implements Serializable {
         }
     }
 
-    public void ajouterSortieProduit() {
+    public void ajouterSortieProduit() throws IOException {
         if (paramShoebox.validerDate(commade.getDateCommande())) {
-            if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
-                if(verifHomogeniteSortisProduit())
+                if(verifHomogeniteSortisProduit()){
                 if (verifDuplicSortisProduit()) {
                     TransactionMagasin tsx = new TransactionMagasin();
                     tsx.setM_commande(commade);
@@ -282,7 +284,7 @@ public class gestionCommandes implements Serializable {
         }
 
     }
-    public void ajouterSortieProduitIntrant() {
+    public void ajouterSortieProduitIntrant() throws IOException {
         if (paramShoebox.validerDate(commade.getDateCommande())) {
             if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
                 if (verifDuplicSortisProduit()) {
@@ -345,7 +347,7 @@ public class gestionCommandes implements Serializable {
     }
 
     public void verifquantiteSaisie() {
-        if (m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()) {
+       if (m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention depassement du stock", "Attention depassement du stock");
             FacesContext.getCurrentInstance().addMessage("depassement", msg);
     }

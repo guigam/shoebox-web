@@ -108,8 +108,8 @@ System.out.println(event.getSource());
                     d.setPeriodeActif(false);
                 }
             }
-        } else if (serviceSoco.lstDefinitionPeriode(session.getCurrentCoop()).contains(dePeriode)) {
-            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(session.getCurrentCoop())) {
+        } else {
+            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(cooperative)) {
                 if (d.equals(dePeriode)) {
 
                     d.setPeriodeActif(true);
@@ -171,7 +171,7 @@ System.out.println(event.getSource());
         return lstParamTransaction;
     }
 
-    private void newDefinitionPeriode(DefinitionPeriode def) {
+    private void updateDefinitionPeriode(DefinitionPeriode def) {
         serviceSoco.mergeDefPeriode(def);
     }
 
@@ -195,11 +195,9 @@ System.out.println(event.getSource());
 
     public String validerConfigDefinitionperiode() {
         if (verifDonneePeriode() && verifPeriodeActif()) {
-            for (DefinitionPeriode d : lstDefPeriode) {
-                d.setCoop(session.getCurrentCoop());
-                newDefinitionPeriode(d);
-            }
-            if (serviceSoco.currentPeriode(session.getCurrentCoop()) == null) {
+             cooperative.setLstDef(lstDefPeriode);
+             serviceParamCoop.updateCoop(cooperative);
+            if (serviceSoco.currentPeriode(cooperative) == null) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "la Definition de periode est enregistre avec succes, Veuillez svp indiquer la periode de debut", "la Definition de periode est enregistre avec succes, Veuillez svp indiquer la periode de debut");
                 FacesContext.getCurrentInstance().addMessage("defPeriode", msg);
             } else {
@@ -280,6 +278,7 @@ System.out.println(event.getSource());
 
     public List<DefinitionPeriode> getlstDefinitionPeriodeAdmin() {
         if (serviceSoco.lstDefinitionPeriode(cooperative).isEmpty()) {
+
             if (lstDefPeriode.isEmpty()) {
                 for (int i = 1; i <= 12; i++) {
                     DefinitionPeriode def = new DefinitionPeriode();
@@ -291,7 +290,11 @@ System.out.println(event.getSource());
                 return lstDefPeriode;
             }
         }
-        return serviceSoco.lstDefinitionPeriode(cooperative);
+         if(!verifPeriodeActif()){
+        return lstDefPeriode = serviceSoco.lstDefinitionPeriode(cooperative);
+        }else{
+            return lstDefPeriode;
+        }
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {

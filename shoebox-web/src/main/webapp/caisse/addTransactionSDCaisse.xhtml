@@ -61,9 +61,7 @@
                             <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
                         </rich:comboBox>
                         <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
-                        <h:inputText value="#{gestionCaisse.tsxCaisse.montant}">
-                            <f:convertNumber type="currency" maxFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                        </h:inputText>
+                        <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"/>
                         <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionSD}" />
                     </h:panelGrid>
                     <rich:spacer width="50"/>

@@ -81,15 +81,15 @@
                             <h:outputText value="#{msg.lib_periode}" />
                         </f:facet>
                          <center><h:commandButton id="periode"  image="/icons/calender.png" action="/firstTime/listDefinitioPeriodeAdmin.xhtml">
-                              <f:setPropertyActionListener target="#{gsLogin.currentCoop}" value="#{item}"/>
+                              <f:setPropertyActionListener target="#{gsParamSoco.cooperative}" value="#{item}"/>
                              </h:commandButton></center>
                     </rich:column>
                           <rich:column width="3%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_transaction}" />
                         </f:facet>
-                         <center>  <h:commandButton id="transaction"  image="/icons/tsx.gif" action="/firstTime/listDefinitioPeriodeAdmin.xhtml">
-                              <f:setPropertyActionListener target="#{gsLogin.currentCoop}" value="#{item}"/>
+                         <center>  <h:commandButton id="transaction"  image="/icons/tsx.gif" action="/firstTime/listParamTransactionAffichage.xhtml">
+                                 <f:setPropertyActionListener target="#{gsParamSoco.cooperative}" value="#{item}"/>
                              </h:commandButton></center>
                     </rich:column>
                           <rich:toolTip for="periode" value="#{msg.lib_periode}"/>

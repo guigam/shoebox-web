@@ -146,9 +146,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_periodeCourante}"/>
                                 </f:facet>
-                                <center><a4j:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
-                                        <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
-                                    </a4j:commandButton></center>
+                                   <center><a4j:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
+                              <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
+                          </a4j:commandButton></center>
                             </rich:column>
                         </rich:dataTable>
                         <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>

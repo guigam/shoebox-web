@@ -27,7 +27,7 @@
                     <h:outputText value="#{gsCommandes.commade.m_entite.name}"  styleClass="sousTitrePanel"/>
                     <rich:spacer width="2"/>
                     <rich:separator width="100%" height="2"/>
-                    <h:panelGrid columns="5">
+                    <h:panelGrid columns="6">
                         <h:panelGrid>
                             <center><h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
                                 <h:outputText value="#{gsCommandes.commade.montantTotal}" styleClass="titreMontantTotal">
@@ -43,10 +43,14 @@
                         </h:panelGrid>
                         <rich:spacer width="20"/>
                         <h:panelGrid>
-                            <center><h:outputText value="#{msg.lib_montantRestant}" styleClass="titreLibelle"/>
-                                <h:outputText value="#{gsCommandes.commade.montantrestant}" styleClass="titreNormal">
+                           <h:outputText value="#{msg.lib_montantRestant}" styleClass="titreLibelle"/>
+                           <a4j:commandLink id="rest"  styleClass="titreNormal" action="#{gestionCaisse.payerRestant}" reRender="autre">
+                               <h:outputText value="#{gsCommandes.commade.montantrestant}">
                                     <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                                </h:outputText></center>
+                                    </h:outputText>
+                                    <rich:toolTip for="rest" value="#{msg.tooltip_montantRestant}"/>
+                           </a4j:commandLink>
+                                
                         </h:panelGrid>
                     </h:panelGrid>
                 </rich:panel>
@@ -60,10 +64,19 @@
                         <rich:comboBox value="#{gestionCaisse.tsxCaisse.compteEncaisse}" converter="converterCompte">
                             <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
                         </rich:comboBox>
-                        <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
-                        <h:inputText value="#{gestionCaisse.tsxCaisse.montant}">
-                            <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
-                        </h:inputText>
+                        <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle" />
+                        <rich:comboBox value="#{gestionCaisse.typeRemboursement}" >
+                            <f:selectItem itemValue="#{msg.itemRemboursementCompte}" />
+                            <f:selectItem  itemValue="#{msg.itemMontantRestant}"/>
+                            <f:selectItem  itemValue="#{msg.itemAutre}"/>
+                            <a4j:support event="onselect"  limitToList="true" ajaxSingle="true" reRender="autre"/>
+                         </rich:comboBox>
+                        <rich:spacer/>
+                        <a4j:outputPanel id="autre">
+                            <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"  id="montant"/>
+
+                            <a4j:commandButton image="/icons/delete.gif" action="#{gestionCaisse.resetMontant}" style="font-size: 10px"/>
+                        </a4j:outputPanel>
                         <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionCommande}" />
                     </h:panelGrid>
                     <rich:spacer width="50"/>
