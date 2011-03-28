@@ -136,6 +136,8 @@ a:link:hover, a:visited:hover  {
 }
 
 .globalMessages {
+        background-image: url('logo/Capture-1.png');
+        background-repeat:no-repeat;
 	color: darkred;
 	font-size: 14px;
         font-weight: bold;
@@ -150,6 +152,9 @@ a:link:hover, a:visited:hover  {
 	background-image:url('images/ban.png');
 	background-repeat:no-repeat;
 }
+.panelmenu{
+    margin-left: -20px;
 
+}
 
 

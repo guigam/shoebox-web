@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="gestion" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>ModelesParametrage.Permission</class>
+    <class>ModelesParametrage.DefinitionPeriode</class>
+    <class>ModelesParametrage.ParamTransaction</class>
+    <class>ModelesParametrage.StructureCharge</class>
+    <class>ModelesParametrage.StructureProduit</class>
+    <class>ModelesParametrage.TemplateParamTransaction</class>
+    <class>ModelesParametrage.Utilisateur</class>
+    <class>ModelesParametrage.formatageEntier</class>
+    <class>ModelesShoebox.CategorieCharge</class>
+    <class>ModelesShoebox.CharteCompte</class>
+    <class>ModelesShoebox.Client</class>
+    <class>ModelesShoebox.Commande</class>
+    <class>ModelesShoebox.Compte</class>
+    <class>ModelesShoebox.Cooperative</class>
+    <class>ModelesShoebox.Entite</class>
+    <class>ModelesShoebox.FournisseurIntrant</class>
+    <class>ModelesShoebox.FournisseurProduit</class>
+    <class>ModelesShoebox.Magasin</class>
+    <class>ModelesShoebox.Produit</class>
+    <class>ModelesShoebox.SoldeDepart</class>
+    <class>ModelesShoebox.TransactionAvanceProduit</class>
+    <class>ModelesShoebox.TransactionCaisse</class>
+    <class>ModelesShoebox.TransactionCharge</class>
+    <class>ModelesShoebox.TransactionMagasin</class>
     <properties>
-      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.username" value="guiga"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-      <property name="hibernate.connection.password" value=""/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/shoebox"/>
-      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.connection.password" value="guim2708"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://guigam.dyndns.org:3306/shoebox"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>

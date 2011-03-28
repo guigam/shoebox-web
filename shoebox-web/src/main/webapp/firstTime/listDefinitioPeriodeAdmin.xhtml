@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                 template="./../templateParamSoco.xhtml"
+                template="./../templateParamSoco.xhtml"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -15,33 +15,36 @@
                 <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" binding="#{gsParamSoco.dataTable}" id="tab">
-                    <rich:column width="30%">
+                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" id="tab">
+                    <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periode}"/>
                         </f:facet>
                        <h:outputText value="#{def.periode}"/>
                     </rich:column>
-                      <rich:column width="30%">
+                      <rich:column width="40%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
                         </f:facet>
-                          <rich:calendar value="#{def.dateDebut}"
+                          <rich:calendar value="#{def.dateDebut}"/>
                     </rich:column>
-                      <rich:column width="30%">
+                      <rich:column width="40%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_dateFinPeriode}"/>
                         </f:facet>
-                          <rich:calendar value="#{def.dateFin}"
+                          <rich:calendar value="#{def.dateFin}"/>
                     </rich:column>
-                      <rich:column width="10%">
+                      <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periodeCourante}"/>
                         </f:facet>
-                          <center><h:graphicImage  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" /></center>
+                          <center><h:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" >
+                                  <f:setPropertyActionListener target="#{gsParamSoco.dePeriode}" value="#{def}"/>
+                              </h:commandButton>
+                          </center>
                     </rich:column>
                 </rich:dataTable>
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>
+                 <h:commandButton action="/firstTime/configUniteDevise.xhtml" value="#{msg.btn_suivant}"/>
             </h:form>
          </rich:panel>
     </ui:define>

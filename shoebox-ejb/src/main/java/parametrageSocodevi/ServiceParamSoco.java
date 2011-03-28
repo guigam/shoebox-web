@@ -61,7 +61,7 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     public ParamTransaction rechercheParamCharteCompte(String typetransction) {
         Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 ");
         query.setParameter(1, typetransction);
-        return  (ParamTransaction) query.getSingleResult();
+        return   (ParamTransaction) query.getSingleResult();
     }
 
 

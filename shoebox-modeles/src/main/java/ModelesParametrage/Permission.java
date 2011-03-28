@@ -6,28 +6,50 @@
 package ModelesParametrage;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.math.BigInteger;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author guigamehdi
  */
 @Entity
+@Table(name = "Permission")
+@NamedQueries({
+    @NamedQuery(name = "Permission.findAll", query = "SELECT p FROM Permission p")})
 public class Permission implements Serializable {
-   
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
     private Long id;
-    private String name;
-    private String Description;
+    @Column(name = "Description")
+    private String description;
+    @Column(name = "emplacement")
     private String emplacement;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "redirect")
     private String redirect;
+    @Column(name = "currentuser_id")
+    private BigInteger currentuserId;
+
+    public Permission() {
+    }
+
+    public Permission(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
@@ -36,10 +58,50 @@ public class Permission implements Serializable {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmplacement() {
+        return emplacement;
+    }
+
+    public void setEmplacement(String emplacement) {
+        this.emplacement = emplacement;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRedirect() {
+        return redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        this.redirect = redirect;
+    }
+
+    public BigInteger getCurrentuserId() {
+        return currentuserId;
+    }
+
+    public void setCurrentuserId(BigInteger currentuserId) {
+        this.currentuserId = currentuserId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -50,7 +112,7 @@ public class Permission implements Serializable {
             return false;
         }
         Permission other = (Permission) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -58,65 +120,7 @@ public class Permission implements Serializable {
 
     @Override
     public String toString() {
-        return "ModelesParametrage.Permission[id=" + getId() + "]";
+        return "ModelesParametrage.Permission[id=" + id + "]";
     }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the Description
-     */
-    public String getDescription() {
-        return Description;
-    }
-
-    /**
-     * @param Description the Description to set
-     */
-    public void setDescription(String Description) {
-        this.Description = Description;
-    }
-
-    /**
-     * @return the emplacement
-     */
-    public String getEmplacement() {
-        return emplacement;
-    }
-
-    /**
-     * @param emplacement the emplacement to set
-     */
-    public void setEmplacement(String emplacement) {
-        this.emplacement = emplacement;
-    }
-
-    /**
-     * @return the redirect
-     */
-    public String getRedirect() {
-        return redirect;
-    }
-
-    /**
-     * @param redirect the redirect to set
-     */
-    public void setRedirect(String redirect) {
-        this.redirect = redirect;
-    }
-
-
 
 }

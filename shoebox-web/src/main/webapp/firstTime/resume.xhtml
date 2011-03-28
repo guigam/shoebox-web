@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+   
+
+    <ui:define name="content">
+         <rich:panel>
+            <h:form>
+                <h:outputText value="#{msg.lib_resume} #{msg.lib_cooperative}" styleClass="titrePanel" />
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
+                 <h:panelGrid columns="2">
+                            <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsParamSoco.cooperative.reference}" styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_nomCooperative}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsParamSoco.cooperative.name}" styleClass="titreLibelleSimple"/>
+                            <h:outputText value="#{msg.lib_pays}" styleClass="titreLibelle"/>
+                            <h:outputText value="#{gsParamSoco.cooperative.pays}" styleClass="titreLibelleSimple"/>
+                </h:panelGrid>
+
+                <rich:spacer height="40"/>
+                <h:outputText value="#{msg.lib_paramDeviseUnite}" styleClass="sousTitrePanel" />
+                 <rich:separator width="100%" height="2"/>
+                <rich:spacer height="10"/>
+                 <h:panelGrid columns="4" >
+                                        <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
+                                        <h:outputText value="#{gsParamSoco.devise.curremcy}"/>
+
+                                        <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                                        <h:outputText value="#{gsParamSoco.devise.apresVirgule}"/>
+
+                                        <h:outputText value="#{msg.lib_unite}" styleClass="titreLibelle"/>
+                                        <h:outputText  value="#{gsParamSoco.unite.curremcy}"/>
+
+                                        <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                                        <h:outputText value="#{gsParamSoco.unite.apresVirgule}"/>
+                                    
+              </h:panelGrid>
+
+
+                <rich:spacer height="40"/>
+                <h:outputText value="#{msg.lib_periode}" styleClass="sousTitrePanel" />
+                 <rich:separator width="100%" height="2"/>
+                <rich:spacer height="10"/>
+            <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" id="tab">
+                    <rich:column width="10%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periode}"/>
+                        </f:facet>
+                       <h:outputText value="#{def.periode}"/>
+                    </rich:column>
+                      <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
+                        </f:facet>
+                          <rich:calendar value="#{def.dateDebut}"/>
+                    </rich:column>
+                      <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_dateFinPeriode}"/>
+                        </f:facet>
+                          <rich:calendar value="#{def.dateFin}"/>
+                    </rich:column>
+                      <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_periodeCourante}"/>
+                        </f:facet>
+                          <center><h:graphicImage  value="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" /></center>
+                    </rich:column>
+                </rich:dataTable>
+
+
+                 <rich:spacer height="40"/>
+                 <h:outputText value="#{msg.lib_paramTransactionSoco}" styleClass="sousTitrePanel" />
+                 <rich:separator width="100%" height="2"/>
+                <rich:spacer height="10"/>
+                      <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" >
+                            <rich:column width="20%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_codeTransaction}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.abrev}"/>
+                            </rich:column>
+                            <rich:column width="40%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_transaction}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.type}"/>
+                            </rich:column>
+                            <rich:column width="40%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
+                                </f:facet>
+                                <h:outputText value="#{p.charteCompte.nom}"  />
+                            </rich:column>
+                        </rich:dataTable>
+
+ <rich:spacer height="20"/>
+
+ <h:commandLink value="#{msg.btn_valider}" action="#{gsParamSoco.newCoop}" />
+            </h:form>
+         </rich:panel>
+
+
+
+    </ui:define>
+
+
+</ui:composition>

@@ -38,9 +38,13 @@ private GestionParametrageSoco paramSoco;
         gsCommande.setCommade(new Commande());
         gsCommande.getLstTsxMagasin().clear();
         gsCommande.getLstStockSortieProduit().clear();
+        if(outcome.equals("lstCooperative")){
         paramSoco.setUtilisateur(new Utilisateur());
+        paramSoco.getlstDefinitionPeriodeAdmin().clear();
+        paramSoco.getlstParamtransaction().clear();
+//        paramSoco.getlstDefinitionPeriode().clear();
         paramSoco.setCooperative(new Cooperative());
-
+        }
         return outcome;
     }
 
