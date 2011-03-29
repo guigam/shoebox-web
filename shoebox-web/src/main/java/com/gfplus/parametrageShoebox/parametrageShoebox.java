@@ -5,6 +5,7 @@
 package com.gfplus.parametrageShoebox;
 
 import Login.login;
+import ModelesParametrage.ParamTransaction;
 import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
@@ -29,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import parametrageCoop.serviceParamCoopLocal;
+import parametrageSocodevi.GestionParametrageSoco;
 import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**
@@ -55,7 +57,7 @@ public class parametrageShoebox implements Serializable {
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
-
+   
     /** Creates a new instance of parametrageShoebox */
     public parametrageShoebox() {
     }
@@ -481,4 +483,7 @@ public class parametrageShoebox implements Serializable {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
+
+  
+    
 }

@@ -8,7 +8,18 @@
 
 
 
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
 
     <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
@@ -16,6 +27,11 @@
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
     </ui:define>
 
 
@@ -46,7 +62,8 @@
                             </rich:comboBox>
                             <h:outputText value="#{msg.lib_grade}" styleClass="titreLibelle"/>
                             <h:inputText value="#{gsCommandes.grade}"/>
-                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab"/>
+                            
+                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab,progressPanel"/>
                         </h:panelGrid>
                             <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab"  width="100%">
                                 <rich:column width="35%">
@@ -85,9 +102,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="--"/>
                                 </f:facet>
-                                  <a4j:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduit}" reRender="tab2">
+                                  <h:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduit}" reRender="tab2">
                                      <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
-                                  </a4j:commandButton>  
+                                  </h:commandButton>  
                             </rich:column>
                         </rich:dataTable>
                         </h:panelGrid>
@@ -156,9 +173,9 @@
                             <f:facet name="header">
                                 <h:outputText value="--"/>
                             </f:facet>
-                            <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
+                            <h:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
                                     <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{rech}"/>
-                            </a4j:commandButton>
+                            </h:commandButton>
                         </rich:column>
                     </rich:dataTable>
                              <rich:spacer height="10"/>

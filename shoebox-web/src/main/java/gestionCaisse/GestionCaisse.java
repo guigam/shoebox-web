@@ -60,8 +60,8 @@ public class GestionCaisse implements Serializable {
 
     public String newtransactionCommande() {
         if (validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(), tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())) {
-            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getCharteCompte());
-            tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType())).getType());
+            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getCharteCompte());
+            tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getType());
             tsxCaisse.setCurrentuser(session.getUser());
             tsxCaisse.setCoop(session.getCurrentCoop());
             tsxCaisse.setDefPeriode(session.getCurrentPeriode());
@@ -108,8 +108,8 @@ public class GestionCaisse implements Serializable {
 
     public String newtransactionSD() {
         if (validerTransactionSD(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(), tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())) {
-            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde())).getCharteCompte());
-            tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde()).getType());
+            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop())).getCharteCompte());
+            tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop()).getType());
             tsxCaisse.setCurrentuser(session.getUser());
             tsxCaisse.setCoop(session.getCurrentCoop());
             tsxCaisse.setDefPeriode(session.getCurrentPeriode());

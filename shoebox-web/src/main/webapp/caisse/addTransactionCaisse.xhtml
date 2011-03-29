@@ -8,12 +8,17 @@
                 xmlns:a4j="http://richfaces.org/a4j">
 
 
-    <ui:define name="message" >
+      <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
     </ui:define>
 
     <ui:define name="content">
@@ -75,7 +80,7 @@
                         <a4j:outputPanel id="autre">
                             <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"  id="montant"/>
 
-                            <a4j:commandButton image="/icons/delete.gif" action="#{gestionCaisse.resetMontant}" style="font-size: 10px"/>
+                            <h:commandButton image="/icons/delete.gif" action="#{gestionCaisse.resetMontant}" style="font-size: 10px"/>
                         </a4j:outputPanel>
                         <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionCommande}" />
                     </h:panelGrid>

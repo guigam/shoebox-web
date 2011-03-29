@@ -4,11 +4,23 @@
                 template="./../templateMagasin.xhtml"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
 
 
 
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
         <rich:panel>
             <table  width="100%" border="1">
@@ -32,7 +44,7 @@
                             <h:outputText value="#{gsResultat.quantiteProduitPrincipaleSortie}" styleClass="titreLibelle"/>
                         </h:panelGrid>
                         <div style="text-align: right;">
-                            <h:commandButton image="/icons/eye.png" id="pp" />
+                            <a4j:commandButton image="/icons/eye.png" id="pp" />
                             <rich:toolTip for="pp" value="#{msg.lib_detailProduit} #{msg.lib_principal}"/>
                         </div>
                     </td>
@@ -44,7 +56,7 @@
                             <h:outputText value="#{gsResultat.quantiteProduitSecondaireSortie}" styleClass="titreLibelle"/>
                         </h:panelGrid>
                         <div style="text-align: right;">
-                            <h:commandButton image="/icons/eye.png" id="ps"/>
+                            <a4j:commandButton image="/icons/eye.png" id="ps"/>
                             <rich:toolTip for="ps" value="#{msg.lib_detailProduit} #{msg.lib_secondaire}"/>
                         </div>
                     </td>
@@ -56,7 +68,7 @@
                             <h:outputText value="#{gsResultat.quantiteProduitIntrantSortie}" styleClass="titreLibelle"/>
                         </h:panelGrid>
                         <div style="text-align: right;">
-                            <h:commandButton image="/icons/eye.png" id="pi"/>
+                            <a4j:commandButton image="/icons/eye.png" id="pi"/>
                             <rich:toolTip for="pi" value="#{msg.lib_detailProduit} #{msg.lib_intrant}"/>
                         </div>
                     </td>

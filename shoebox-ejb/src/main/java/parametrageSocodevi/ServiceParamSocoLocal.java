@@ -26,7 +26,7 @@ public interface ServiceParamSocoLocal {
 
     public List<Permission> lstPermission();
 
-   public ParamTransaction rechercheParamCharteCompte(String typetransction);
+   public ParamTransaction rechercheParamCharteCompte(String typetransction, Cooperative coop);
 
    public CharteCompte charteCompteByReference(String reference);
 

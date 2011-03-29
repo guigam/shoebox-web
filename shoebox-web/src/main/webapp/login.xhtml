@@ -6,45 +6,60 @@ and open the template in the editor.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-     <link rel="shortcut icon" href="#{request.contextPath}/icons/socoico.gif" />
+        <link rel="shortcut icon" href="#{request.contextPath}/icons/socoico.gif" />
         <link href="#{request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
         <title>TODO supply a title</title>
     </head>
     <body >
-     <div id="backimg">
-	  <img src="#{request.contextPath}/images/bg.png" />
-	</div>
-        
-               
-                    <div style="height: 180px">
-                        <div style="text-align: left">
-                           <h:graphicImage value="/images/soco.png" />
-                        </div>
-                        <center><div style="width: 50%">
-                            <center><rich:messages styleClass="message"/></center>
-                        </div></center>
-                    </div>
-    
+        <div id="backimg">
+            <img src="#{request.contextPath}/images/bg.png" />
+        </div>
+
+
+        <div style="height: 180px">
+            <div style="text-align: left">
+                <h:graphicImage value="/images/soco.png" />
+            </div>
+            <center><div style="width: 50%">
+                    <center><rich:messages styleClass="message"/>
+
+
+                    </center>
+                </div></center>
+        </div>
+
         <div align="right" style="position: relative; right:250px; top: -100px">
             <h:panelGrid columns="2">
                 <h:graphicImage value="/images/boite.png" width="350" height="250"/>
-                                    <h:form>
-                                            <h:panelGrid columns="2">
-                                                <h:outputText value="Nom utilisateur" styleClass="titreLibelle"/>
-                                                <h:inputText value="#{gsLogin.user.username}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
-                                                <h:outputText value="Mot de passe" styleClass="titreLibelle"/>
-                                                <h:inputText value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
-                                                <h:commandButton action="#{gsLogin.identification}" value="valider"/>
-                                            </h:panelGrid>
-                                        </h:form>
-           </h:panelGrid>
-            </div>
-                    <div style="height: 150px">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Nom utilisateur" styleClass="titreLibelle"/>
+                            <h:inputText value="#{gsLogin.user.username}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
+                            <h:outputText value="Mot de passe" styleClass="titreLibelle"/>
+                            <h:inputText value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
+                            <a4j:commandButton action="#{gsLogin.identification}" value="valider"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <a4j:status>
+                                <f:facet name="start">
+                                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                                </f:facet>
+                            </a4j:status>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGrid>
+        </div>
 
-                    </div>
-              
+        <div style="height: 150px">
+
+        </div>
+
     </body>
 </html>

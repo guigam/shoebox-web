@@ -4,6 +4,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j">
+         <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
         <h:form>
             <rich:panel>
@@ -52,9 +64,9 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                         <div style="text-align: right; vertical-align: top">
-                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="addTransaction">
+                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="addTransaction">
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
-                            </a4j:commandButton>
+                            </h:commandButton>
                         </div>
                         <center> <h:outputText value="#{item.montantPaye}" styleClass="titreMontantPaye">
                                 <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>

@@ -16,7 +16,7 @@
                 <rich:spacer height="10"/>
                 <div style="margin-left:15px">
                     <h:commandButton image="/icons/add.png" action="addUtilisateur" />
-                    <h:commandLink value="#{msg.lib_addUtilisateur}" action="addUtilisateur" />
+                    <a4j:commandLink value="#{msg.lib_addUtilisateur}" action="addUtilisateur" />
                 </div>
                 <rich:dataTable value="#{gsParamSoco.listUtilisateur}"  var="item" width="100%"  id="tab">
                     <rich:column width="10%">

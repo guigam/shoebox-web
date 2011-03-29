@@ -6,7 +6,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:f="http://java.sun.com/jsf/core">
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
         <rich:panel>
             <h:outputText value="#{msg.lib_mettreAJourCooperative} #{gsParamSoco.cooperative.name}" styleClass="titrePanel" />
@@ -26,7 +37,7 @@
                         </h:panelGrid>
                         <rich:spacer height="5"/>
                         <div style="margin-left:  200px;">
-                            <a4j:commandButton value="#{msg.btn_valider}" />
+                            <h:commandButton value="#{msg.btn_valider}" />
                         </div>
                     </h:form>
                 </rich:tab>
@@ -146,9 +157,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_periodeCourante}"/>
                                 </f:facet>
-                                   <center><a4j:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
+                                   <center><h:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
                               <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
-                          </a4j:commandButton></center>
+                          </h:commandButton></center>
                             </rich:column>
                         </rich:dataTable>
                         <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>

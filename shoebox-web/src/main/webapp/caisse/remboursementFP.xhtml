@@ -6,7 +6,18 @@
                 xmlns:a4j="http://richfaces.org/a4j">
     
  
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
        <h:form>
             <rich:panel>
@@ -40,9 +51,9 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                          <div style="text-align: right; vertical-align: top">
-                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{-item.montant > item.montantPaye}" action="addTransactionSD">
+                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{-item.montant > item.montantPaye}" action="addTransactionSD">
                                 <f:setPropertyActionListener target="#{gsSoldeDepart.sd}" value="#{item}"/>
-                            </a4j:commandButton>
+                            </h:commandButton>
                         </div>
                         <center> <h:outputText value="#{item.montantPaye}">
                                       <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>

@@ -8,14 +8,25 @@
                 xmlns:a4j="http://richfaces.org/a4j">
     
 
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
         <rich:panel>
             <h:form>
                 <h:outputText value="#{msg.lib_paramTransactionSoco}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%"  binding="#{gsParamSoco.dataTable}">
+                <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}" >
                             <rich:column width="20%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_codeTransaction}"/>
@@ -32,10 +43,10 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
                                 </f:facet>
-                                <center><rich:comboBox  value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte" >
+                                <center><rich:comboBox valueChangeListener="#{gsParamSoco.test}"  value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte" >
                                         <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
-                                        <a4j:support event="onselect"   ajaxSingle="true"  action="#{gsParamSoco.test}">
-                                            <f:setPropertyActionListener target="#{gsParamSoco.paramtsx}" value="#{p}"/>
+                                        <a4j:support event="onselect"   ajaxSingle="true" >
+<!--                                            <f:setPropertyActionListener target="#{gsParamSoco.paramtsx}" value="#{p}"/>-->
                                         </a4j:support>
                                     </rich:comboBox></center>
                             </rich:column>

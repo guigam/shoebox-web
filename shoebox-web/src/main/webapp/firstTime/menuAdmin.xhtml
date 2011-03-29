@@ -7,7 +7,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:a4j="http://richfaces.org/a4j">
     
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
 
     <ui:define name="content">
         <h:form>
@@ -17,7 +28,7 @@
                 <rich:spacer height="10"/>
                 <div style="margin-left:15px">
                     <h:commandButton image="/icons/add.png" action="/firstTime/addCooperative.xhtml" />
-                    <h:commandLink value="#{msg.lib_addCooperative}" action="/firstTime/addCooperative.xhtml" />
+                    <a4j:commandLink value="#{msg.lib_addCooperative}" action="/firstTime/addCooperative.xhtml" />
                 </div>
                 <rich:dataTable value="#{gsParamSoco.lstCoop}"  var="item" width="100%"  id="tab" >
                     <rich:column width="1%">
@@ -80,7 +91,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periode}" />
                         </f:facet>
-                         <center><h:commandButton id="periode"  image="/icons/calender.png" action="/firstTime/listDefinitioPeriodeAdmin.xhtml">
+                         <center><h:commandButton id="periode"  image="/icons/calender.png" action="/firstTime/listDefinitioPeriodeAdminView.xhtml">
                               <f:setPropertyActionListener target="#{gsParamSoco.cooperative}" value="#{item}"/>
                              </h:commandButton></center>
                     </rich:column>

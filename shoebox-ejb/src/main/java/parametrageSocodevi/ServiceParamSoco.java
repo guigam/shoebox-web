@@ -58,9 +58,10 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     }
 
     @Override
-    public ParamTransaction rechercheParamCharteCompte(String typetransction) {
-        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 ");
+    public ParamTransaction rechercheParamCharteCompte(String typetransction, Cooperative coop) {
+        Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 and p.coop = ?2");
         query.setParameter(1, typetransction);
+        query.setParameter(2, coop);
         return   (ParamTransaction) query.getSingleResult();
     }
 

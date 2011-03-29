@@ -43,12 +43,12 @@ public class GestionParametrageSoco implements Serializable {
 
     private Cooperative cooperative = new Cooperative();
     private List<ParamTransaction> lstParamtransaction = new LinkedList<ParamTransaction>();
+    private List<ParamTransaction> lstParamtsx = new LinkedList<ParamTransaction>();
     private ParamTransaction paramtsx = new ParamTransaction();
     private UIData dataTable;
     private DefinitionPeriode dePeriode = new DefinitionPeriode();
     private List<Permission> maLstPermissionChoisit = new LinkedList<Permission>();
     private List<DefinitionPeriode> lstDefPeriode = new LinkedList<DefinitionPeriode>();
-    private CharteCompte ch = new CharteCompte();
     @Inject
     private login session;
     @EJB
@@ -68,9 +68,11 @@ public class GestionParametrageSoco implements Serializable {
     public GestionParametrageSoco() {
     }
 
-    public String test() {
-     lstParamtransaction.add(paramtsx);
+    public String test(ValueChangeEvent event) {
         paramtsx = new ParamTransaction();
+    paramtsx = (ParamTransaction) dataTable.getRowData();
+    paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
+    lstParamtsx.add(paramtsx);
         return null;
     }
 
@@ -131,6 +133,9 @@ System.out.println(event.getSource());
         saveFile(chemin);
         cooperative.setLinkLogo(chemin + fup.getFile().getFileName());
         }
+        for(DefinitionPeriode d : lstDefPeriode){
+            d.setCoop(cooperative);
+        }
         cooperative.setLstDef(lstDefPeriode);
          unite.setType("Unite");
             devise.setType("Devise");
@@ -138,8 +143,9 @@ System.out.println(event.getSource());
             devise.setCoop(cooperative);
             cooperative.getLstFormatEntier().add(unite);
             cooperative.getLstFormatEntier().add(devise);
-            cooperative.setLstParametrage(lstParamtransaction);
+            cooperative.setLstParametrage(lstParamtsx);
         serviceSoco.newCoop(cooperative);
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
         return "lstCooperative";
     }
 
@@ -174,12 +180,7 @@ System.out.println(event.getSource());
         return serviceParamCoop.lstCoop();
     }
 
-    public void valueChangeListener() {
-        
-        lstParamtransaction.add(paramtsx);
-        paramtsx = new ParamTransaction();
-//        serviceSoco.mergeParamCharteCompteOfortransaction(paramtsx);
-    }
+ 
 
 
    public String validerConfigDefinitionperiode() {
@@ -329,7 +330,7 @@ System.out.println(event.getSource());
     public void setParamtsx(ParamTransaction paramtsx) {
         this.paramtsx = paramtsx;
 
-//        lstParamtransaction.add(paramtsx);
+        lstParamtransaction.add(paramtsx);
         System.out.println(paramtsx.getAbrev());
         System.out.println(paramtsx.getCharteCompte().getNom());
     }
@@ -440,18 +441,20 @@ System.out.println(event.getSource());
         this.unite = unite;
     }
 
+    
+
     /**
-     * @return the ch
+     * @return the lstParamtsx
      */
-    public CharteCompte getCh() {
-        return ch;
+    public List<ParamTransaction> getLstParamtsx() {
+        return lstParamtsx;
     }
 
     /**
-     * @param ch the ch to set
+     * @param lstParamtsx the lstParamtsx to set
      */
-    public void setCh(CharteCompte ch) {
-        this.ch = ch;
+    public void setLstParamtsx(List<ParamTransaction> lstParamtsx) {
+        this.lstParamtsx = lstParamtsx;
     }
 
 

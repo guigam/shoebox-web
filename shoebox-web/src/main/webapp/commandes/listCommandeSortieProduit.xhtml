@@ -7,7 +7,18 @@
 
 
 
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
         <h:form>
             <rich:panel>
@@ -17,7 +28,7 @@
 
                 <div style="margin-left:15px">
                     <h:commandButton image="/icons/add.png" action="addSP" />
-                    <h:commandLink value="#{msg.lib_addCommande}" action="addSP" />
+                    <a4j:commandLink value="#{msg.lib_addCommande}" action="addSP" />
                 </div>
                 <rich:spacer height="10"/>
 
@@ -26,9 +37,9 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
                         </f:facet>
-                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
+                        <center><h:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
                                  <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
-                            </a4j:commandButton></center>
+                            </h:commandButton></center>
                         <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
                     </rich:column>
                     <rich:column width="8%">
@@ -151,7 +162,7 @@
                     </rich:dataTable>
                     <rich:spacer height="20"/>
                     <div style="text-align: right">
-                        <a4j:commandButton value="#{msg.btn_valider}" reRender="tab" action="#{gsCommandes.confirmerCommande}" onclick="#{rich:component('panel')}.hide()" />
+                        <h:commandButton value="#{msg.btn_valider}" reRender="tab" action="#{gsCommandes.confirmerCommande}" onclick="#{rich:component('panel')}.hide()" />
                     </div>
                     <h:commandButton value="#{msg.btn_fermer}" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"/>
                 </rich:panel>

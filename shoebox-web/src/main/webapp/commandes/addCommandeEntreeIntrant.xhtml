@@ -8,13 +8,17 @@
 
 
 
-
-    <ui:define name="message" >
-        <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
     </ui:define>
 
     <ui:define name="content">
@@ -84,9 +88,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="--" />
                                 </f:facet>
-                                <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
+                                <h:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
                                     <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{tsx}"/>
-                                </a4j:commandButton>
+                                </h:commandButton>
                             </rich:column>
 
 

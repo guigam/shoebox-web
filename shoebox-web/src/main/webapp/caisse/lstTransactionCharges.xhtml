@@ -6,7 +6,18 @@
                 xmlns:a4j="http://richfaces.org/a4j">
     
  
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
     <ui:define name="content">
        <h:form>
             <rich:panel>
@@ -16,7 +27,7 @@
 
                 <div style="margin-left:15px">
                     <h:commandButton image="/icons/add.png" action="addCharge" />
-                    <h:commandLink value="#{msg.lib_addCharge}" action="addCharge" style="vertical-align: top" />
+                    <a4j:commandLink value="#{msg.lib_addCharge}" action="addCharge" style="vertical-align: top" />
                 </div>
                 <rich:spacer height="10"/>
                 <rich:dataTable width="100%" value="#{gestionCaisse.lstTransactionCharge}" var="item">

@@ -7,7 +7,18 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui">
 
 
-
+     <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
 
     <ui:define name="message" >
         <rich:messages  style="color:#ff0000; border: 1px; background-color: #9acd84;">
@@ -42,7 +53,7 @@
                             <rich:comboBox value="#{gsCommandes.produit}" converter="converterProduit">
                                 <f:selectItems value="#{parametrageShoebox.listitemProduitIntrant}"/>
                             </rich:comboBox>
-                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduitIntrant}" reRender="tab"/>
+                            <h:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduitIntrant}" reRender="tab"/>
                         </h:panelGrid>
                         <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab" >
                             <rich:column >
@@ -83,9 +94,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="--"/>
                                 </f:facet>
-                                  <a4j:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduitIntrant}" reRender="tab2">
+                                  <h:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduitIntrant}" reRender="tab2">
                                      <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
-                                  </a4j:commandButton>  
+                                  </h:commandButton>  
                             </rich:column>
                         </rich:dataTable>
                         </h:panelGrid>
@@ -148,9 +159,9 @@
                             <f:facet name="header">
                                 <h:outputText value="--"/>
                             </f:facet>
-                             <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
+                             <h:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
                                     <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{rech}"/>
-                                </a4j:commandButton>
+                                </h:commandButton>
                         </rich:column>
                     </rich:dataTable>
                              <rich:spacer height="10"/>
