@@ -55,24 +55,22 @@
                 <rich:spacer height="5"/>
             </h:form>
         </div>
-        <div id="content">
+       <div id="content">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td width="20%" style="vertical-align:top; ">
+                    <td width="20%" style="vertical-align:top; padding-right:5px">
                 <h:panelGroup style="width:100%;">
                     <ui:insert name="menu" >
                         <h:form>
-
-                            <rich:panelMenu label="Menu" styleClass="panelmenu">
+                           <rich:panelMenu label="Menu" >
                                 <rich:panelMenuGroup  label="Menu" expanded="true"  >
-                                    <rich:panelMenuGroup  label="#{msg.lib_magasin}" expanded="true"  >
+                                    <rich:panelMenuGroup  label="#{msg.lib_administration}" expanded="true"  >
                                         <rich:panelMenuItem  label="#{msg.lib_listCooperative}" action="#{redirectController.redirect}"><f:param value="lstCooperative" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{redirectController.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_utilisateurs}" action="#{redirectController.redirect}"><f:param value="lstUtilisateurs" name="outcome"/></rich:panelMenuItem>
                                     </rich:panelMenuGroup>
                                 </rich:panelMenuGroup>
                             </rich:panelMenu>
-
                         </h:form>
                     </ui:insert>
                 </h:panelGroup>

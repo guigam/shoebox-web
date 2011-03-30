@@ -21,6 +21,10 @@
             </a4j:status>
     </ui:define>
     <ui:define name="content">
+         <rich:panel>
+             <h:outputText value="#{msg.titre_bienvenueResultat}" styleClass="titrePanel"/>
+                <rich:separator width="100%"/>
+                <rich:spacer height="10"/>
         <rich:tabPanel>
             <rich:tab label="#{msg.lib_charge}">
                 <table border="1" width="100%" class="tableResultatCharge">
@@ -363,5 +367,6 @@
                 </table>
             </rich:tab>
         </rich:tabPanel>
+         </rich:panel>
     </ui:define>
 </ui:composition>

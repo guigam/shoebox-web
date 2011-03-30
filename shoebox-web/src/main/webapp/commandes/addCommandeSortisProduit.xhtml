@@ -8,18 +8,7 @@
 
 
 
-     <ui:define name="message" >
-        <rich:messages styleClass="globalMessages" >
-            <f:facet name="message">
-                <h:graphicImage  value="/img/error.png"/>
-            </f:facet>
-        </rich:messages>
-           <a4j:status>
-                <f:facet name="start">
-                    <h:graphicImage  value="/icons/searching_progress.gif"/>
-                </f:facet>
-            </a4j:status>
-    </ui:define>
+ 
 
     <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
@@ -63,7 +52,7 @@
                             <h:outputText value="#{msg.lib_grade}" styleClass="titreLibelle"/>
                             <h:inputText value="#{gsCommandes.grade}"/>
                             
-                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab,progressPanel"/>
+                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab"/>
                         </h:panelGrid>
                             <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab"  width="100%">
                                 <rich:column width="35%">

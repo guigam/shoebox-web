@@ -64,9 +64,9 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                         <div style="text-align: right; vertical-align: top">
-                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="addTransaction">
+                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="addTransaction">
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
-                            </h:commandButton>
+                            </a4j:commandButton>
                         </div>
                         <center> <h:outputText value="#{item.montantPaye}" styleClass="titreMontantPaye">
                                 <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
