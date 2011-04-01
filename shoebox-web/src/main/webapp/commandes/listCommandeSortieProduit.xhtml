@@ -37,9 +37,9 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
                         </f:facet>
-                        <center><h:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
+                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
                                  <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
-                            </h:commandButton></center>
+                            </a4j:commandButton></center>
                         <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
                     </rich:column>
                     <rich:column width="8%">

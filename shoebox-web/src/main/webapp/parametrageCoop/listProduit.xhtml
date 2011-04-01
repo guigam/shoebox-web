@@ -51,16 +51,7 @@
                         </f:facet>
                         <h:outputText value="#{item.type}" />
                     </rich:column>
-                      <rich:column width="5%">
-                        <f:facet name="header">
-                            <h:outputText value="--" />
-                        </f:facet>
-                          <h:commandButton id="update" image="/icons/pencil.png"/>
-                          <rich:spacer width="5"/>
-                          <h:commandButton id="delete"  image="/icons/remove.png"/>
-                          <rich:toolTip for="update" value="#{msg.lib_update}"/>
-                          <rich:toolTip for="delete" value="#{msg.lib_delete}"/>
-                    </rich:column>
+                 
 
                 </rich:dataTable>
             </rich:panel>

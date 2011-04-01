@@ -51,15 +51,7 @@
                         </f:facet>
                         <h:outputText value="#{item.description}" />
                     </rich:column>
-                      <rich:column width="5%">
-                        <f:facet name="header">
-                            <h:outputText value="--" />
-                        </f:facet>
-                          <center><h:commandButton id="config" image="/icons/config.png" action="configurationMagasin.xhtml">
-                                  <f:setPropertyActionListener target="#{parametrageShoebox.magasin}" value="#{item}"/>
-                              </h:commandButton>
-                          <rich:toolTip for="config" value="#{msg.lib_update}"/></center> 
-                    </rich:column>
+                 
 
                 </rich:dataTable>
             </rich:panel>

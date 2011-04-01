@@ -32,7 +32,7 @@
                 <rich:spacer height="10"/>
 
                 <h:panelGrid columns="2" styleClass="top,top" width="100%">
-                    <h:panelGrid columns="2" width="50%">
+                    <h:panelGrid columns="2">
                         <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                         <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
                         <h:outputText value="#{msg.lib_client}" styleClass="titreLibelle" />
@@ -52,7 +52,9 @@
                             <h:outputText value="#{msg.lib_grade}" styleClass="titreLibelle"/>
                             <h:inputText value="#{gsCommandes.grade}"/>
                             
-                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduit}" reRender="tab"/>
+                            <a4j:commandButton id="rech" image="/icons/search1.png" action="#{gsCommandes.rechercheStockProduit}" reRender="tab"  style="width: 25px; height: 25px;">
+                                <rich:toolTip value="#{msg.tooltip_RechercheStock}" for="rech"/>
+                            </a4j:commandButton>
                         </h:panelGrid>
                             <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab"  width="100%">
                                 <rich:column width="35%">
@@ -73,13 +75,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantiteCommande}"/>
                                 </f:facet>
-                                    <a4j:region>
-                                        <h:inputText value="#{rech.quantiteSaisie}" required="true" requiredMessage="#{msg.lib_quantiteCommande} #{msg.message_Obligatoire}">
-                                        <a4j:support event="onchange" action="#{gsCommandes.verifquantiteSaisie}" immediate="false">
-                                               <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
-                                        </a4j:support>
-                                    </h:inputText>
-                                        </a4j:region>
+                                        <h:inputText value="#{rech.quantiteSaisie}" required="true" requiredMessage="#{msg.lib_quantiteCommande} #{msg.message_Obligatoire}"/>
                             </rich:column>
                                 <rich:column width="20%">
                                 <f:facet name="header">
@@ -91,9 +87,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="--"/>
                                 </f:facet>
-                                  <h:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduit}" reRender="tab2">
+                                  <a4j:commandButton image="/icons/pplus.png" action="#{gsCommandes.ajouterSortieProduit}" reRender="tab2">
                                      <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
-                                  </h:commandButton>  
+                                  </a4j:commandButton>
                             </rich:column>
                         </rich:dataTable>
                         </h:panelGrid>
@@ -162,9 +158,9 @@
                             <f:facet name="header">
                                 <h:outputText value="--"/>
                             </f:facet>
-                            <h:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
+                            <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tab2">
                                     <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{rech}"/>
-                            </h:commandButton>
+                            </a4j:commandButton>
                         </rich:column>
                     </rich:dataTable>
                              <rich:spacer height="10"/>

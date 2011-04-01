@@ -52,8 +52,8 @@
                         <a4j:outputPanel rendered="#{empty gsCommandes.lstTsxMagasin}">
                             <h:outputText value="#{msg.message_pasDenregistrement}"/>
                         </a4j:outputPanel>
-
-                        <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="tsx" id="tab" rendered="#{not empty gsCommandes.lstTsxMagasin}">
+                    <a4j:outputPanel id="totTable" rendered="#{not empty gsCommandes.lstTsxMagasin}">
+                        <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="tsx" id="tab" >
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_magasin}"/>
@@ -88,16 +88,17 @@
                                 <f:facet name="header">
                                     <h:outputText value="--" />
                                 </f:facet>
-                                <h:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
+                                <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
                                     <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{tsx}"/>
-                                </h:commandButton>
+                                </a4j:commandButton>
                             </rich:column>
 
 
                         </rich:dataTable>
+                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeEntreeIntrant}"/>
+                    </a4j:outputPanel>
                     </a4j:outputPanel>
 
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeEntreeIntrant}"/>
             </rich:panel>
         </h:form>
     </ui:define>

@@ -36,16 +36,18 @@
                             <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
                         </rich:comboBox>
                         <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                        <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                        <rich:calendar value="#{gsCommandes.commade.dateCommande}" required="true" requiredMessage="#{msg.lib_date} #{msg.message_Obligatoire}"/>
                     </h:panelGrid>
                     <rich:panel  header="#{msg.lib_rechercheStock}">
                         <h:panelGrid width="100%" style="background-color: white">
                         <h:panelGrid columns="5">
                             <h:outputText value="#{msg.lib_produit}" styleClass="titreLibelle"/>
-                            <rich:comboBox value="#{gsCommandes.produit}" converter="converterProduit">
+                            <rich:comboBox value="#{gsCommandes.produit}" converter="converterProduit" required="true" requiredMessage="#{msg.lib_produit} #{msg.message_Obligatoire}">
                                 <f:selectItems value="#{parametrageShoebox.listitemProduitIntrant}"/>
                             </rich:comboBox>
-                            <a4j:commandButton value="recherche" action="#{gsCommandes.rechercheStockProduitIntrant}" reRender="tab"/>
+                            <a4j:commandButton image="/icons/search1.png" action="#{gsCommandes.rechercheStockProduitIntrant}" reRender="tab" style="width: 25px; height: 25px;">
+                             <rich:toolTip value="#{msg.tooltip_RechercheStock}" for="rech"/>
+                            </a4j:commandButton>
                         </h:panelGrid>
                             <rich:dataTable value="#{gsCommandes.lstStockSortieProduit}" var="rech" id="tab" width="100%">
                             <rich:column width="25%">
@@ -66,13 +68,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_quantiteCommande}"/>
                                 </f:facet>
-                               <a4j:region>
-                                    <h:inputText value="#{rech.quantiteSaisie}">
-                                        <a4j:support event="onchange" action="#{gsCommandes.verifquantiteSaisie}" immediate="false">
-                                               <f:setPropertyActionListener target="#{gsCommandes.m_ssp}" value="#{rech}"/>
-                                        </a4j:support>
-                                    </h:inputText>
-                                        </a4j:region>
+                                    <h:inputText value="#{rech.quantiteSaisie}"/>
                             </rich:column>
                             <rich:column width="25%">
                                 <f:facet name="header">

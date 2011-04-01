@@ -101,6 +101,7 @@ a:link:hover, a:visited:hover  {
     text-align: center
 
 }
+
 .celluleTabMenu{
     background-color:gainsboro;
     color: #ff0000;
@@ -159,9 +160,17 @@ a:link:hover, a:visited:hover  {
 .titreBienvenu{
     font-size: 54px;
     font-weight: bold;
-    color: 07426f;
+    color: #07426f;
     border-color: #ffffff;
-    
-
 }
+
+.fontTabBoutton{
+    background-color:#C6E3C6;
+}
+
+.bg_titre_page{
+	background-image: url("/images/img_bg_titre.png");
+	background-repeat: repeat-x;
+}
+
 

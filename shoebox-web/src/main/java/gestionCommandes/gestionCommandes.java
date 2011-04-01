@@ -109,6 +109,7 @@ public class gestionCommandes implements Serializable {
     }
 
     public String newCommandeEntreeIntrant() {
+        if(veriflistTsxmagasin()){
         if (paramShoebox.validerDate(commade.getDateCommande())) {
             commade.setType("EPI");
             commade.setDefPeriode(session.getCurrentPeriode());
@@ -120,12 +121,12 @@ public class gestionCommandes implements Serializable {
             commade = new Commande();
             return "lstCommandeEntreeIntrant";
         }
+        }
         return null;
     }
 
     public void ajouterLigneVide() {
         if (verifHomogeniteEntreeProduit()) {
-
             TransactionMagasin tsx = new TransactionMagasin();
             tsx.setM_commande(commade);
             lstTsxMagasin.add(tsx);
@@ -133,9 +134,22 @@ public class gestionCommandes implements Serializable {
 
     }
     public void ajouterLigneVideIntrant() {
+        if(veriflistTsxmagasin()){
             TransactionMagasin tsx = new TransactionMagasin();
             tsx.setM_commande(commade);
             lstTsxMagasin.add(tsx);
+        }
+    }
+
+    private boolean  veriflistTsxmagasin() {
+        for (TransactionMagasin t : lstTsxMagasin) {
+            if (t.getGrade() == 0 || t.getHumidite() == 0 || t.getMagasin() == null || t.getQuantite() == 0 || t.getProduit() == null || t.getPrixUnitaire() == 0) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                FacesContext.getCurrentInstance().addMessage("verif", msg);
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean verifDuplicSortisProduit() throws IOException {
@@ -165,8 +179,12 @@ public class gestionCommandes implements Serializable {
         if (!lstTsxMagasin.isEmpty()) {
             TransactionMagasin tsxz = lstTsxMagasin.get(0);
             for (TransactionMagasin t : lstTsxMagasin) {
-                if (!t.getProduit().getType().equals(tsxz.getProduit().getType())) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "le produit ajouter n'esy pas du meme type", "le produit ajouter n'esy pas du meme type");
+                if(t.getGrade() == 0 || t.getHumidite()  == 0 || t.getMagasin()  == null || t.getQuantite()  == 0 || t.getProduit()  == null || t.getPrixUnitaire()  == 0){
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                    FacesContext.getCurrentInstance().addMessage("verif", msg);
+                    return false;
+                }else if (!t.getProduit().getType().equals(tsxz.getProduit().getType())) {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "le produit ajouter n'est pas du meme type", "le produit ajouter n'est pas du meme type");
                     FacesContext.getCurrentInstance().addMessage("type produit", msg);
 
                     return false;
@@ -241,6 +259,10 @@ public class gestionCommandes implements Serializable {
     }
 
     public void rechercheStockProduit() {
+        if(produit == null && grade == 0){
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir les champs necessaires pour la recherche", "Veuillez remplir les champs necessaires pour la recherche");
+            FacesContext.getCurrentInstance().addMessage("recherche", msg);
+        }else{
         List<Object[]> lstObject = new LinkedList<Object[]>();
         lstStockSortieProduit.clear();
         lstObject = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop());
@@ -250,9 +272,15 @@ public class gestionCommandes implements Serializable {
             ssp.setQuantite((Long) t[2]);
             lstStockSortieProduit.add(ssp);
         }
+        }
+         
     }
 
     public void rechercheStockProduitIntrant() {
+        if(produit == null){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez choisir un produit pour la recherche ", "Veuillez choisir un produit pour la recherche ");
+            FacesContext.getCurrentInstance().addMessage("recherche", msg);
+        }else{
         List<Object[]> lstObject = new LinkedList<Object[]>();
         lstStockSortieProduit.clear();
         lstObject = parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop());
@@ -263,9 +291,16 @@ public class gestionCommandes implements Serializable {
             lstStockSortieProduit.add(ssp);
         }
     }
+    }
 
     public void ajouterSortieProduit() throws IOException {
-        if (paramShoebox.validerDate(commade.getDateCommande())) {
+        if(m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention depassement du stock", "Attention depassement du stock");
+            FacesContext.getCurrentInstance().addMessage("depassement", msg);
+        }else if(m_ssp.getQuantiteSaisie() == 0 || m_ssp.getPu() == 0){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez Remplir tous les champs necessaires", "Veuillez Remplir tous les champs necessaires");
+            FacesContext.getCurrentInstance().addMessage("required", msg);
+        }else if (paramShoebox.validerDate(commade.getDateCommande())) {
                 if(verifHomogeniteSortisProduit()){
                 if (verifDuplicSortisProduit()) {
                     TransactionMagasin tsx = new TransactionMagasin();
@@ -280,12 +315,16 @@ public class gestionCommandes implements Serializable {
                 }
             }
         }
-
-    }
+        }
+    
     public void ajouterSortieProduitIntrant() throws IOException {
-        if (paramShoebox.validerDate(commade.getDateCommande())) {
-            if (m_ssp.getPu() != 0 && m_ssp.getQuantiteSaisie() != 0) {
-                if (verifDuplicSortisProduit()) {
+        if(m_ssp.getQuantiteSaisie() >  m_ssp.getQuantite()){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention depassement du stock", "Attention depassement du stock");
+            FacesContext.getCurrentInstance().addMessage("depassement", msg);
+        }else if (m_ssp.getPu() == 0 && m_ssp.getQuantiteSaisie() == 0) {
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez Remplir tous les champs necessaires", "Veuillez Remplir tous les champs necessaires");
+            FacesContext.getCurrentInstance().addMessage("required", msg);
+            }else if (verifDuplicSortisProduit()) {
                     TransactionMagasin tsx = new TransactionMagasin();
                     tsx.setM_commande(commade);
                     tsx.setGrade(grade);
@@ -297,9 +336,9 @@ public class gestionCommandes implements Serializable {
                     m_ssp = new StockSortieProduit();
                 }
             }
-        }
+        
 
-    }
+    
 
     public float getcalculSommeCommande() {
         float somme = 0;
@@ -344,12 +383,6 @@ public class gestionCommandes implements Serializable {
         return "/commandes/listCommandeSortieProduit.xhtml";
     }
 
-    public void verifquantiteSaisie() {
-       if (m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention depassement du stock", "Attention depassement du stock");
-            FacesContext.getCurrentInstance().addMessage("depassement", msg);
-    }
-    }
 
     /**
      * @return the produit

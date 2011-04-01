@@ -60,7 +60,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_magasin}"/>
                                 </f:facet>
-                                <rich:comboBox value="#{tsx.magasin}" converter="converterMagasin">
+                                <rich:comboBox value="#{tsx.magasin}" converter="converterMagasin" >
                                     <f:selectItems value="#{parametrageShoebox.listitemMagasin}"/>
                                 </rich:comboBox>
                             </rich:column>
@@ -68,7 +68,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_produit}"/>
                                 </f:facet>
-                                <rich:comboBox value="#{tsx.produit}" converter="converterProduit">
+                                <rich:comboBox value="#{tsx.produit}" converter="converterProduit" >
                                     <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
                                 </rich:comboBox>
                             </rich:column>
@@ -102,9 +102,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="--" />
                                 </f:facet>
-                                <h:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
+                                <a4j:commandButton image="/icons/delete.png" action="#{gsCommandes.removeTsxMAG}" reRender="tot">
                                     <f:setPropertyActionListener target="#{gsCommandes.tsxMag}" value="#{tsx}"/>
-                                </h:commandButton>
+                                </a4j:commandButton>
                             </rich:column>
 
 
