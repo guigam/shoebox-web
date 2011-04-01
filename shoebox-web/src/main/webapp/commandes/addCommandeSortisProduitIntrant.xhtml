@@ -158,7 +158,14 @@
                                         <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                                  </h:outputText>
                              </div>
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsCommandes.newCommandeSortisIntrant}"/>
+                <rich:spacer height="40/"/>
+                        <table width="100%" border="1">
+                            <tr style="background-color:#1C4A6D">
+                                <td width="20%" ><h:commandButton id="annul" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val"  action="#{gsCommandes.newCommandeSortisIntrant}" style="border-style:none;background-color: #1C4A6D;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
                          </a4j:outputPanel>
                   </a4j:outputPanel>
                 </h:panelGrid>

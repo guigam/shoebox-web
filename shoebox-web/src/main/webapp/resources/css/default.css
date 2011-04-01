@@ -172,5 +172,15 @@ a:link:hover, a:visited:hover  {
 	background-image: url("/images/img_bg_titre.png");
 	background-repeat: repeat-x;
 }
+.btn_Valider{
+    border-style:none;
+    background-color:#0E7145;
+    width: 100%;
+    cursor: pointer;
+    color:white ;
+    font-weight: bold;
+    font-size: 12px
+
+}
 
 

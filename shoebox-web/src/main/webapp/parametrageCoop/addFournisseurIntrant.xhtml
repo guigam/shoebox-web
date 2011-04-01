@@ -34,8 +34,15 @@
                     <h:inputText value="#{parametrageShoebox.fournisseurIntrant.name}" required="true" requiredMessage="#{msg.lib_description} #{msg.message_Obligatoire}"/>
                     <h:outputText value="#{msg.lib_soldeDepart}" />
                     <h:inputText value="#{parametrageShoebox.soldeDepart.montant}" required="true" requiredMessage="#{msg.lib_soldeDepart} #{msg.message_Obligatoire}"/>
-                    <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newFournisseurIntrant}"/>
                 </h:panelGrid>
+                 <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#1C4A6D">
+                                <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/menuParam.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{parametrageShoebox.newFournisseurIntrant}"  style="border-style:none;background-color: #1C4A6D;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
             </rich:panel>
         </h:form>
     </ui:define>

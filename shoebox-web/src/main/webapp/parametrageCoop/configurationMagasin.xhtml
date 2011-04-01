@@ -43,10 +43,14 @@
                 <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
             </rich:comboBox>
             </h:panelGrid>
-            <rich:spacer height="10"/>
-            <div>
-                <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newInitMagasinConfig}"/>
-                </div>
+             <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#1C4A6D">
+                                <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/listMagasin.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{parametrageShoebox.newInitMagasinConfig}"  style="border-style:none;background-color: #1C4A6D;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
                 <rich:spacer height="20"/>
                 <rich:separator height="1"/>
                 <rich:spacer height="10"/>

@@ -32,8 +32,15 @@
                     <h:outputText value="#{msg.lib_description}" />
                     <h:inputTextarea cols="30" rows="2" value="#{parametrageShoebox.produit.description}" />
                     
-                    <h:commandButton value="#{msg.btn_valider}" action="#{parametrageShoebox.newProduitIntrant}"/>
                 </h:panelGrid>
+                <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#1C4A6D">
+                                <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/menuParam.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{parametrageShoebox.newProduitIntrant}"  style="border-style:none;background-color: #1C4A6D;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
             </rich:panel>
         </h:form>
     </ui:define>
