@@ -14,6 +14,12 @@
                 <h:outputText value="#{msg.titre_bienvenueCaisse}" styleClass="titrePanel"/>
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
+                <rich:dataGrid value="#{parametrageShoebox.lstCompteEncaisse}" var="c" width="100%" columns="3">
+                    <rich:panel header="#{c.folio} #{c.nomCompte}">
+                        <h:outputText value="#{c.valeurtotalCompte}" styleClass="sousTitrePanel"/>
+                    </rich:panel>
+                </rich:dataGrid>
+
       <center> <h:graphicImage value="/images/money.png" width="200px" height="250px"/></center>
         </rich:panel>
     </ui:define>

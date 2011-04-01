@@ -42,8 +42,8 @@ and open the template in the editor.
                             <h:outputText value="Nom utilisateur" styleClass="titreLibelle"/>
                             <h:inputText value="#{gsLogin.user.username}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
                             <h:outputText value="Mot de passe" styleClass="titreLibelle"/>
-                            <h:inputText value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
-                            <a4j:commandButton action="#{gsLogin.identification}" value="valider"/>
+                            <h:inputSecret value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
+                            <h:commandButton action="#{gsLogin.identification}" value="valider"/>
                         </h:panelGrid>
                         <h:panelGrid>
                             <a4j:status>

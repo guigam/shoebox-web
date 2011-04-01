@@ -126,7 +126,7 @@ public interface serviceParamCoopLocal {
     public List<Cooperative> lstCoop();
 
 
-    //***************************recherche*********************************//
+    //***************************autres*********************************//
     public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop);
 
     public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop);
@@ -134,6 +134,8 @@ public interface serviceParamCoopLocal {
     public boolean verifdate(Date date, DefinitionPeriode defPer);
 
     public Double sommeCharges(Cooperative coop);
+
+
 
      
 }

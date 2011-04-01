@@ -156,5 +156,12 @@ a:link:hover, a:visited:hover  {
     margin-left: -20px;
 
 }
+.titreBienvenu{
+    font-size: 54px;
+    font-weight: bold;
+    color: 07426f;
+    border-color: #ffffff;
+    
 
+}
 

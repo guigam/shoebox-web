@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -37,20 +38,30 @@ public class Compte implements Serializable {
     public static void setSerialVersionUID(long aSerialVersionUID) {
         serialVersionUID = aSerialVersionUID;
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String folio;
     private String typeCompte;
     private String nomCompte;
     private String description;
-    @ManyToOne
     private Utilisateur currentuser;
-    @ManyToOne
     private Cooperative coop;
-   @OneToMany(mappedBy="compteEncaisse")
    private List<TransactionCaisse> tsxCaisse = new LinkedList<TransactionCaisse>();
 
+   @Transient
+   public double getValeurtotalCompte(){
+       double c = 0;
+    for(TransactionCaisse t : tsxCaisse){
+        if(t.getTypeTransaction().equals("E")){
+            c = c + t.getMontant();
+        }else{
+            c = c - t.getMontant();
+        }
+    }
+        return c;
+   }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -129,6 +140,7 @@ public class Compte implements Serializable {
     /**
      * @return the tsxCaisse
      */
+    @OneToMany(mappedBy = "compteEncaisse")
     public List<TransactionCaisse> getTsxCaisse() {
         return tsxCaisse;
     }
@@ -157,6 +169,7 @@ public class Compte implements Serializable {
     /**
      * @return the currentuser
      */
+    @ManyToOne
     public Utilisateur getCurrentuser() {
         return currentuser;
     }
@@ -171,6 +184,7 @@ public class Compte implements Serializable {
     /**
      * @return the coop
      */
+    @ManyToOne
     public Cooperative getCoop() {
         return coop;
     }

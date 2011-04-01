@@ -5,6 +5,7 @@
 package gestionCaisse;
 
 import Login.login;
+import ModelesShoebox.Compte;
 import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
@@ -246,4 +247,6 @@ public class GestionCaisse implements Serializable {
         tsxCaisse.setMontant(0);
         }
     }
+
+    
 }

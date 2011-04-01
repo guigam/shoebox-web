@@ -39,6 +39,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
 
+ 
+
     private void persist(Object objet) {
         em.getTransaction().begin();
         em.persist(objet);
@@ -498,5 +500,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return query.getResultList();
     }
 
+
+
+  
 
 }
