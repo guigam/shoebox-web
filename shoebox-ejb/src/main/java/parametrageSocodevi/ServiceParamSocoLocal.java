@@ -44,6 +44,8 @@ public interface ServiceParamSocoLocal {
 
    public Utilisateur verifUtilisateur(String utilisateur, String password);
 
+   public void mergeCoop(Cooperative coop);
+
    public void newCoop(Cooperative coop);
 
    public List<formatageEntier> formatage(Cooperative coop);

@@ -39,9 +39,9 @@ and open the template in the editor.
                 <h:form>
                     <h:panelGrid columns="2">
                         <h:panelGrid columns="2">
-                            <h:outputText value="Nom utilisateur" styleClass="titreLibelle"/>
+                            <h:outputText value="#{msg.lib_username}" styleClass="titreLibelle"/>
                             <h:inputText value="#{gsLogin.user.username}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
-                            <h:outputText value="Mot de passe" styleClass="titreLibelle"/>
+                            <h:outputText value="#{msg.lib_password}" styleClass="titreLibelle"/>
                             <h:inputSecret value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
                             <h:commandButton action="#{gsLogin.identification}" value="valider"/>
                         </h:panelGrid>

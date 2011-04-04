@@ -11,6 +11,7 @@ import ModelesParametrage.Permission;
 import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.io.FileNotFoundException;
@@ -62,7 +63,6 @@ public class GestionParametrageSoco implements Serializable {
     private Utilisateur utilisateur = new Utilisateur();
     private formatageEntier devise = new formatageEntier();
     private formatageEntier unite = new formatageEntier();
-    
 
     /** Creates a new instance of GestionLangue */
     public GestionParametrageSoco() {
@@ -70,23 +70,23 @@ public class GestionParametrageSoco implements Serializable {
 
     public String test(ValueChangeEvent event) {
         paramtsx = new ParamTransaction();
-    paramtsx = (ParamTransaction) dataTable.getRowData();
-    paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
-    lstParamtsx.add(paramtsx);
+        paramtsx = (ParamTransaction) dataTable.getRowData();
+        paramtsx.setCharteCompte((CharteCompte) event.getNewValue());
+        lstParamtsx.add(paramtsx);
         return null;
     }
 
-    public String updateParamTransaction(){
-            cooperative.setLstParametrage(lstParamtransaction);
-            serviceParamCoop.updateCoop(cooperative);
-            cooperative = new Cooperative();
-            return "/firstTime/menuAdmin.xhtml";
+    public String updateParamTransaction() {
+        cooperative.setLstParametrage(lstParamtransaction);
+        serviceParamCoop.updateCoop(cooperative);
+        cooperative = new Cooperative();
+        return "/firstTime/menuAdmin.xhtml";
     }
 
-    public String updateCoopFormatage(){
-        if(cooperative.getId()!=null){
-        cooperative.setLstFormatEntier(formatageByCoop(cooperative));
-        }else{
+    public String updateCoopFormatage() {
+        if (cooperative.getId() != null) {
+            cooperative.setLstFormatEntier(formatageByCoop(cooperative));
+        } else {
             unite.setType("Unite");
             devise.setType("Devise");
             unite.setCoop(cooperative);
@@ -99,9 +99,9 @@ public class GestionParametrageSoco implements Serializable {
         return "/firstTime/menuAdmin.xhtml";
     }
 
-public void recupID(ValueChangeEvent event){
-System.out.println(event.getSource());
-}
+    public void recupID(ValueChangeEvent event) {
+        System.out.println(event.getSource());
+    }
 
     public void changePeriodeActif() {
         if (!lstDefPeriode.isEmpty()) {
@@ -128,27 +128,29 @@ System.out.println(event.getSource());
     }
 
     public String newCoop() throws FileNotFoundException, IOException {
-        if(fup.getFile()!=null){
-        String chemin = "/home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/webapp/logo/";
-        saveFile(chemin);
-        cooperative.setLinkLogo(chemin + fup.getFile().getFileName());
+        if (fup.getFile() != null) {
+            String chemin = "/home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/webapp/logo/";
+            saveFile(chemin);
+            cooperative.setLinkLogo(chemin + fup.getFile().getFileName());
         }
-        for(DefinitionPeriode d : lstDefPeriode){
+        for (DefinitionPeriode d : lstDefPeriode) {
             d.setCoop(cooperative);
         }
+        for(CategorieCharge c : cooperative.getLstCategCharge()){
+        c.setCooperative(cooperative);
+        }
         cooperative.setLstDef(lstDefPeriode);
-         unite.setType("Unite");
-            devise.setType("Devise");
-            unite.setCoop(cooperative);
-            devise.setCoop(cooperative);
-            cooperative.getLstFormatEntier().add(unite);
-            cooperative.getLstFormatEntier().add(devise);
-            cooperative.setLstParametrage(lstParamtsx);
+        unite.setType("Unite");
+        devise.setType("Devise");
+        unite.setCoop(cooperative);
+        devise.setCoop(cooperative);
+        cooperative.getLstFormatEntier().add(unite);
+        cooperative.getLstFormatEntier().add(devise);
+        cooperative.setLstParametrage(lstParamtsx);
         serviceSoco.newCoop(cooperative);
         ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
         return "lstCooperative";
     }
-
 
     protected void saveFile(String chemin) throws FileNotFoundException, IOException {
 
@@ -156,9 +158,63 @@ System.out.println(event.getSource());
         fos.write(fup.getFile().getData());
     }
 
+    public void addcategChargeVide() {
+        if (verifCategorieCharge()) {
+            cooperative.getLstCategCharge().add(new CategorieCharge());
+        }
+    }
+
+    private boolean verifCategorieCharge() {
+        for (CategorieCharge c : cooperative.getLstCategCharge()) {
+            if (c.getNomCategorie().equals("") && c.getDescription().equals("") && c.getType().equals("")) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String categAdminRedirect() {
+        if (verifCategorieCharge()) {
+            return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
+        }
+        return null;
+    }
 
 
+    public String configDeviseUniteredirect() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
+    }
 
+
+    public String redirect() {
+         ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
+    }
+
+    public String configParamTransactionRedirect() {
+        for(ParamTransaction p : lstParamtransaction){
+            if(p.getCharteCompte() == null){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+                return null;
+            }
+        }
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
+    }
+
+    public String definitionPeriodeAdminRedirect() {
+        for (DefinitionPeriode d : getlstDefinitionPeriodeAdmin()) {
+            if (d.getDateDebut() == null || d.getDateFin() == null || !verifPeriodeActif(getlstDefinitionPeriodeAdmin())) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+                return null;
+            }
+        }
+
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
+    }
 
     private List<ParamTransaction> initLstParamTransaction() {
         List<ParamTransaction> lstParamTransaction = new ArrayList<ParamTransaction>();
@@ -180,13 +236,10 @@ System.out.println(event.getSource());
         return serviceParamCoop.lstCoop();
     }
 
- 
-
-
-   public String validerConfigDefinitionperiode() {
-        if (verifDonneePeriode() && verifPeriodeActif()) {
-             cooperative.setLstDef(lstDefPeriode);
-             serviceParamCoop.updateCoop(cooperative);
+    public String validerConfigDefinitionperiode() {
+        if (verifDonneePeriode() && verifPeriodeActif(lstDefPeriode)) {
+            cooperative.setLstDef(lstDefPeriode);
+            serviceParamCoop.updateCoop(cooperative);
             if (serviceSoco.currentPeriode(cooperative) == null) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "la Definition de periode est enregistre avec succes, Veuillez svp indiquer la periode de debut", "la Definition de periode est enregistre avec succes, Veuillez svp indiquer la periode de debut");
                 FacesContext.getCurrentInstance().addMessage("defPeriode", msg);
@@ -198,13 +251,18 @@ System.out.println(event.getSource());
         return null;
     }
 
-    private boolean verifPeriodeActif() {
-        for (DefinitionPeriode d : lstDefPeriode) {
+    private boolean verifPeriodeActif(List<DefinitionPeriode> lstdefPer) {
+        for (DefinitionPeriode d : lstdefPer) {
             if (d.isPeriodeActif()) {
                 return true;
             }
         }
         return false;
+    }
+
+    public String annulerTransactionCoop() {
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
     }
 
     private boolean verifDonneePeriode() {
@@ -229,7 +287,6 @@ System.out.println(event.getSource());
         return serviceSoco.lstUtilisteur(session.getCurrentCoop());
     }
 
-
     public List<Utilisateur> getListAllUtilisateur() {
         return serviceSoco.lstAllUtilisteur();
     }
@@ -242,9 +299,15 @@ System.out.println(event.getSource());
     }
 
     public String newUtilisateurAdmin() {
+        if(utilisateur.getCooperative() == null){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Veuillez choisir une cooperative ", "Veuillez choisir une cooperative ");
+                FacesContext.getCurrentInstance().addMessage("coop", msg);
+                return null;
+        }else{
         utilisateur.setPassword("soco");
         serviceSoco.newUtilisateur(utilisateur);
         return "lstUtilisateurs";
+        }
     }
 
     public String updateUtilisateur() {
@@ -260,24 +323,24 @@ System.out.println(event.getSource());
      * @return the lstParamtransaction
      */
     public List<ParamTransaction> getlstParamtransaction() {
-        if(cooperative.getId()==null && lstParamtransaction.isEmpty()){
+        if (cooperative.getId() == null && lstParamtransaction.isEmpty()) {
             return initLstParamTransaction();
         }
         return null;
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriodeAdmin() {
-      if (cooperative.getId() == null && lstDefPeriode.isEmpty()) {
+        if (cooperative.getId() == null && lstDefPeriode.isEmpty()) {
             for (int i = 1; i <= 12; i++) {
                 DefinitionPeriode def = new DefinitionPeriode();
                 def.setPeriode("P" + i);
                 lstDefPeriode.add(def);
-          }
+            }
             return lstDefPeriode;
-       }else if(cooperative.getId() == null && !lstDefPeriode.isEmpty()){
-        return    lstDefPeriode;
-       }
-        if (serviceSoco.lstDefinitionPeriode(cooperative).isEmpty() ) {
+        } else if (cooperative.getId() == null && !lstDefPeriode.isEmpty()) {
+            return lstDefPeriode;
+        }
+        if (serviceSoco.lstDefinitionPeriode(cooperative).isEmpty()) {
 
             if (lstDefPeriode.isEmpty()) {
                 for (int i = 1; i <= 12; i++) {
@@ -290,9 +353,9 @@ System.out.println(event.getSource());
                 return lstDefPeriode;
             }
         }
-         if(!verifPeriodeActif()){
-        return lstDefPeriode = serviceSoco.lstDefinitionPeriode(cooperative);
-        }else{
+        if (!verifPeriodeActif(lstDefPeriode)) {
+            return lstDefPeriode = serviceSoco.lstDefinitionPeriode(cooperative);
+        } else {
             return lstDefPeriode;
         }
     }
@@ -305,10 +368,6 @@ System.out.println(event.getSource());
         }
         return serviceSoco.lstDefinitionPeriode(session.getCurrentCoop());
     }
-
-
-
-
 
     /**
      * @param lstParamtransaction the lstParamtransaction to set
@@ -364,12 +423,9 @@ System.out.println(event.getSource());
         this.cooperative = cooperative;
     }
 
-    public List<formatageEntier> formatageByCoop(Cooperative coop){
+    public List<formatageEntier> formatageByCoop(Cooperative coop) {
         return serviceSoco.formatage(coop);
     }
-
-
-
 
     /**
      * @return the dePeriode
@@ -441,8 +497,6 @@ System.out.println(event.getSource());
         this.unite = unite;
     }
 
-    
-
     /**
      * @return the lstParamtsx
      */
@@ -456,6 +510,4 @@ System.out.println(event.getSource());
     public void setLstParamtsx(List<ParamTransaction> lstParamtsx) {
         this.lstParamtsx = lstParamtsx;
     }
-
-
 }

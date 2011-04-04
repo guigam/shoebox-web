@@ -26,7 +26,7 @@ public class CategorieCharge implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nomCategorie;
-    private String Description;
+    private String description;
     private String type;
     @ManyToOne
     private Cooperative cooperative;
@@ -83,14 +83,14 @@ public class CategorieCharge implements Serializable {
      * @return the Description
      */
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     /**
      * @param Description the Description to set
      */
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -119,6 +119,20 @@ public class CategorieCharge implements Serializable {
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * @return the cooperative
+     */
+    public Cooperative getCooperative() {
+        return cooperative;
+    }
+
+    /**
+     * @param cooperative the cooperative to set
+     */
+    public void setCooperative(Cooperative cooperative) {
+        this.cooperative = cooperative;
     }
 
 }

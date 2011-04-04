@@ -102,6 +102,10 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     public void newCoop(Cooperative coop) {
      persist(coop);
     }
+    @Override
+    public void mergeCoop(Cooperative coop) {
+     merge(coop);
+    }
 
     @Override
     public DefinitionPeriode currentPeriode(Cooperative coop) {

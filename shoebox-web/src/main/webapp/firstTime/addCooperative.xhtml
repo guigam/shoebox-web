@@ -6,42 +6,60 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:f="http://java.sun.com/jsf/core">
-     <ui:define name="message" >
+    <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
-           <a4j:status>
-                <f:facet name="start">
-                    <h:graphicImage  value="/icons/searching_progress.gif"/>
-                </f:facet>
-            </a4j:status>
+        <a4j:status>
+            <f:facet name="start">
+                <h:graphicImage  value="/icons/searching_progress.gif"/>
+            </f:facet>
+        </a4j:status>
     </ui:define>
     <ui:define name="content">
-       <rich:panel>
+        <rich:panel>
             <h:form>
                 <h:outputText value="#{msg.lib_ajouterCooperative}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <h:panelGrid columns="2">
-                <h:outputText value="#{msg.lib_reference}"/>
-         <h:inputText value="#{gsParamSoco.cooperative.reference}"/>
-        <h:outputText value="#{msg.lib_nomCooperative}"/>
-        <h:inputText value="#{gsParamSoco.cooperative.name}" />
-        <h:outputText value="#{msg.lib_pays}"/>
-        <h:inputText value="#{gsParamSoco.cooperative.pays}"/>
-        <h:outputText value="#{msg.lib_logo}"/>
-        <rich:fileUpload fileUploadListener="#{fileuploadBean.uploadListener}"
-                id="upload"
-                acceptedTypes="jpg, gif, png, bmp">
-            </rich:fileUpload>
+                <table >
+                    <tr>
+                        <td valign="top">
+                            <h:panelGrid columns="2">
+                        <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gsParamSoco.cooperative.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
+                        <h:outputText value="#{msg.lib_nomCooperative}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gsParamSoco.cooperative.name}"  required="true" requiredMessage="#{msg.lib_nomCooperative} #{msg.message_Obligatoire}"/>
+                        <h:outputText value="#{msg.lib_pays}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gsParamSoco.cooperative.pays}" required="true" requiredMessage="#{msg.lib_pays} #{msg.message_Obligatoire}"/>
+                            </h:panelGrid>
+                        </td>
+                        <td width="100px;"></td>
+                    <td>
+                        <rich:panel header="#{msg.lib_logo}">
+                        <rich:fileUpload fileUploadListener="#{fileuploadBean.uploadListener}"
+                                         id="upload"
+                                         acceptedTypes="jpg, gif, png, bmp">
+                        </rich:fileUpload>
+                        </rich:panel>
+                    </td>
+                        </tr>
+                </table>
 
-                </h:panelGrid>
-
-                <h:commandButton action="/firstTime/listDefinitioPeriodeAdmin.xhtml" value="#{msg.btn_suivant}"/>
-         </h:form>
-       </rich:panel>
+                <rich:spacer height="40/"/>
+                <table width="100%" border="0">
+                    <tr style="background-color:#b8cbab">
+                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                            </h:commandButton></td>
+                        <td width="70%" ></td>
+                        <td  width="15%" height="20px"><h:commandButton id="val"  action="/firstTime/categorieCharge.xhtml" styleClass="btn_Valider" value="#{msg.btn_suivant}"/></td>
+                    </tr>
+                </table>
+            </h:form>
+        </rich:panel>
     </ui:define>
 
 </ui:composition>

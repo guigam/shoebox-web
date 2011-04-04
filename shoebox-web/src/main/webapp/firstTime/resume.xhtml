@@ -26,6 +26,10 @@
                 <h:outputText value="#{msg.lib_resume} #{msg.lib_cooperative}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
+                <rich:panel style="background-color: white">
+                     <h:outputText value="#{msg.lib_informationCooperative}" styleClass="sousTitrePanel" />
+                     <rich:separator width="100%" height="2"/>
+                <rich:spacer height="10"/>
                  <h:panelGrid columns="2">
                             <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                             <h:outputText value="#{gsParamSoco.cooperative.reference}" styleClass="titreLibelleSimple"/>
@@ -34,8 +38,10 @@
                             <h:outputText value="#{msg.lib_pays}" styleClass="titreLibelle"/>
                             <h:outputText value="#{gsParamSoco.cooperative.pays}" styleClass="titreLibelleSimple"/>
                 </h:panelGrid>
+                </rich:panel>
 
                 <rich:spacer height="40"/>
+                <rich:panel style="background-color: white">
                 <h:outputText value="#{msg.lib_paramDeviseUnite}" styleClass="sousTitrePanel" />
                  <rich:separator width="100%" height="2"/>
                 <rich:spacer height="10"/>
@@ -53,9 +59,38 @@
                                         <h:outputText value="#{gsParamSoco.unite.apresVirgule}"/>
                                     
               </h:panelGrid>
+                </rich:panel>
+
+
+                 <rich:spacer height="40"/>
+                 <rich:panel style="background-color: white">
+                 <h:outputText value="#{msg.lib_categorieDesCharges}" styleClass="sousTitrePanel" />
+                 <rich:separator width="100%" height="2"/>
+                 <rich:dataTable value="#{gsParamSoco.cooperative.lstCategCharge}" var="categ" width="100%">
+                     <rich:column width="30%">
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_nomCategorie}"/>
+                         </f:facet>
+                         <h:outputText value="#{categ.nomCategorie}"/>
+                     </rich:column>
+                     <rich:column width="50%">
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_description}"/>
+                         </f:facet>
+                           <h:outputText value="#{categ.description}"/>
+                     </rich:column>
+                     <rich:column width="20%">
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_type}"/>
+                         </f:facet>
+                           <h:outputText value="#{categ.type}"/>
+                     </rich:column>
+                 </rich:dataTable>
+                 </rich:panel>
 
 
                 <rich:spacer height="40"/>
+                <rich:panel style="background-color: white">
                 <h:outputText value="#{msg.lib_periode}" styleClass="sousTitrePanel" />
                  <rich:separator width="100%" height="2"/>
                 <rich:spacer height="10"/>
@@ -85,9 +120,11 @@
                           <center><h:graphicImage  value="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" /></center>
                     </rich:column>
                 </rich:dataTable>
+                </rich:panel>
 
 
                  <rich:spacer height="40"/>
+                 <rich:panel style="background-color: white">
                  <h:outputText value="#{msg.lib_paramTransactionSoco}" styleClass="sousTitrePanel" />
                  <rich:separator width="100%" height="2"/>
                 <rich:spacer height="10"/>
@@ -111,10 +148,19 @@
                                 <h:outputText value="#{p.charteCompte.nom}"  />
                             </rich:column>
                         </rich:dataTable>
+                </rich:panel>
 
- <rich:spacer height="20"/>
 
- <a4j:commandLink value="#{msg.btn_valider}" action="#{gsParamSoco.newCoop}" />
+  <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="15%" ><h:commandButton id="ret" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  styleClass="btn_Valider" value="#{msg.btn_retour}" immediate="true"/></td>
+                                <td width="27%" ></td>
+                                <td width="15%" ><h:commandButton id="annul" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="27%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val"  action="#{gsParamSoco.newCoop}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
             </h:form>
          </rich:panel>
 

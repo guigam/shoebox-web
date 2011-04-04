@@ -17,7 +17,7 @@
         </rich:messages>
            <a4j:status>
                 <f:facet name="start">
-                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                    <h:graphicImage  value="/icons/loadinfo.net.gif"/>
                 </f:facet>
             </a4j:status>
     </ui:define>
@@ -31,11 +31,11 @@
 
 
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{msg.lib_reference}" />
+                    <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                     <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
-                    <h:outputText value="#{msg.lib_fournisseurProduit}" />
+                    <h:outputText value="#{msg.lib_fournisseurProduit}" styleClass="titreLibelle"/>
                     <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterFP" required="true" requiredMessage="#{msg.lib_fournisseurProduit} #{msg.message_Obligatoire}">
-                        <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
+                        <f:selectItems value="#{parametrageShoebox.listitemFP}" />
                     </rich:comboBox>
                     <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
                     <rich:calendar value="#{gsCommandes.commade.dateCommande}" datePattern="dd/MM/yyyy" required="true" requiredMessage="#{msg.lib_date} #{msg.message_Obligatoire}"/>
@@ -111,10 +111,10 @@
                         </rich:dataTable>
                          <rich:spacer height="40/"/>
                         <table width="100%" border="0">
-                            <tr style="background-color:#1C4A6D">
+                            <tr style="background-color:#b8cbab">
                                 <td width="20%" ><h:commandButton id="annul" action="lstCommandeEntreeproduit"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsCommandes.newCommandeEntreeProduit}" style="border-style:none;background-color: #1C4A6D;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsCommandes.newCommandeEntreeProduit}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
                     </a4j:outputPanel>

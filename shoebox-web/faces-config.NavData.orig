@@ -7,24 +7,38 @@
         <Node id="caisse/remboursementFP.xhtml" x="1400" y="1050" zoom="true"/>
         <Node id="caisse/addTransactionCaisse.xhtml" x="150" y="1200" zoom="true"/>
         <Node id="firstTime/configParamTransaction.xhtml" x="2650" y="450" zoom="true"/>
-        <Node id="caisse/lstTransactionCharges.xhtml" x="1150" y="450" zoom="true"/>
         <Node id="parametrageCoop/listFournisseurIntrant.xhtml" x="650" y="450" zoom="true"/>
+<<<<<<< HEAD
         <Node id="rapport/compteRecevoir.xhtml" x="1400" y="450" zoom="true"/>
         <Node id="rapport/menuRapport.xhtml" x="1400" y="750" zoom="true"/>
+=======
+        <Node id="caisse/lstTransactionCharges.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="rapport/menuRapport.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="rapport/compteRecevoir.xhtml" x="1400" y="450" zoom="true"/>
+>>>>>>> e5acabc7587f8f2e77a74e9de97e7cce93013e42
         <Node id="rapport/etatFP.xhtml" x="900" y="300" zoom="true"/>
         <Node id="caisse/remboursementFI.xhtml" x="150" y="600" zoom="true"/>
         <Node id="parametrageCoop/addIntrant.xhtml" x="1650" y="600" zoom="true"/>
-        <Node id="caisse/remboursementClient.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="parametrageCoop/addClient.xhtml" x="2650" y="300" zoom="true"/>
         <Node id="parametrageCoop/addCompteEncaisse.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="parametrageCoop/addClient.xhtml" x="2650" y="300" zoom="true"/>
+        <Node id="caisse/remboursementClient.xhtml" x="150" y="300" zoom="true"/>
         <Node id="firstTime/listDefinitioPeriodeAdminView.xhtml" x="3150" y="150" zoom="true"/>
         <Node id="templateCaisse.xhtml" x="1650" y="750" zoom="true"/>
+<<<<<<< HEAD
         <Node id="caisse/lstTransactionAvanceproduit.xhtml" x="150" y="1350" zoom="true"/>
-        <Node id="parametrageCoop/configurationMagasin.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="templateUtilisateur.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="parametrageCoop/configurationMagasin.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="templateRapport.xhtml" x="1150" y="1050" zoom="true"/>
         <Node id="parametrageCoop/listDefinitioPeriode.xhtml" x="150" y="1800" zoom="true"/>
         <Node id="commandes/menuMagasin.xhtml" x="650" y="1350" zoom="true"/>
+=======
+        <Node id="parametrageCoop/configurationMagasin.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="caisse/lstTransactionAvanceproduit.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="templateUtilisateur.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="commandes/menuMagasin.xhtml" x="650" y="1350" zoom="true"/>
         <Node id="templateRapport.xhtml" x="1150" y="1050" zoom="true"/>
+        <Node id="parametrageCoop/listDefinitioPeriode.xhtml" x="150" y="1800" zoom="true"/>
+>>>>>>> e5acabc7587f8f2e77a74e9de97e7cce93013e42
         <Node id="commandes/listCommandeSortieProduitIntrant.xhtml" x="400" y="150" zoom="true"/>
         <Node id="parametrageCoop/listFournisseurProduit.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="caisse/listVenteProduitIntrant.xhtml" x="1400" y="300" zoom="true"/>
@@ -34,40 +48,60 @@
         <Node id="caisse/addTransactionSDCaisse.xhtml" x="150" y="150" zoom="true"/>
         <Node id="parametrageCoop/addFournisseurIntrant.xhtml" x="1900" y="750" zoom="true"/>
         <Node id="templateResultat.xhtml" x="900" y="1050" zoom="true"/>
-        <Node id="parametrageSoco/lstCooperative.xhtml" x="900" y="150" zoom="true"/>
         <Node id="parametrageCoop/listMagasin.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="parametrageSoco/lstCooperative.xhtml" x="900" y="150" zoom="true"/>
         <Node id="firstTime/listDefinitioPeriodeAdmin.xhtml" x="400" y="1650" zoom="true"/>
-        <Node id="caisse/addCharge.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="parametrageCoop/listCharteCompte.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="caisse/addCharge.xhtml" x="650" y="1200" zoom="true"/>
+<<<<<<< HEAD
+=======
+        <Node id="commandes/listCommandeSortieProduit.xhtml" x="650" y="300" zoom="true"/>
+>>>>>>> e5acabc7587f8f2e77a74e9de97e7cce93013e42
         <Node id="firstTime/addCooperative.xhtml" x="2150" y="450" zoom="true"/>
         <Node id="commandes/listCommandeSortieProduit.xhtml" x="650" y="300" zoom="true"/>
         <Node id="commandes/addCommandeEntreeIntrant.xhtml" x="2400" y="450" zoom="true"/>
         <Node id="firstTime/configUniteDevise.xhtml" x="2400" y="600" zoom="true"/>
         <Node id="caisse/listVenteProduit.xhtml" x="150" y="1650" zoom="true"/>
         <Node id="templateParamSoco.xhtml" x="900" y="900" zoom="true"/>
-        <Node id="parametrageSoco/parametragetransactionCharteSoco.xhtml" x="2900" y="150" zoom="true"/>
         <Node id="rapport/etatFI.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="parametrageSoco/parametragetransactionCharteSoco.xhtml" x="2900" y="150" zoom="true"/>
         <Node id="commandes/listCommandeEntreeProduit.xhtml" x="1150" y="300" zoom="true"/>
-        <Node id="commandes/addCommandeEntreeproduit.xhtml" x="400" y="450" zoom="true"/>
         <Node id="commandes/listCommandeEntreeIntrant.xhtml" x="400" y="300" zoom="true"/>
+<<<<<<< HEAD
+        <Node id="commandes/addCommandeEntreeproduit.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="templateMagasin.xhtml" x="900" y="1200" zoom="true"/>
+=======
+>>>>>>> e5acabc7587f8f2e77a74e9de97e7cce93013e42
         <Node id="index.jsp" x="1900" y="450" zoom="true"/>
         <Node id="templateMagasin.xhtml" x="900" y="1200" zoom="true"/>
         <Node id="firstTime/resume.xhtml" x="150" y="750" zoom="true"/>
         <Node id="firstTime/listParamTransactionAffichage.xhtml" x="2150" y="750" zoom="true"/>
         <Node id="caisse/detteFI.xhtml" x="900" y="450" zoom="true"/>
+<<<<<<< HEAD
+=======
+        <Node id="resultat/resultatCoop.xhtml" x="1150" y="1200" zoom="true"/>
         <Node id="parametrageSoco/formatge.xhtml" x="1650" y="150" zoom="true"/>
+>>>>>>> e5acabc7587f8f2e77a74e9de97e7cce93013e42
         <Node id="parametrageCoop/listProduit.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="parametrageSoco/formatge.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="resultat/resultatCoop.xhtml" x="1150" y="1200" zoom="true"/>
         <Node id="firstTime/updateutilisateurAdmin.xhtml" x="1400" y="600" zoom="true"/>
         <Node id="parametrageCoop/menuParam.xhtml" x="1400" y="900" zoom="true"/>
         <Node id="parametrageCoop/addMagasin.xhtml" x="400" y="1350" zoom="true"/>
         <Node id="commandes/addCommandeSortisProduit.xhtml" x="1900" y="600" zoom="true"/>
-        <Node id="rapport/etatCooperative.xhtml" x="2150" y="300" zoom="true"/>
-        <Node id="rapport/comptePayer.xhtml" x="400" y="900" zoom="true"/>
         <Node id="caisse/menuCaisse.xhtml" x="2650" y="150" zoom="true"/>
         <Node id="parametrageCoop/listClient.xhtml" x="900" y="750" zoom="true"/>
+<<<<<<< HEAD
         <Node id="parametrageSoco/updateutilisateur.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="caisse/detteClient.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="rapport/etatCooperative.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="rapport/comptePayer.xhtml" x="400" y="900" zoom="true"/>
+=======
+        <Node id="caisse/detteClient.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="rapport/etatCooperative.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="rapport/comptePayer.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="parametrageSoco/updateutilisateur.xhtml" x="1150" y="150" zoom="true"/>
+>>>>>>> e5acabc7587f8f2e77a74e9de97e7cce93013e42
         <Node id="parametrageCoop/addProduit.xhtml" x="650" y="900" zoom="true"/>
         <Node id="caisse/listAchatProduitIntrant.xhtml" x="900" y="600" zoom="true"/>
         <Node id="templateParametrage.xhtml" x="400" y="750" zoom="true"/>
@@ -81,8 +115,8 @@
         <Node id="index.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="firstTime/updateCooperative.xhtml" x="2900" y="300" zoom="true"/>
         <Node id="commandes/addCommandeSortisProduitIntrant.xhtml" x="650" y="750" zoom="true"/>
-        <Node id="firstTime/addUtilisateurAdmin.xhtml" x="1150" y="750" zoom="true"/>
         <Node id="caisse/detteFP.xhtml" x="900" y="1350" zoom="true"/>
+        <Node id="firstTime/addUtilisateurAdmin.xhtml" x="1150" y="750" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

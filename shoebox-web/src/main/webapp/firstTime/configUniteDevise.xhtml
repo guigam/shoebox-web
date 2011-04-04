@@ -6,7 +6,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j">
- 
+
 
     <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
@@ -14,49 +14,62 @@
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
-           <a4j:status>
-                <f:facet name="start">
-                    <h:graphicImage  value="/icons/searching_progress.gif"/>
-                </f:facet>
-            </a4j:status>
+        <a4j:status>
+            <f:facet name="start">
+                <h:graphicImage  value="/icons/searching_progress.gif"/>
+            </f:facet>
+        </a4j:status>
     </ui:define>
     <ui:define name="content">
-         <rich:panel>
-              <h:outputText value="#{msg.lib_paramDeviseUnite}" styleClass="titrePanel" />
-                <rich:separator width="100%"/>
-                <rich:spacer height="10"/>
+        <rich:panel>
+            <h:outputText value="#{msg.lib_paramDeviseUnite}" styleClass="titrePanel" />
+            <rich:separator width="100%"/>
+            <rich:spacer height="10"/>
             <h:form>
-                                    <h:panelGrid columns="4" >
-                                        <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
-                                        <rich:comboBox value="#{gsParamSoco.devise.curremcy}">
-                                            <f:selectItem itemValue="$"/>
-                                            <f:selectItem itemValue="euro"/>
-                                            <f:selectItem itemValue="DTN"/>
-                                        </rich:comboBox>
-                                        <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
-                                        <rich:comboBox value="#{gsParamSoco.devise.apresVirgule}">
-                                            <f:selectItem itemValue="1"/>
-                                            <f:selectItem itemValue="2"/>
-                                            <f:selectItem itemValue="3"/>
-                                            <f:selectItem itemValue="4"/>
-                                        </rich:comboBox>
-                                        <h:outputText value="#{msg.lib_unite}" styleClass="titreLibelle"/>
-                                        <rich:comboBox  value="#{gsParamSoco.unite.curremcy}">
-                                            <f:selectItem itemValue="Kg"/>
-                                            <f:selectItem itemValue="L"/>
-                                            <f:selectItem itemValue="Cm3"/>
-                                        </rich:comboBox>
-                                        <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
-                                        <rich:comboBox value="#{gsParamSoco.unite.apresVirgule}">
-                                            <f:selectItem itemValue="1"/>
-                                            <f:selectItem itemValue="2"/>
-                                            <f:selectItem itemValue="3"/>
-                                            <f:selectItem itemValue="4"/>
-                                        </rich:comboBox>
-                                    </h:panelGrid>
-<h:commandButton action="/firstTime/configParamTransaction.xhtml" value="#{msg.btn_suivant}"/>
-                    </h:form>
-         </rich:panel>
+                <h:panelGrid columns="4" >
+                    <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
+                    <rich:comboBox value="#{gsParamSoco.devise.curremcy}" required="true" requiredMessage="#{msg.lib_devise} #{msg.message_Obligatoire}">
+                        <f:selectItem itemValue="$"/>
+                        <f:selectItem itemValue="euro"/>
+                        <f:selectItem itemValue="DTN"/>
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                    <rich:comboBox value="#{gsParamSoco.devise.apresVirgule}" required="true" requiredMessage="#{msg.lib_chiffreApresVirgule} #{msg.message_Obligatoire}">
+                        <f:selectItem itemValue="1"/>
+                        <f:selectItem itemValue="2"/>
+                        <f:selectItem itemValue="3"/>
+                        <f:selectItem itemValue="4"/>
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_unite}" styleClass="titreLibelle"/>
+                    <rich:comboBox  value="#{gsParamSoco.unite.curremcy}" required="true" requiredMessage="#{msg.lib_unite} #{msg.message_Obligatoire}">
+                        <f:selectItem itemValue="Kg"/>
+                        <f:selectItem itemValue="L"/>
+                        <f:selectItem itemValue="Cm3"/>
+                    </rich:comboBox>
+                    <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
+                    <rich:comboBox value="#{gsParamSoco.unite.apresVirgule}" required="true" requiredMessage="#{msg.lib_chiffreApresVirgule} #{msg.message_Obligatoire}">
+                        <f:selectItem itemValue="1"/>
+                        <f:selectItem itemValue="2"/>
+                        <f:selectItem itemValue="3"/>
+                        <f:selectItem itemValue="4"/>
+                    </rich:comboBox>
+                </h:panelGrid>
+                <rich:spacer height="40/"/>
+                <table width="100%" border="0">
+                    <tr style="background-color:#b8cbab">
+                        <td width="15%" ><h:commandButton id="ret" action="/firstTime/listDefinitioPeriodeAdmin.xhtml"  styleClass="btn_Valider" value="#{msg.btn_retour}" immediate="true"/></td>
+                        <td width="27%" ></td>
+                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                            </h:commandButton></td>
+                        <td width="27%" ></td>
+                        <td  width="15%" height="20px"><h:commandButton id="val"  action="#{gsParamSoco.configDeviseUniteredirect}" styleClass="btn_Valider" value="#{msg.btn_suivant}">
+                                <f:param name="outcome" value="/firstTime/configParamTransaction.xhtml"/>
+                            </h:commandButton></td>
+                    </tr>
+                </table>
+            </h:form>
+        </rich:panel>
     </ui:define>
 
 

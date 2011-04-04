@@ -28,27 +28,37 @@
                 <h:panelGrid columns="2" styleClass="top,top">
                     <h:panelGrid columns="2">
                         <h:outputText value="#{msg.lib_username}"/>
-                        <h:inputText value="#{gsParamSoco.utilisateur.username}"/>
+                        <h:inputText value="#{gsParamSoco.utilisateur.username}" required="true" requiredMessage="#{msg.lib_username} #{msg.message_Obligatoire}"/>
                         <h:outputText value="#{msg.lib_fonction}"/>
-                        <h:inputText value="#{gsParamSoco.utilisateur.fonction}"/>
+                        <h:inputText value="#{gsParamSoco.utilisateur.fonction}" required="true" requiredMessage="#{msg.lib_fonction} #{msg.message_Obligatoire}"/>
                          <h:outputText value="#{msg.lib_cooperative}"/>
-                         <rich:comboBox value="#{gsParamSoco.utilisateur.cooperative}" converter="coopConverter">
+                         <rich:comboBox value="#{gsParamSoco.utilisateur.cooperative}" converter="coopConverter" >
                             <f:selectItems value="#{parametrageShoebox.listitemCooperative}"/>
                         </rich:comboBox>
                         <h:outputText value="#{msg.lib_langue}"/>
-                        <rich:comboBox value="#{gsParamSoco.utilisateur.langue}">
+                        <rich:comboBox value="#{gsParamSoco.utilisateur.langue}" required="true" requiredMessage="#{msg.lib_langue} #{msg.message_Obligatoire}">
                             <f:selectItem itemValue="#{msg.lib_francais}"/>
                             <f:selectItem itemValue="#{msg.lib_anglais}"/>
                         </rich:comboBox>
                         <h:outputText value="#{msg.lib_etat}"/>
-                        <h:inputText value="#{gsParamSoco.utilisateur.etat}"/>
+                        <h:selectBooleanCheckbox value="#{gsParamSoco.utilisateur.etat}" required="true" requiredMessage="#{msg.lib_etat} #{msg.message_Obligatoire}"/>
 
                     </h:panelGrid>
                     <rich:pickList value="#{gsParamSoco.utilisateur.lstPermission}" converter="permissionConverter">
                         <f:selectItems value="#{gsParamSoco.listitemPermission}"/>
                     </rich:pickList>
                 </h:panelGrid>
-                <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.newUtilisateurAdmin}"/>
+                 <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                            
+                                <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.redirect}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                        <f:param name="outcome" value="/firstTime/listAllUtilisateurs.xhtml"/>
+                                    </h:commandButton></td>
+                                <td width="70%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val"  action="#{gsParamSoco.newUtilisateurAdmin}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
             </rich:panel>
         </h:form>
     </ui:define>

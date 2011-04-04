@@ -30,9 +30,9 @@
 
 
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{msg.lib_reference}" />
+                    <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                     <h:inputText value="#{gsCommandes.commade.reference}" required="true" requiredMessage="#{msg.lib_reference} #{msg.message_Obligatoire}"/>
-                    <h:outputText value="#{msg.lib_fournisseurProduit}" />
+                    <h:outputText value="#{msg.lib_fournisseurProduit}" styleClass="titreLibelle"/>
                     <rich:comboBox value="#{gsCommandes.commade.m_entite}" converter="converterFI">
                         <f:selectItems value="#{parametrageShoebox.listitemFI}"/>
                     </rich:comboBox>
@@ -97,10 +97,10 @@
                         </rich:dataTable>
                  <rich:spacer height="40/"/>
                         <table width="100%" border="0">
-                            <tr style="background-color:#C6D4B9">
+                            <tr style="background-color:#b8cbab">
                                 <td width="20%" ><h:commandButton id="annul" action="lstCommandeEntreeIntrant"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsCommandes.newCommandeEntreeIntrant}" style="border-style:none;background-color:#0E7145;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsCommandes.newCommandeEntreeIntrant}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
                     </a4j:outputPanel>

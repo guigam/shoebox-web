@@ -19,11 +19,13 @@
             </a4j:status>
     </ui:define>
     <ui:define name="content">
+        <h:form id="form">
+            <a4j:keepAlive beanName="gsResultat" ajaxOnly="true"/>
         <rich:panel>
         <h:outputText value="#{msg.lib_etatDuCompte} " styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsResultat.etatcompteCoop}"  var="item" width="100%">
+                <rich:dataTable value="#{gsResultat.etatcompteCoop}"  var="item" width="100%" id="tab">
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}"/>
@@ -64,6 +66,8 @@
                         </h:outputText>
                     </rich:column>
                 </rich:dataTable>
-                </rich:panel>
+
+        </rich:panel>
+        </h:form>
     </ui:define>
 </ui:composition>

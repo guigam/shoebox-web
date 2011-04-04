@@ -6,19 +6,19 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j">
-    
 
-     <ui:define name="message" >
+
+    <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
-           <a4j:status>
-                <f:facet name="start">
-                    <h:graphicImage  value="/icons/searching_progress.gif"/>
-                </f:facet>
-            </a4j:status>
+        <a4j:status>
+            <f:facet name="start">
+                <h:graphicImage  value="/icons/searching_progress.gif"/>
+            </f:facet>
+        </a4j:status>
     </ui:define>
     <ui:define name="content">
         <rich:panel>
@@ -27,31 +27,44 @@
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
                 <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}" >
-                            <rich:column width="20%">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg.lib_codeTransaction}"/>
-                                </f:facet>
-                                <h:outputText value="#{p.abrev}"/>
-                            </rich:column>
-                            <rich:column width="40%">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg.lib_transaction}"/>
-                                </f:facet>
-                                <h:outputText value="#{p.type}"/>
-                            </rich:column>
-                            <rich:column width="40%">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
-                                </f:facet>
-                                <center><rich:comboBox valueChangeListener="#{gsParamSoco.test}"  value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte" >
-                                        <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
-                                        <a4j:support event="onselect"   ajaxSingle="true" >
+                    <rich:column width="20%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_codeTransaction}"/>
+                        </f:facet>
+                        <h:outputText value="#{p.abrev}"/>
+                    </rich:column>
+                    <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_transaction}"/>
+                        </f:facet>
+                        <h:outputText value="#{p.type}"/>
+                    </rich:column>
+                    <rich:column width="40%">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
+                        </f:facet>
+                        <center><rich:comboBox valueChangeListener="#{gsParamSoco.test}"  value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte"  >
+                                <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
+                                <a4j:support event="onselect"   ajaxSingle="true" >
 <!--                                            <f:setPropertyActionListener target="#{gsParamSoco.paramtsx}" value="#{p}"/>-->
-                                        </a4j:support>
-                                    </rich:comboBox></center>
-                            </rich:column>
-                        </rich:dataTable>
-                        <h:commandButton value="#{msg.btn_terminer}" action="/firstTime/resume.xhtml"/>
+                                </a4j:support>
+                            </rich:comboBox></center>
+                    </rich:column>
+                </rich:dataTable>
+                <rich:spacer height="40/"/>
+                <table width="100%" border="0">
+                    <tr style="background-color:#b8cbab">
+                        <td width="15%" ><h:commandButton id="ret" action="/firstTime/configUniteDevise.xhtml"  styleClass="btn_Valider" value="#{msg.btn_retour}" immediate="true"/></td>
+                        <td width="27%" ></td>
+                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                            </h:commandButton></td>
+                        <td width="27%" ></td>
+                        <td  width="15%" height="20px"><h:commandButton id="val"  action="#{gsParamSoco.configParamTransactionRedirect}" styleClass="btn_Valider" value="#{msg.btn_suivant}">
+                                <f:param name="outcome" value="/firstTime/resume.xhtml"/>
+                            </h:commandButton></td>
+                    </tr>
+                </table>
             </h:form>
         </rich:panel>
     </ui:define>

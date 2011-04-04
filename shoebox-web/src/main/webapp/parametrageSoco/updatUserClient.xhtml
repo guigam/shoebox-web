@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateResultat.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+
+ <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_modificationUtilisateur}" styleClass="titrePanel"/>
+                <rich:separator/>
+                <rich:spacer height="10"/>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{msg.lib_nomPrenom}" styleClass="titreLibelle"/>
+                    <h:inputText value="#{gsLogin.user.nomPrenom}" styleClass="titreNormal"/>
+                    <h:outputText value="#{msg.lib_username}" styleClass="titreLibelle"/>
+                    <h:inputText value="#{gsLogin.user.username}" styleClass="titreNormal"/>
+                    <h:outputText value="#{msg.lib_passwordOld}" styleClass="titreLibelle"/>
+                    <a4j:region>
+                        <h:inputSecret value="#{gsLogin.verifMDP}" styleClass="titreNormal">
+                            <a4j:support action="#{gsLogin.verifMotdepasse}" ajaxSingle="true" event="onchange" immediate="true"/>
+                        </h:inputSecret>
+                    </a4j:region>
+                    <h:outputText value="#{msg.lib_passwordNew}" styleClass="titreLibelle"/>
+                    <h:inputSecret value="#{gsLogin.user.password}"/>
+                    
+                </h:panelGrid>
+<rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/menuParam.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsLogin.updateUser}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

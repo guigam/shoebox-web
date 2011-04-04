@@ -28,8 +28,7 @@
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
                 <rich:panel style="background-color: white">
-                    <h:outputText value="#{msg.lib_detail}" styleClass="sousTitrePanel"/>
-                    <h:outputText value="#{gsCommandes.commade.m_entite.name}"  styleClass="sousTitrePanel"/>
+                    <h:outputText value="#{msg.lib_detailCommande} #{msg.lib_reference} #{gsCommandes.commade.reference}" styleClass="sousTitrePanel"/>
                     <rich:spacer width="2"/>
                     <rich:separator width="100%" height="2"/>
                     <h:panelGrid columns="6">
@@ -49,7 +48,7 @@
                         <rich:spacer width="20"/>
                         <h:panelGrid>
                            <h:outputText value="#{msg.lib_montantRestant}" styleClass="titreLibelle"/>
-                           <a4j:commandLink id="rest"  styleClass="titreNormal" action="#{gestionCaisse.payerRestant}" reRender="autre">
+                           <a4j:commandLink id="rest"  styleClass="titreNormal" action="#{gestionCaisse.payerRestant}" reRender="mont">
                                <h:outputText value="#{gsCommandes.commade.montantrestant}">
                                     <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                                     </h:outputText>
@@ -70,19 +69,7 @@
                             <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
                         </rich:comboBox>
                         <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle" />
-                        <rich:comboBox value="#{gestionCaisse.typeRemboursement}" >
-                            <f:selectItem itemValue="#{msg.itemRemboursementCompte}" />
-                            <f:selectItem  itemValue="#{msg.itemMontantRestant}"/>
-                            <f:selectItem  itemValue="#{msg.itemAutre}"/>
-                            <a4j:support event="onselect"  limitToList="true" ajaxSingle="true" reRender="autre"/>
-                         </rich:comboBox>
-                        <rich:spacer/>
-                        <a4j:outputPanel id="autre">
-                            <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"  id="montant"/>
-
-                            <h:commandButton image="/icons/delete.gif" action="#{gestionCaisse.resetMontant}" style="font-size: 10px"/>
-                        </a4j:outputPanel>
-                        <h:commandButton value="#{msg.btn_valider}" action="#{gestionCaisse.newtransactionCommande}" />
+                        <h:inputText value="#{gestionCaisse.tsxCaisse.montant}"   id="mont"/>
                     </h:panelGrid>
                     <rich:spacer width="50"/>
                     <rich:panel header="#{msg.lib_listTransaction}" style="vertical-align: top; width: 100%" >
@@ -126,7 +113,14 @@
                     </rich:dataTable>
                 </rich:panel>
                         </h:panelGrid>
-
+<rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="20%" ><h:commandButton id="annul" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val"  action="#{gestionCaisse.newtransactionCommande}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
 
 
 

@@ -49,6 +49,8 @@ public class Utilisateur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String nomPrenom;
     private String username;
     private String password;
     private String fonction;
@@ -305,6 +307,20 @@ public class Utilisateur implements Serializable {
      */
     public void setLstPermission(List<Permission> lstPermission) {
         this.lstPermission = lstPermission;
+    }
+
+    /**
+     * @return the nomPrenom
+     */
+    public String getNomPrenom() {
+        return nomPrenom;
+    }
+
+    /**
+     * @param nomPrenom the nomPrenom to set
+     */
+    public void setNomPrenom(String nomPrenom) {
+        this.nomPrenom = nomPrenom;
     }
 
 

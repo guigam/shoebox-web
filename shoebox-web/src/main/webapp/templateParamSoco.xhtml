@@ -33,12 +33,11 @@
                         <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
                         <rich:spacer width="5"/>
                         <a4j:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
-                        <h:commandButton image="/icons/user_green.png"/>
+                        <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
                         <rich:spacer width="5"/>
-                        <a4j:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" /><br/>
-                        <h:outputText value="#{msg.lib_periode}" styleClass="titreLibelle"/>
-                        <rich:spacer width="5"/>
-                        <h:outputText value="#{gsLogin.currentPeriode.periode}" styleClass="titreLibelle"/>
+                        <a4j:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
+                        <h:commandButton image="/icons/per.png"/>
+                         <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
                             </div>
                         </td>
                         </tr>
@@ -65,9 +64,9 @@
                            <rich:panelMenu label="Menu" >
                                 <rich:panelMenuGroup  label="Menu" expanded="true"  >
                                     <rich:panelMenuGroup  label="#{msg.lib_administration}" expanded="true"  >
-                                        <rich:panelMenuItem  label="#{msg.lib_listCooperative}" action="#{redirectController.redirect}"><f:param value="lstCooperative" name="outcome"/></rich:panelMenuItem>
-                                        <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{redirectController.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
-                                        <rich:panelMenuItem  label="#{msg.lib_utilisateurs}" action="#{redirectController.redirect}"><f:param value="lstUtilisateurs" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_listCooperative}" action="#{gsParamSoco.redirect}"><f:param value="lstCooperative" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{gsParamSoco.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_utilisateurs}" action="#{gsParamSoco.redirect}"><f:param value="lstUtilisateurs" name="outcome"/></rich:panelMenuItem>
                                     </rich:panelMenuGroup>
                                 </rich:panelMenuGroup>
                             </rich:panelMenu>

@@ -56,6 +56,8 @@ public class Cooperative implements Serializable {
 private List<formatageEntier> lstFormatEntier = new LinkedList<formatageEntier>();
     @OneToMany(mappedBy="coop", cascade=CascadeType.ALL)
     private List<ParamTransaction> lstParametrage = new LinkedList<ParamTransaction>();
+    @OneToMany(mappedBy="cooperative", cascade=CascadeType.ALL)
+    private List<CategorieCharge> lstCategCharge = new LinkedList<CategorieCharge>();
     public Long getId() {
         return id;
     }
@@ -199,6 +201,20 @@ private List<formatageEntier> lstFormatEntier = new LinkedList<formatageEntier>(
      */
     public void setLstParametrage(List<ParamTransaction> lstParametrage) {
         this.lstParametrage = lstParametrage;
+    }
+
+    /**
+     * @return the lstCategCharge
+     */
+    public List<CategorieCharge> getLstCategCharge() {
+        return lstCategCharge;
+    }
+
+    /**
+     * @param lstCategCharge the lstCategCharge to set
+     */
+    public void setLstCategCharge(List<CategorieCharge> lstCategCharge) {
+        this.lstCategCharge = lstCategCharge;
     }
 
 

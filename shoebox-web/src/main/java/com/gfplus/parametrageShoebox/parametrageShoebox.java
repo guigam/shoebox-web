@@ -5,7 +5,6 @@
 package com.gfplus.parametrageShoebox;
 
 import Login.login;
-import ModelesParametrage.ParamTransaction;
 import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Client;
@@ -30,7 +29,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import parametrageCoop.serviceParamCoopLocal;
-import parametrageSocodevi.GestionParametrageSoco;
 import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**

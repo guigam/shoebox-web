@@ -284,7 +284,26 @@ public class GestionResultat implements Serializable {
         }
         return somme;
     }
+    public Double getsommeFraisCharge() {
+        double somme = 0;
+        for (CategorieCharge c : paramShoebox.getlstCategorieCharge()) {
+            somme = somme + calculSommeChargeGroupByCategorie(c);
+        }
+        return somme;
+    }
 
+    public Double getautresRevenus(){
+        return  (double) calculSommePeriodeCharteCompte("TA-2") + (double) calculSommePeriodeCharteCompte("TC") + (double) calculSommePeriodeCharteCompte("TD")
+                 + (double) calculSommePeriodeCharteCompte("TE")+ (double) calculSommePeriodeCharteCompte("TF") + (double) calculSommePeriodeCharteCompte("TH")
+                 + (double) calculSommePeriodeCharteCompte("TK") + (double) calculSommePeriodeCharteCompte("TL") + (double) calculSommePeriodeCharteCompte("TS")
+                 + (double) calculSommePeriodeCharteCompte("TT") + (double) calculSommePeriodeCharteCompte("UF") + (double) calculSommePeriodeCharteCompte("UO");
+    }
+    public Double getCoutLie(){
+       return (double) 0;
+    }
+    public Double getresultatConsolide(){
+        return (getmargeBrutExploitation() - getsommeFraisCharge()) + getautresRevenus() - getCoutLie();
+    }
     public List<StructureCharge> getlstResultatCharge() {
         return serviceResultat.lsttructureCharge();
     }

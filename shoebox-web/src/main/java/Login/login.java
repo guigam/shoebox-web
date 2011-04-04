@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,7 @@ public class login implements Serializable{
     private Cooperative currentCoop = new Cooperative();
     private formatageEntier currentFormatDevise = new formatageEntier();
     private formatageEntier currentFormatUnite = new formatageEntier();
+    private String verifMDP = null;
     @EJB
     private ServiceParamSocoLocal serviceparamSoco;
     @EJB
@@ -78,6 +80,19 @@ public class login implements Serializable{
         }
     }
 
+    public void verifMotdepasse(){
+        if(!user.getPassword().equals(verifMDP)){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifier votre mot de passe", "Verifier votre mot de passe");
+                FacesContext.getCurrentInstance().addMessage("mdp", msg);
+        }
+    }
+
+
+    public String updateUser(){
+        
+        serviceparamSoco.updateUtilisateur(user);
+        return "/index.xhtml";
+    }
     /**
      * @return the user
      */
@@ -163,6 +178,22 @@ public class login implements Serializable{
     public void setCurrentFormatUnite(formatageEntier currentFormatUnite) {
         this.currentFormatUnite = currentFormatUnite;
     }
+
+    /**
+     * @return the verifMDP
+     */
+    public String getVerifMDP() {
+        return verifMDP;
+    }
+
+    /**
+     * @param verifMDP the verifMDP to set
+     */
+    public void setVerifMDP(String verifMDP) {
+        this.verifMDP = verifMDP;
+    }
+
+   
 
 
 
