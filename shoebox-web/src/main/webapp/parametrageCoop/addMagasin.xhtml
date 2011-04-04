@@ -27,19 +27,19 @@
                 <rich:spacer height="10"/>
 
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{msg.lib_nonMagasin}" />
+                    <h:outputText value="#{msg.lib_nonMagasin}" styleClass="titreLibelle"/>
                     <h:inputText value="#{parametrageShoebox.magasin.name}" required="true" requiredMessage="#{msg.lib_nonMagasin} #{msg.message_Obligatoire}"/>
-                    <h:outputText value="#{msg.lib_distance}" />
+                    <h:outputText value="#{msg.lib_distance}" styleClass="titreLibelle"/>
                     <h:inputText value="#{parametrageShoebox.magasin.distance}" />
-                    <h:outputText value="#{msg.lib_description}" />
+                    <h:outputText value="#{msg.lib_description}" styleClass="titreLibelle"/>
                     <h:inputTextarea cols="30" rows="3" value="#{parametrageShoebox.magasin.description}" />
                 </h:panelGrid>
                    <rich:spacer height="40/"/>
                         <table width="100%" border="0">
-                            <tr style="background-color:#1C4A6D">
+                            <tr style="background-color:#b8cbab">
                                 <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/menuParam.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{parametrageShoebox.newMagasin}"  style="border-style:none;background-color: #1C4A6D;width: 100%; cursor: pointer;color: white;font-weight: bold;font-size: 12px " value="#{msg.btn_valider}"/></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{parametrageShoebox.newMagasin}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
             </rich:panel>

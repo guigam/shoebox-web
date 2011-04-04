@@ -291,7 +291,8 @@
                         <td width="5%"></td>
                         <td style="background-color: #036fab; color: white;font-size: 12px" width="20%"><h:outputText value="#{gsResultat.margeBrutExploitation/gsResultat.sommeVenteCafeCacao}">
                              <f:convertNumber minFractionDigits="2" currencySymbol="%" type="currency"/>
-                            </h:outputText></td>
+                            </h:outputText>
+                        </td>
                     </tr>
                 </table>
                 <rich:spacer height="20"/>
@@ -333,36 +334,29 @@
                <rich:spacer height="1"/>
                 <table width="100%" border="1" style="background-color: white">
                     <tr>
-                        <td width="25%"><h:outputText value="#{msg.lib_margeBrutExploitation}" style="font-size: 12px;color: #770d0d;" /></td>
-                        <td style="background-color: #036fab; color: white;font-size: 12px" width="20%"><h:outputText value="#{(gsResultat.sommeVenteCafeCacao - gsResultat.sommeAchatProduit)-gsResultat.sommeFraisExploitation}"/></td>
+                        <td width="25%"><h:outputText value="#{msg.lib_resultatExploitationBrut}" style="font-size: 12px;color: #770d0d;" /></td>
+                        <td style="background-color: #036fab; color: white;font-size: 12px" width="20%"><h:outputText value="#{gsResultat.margeBrutExploitation-gsResultat.sommeFraisCharge}"/></td>
                         <td width="5%"></td>
                         <td style="background-color: #036fab; color: white;font-size: 12px" width="20%"><h:outputText value="#{((gsResultat.sommeVenteCafeCacao - gsResultat.sommeAchatProduit)-gsResultat.sommeFraisExploitation)/calculQuantiteProduitTotal}"/></td>
                         <td width="5%"></td>
                         <td style="background-color: #036fab; color: white;font-size: 12px" width="20%"><h:outputText value="#{((gsResultat.sommeVenteCafeCacao - gsResultat.sommeAchatProduit)-gsResultat.sommeFraisExploitation)/gsResultat.sommeVenteCafeCacao}">
                              <f:convertNumber minFractionDigits="2" currencySymbol="%" type="currency"/>
                             </h:outputText></td>
+
+
                     </tr>
                 </table>
                 <rich:spacer height="20"/>
                 <table border="1" width="100%">
                     <tr>
-                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_sommeDesCharges}" styleClass="titreTabResultat"/></td>
-                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_resultatExploit}" styleClass="titreTabResultat"/></td>
-                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_autres}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_coutLie}" styleClass="titreTabResultat"/></td>
+                        <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_autreRevenu}" styleClass="titreTabResultat"/></td>
                         <td class="celluleTabPrincipale"><h:outputText value="#{msg.lib_resultatExploitConsolide}" styleClass="titreTabResultat"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="valeur" styleClass="titreLibelle"/></td>
-                        <td><h:outputText value="valeur" styleClass="titreLibelle"/></td>
-                        <td>
-                            <h:panelGrid columns="2">
-                            <h:outputText value="valeur1" styleClass="titreLibelle"/>
-                            <h:outputText value="valeur2" styleClass="titrePositif"/>
-                            <h:outputText value="valeur1" styleClass="titreLibelle"/>
-                            <h:outputText value="valeur2" styleClass="titreBleu"/>
-                            </h:panelGrid>
-                        </td>
-                        <td style="background-color: white"><h:outputText value="valeur" styleClass="titreMontantTotal" /></td>
+                        <td><center> <h:outputText value="#{gsResultat.coutLie} pas encaore fait" styleClass="titreBleu"/></center></td>
+                        <td><center><h:outputText value="#{gsResultat.autresRevenus}" styleClass="titrePositif"/></center></td>
+                        <td style="background-color: white"><center><h:outputText value="#{gsResultat.resultatConsolide}" styleClass="titreMontantTotal" /></center></td>
                     </tr>
                 </table>
             </rich:tab>

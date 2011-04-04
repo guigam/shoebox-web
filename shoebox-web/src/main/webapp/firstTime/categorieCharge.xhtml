@@ -6,9 +6,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j">
- 
 
-     <ui:define name="message" >
+<ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
@@ -22,52 +21,53 @@
     </ui:define>
     <ui:define name="content">
          <rich:panel>
-            <h:form>
-                <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
+             <h:outputText value="#{msg.lib_categorieDesCharges}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" id="tab">
-                    <rich:column width="10%">
+            <h:form>
+                <a4j:commandLink value="#{msg.lib_ajouterCategorieCharge}" action="#{gsParamSoco.addcategChargeVide}" reRender="tab"/>
+                <rich:spacer height="10"/>
+                    <a4j:outputPanel id="tab">
+                <a4j:outputPanel rendered="#{empty gsParamSoco.cooperative.lstCategCharge}" id="tab1">
+                        rien
+                    </a4j:outputPanel>
+                        <a4j:outputPanel id="tab2" rendered="#{not empty gsParamSoco.cooperative.lstCategCharge}">
+                    <rich:dataTable width="70%" value="#{gsParamSoco.cooperative.lstCategCharge}" var="categ" id="tab3" >
+                    <rich:column width="30%">
                         <f:facet name="header">
-                            <h:outputText value="#{msg.lib_periode}"/>
+                            <h:outputText value="#{msg.lib_nomCategorie}"/>
                         </f:facet>
-                       <h:outputText value="#{def.periode}"/>
+                        <h:inputText />
                     </rich:column>
-                      <rich:column width="40%">
+                    <rich:column width="50%">
                         <f:facet name="header">
-                            <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
+                            <h:outputText value="#{msg.lib_description}"/>
                         </f:facet>
-                          <rich:calendar value="#{def.dateDebut}"/>
+                          <h:inputText/>
                     </rich:column>
-                      <rich:column width="40%">
+                    <rich:column width="20%">
                         <f:facet name="header">
-                            <h:outputText value="#{msg.lib_dateFinPeriode}"/>
+                            <h:outputText value="#{msg.lib_type}"/>
                         </f:facet>
-                          <rich:calendar value="#{def.dateFin}"/>
-                    </rich:column>
-                      <rich:column width="20%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_periodeCourante}"/>
-                        </f:facet>
-                          <center><h:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" >
-                                  <f:setPropertyActionListener target="#{gsParamSoco.dePeriode}" value="#{def}"/>
-                              </h:commandButton>
-                          </center>
+                          <rich:comboBox>
+                              <f:selectItem itemValue="Exploitation"/>
+                              <f:selectItem itemValue="Charge"/>
+                          </rich:comboBox>
                     </rich:column>
                 </rich:dataTable>
-                 <rich:spacer height="40/"/>
+                <rich:spacer height="40/"/>
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">
                                 <td width="15%" ><h:commandButton id="ret" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  styleClass="btn_Valider" value="#{msg.btn_retour}" immediate="true"/></td>
                                 <td width="27%" ></td>
                                 <td width="15%" ><h:commandButton id="annul" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="27%" ></td>
-                                <td  width="15%" height="20px"><h:commandButton id="val"  action="/firstTime/configUniteDevise.xhtml" styleClass="btn_Valider" value="#{msg.btn_suivant}"/></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val"  action="/firstTime/listDefinitioPeriodeAdmin.xhtml" styleClass="btn_Valider" value="#{msg.btn_suivant}"/></td>
                             </tr>
                         </table>
+                </a4j:outputPanel>
+                </a4j:outputPanel>
             </h:form>
          </rich:panel>
     </ui:define>
-
-
 </ui:composition>

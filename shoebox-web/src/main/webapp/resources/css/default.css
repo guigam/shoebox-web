@@ -94,12 +94,16 @@ a:link:hover, a:visited:hover  {
     vertical-align:top;
 }
 .celluleTabPrincipale{
-    background-color:#C6E3C6;
+    background-color:#b8cbab;
     color: #000000;
     font-weight:bold;
     font-size: 12px;
     text-align: center
 
+}
+.tableResultatCharge{
+
+    border-color: #0E7145;
 }
 
 .celluleTabMenu{

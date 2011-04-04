@@ -161,10 +161,14 @@
                          
                     </rich:dataTable>
                     <rich:spacer height="20"/>
-                    <div style="text-align: right">
-                        <h:commandButton value="#{msg.btn_valider}" reRender="tab" action="#{gsCommandes.confirmerCommande}" onclick="#{rich:component('panel')}.hide()" />
-                    </div>
-                    <h:commandButton value="#{msg.btn_fermer}" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"/>
+                    
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="20%" ><a4j:commandButton id="annul" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><a4j:commandButton id="val"  action="#{gsCommandes.confirmerCommande}" onclick="#{rich:component('panel')}.hide()" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
                 </rich:panel>
                     </h:form>
             </rich:modalPanel>

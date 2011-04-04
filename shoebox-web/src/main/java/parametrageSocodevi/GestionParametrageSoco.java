@@ -11,6 +11,7 @@ import ModelesParametrage.Permission;
 import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
+import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
 import java.io.FileNotFoundException;
@@ -156,7 +157,9 @@ System.out.println(event.getSource());
         fos.write(fup.getFile().getData());
     }
 
-
+public void addcategChargeVide(){
+    cooperative.getLstCategCharge().add(new CategorieCharge());
+}
 
 
 

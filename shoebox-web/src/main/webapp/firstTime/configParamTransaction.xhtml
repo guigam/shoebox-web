@@ -51,7 +51,16 @@
                                     </rich:comboBox></center>
                             </rich:column>
                         </rich:dataTable>
-                        <h:commandButton value="#{msg.btn_terminer}" action="/firstTime/resume.xhtml"/>
+                               <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="15%" ><h:commandButton id="ret" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  styleClass="btn_Valider" value="#{msg.btn_retour}" immediate="true"/></td>
+                                <td width="27%" ></td>
+                                <td width="15%" ><h:commandButton id="annul" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="27%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val"  action="/firstTime/resume.xhtml" styleClass="btn_Valider" value="#{msg.btn_terminer}"/></td>
+                            </tr>
+                        </table>
             </h:form>
         </rich:panel>
     </ui:define>

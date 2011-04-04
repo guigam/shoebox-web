@@ -23,13 +23,14 @@
              <h:outputText value="#{msg.lib_etatDuCompte} #{msg.lib_fournisseurProduit}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <h:outputText value="#{msg.lib_fournisseurProduit}"/>
+                 <h:panelGrid columns="2">
+                     <h:outputText value="#{msg.lib_fournisseurProduit}" styleClass="titreLibelle"/>
                
                 <rich:comboBox value="#{gsResultat.fp}"   valueChangeListener="#{gsResultat.etatcompteFP}"   converter="converterFP"  >
                     <f:selectItems value="#{parametrageShoebox.listitemFP}"/>
                    <a4j:support event="onselect" reRender="tab"/>
                 </rich:comboBox>
-                
+                 </h:panelGrid>
                 <rich:spacer height="10"/>
                 <rich:dataTable value="#{gsResultat.etatcompteFP}"  var="item" width="100%" id="tab">
                     <rich:column width="20%">
