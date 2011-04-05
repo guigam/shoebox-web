@@ -78,12 +78,12 @@
                         </f:facet>
                            <center> <h:outputText  value="#{item.montantTotal.equals(item.montantPaye) ? msg.lib_paye : msg.lib_nonPaye}" styleClass="titreLibelle" /></center>
                     </rich:column>
-                     <rich:column width="5%">
+                    <rich:column width="5%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_voirdetail}" />
                         </f:facet>
                          <center><h:commandButton id="voidetail"  image="/icons/eye.png">
-                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
+                                 <f:setPropertyActionListener target="#{gsCommandes.commandeAffiche}" value="#{item}"/>
 
                              </h:commandButton></center>
                          <rich:toolTip for="voidetail" value="#{msg.lib_voirdetail}"/>
@@ -91,9 +91,12 @@
 
                 </rich:dataTable>
             </rich:panel>
-            <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}">
+            <rich:modalPanel  id="panel" width="600" autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commandeAffiche.id != null}">
                 <rich:panel>
-                    <rich:dataTable value="#{gsCommandes.commade.lsttransactionMagasin}" var="tsx" width="100%" >
+                    <h:outputText value="#{msg.lib_detailmagasin}" styleClass="sousTitrePanel"/>
+                    <rich:separator height="2"/>
+                    <rich:spacer height="10"/>
+                    <rich:dataTable value="#{gsCommandes.commandeAffiche.lsttransactionMagasin}" var="tsx" width="100%" >
                         <rich:column>
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_magasin} : " styleClass="titreLibelle" />
@@ -113,6 +116,43 @@
                             <h:inputText value="#{tsx.quantite}" />
                         </rich:column>
                     </rich:dataTable>
+                    <rich:spacer height="40"/>
+                      <h:outputText value="#{msg.lib_detailTransaction}" styleClass="sousTitrePanel"/>
+                    <rich:separator height="2"/>
+                    <rich:spacer height="10"/>
+                    <rich:dataTable value="#{gsCommandes.commandeAffiche.lsttransactionCaisse}" var="tsc" width="100%" >
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_reference} : " styleClass="titreLibelle" />
+                            </f:facet>
+                            <h:outputText value="#{tsc.reference}" />
+                        </rich:column>
+                          <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_date} : " styleClass="titreLibelle" />
+                            </f:facet>
+                              <h:outputText value="#{tsc.date}" />
+                        </rich:column>
+                          <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_compteEncaisse} : " styleClass="titreLibelle" />
+                            </f:facet>
+                              <h:outputText value="#{tsc.compteEncaisse.nomCompte}" />
+                        </rich:column>
+                          <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.lib_montant} : " styleClass="titreLibelle" />
+                            </f:facet>
+                              <h:outputText value="#{tsc.montant}" />
+                        </rich:column>
+                    </rich:dataTable>
+                    <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><a4j:commandButton id="annul"  action="#{gsCommandes.fermerModelPanel}" styleClass="btn_Valider" value="#{msg.btn_fermer}" reRender="panel"/></td>
+                            </tr>
+                        </table>
                 </rich:panel>
             </rich:modalPanel>
         </h:form>

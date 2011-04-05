@@ -107,6 +107,7 @@ public class GestionCaisse implements Serializable {
         return true;
     }
 
+
     public String newtransactionSD() {
         if (validerTransactionSD(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(), tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())) {
             tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop())).getCharteCompte());

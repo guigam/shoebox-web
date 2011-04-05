@@ -55,6 +55,7 @@ public class gestionCommandes implements Serializable {
     private List<Commande> lstCommandeSortisProduit = new LinkedList<Commande>();
     private List<Commande> allCommande = new LinkedList<Commande>();
     private TransactionMagasin tsxMag = new TransactionMagasin();
+    private Commande commandeAffiche = new Commande();
 
     /** Creates a new instance of gestionCommandes */
     public gestionCommandes() {
@@ -94,6 +95,10 @@ public class gestionCommandes implements Serializable {
         } else {
             return "EPS";
         }
+    }
+
+      public void fermerModelPanel(){
+        commandeAffiche = new Commande();
     }
 
     private void setterCurrentUserPeriode() {
@@ -484,5 +489,19 @@ public class gestionCommandes implements Serializable {
      */
     public void setAllCommande(List<Commande> allCommande) {
         this.allCommande = allCommande;
+    }
+
+    /**
+     * @return the commandeAffiche
+     */
+    public Commande getCommandeAffiche() {
+        return commandeAffiche;
+    }
+
+    /**
+     * @param commandeAffiche the commandeAffiche to set
+     */
+    public void setCommandeAffiche(Commande commandeAffiche) {
+        this.commandeAffiche = commandeAffiche;
     }
 }
