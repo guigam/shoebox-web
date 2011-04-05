@@ -25,7 +25,6 @@
                 <h:outputText value="#{msg.lib_gestionEnregistrementCommande}" styleClass="titrePanel"/>
                 <rich:separator/>
                 <rich:spacer height="10"/>
-                <rich:panel style="background-color: white">
                     <h:outputText value="#{msg.lib_rechercheCommande}" styleClass="sousTitrePanel"/>
                     <rich:separator height="2"/>
                     <rich:spacer height="10"/>
@@ -33,7 +32,7 @@
                         <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
                         <h:inputText value="#{gsParamSoco.reference}"/>
                         <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                        <rich:calendar/>
+                        <rich:calendar value="#{gsParamSoco.dateComm}"/>
                     </h:panelGrid>
                          <rich:spacer height="20/"/>
                         <table width="100%" border="0">
@@ -45,37 +44,52 @@
                         </table>
                     <rich:spacer height="40"/>
 
-
-                    <rich:panel>
+                    <h:outputText value="#{msg.lib_resultat}" styleClass="sousTitrePanel"/>
+                    <rich:separator height="2"/>
+                    <rich:spacer height="20"/>
                         <a4j:outputPanel id="tab">
                             <a4j:outputPanel rendered="#{empty gsCommandes.allCommande}">
+
                                 <h:outputText value="#{msg.message_pasDenregistrement}" styleClass="titreLibelleSimple"/>
                             </a4j:outputPanel>
                             <a4j:outputPanel rendered="#{not empty gsCommandes.allCommande}">
-                                <rich:dataTable value="#{gsCommandes.allCommande}" var="c" cellpadding="1">
+                                <rich:dataTable value="#{gsCommandes.allCommande}" var="c" cellpadding="1" width="100%">
                                     <rich:column width="30%">
                                         <f:facet name="header">
                                             <h:outputText value="#{msg.lib_reference}"/>
                                         </f:facet>
-                                        <h:commandLink value="#{c.reference}" styleClass="titreLibelle"/>
+                                        <h:commandLink value="#{c.reference}" styleClass="sousTitrePanel"/>
                                     </rich:column>
-                                    <rich:column width="60%">
+                                    <rich:column width="30%">
                                         <f:facet name="header">
-                                            <h:outputText value="#{msg.lib_information}"/>
+                                            <h:outputText value="#{msg.lib_Information} #{msg.lib_commande}"/>
                                         </f:facet>
                                         <h:panelGrid columns="2">
-                                            <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
-                                            <h:outputText value="#{c.dateCommande}" style="font-size: 10px"/>
-                                            <h:outputText value="#{msg.lib_Information}" styleClass="titreLibelle"/>
-                                            <h:outputText value="#{c.m_entite.name}" style="font-size: 10px"/>
-                                            <h:outputText value="#{msg.lib_type}" styleClass="titreLibelle"/>
-                                            <h:outputText value="#{c.type}" style="font-size: 10px"/>
-                                            <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
-                                            <h:outputText value="#{c.montantTotal}" style="font-size: 10px"/>
-                                            <h:outputText value="#{msg.lib_nbTransactions}" styleClass="titreLibelle"/>
-                                            <h:outputText />
+                                            <h:outputText value="#{msg.lib_date}"  styleClass="title4"/>
+                                            <h:outputText value="#{c.dateCommande}" styleClass="title5"/>
+                                            <h:outputText value="#{msg.lib_Information}" styleClass="title4"/>
+                                            <h:outputText value="#{c.m_entite.name}" styleClass="title5"/>
+                                            <h:outputText value="#{msg.lib_type}" styleClass="title4"/>
+                                            <h:outputText value="#{c.type}" styleClass="title5"/>
+                                            <h:outputText value="#{msg.lib_montantTotal}" styleClass="title4"/>
+                                            <h:outputText value="#{c.montantTotal}" styleClass="title5"/>
+                                            <h:outputText value="#{msg.lib_nbTransactions}" styleClass="title4"/>
+                                            <h:outputText value="#{c.nbretransaction}" styleClass="title5"/>
                                         </h:panelGrid>
                                     </rich:column>
+                                    <rich:column width="30%">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.lib_transactionMagasin}"/>
+                                        </f:facet>
+                                            <ui:repeat value="#{c.lsttransactionMagasin}" var="m">
+                                                <h:panelGrid columns="2">
+                                                    <h:outputText value="#{m.produit.name}" styleClass="title4"/>
+                                                    <h:outputText value="#{m.quantite}" styleClass="title5"/>
+                                                </h:panelGrid>
+                                            </ui:repeat>
+                                        
+                                    </rich:column>
+
                                       <rich:column width="10%">
                                         <f:facet name="header">
                                             <h:outputText value="#{msg.lib_action}"/>
@@ -86,11 +100,9 @@
                                 </rich:dataTable>
                             </a4j:outputPanel>
                         </a4j:outputPanel>
-                    </rich:panel>
 
 
 
-                </rich:panel>
             </rich:panel>
         </h:form>
 

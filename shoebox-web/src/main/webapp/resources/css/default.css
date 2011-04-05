@@ -78,7 +78,13 @@ a:link:hover, a:visited:hover  {
     font-weight: bold;
     color: darkgreen;
 }
-
+.title4 {
+    font-size:7pt;
+    font-weight:bold;
+}
+.title5 {
+    font-size:7pt;
+}
 .top1{
     width: 75%;
     vertical-align:top;

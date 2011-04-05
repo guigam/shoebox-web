@@ -34,7 +34,7 @@
                     <h:panelGrid columns="6">
                         <h:panelGrid>
                             <center><h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
-                                <h:outputText value="#{gsCommandes.commade.montantTotal}" styleClass="titreMontantTotal">
+                                <h:outputText value="#{math:abs(gsCommandes.commade.montantTotal)}" styleClass="titreMontantTotal">
                                     <f:convertNumber type="currency" minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
                                 </h:outputText></center>
                         </h:panelGrid>

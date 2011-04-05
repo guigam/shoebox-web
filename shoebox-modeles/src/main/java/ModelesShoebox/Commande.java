@@ -106,6 +106,11 @@ public class Commande implements Serializable {
         return getmontantTotal() - getmontantPaye();
     }
 
+    @Transient
+    public int getnbretransaction(){
+        return lsttransactionCaisse.size();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
