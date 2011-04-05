@@ -6,17 +6,17 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:f="http://java.sun.com/jsf/core">
-     <ui:define name="message" >
+    <ui:define name="message" >
         <rich:messages styleClass="globalMessages" >
             <f:facet name="message">
                 <h:graphicImage  value="/img/error.png"/>
             </f:facet>
         </rich:messages>
-           <a4j:status>
-                <f:facet name="start">
-                    <h:graphicImage  value="/icons/searching_progress.gif"/>
-                </f:facet>
-            </a4j:status>
+        <a4j:status>
+            <f:facet name="start">
+                <h:graphicImage  value="/icons/searching_progress.gif"/>
+            </f:facet>
+        </a4j:status>
     </ui:define>
     <ui:define name="content">
         <rich:panel>
@@ -36,9 +36,17 @@
                             <h:inputText value="#{gsParamSoco.cooperative.pays}" styleClass="titreLibelleSimple"/>
                         </h:panelGrid>
                         <rich:spacer height="5"/>
-                        <div style="margin-left:  200px;">
-                            <h:commandButton value="#{msg.btn_valider}" />
-                        </div>
+                        <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="15%" ><h:commandButton id="annul1" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                        <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                                    </h:commandButton></td>
+                                <td width="70%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val1"   styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
+
                     </h:form>
                 </rich:tab>
 
@@ -48,9 +56,9 @@
                         <h:panelGrid columns="3">
                             <a4j:outputPanel rendered="#{not empty gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}">
                                 <rich:panel>
-                                        <ui:repeat value="#{gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}" var="f">
-                                            <a4j:outputPanel rendered="#{f.type.equals('Devise')}">
-                                    <h:panelGrid columns="2" >
+                                    <ui:repeat value="#{gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}" var="f">
+                                        <a4j:outputPanel rendered="#{f.type.equals('Devise')}">
+                                            <h:panelGrid columns="2" >
                                                 <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
                                                 <rich:comboBox value="#{f.curremcy}">
                                                     <f:selectItem itemValue="$"/>
@@ -65,15 +73,15 @@
                                                     <f:selectItem itemValue="4"/>
                                                 </rich:comboBox>
                                             </h:panelGrid>
-                                            </a4j:outputPanel>
-                                            <rich:spacer height="10"/>
-                                            <a4j:outputPanel rendered="#{f.type.equals('Unite')}">
-                                                <h:panelGrid columns="2">
+                                        </a4j:outputPanel>
+                                        <rich:spacer height="10"/>
+                                        <a4j:outputPanel rendered="#{f.type.equals('Unite')}">
+                                            <h:panelGrid columns="2">
                                                 <h:outputText value="#{msg.lib_unite}" styleClass="titreLibelle"/>
                                                 <rich:comboBox value="#{f.curremcy}">
-                                                  <f:selectItem itemValue="Kg"/>
-                                            <f:selectItem itemValue="L"/>
-                                            <f:selectItem itemValue="Cm3"/>
+                                                    <f:selectItem itemValue="Kg"/>
+                                                    <f:selectItem itemValue="L"/>
+                                                    <f:selectItem itemValue="Cm3"/>
                                                 </rich:comboBox>
                                                 <h:outputText value="#{msg.lib_chiffreApresVirgule}" styleClass="titreLibelle"/>
                                                 <rich:comboBox value="#{f.apresVirgule}">
@@ -82,16 +90,24 @@
                                                     <f:selectItem itemValue="3"/>
                                                     <f:selectItem itemValue="4"/>
                                                 </rich:comboBox>
-                                    </h:panelGrid>
-                                            </a4j:outputPanel>
-                                        </ui:repeat>
-                                    <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateCoopFormatage}"/>
-
+                                            </h:panelGrid>
+                                        </a4j:outputPanel>
+                                    </ui:repeat>
+                                    <rich:spacer height="40/"/>
+                                    <table width="100%" border="0">
+                                        <tr style="background-color:#b8cbab">
+                                            <td width="15%" ><h:commandButton id="annul2" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                                    <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                                                </h:commandButton></td>
+                                            <td width="70%" ></td>
+                                            <td  width="15%" height="20px"><h:commandButton id="val2"  action="#{gsParamSoco.updateCoopFormatage}"   styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                                        </tr>
+                                    </table>
                                 </rich:panel>
                             </a4j:outputPanel>
 
 
-                               <a4j:outputPanel rendered="#{empty gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}">
+                            <a4j:outputPanel rendered="#{empty gsParamSoco.formatageByCoop(gsParamSoco.cooperative)}">
                                 <rich:panel>
                                     <h:panelGrid columns="4" >
                                         <h:outputText value="#{msg.lib_devise}" styleClass="titreLibelle"/>
@@ -120,7 +136,16 @@
                                             <f:selectItem itemValue="3"/>
                                             <f:selectItem itemValue="4"/>
                                         </rich:comboBox>
-                                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateCoopFormatage}"/>
+                                        <rich:spacer height="40/"/>
+                                        <table width="100%" border="0">
+                                            <tr style="background-color:#b8cbab">
+                                                <td width="15%" ><h:commandButton id="annul3" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                                        <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                                                    </h:commandButton></td>
+                                                <td width="70%" ></td>
+                                                <td  width="15%" height="20px"><h:commandButton id="val3" action="#{gsParamSoco.updateCoopFormatage}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                                            </tr>
+                                        </table>
                                     </h:panelGrid>
                                 </rich:panel>
                             </a4j:outputPanel>
@@ -145,30 +170,82 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
                                 </f:facet>
-                                  <rich:calendar value="#{def.dateDebut}"/>
+                                <rich:calendar value="#{def.dateDebut}"/>
                             </rich:column>
                             <rich:column width="30%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_dateFinPeriode}"/>
                                 </f:facet>
-                              <rich:calendar value="#{def.dateFin}"/>
+                                <rich:calendar value="#{def.dateFin}"/>
                             </rich:column>
                             <rich:column width="10%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_periodeCourante}"/>
                                 </f:facet>
-                                   <center><h:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
-                              <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
-                          </h:commandButton></center>
+                                <center><a4j:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" reRender="tab">
+                                        <f:setPropertyActionListener value="#{def}"  target="#{gsParamSoco.dePeriode}" />
+                                    </a4j:commandButton></center>
                             </rich:column>
                         </rich:dataTable>
-                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.validerConfigDefinitionperiode}"/>
+                        <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="15%" ><h:commandButton id="annul4" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                        <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                                    </h:commandButton></td>
+                                <td width="70%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val4" action="#{gsParamSoco.validerConfigDefinitionperiode}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
                     </h:form>
                 </rich:tab>
 
+
+
+                <rich:tab label="#{msg.lib_categorieDesCharges}">
+                    <h:form>
+                        <rich:dataTable value="#{gsParamSoco.cooperative.lstCategCharge}" var="c" width="100%">
+                            <rich:column width="30%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_nomCategorie}"/>
+                                </f:facet>
+                                <h:inputText value="#{c.nomCategorie}" style="width: 100%"/>
+                            </rich:column>
+                               <rich:column width="50%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_description}"/>
+                                </f:facet>
+                                   <h:inputText value="#{c.description}" style="width: 100%"/>
+                            </rich:column>
+                               <rich:column width="20%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.lib_type}"/>
+                                </f:facet>
+                                   <rich:comboBox value="#{c.type}">
+                                       <f:selectItem itemValue="Exploitation"/>
+                                       <f:selectItem itemValue="Charge"/>
+                                   </rich:comboBox>
+                            </rich:column>
+                        </rich:dataTable>
+                        <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="15%" ><h:commandButton id="annul5" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                        <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                                    </h:commandButton></td>
+                                <td width="70%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val5" action="#{gsParamSoco.updateParamTransaction}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </rich:tab>
+
+
+
+
                 <rich:tab label="#{msg.lib_paramTransactionSoco}">
                     <h:form>
-                        <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}">
+                        <rich:dataTable value="#{gsParamSoco.cooperative.lstParametrage}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}">
                             <rich:column width="20%">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_codeTransaction}"/>
@@ -191,7 +268,16 @@
                                     </rich:comboBox></center>
                             </rich:column>
                         </rich:dataTable>
-                        <h:commandButton value="#{msg.btn_valider}" action="#{gsParamSoco.updateParamTransaction}"/>
+                        <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="15%" ><h:commandButton id="annul5" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                        <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
+                                    </h:commandButton></td>
+                                <td width="70%" ></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val5" action="#{gsParamSoco.updateParamTransaction}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
                     </h:form>
                 </rich:tab>
 

@@ -25,29 +25,38 @@
                 <h:outputText value="#{msg.lib_addUtilisateur}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <h:panelGrid columns="2" styleClass="top,top">
+                <table>
+                    <tr>
+                        <td valign="top">
                     <h:panelGrid columns="2">
-                        <h:outputText value="#{msg.lib_username}"/>
+                        <h:outputText value="#{msg.lib_username}" styleClass="titreLibelle"/>
                         <h:inputText value="#{gsParamSoco.utilisateur.username}" required="true" requiredMessage="#{msg.lib_username} #{msg.message_Obligatoire}"/>
-                        <h:outputText value="#{msg.lib_fonction}"/>
+                        <h:outputText value="#{msg.lib_fonction}" styleClass="titreLibelle"/>
                         <h:inputText value="#{gsParamSoco.utilisateur.fonction}" required="true" requiredMessage="#{msg.lib_fonction} #{msg.message_Obligatoire}"/>
-                         <h:outputText value="#{msg.lib_cooperative}"/>
+                         <h:outputText value="#{msg.lib_cooperative}" styleClass="titreLibelle"/>
                          <rich:comboBox value="#{gsParamSoco.utilisateur.cooperative}" converter="coopConverter" >
                             <f:selectItems value="#{parametrageShoebox.listitemCooperative}"/>
                         </rich:comboBox>
-                        <h:outputText value="#{msg.lib_langue}"/>
+                        <h:outputText value="#{msg.lib_langue}" styleClass="titreLibelle"/>
                         <rich:comboBox value="#{gsParamSoco.utilisateur.langue}" required="true" requiredMessage="#{msg.lib_langue} #{msg.message_Obligatoire}">
                             <f:selectItem itemValue="#{msg.lib_francais}"/>
                             <f:selectItem itemValue="#{msg.lib_anglais}"/>
                         </rich:comboBox>
-                        <h:outputText value="#{msg.lib_etat}"/>
+                        <h:outputText value="#{msg.lib_etat}" styleClass="titreLibelle"/>
                         <h:selectBooleanCheckbox value="#{gsParamSoco.utilisateur.etat}" required="true" requiredMessage="#{msg.lib_etat} #{msg.message_Obligatoire}"/>
 
                     </h:panelGrid>
+                        </td>
+                        <td width="50"></td>
+                        <td valign="top">
+                    <rich:panel header="#{msg.lib_permission}">
                     <rich:pickList value="#{gsParamSoco.utilisateur.lstPermission}" converter="permissionConverter">
                         <f:selectItems value="#{gsParamSoco.listitemPermission}"/>
                     </rich:pickList>
-                </h:panelGrid>
+                    </rich:panel>
+                        </td>
+                        </tr>
+                </table>
                  <rich:spacer height="40/"/>
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">

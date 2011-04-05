@@ -33,11 +33,6 @@
                         <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
                         <rich:spacer width="5"/>
                         <a4j:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
-                        <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
-                        <rich:spacer width="5"/>
-                        <a4j:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
-                        <h:commandButton image="/icons/per.png"/>
-                         <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
                             </div>
                         </td>
                         </tr>
@@ -67,6 +62,11 @@
                                         <rich:panelMenuItem  label="#{msg.lib_listCooperative}" action="#{gsParamSoco.redirect}"><f:param value="lstCooperative" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_paramCharteCompte}" action="#{gsParamSoco.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_utilisateurs}" action="#{gsParamSoco.redirect}"><f:param value="lstUtilisateurs" name="outcome"/></rich:panelMenuItem>
+                                    </rich:panelMenuGroup>
+                                        <rich:panelMenuGroup  label="#{msg.lib_gestionEnregistrements}" expanded="true"  >
+                                        <rich:panelMenuItem  label="#{msg.lib_commande}" action="#{gsParamSoco.redirect}"><f:param value="/parametrageSoco/gestionEnregstrementCommande.xhtml" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_charge}" action="#{gsParamSoco.redirect}"><f:param value="lstParamCharteCompte" name="outcome"/></rich:panelMenuItem>
+                                        <rich:panelMenuItem  label="#{msg.lib_encaissement}" action="#{gsParamSoco.redirect}"><f:param value="lstUtilisateurs" name="outcome"/></rich:panelMenuItem>
                                     </rich:panelMenuGroup>
                                 </rich:panelMenuGroup>
                             </rich:panelMenu>

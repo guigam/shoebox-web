@@ -13,12 +13,15 @@ import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import gestionCommandes.gestionCommandes;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -41,7 +44,8 @@ import parametrageCoop.serviceParamCoopLocal;
 @Named(value = "gsParamSoco")
 @SessionScoped
 public class GestionParametrageSoco implements Serializable {
-
+    private String reference = null;
+    private Date dateComm ;
     private Cooperative cooperative = new Cooperative();
     private List<ParamTransaction> lstParamtransaction = new LinkedList<ParamTransaction>();
     private List<ParamTransaction> lstParamtsx = new LinkedList<ParamTransaction>();
@@ -60,6 +64,8 @@ public class GestionParametrageSoco implements Serializable {
     private Conversation conversation;
     @Inject
     private fileuploadBean fup;
+    @Inject
+    private gestionCommandes gsCommande;
     private Utilisateur utilisateur = new Utilisateur();
     private formatageEntier devise = new formatageEntier();
     private formatageEntier unite = new formatageEntier();
@@ -319,6 +325,11 @@ public class GestionParametrageSoco implements Serializable {
         return serviceSoco.lstItemPermission();
     }
 
+    public void rechercheCommande(){
+        gsCommande.setAllCommande(serviceParamCoop.rechercheCommande(getReference(), getDateComm()));
+    }
+
+
     /**
      * @return the lstParamtransaction
      */
@@ -509,5 +520,35 @@ public class GestionParametrageSoco implements Serializable {
      */
     public void setLstParamtsx(List<ParamTransaction> lstParamtsx) {
         this.lstParamtsx = lstParamtsx;
+    }
+
+   
+
+    /**
+     * @return the reference
+     */
+    public String getReference() {
+        return reference;
+    }
+
+    /**
+     * @param reference the reference to set
+     */
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    /**
+     * @return the dateComm
+     */
+    public Date getDateComm() {
+        return dateComm;
+    }
+
+    /**
+     * @param dateComm the dateComm to set
+     */
+    public void setDateComm(Date dateComm) {
+        this.dateComm = dateComm;
     }
 }

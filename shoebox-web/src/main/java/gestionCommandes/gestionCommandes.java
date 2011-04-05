@@ -53,6 +53,7 @@ public class gestionCommandes implements Serializable {
     private Produit produit = new Produit();
     private int grade = 0;
     private List<Commande> lstCommandeSortisProduit = new LinkedList<Commande>();
+    private List<Commande> allCommande = new LinkedList<Commande>();
     private TransactionMagasin tsxMag = new TransactionMagasin();
 
     /** Creates a new instance of gestionCommandes */
@@ -469,5 +470,19 @@ public class gestionCommandes implements Serializable {
      */
     public void setTsxMag(TransactionMagasin tsxMag) {
         this.tsxMag = tsxMag;
+    }
+
+    /**
+     * @return the allCommande
+     */
+    public List<Commande> getAllCommande() {
+        return allCommande;
+    }
+
+    /**
+     * @param allCommande the allCommande to set
+     */
+    public void setAllCommande(List<Commande> allCommande) {
+        this.allCommande = allCommande;
     }
 }

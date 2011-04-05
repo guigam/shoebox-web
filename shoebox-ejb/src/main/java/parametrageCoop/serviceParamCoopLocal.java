@@ -135,6 +135,8 @@ public interface serviceParamCoopLocal {
 
     public Double sommeCharges(Cooperative coop);
 
+       public List<Commande> rechercheCommande(String ref, Date datecom);
+
 
 
      

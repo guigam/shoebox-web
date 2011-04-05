@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateParamSoco.xhtml"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+         <ui:define name="message" >
+        <rich:messages styleClass="globalMessages" >
+            <f:facet name="message">
+                <h:graphicImage  value="/img/error.png"/>
+            </f:facet>
+        </rich:messages>
+           <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage  value="/icons/searching_progress.gif"/>
+                </f:facet>
+            </a4j:status>
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <rich:panel>
+                <h:outputText value="#{msg.lib_gestionEnregistrementCommande}" styleClass="titrePanel"/>
+                <rich:separator/>
+                <rich:spacer height="10"/>
+                <rich:panel style="background-color: white">
+                    <h:outputText value="#{msg.lib_rechercheCommande}" styleClass="sousTitrePanel"/>
+                    <rich:separator height="2"/>
+                    <rich:spacer height="10"/>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="#{msg.lib_reference}" styleClass="titreLibelle"/>
+                        <h:inputText value="#{gsParamSoco.reference}"/>
+                        <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                        <rich:calendar/>
+                    </h:panelGrid>
+                         <rich:spacer height="20/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/menuParam.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><a4j:commandButton id="val" action="#{gsParamSoco.rechercheCommande}"   styleClass="btn_Valider" value="#{msg.btn_recherche}  >>" reRender="tab"/></td>
+                            </tr>
+                        </table>
+                    <rich:spacer height="40"/>
+
+
+                    <rich:panel>
+                        <a4j:outputPanel id="tab">
+                            <a4j:outputPanel rendered="#{empty gsCommandes.allCommande}">
+                                <h:outputText value="#{msg.message_pasDenregistrement}" styleClass="titreLibelleSimple"/>
+                            </a4j:outputPanel>
+                            <a4j:outputPanel rendered="#{not empty gsCommandes.allCommande}">
+                                <rich:dataTable value="#{gsCommandes.allCommande}" var="c" cellpadding="1">
+                                    <rich:column width="30%">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.lib_reference}"/>
+                                        </f:facet>
+                                        <h:commandLink value="#{c.reference}" styleClass="titreLibelle"/>
+                                    </rich:column>
+                                    <rich:column width="60%">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.lib_information}"/>
+                                        </f:facet>
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="#{msg.lib_date}" styleClass="titreLibelle"/>
+                                            <h:outputText value="#{c.dateCommande}" style="font-size: 10px"/>
+                                            <h:outputText value="#{msg.lib_Information}" styleClass="titreLibelle"/>
+                                            <h:outputText value="#{c.m_entite.name}" style="font-size: 10px"/>
+                                            <h:outputText value="#{msg.lib_type}" styleClass="titreLibelle"/>
+                                            <h:outputText value="#{c.type}" style="font-size: 10px"/>
+                                            <h:outputText value="#{msg.lib_montantTotal}" styleClass="titreLibelle"/>
+                                            <h:outputText value="#{c.montantTotal}" style="font-size: 10px"/>
+                                            <h:outputText value="#{msg.lib_nbTransactions}" styleClass="titreLibelle"/>
+                                            <h:outputText />
+                                        </h:panelGrid>
+                                    </rich:column>
+                                      <rich:column width="10%">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.lib_action}"/>
+                                        </f:facet>
+                                          <center><h:commandButton image="/icons/delete.png"/></center>
+
+                                    </rich:column>
+                                </rich:dataTable>
+                            </a4j:outputPanel>
+                        </a4j:outputPanel>
+                    </rich:panel>
+
+
+
+                </rich:panel>
+            </rich:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

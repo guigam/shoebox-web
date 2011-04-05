@@ -12,6 +12,7 @@ import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
+import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
 import java.util.List;
 import javax.ejb.Local;

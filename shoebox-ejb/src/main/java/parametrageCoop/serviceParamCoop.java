@@ -500,6 +500,14 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return query.getResultList();
     }
 
+    @Override
+    public List<Commande> rechercheCommande(String ref, Date datecom) {
+        Query query = em.createQuery("from Commande c where c.reference = ?1 or c.dateCommande = ?2 ");
+        query.setParameter(1, ref);
+        query.setParameter(2, datecom);
+        return query.getResultList();
+    }
+
 
 
   
