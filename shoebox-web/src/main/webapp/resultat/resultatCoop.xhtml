@@ -115,11 +115,11 @@
                     </tr>
 
                     <ui:repeat value="#{gsResultat.lstResultatProduit}" var="rs" >
-                        <tr class="#{rs.reference.equals('ppp') ? 'celluleTabMenu' : null }">
+                        <tr class="#{rs.reference.equals('MM') ? 'celluleTabMenu' : null }">
                             <td><h:outputText value="#{rs.referenceAffichage}" styleClass="titreTabResultat"/></td>
                             <td><h:outputText value="#{rs.activite}" styleClass="titreTabResultat"/></td>
                             <ui:repeat value="#{gsParamSoco.lstDefinitionPeriode}" var="periode">
-                                <td><h:outputText value="#{rs.reference.equals('ppp') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
+                                <td><h:outputText value="#{rs.reference.equals('MM') ? '' :  gsResultat.ResultatCharge(periode.periode, rs.reference) }" styleClass="contenuTabResultat">
                                         <f:convertNumber minFractionDigits="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol="#{gsLogin.currentFormatDevise.curremcy}"/>
                                     </h:outputText></td>
                             </ui:repeat>

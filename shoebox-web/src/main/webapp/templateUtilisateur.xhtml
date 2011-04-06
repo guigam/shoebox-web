@@ -33,10 +33,10 @@
                             <div style="vertical-align: top;" align="left">
                                 <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
                         <rich:spacer width="5"/>
-                        <a4j:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
+                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
                        <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
                         <rich:spacer width="5"/>
-                        <a4j:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
+                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
                         <h:commandButton image="/icons/per.png"/>
                          <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
                             </div>

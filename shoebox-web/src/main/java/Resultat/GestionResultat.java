@@ -104,6 +104,48 @@ public class GestionResultat implements Serializable {
         return calcul;
     }
 
+    private Double calculRW(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "RA-1", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RA-2", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RB-1", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RB-2", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RC", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RD", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RD", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RE", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RH", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RI", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RJ", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RK", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RL", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RP", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "RQ", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RS", session.getCurrentCoop()));
+    }
+    private Double calculTW(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "TA-1", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TA-2", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "TC", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TD", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "TF", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TE", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "TH", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TK", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "TL", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TT", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "TS", session.getCurrentCoop()));
+    }
+
+    private Double calculUF(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "UA", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "UC", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "UD", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "UE", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "UF", session.getCurrentCoop()));
+    }
+    private Double calculSF(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "SA", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "SC", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "SD", session.getCurrentCoop()));
+    }
+
+    private Double calculUO(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "UK", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "UL", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "UM", session.getCurrentCoop())+ serviceResultat.rechercheResultat(periode, "UN", session.getCurrentCoop()));
+    }
+    private Double calculSO(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "SK", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "SL", session.getCurrentCoop())
+                + serviceResultat.rechercheResultat(periode, "SM", session.getCurrentCoop()));
+    }
+
+    private Double calculSS(String periode) {
+        return (double) (serviceResultat.rechercheResultat(periode, "SQ", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "SR", session.getCurrentCoop()));
+    }
+
     private void compteApayerEntreeProduit(List<rapportCompte> lstRapportCompte) {
         for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
             if (comm.getmontantrestant() != 0) {
@@ -190,6 +232,28 @@ public class GestionResultat implements Serializable {
             return (double) serviceResultat.rechercheResultat(periode, "RE-SD", session.getCurrentCoop()) - (double) serviceResultat.rechercheResultat(periode, "RE-SF", session.getCurrentCoop());
         } else if (!charteCompte.equals("ppp") && serviceResultat.rechercheResultat(periode, charteCompte, session.getCurrentCoop()) != 0) {
             return (double) serviceResultat.rechercheResultat(periode, charteCompte, session.getCurrentCoop());
+        } else if (charteCompte.equals("RW")) {
+            return calculRW(periode);
+        } else if (charteCompte.equals("SF")) {
+            return calculSF(periode);
+        } else if (charteCompte.equals("SH")) {
+            return (double) (calculRW(periode) + calculSF(periode));
+        } else if (charteCompte.equals("SH")) {
+            return calculSO(periode);
+        } else if (charteCompte.equals("SS")) {
+            return calculSS(periode);
+        } else if (charteCompte.equals("ST")) {
+            return (double) (calculRW(periode) + calculSF(periode) + calculSO(periode) + calculSS(periode));
+        }else if(charteCompte.equals("TW")){
+            return calculTW(periode);
+        }else if(charteCompte.equals("UF")){
+            return calculUF(periode);
+        }else if(charteCompte.equals("UH")){
+            return (double)(calculTW(periode) + calculUF(periode));
+        }else if(charteCompte.equals("UO")){
+            return calculUO(periode);
+        }else if(charteCompte.equals("UT")){
+            return (double)(calculTW(periode) + calculUF(periode)  + calculUO(periode));
         }
         return null;
     }
@@ -284,6 +348,7 @@ public class GestionResultat implements Serializable {
         }
         return somme;
     }
+
     public Double getsommeFraisCharge() {
         double somme = 0;
         for (CategorieCharge c : paramShoebox.getlstCategorieCharge()) {
@@ -292,18 +357,21 @@ public class GestionResultat implements Serializable {
         return somme;
     }
 
-    public Double getautresRevenus(){
-        return  (double) calculSommePeriodeCharteCompte("TA-2") + (double) calculSommePeriodeCharteCompte("TC") + (double) calculSommePeriodeCharteCompte("TD")
-                 + (double) calculSommePeriodeCharteCompte("TE")+ (double) calculSommePeriodeCharteCompte("TF") + (double) calculSommePeriodeCharteCompte("TH")
-                 + (double) calculSommePeriodeCharteCompte("TK") + (double) calculSommePeriodeCharteCompte("TL") + (double) calculSommePeriodeCharteCompte("TS")
-                 + (double) calculSommePeriodeCharteCompte("TT") + (double) calculSommePeriodeCharteCompte("UF") + (double) calculSommePeriodeCharteCompte("UO");
+    public Double getautresRevenus() {
+        return (double) calculSommePeriodeCharteCompte("TA-2") + (double) calculSommePeriodeCharteCompte("TC") + (double) calculSommePeriodeCharteCompte("TD")
+                + (double) calculSommePeriodeCharteCompte("TE") + (double) calculSommePeriodeCharteCompte("TF") + (double) calculSommePeriodeCharteCompte("TH")
+                + (double) calculSommePeriodeCharteCompte("TK") + (double) calculSommePeriodeCharteCompte("TL") + (double) calculSommePeriodeCharteCompte("TS")
+                + (double) calculSommePeriodeCharteCompte("TT") + (double) calculSommePeriodeCharteCompte("UF") + (double) calculSommePeriodeCharteCompte("UO");
     }
-    public Double getCoutLie(){
-       return (double) 0;
+
+    public Double getCoutLie() {
+        return (double) 0;
     }
-    public Double getresultatConsolide(){
+
+    public Double getresultatConsolide() {
         return (getmargeBrutExploitation() - getsommeFraisCharge()) + getautresRevenus() - getCoutLie();
     }
+
     public List<StructureCharge> getlstResultatCharge() {
         return serviceResultat.lsttructureCharge();
     }
