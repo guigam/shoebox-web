@@ -98,6 +98,7 @@ public class gestionCommandes implements Serializable {
     }
 
       public void fermerModelPanel(){
+          lstTsxMagasin.clear();
         commandeAffiche = new Commande();
     }
 
@@ -108,6 +109,12 @@ public class gestionCommandes implements Serializable {
             tsx.setDefPeriode(session.getCurrentPeriode());
         }
     }
+
+
+    public void lstTransactionMagasinsByTypeProduitPrincipal(String type){
+        lstTsxMagasin =  serviceGsCommande.transactionByProduit(type,session.getCurrentCoop(), session.getCurrentPeriode());
+    }
+  
 
     public void removeTsxMAG() {
         if(lstTsxMagasin.remove(tsxMag));

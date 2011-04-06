@@ -5,15 +5,15 @@ body {
     color: #000000;  
     margin: 10px;
 }
-.bgimage {
-    background-repeat:no-repeat;
-    position: absolute;
-    top: 0px;
+#bgimage img {
+    position: relative;
     width: 100%;
     height: 100%;
     z-index: -1;
+    left: 0;
 }
-#backimg img {position: fixed; top:0px; left: 0; width: 100%; height:100%; z-index:-1; vertical-align: bottom;}
+#backimg img {position: absolute; top:0px;
+     left: 0; width: 100%; height:100%; z-index:-1; }
 
 .h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;

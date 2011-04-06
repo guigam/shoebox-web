@@ -8,10 +8,12 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -140,6 +142,16 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
        return query.getResultList();
     }
 
+    @Override
+    public List<TransactionMagasin> transactionByProduit(String typeProduit, Cooperative coop, DefinitionPeriode periode) {
+        Query query = em.createQuery("from TransactionMagasin t  where t.produit.type = ?1 and t.coop = ?2 and t.defPeriode = ?3");
+        query.setParameter(1, typeProduit);
+        query.setParameter(2, coop);
+        query.setParameter(3, periode);
+        return query.getResultList();
+        }
+    }
+
 
 
 
@@ -148,4 +160,4 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     
    
  
-}
+

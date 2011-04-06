@@ -55,9 +55,9 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                         <div style="text-align: right; vertical-align: top">
-                            <a4j:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye)}" action="addTransaction">
+                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye)}" action="addTransaction">
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
-                            </a4j:commandButton>
+                            </h:commandButton>
                         </div>
                         <center> <h:outputText value="#{item.montantPaye}" styleClass="titreMontantPaye">
                                   <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
@@ -82,10 +82,10 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_voirdetail}" />
                         </f:facet>
-                         <center><h:commandButton id="voidetail"  image="/icons/eye.png">
+                         <center><a4j:commandButton id="voidetail"  image="/icons/eye.png">
                                  <f:setPropertyActionListener target="#{gsCommandes.commandeAffiche}" value="#{item}"/>
 
-                             </h:commandButton></center>
+                             </a4j:commandButton></center>
                          <rich:toolTip for="voidetail" value="#{msg.lib_voirdetail}"/>
                     </rich:column>
 
@@ -107,13 +107,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_produit} : " styleClass="titreLibelle" />
                             </f:facet>
-                            <h:inputText value="#{tsx.produit.name}" />
+                            <h:outputText value="#{tsx.produit.name}" />
                         </rich:column>
                         <rich:column>
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_grade} : "  styleClass="titreLibelle" />
                             </f:facet>
-                            <h:inputText value="#{tsx.quantite}" />
+                            <h:outputText value="#{tsx.quantite}" />
                         </rich:column>
                     </rich:dataTable>
                     <rich:spacer height="40"/>

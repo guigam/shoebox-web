@@ -8,6 +8,7 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
@@ -47,6 +48,8 @@ public interface ServiceGestionCommandeTransactionLocal {
     public void newTransactionAvanceProduit(TransactionAvanceProduit transactionAvanceProduit);
 
      public Long calculTotalQuantiteProduit();
+
+     public List<TransactionMagasin> transactionByProduit(String typeProduit, Cooperative coop, DefinitionPeriode periode);
 
 
     

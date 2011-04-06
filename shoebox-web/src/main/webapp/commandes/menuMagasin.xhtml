@@ -22,6 +22,9 @@
             </a4j:status>
     </ui:define>
     <ui:define name="content">
+
+  <h:form>
+
          <rich:panel>
              <h:outputText value="#{msg.titre_bienvenueCommande}" styleClass="titrePanel"/>
                 <rich:separator width="100%"/>
@@ -47,7 +50,7 @@
                             <h:outputText value="#{gsResultat.quantiteProduitPrincipaleSortie}" styleClass="titreLibelle"/>
                         </h:panelGrid>
                         <div style="text-align: right;">
-                            <a4j:commandButton image="/icons/eye.png" id="pp" />
+                            <a4j:commandButton id="voidetail1"  image="/icons/eye.png" reRender="panel"  action="#{gsCommandes.lstTransactionMagasinsByTypeProduitPrincipal('Principal')}"/>
                             <rich:toolTip for="pp" value="#{msg.lib_detailProduit} #{msg.lib_principal}"/>
                         </div>
                     </td>
@@ -59,7 +62,8 @@
                             <h:outputText value="#{gsResultat.quantiteProduitSecondaireSortie}" styleClass="titreLibelle"/>
                         </h:panelGrid>
                         <div style="text-align: right;">
-                            <a4j:commandButton image="/icons/eye.png" id="ps"/>
+                            <a4j:commandButton id="voidetail2"  image="/icons/eye.png" reRender="panel" action="#{gsCommandes.lstTransactionMagasinsByTypeProduitPrincipal('Secondaire')}"/>
+
                             <rich:toolTip for="ps" value="#{msg.lib_detailProduit} #{msg.lib_secondaire}"/>
                         </div>
                     </td>
@@ -71,7 +75,8 @@
                             <h:outputText value="#{gsResultat.quantiteProduitIntrantSortie}" styleClass="titreLibelle"/>
                         </h:panelGrid>
                         <div style="text-align: right;">
-                            <a4j:commandButton image="/icons/eye.png" id="pi"/>
+                            <a4j:commandButton id="voidetail3"  image="/icons/eye.png" reRender="panel"  action="#{gsCommandes.lstTransactionMagasinsByTypeProduitPrincipal('Intrant')}"/>
+
                             <rich:toolTip for="pi" value="#{msg.lib_detailProduit} #{msg.lib_intrant}"/>
                         </div>
                     </td>
@@ -79,6 +84,51 @@
             </table>
                 <center><h:graphicImage value="/images/commande.png" width="250" height="250"/></center>
         </rich:panel>
+
+      <rich:modalPanel  id="panel" width="600"  autosized="true" zindex="2000" showWhenRendered="#{not empty gsCommandes.lstTsxMagasin}">
+             <rich:panel>
+                 <rich:dataTable value="#{gsCommandes.lstTsxMagasin}" var="t" width="100%">
+                     <rich:column>
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_magasin}"/>
+                         </f:facet>
+                         <h:outputText value="#{t.magasin.name}"/>
+                     </rich:column>
+                     <rich:column>
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_produit}"/>
+                         </f:facet>
+                         <h:outputText value="#{t.produit.name}"/>
+                     </rich:column>
+                     <rich:column>
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_grade}"/>
+                         </f:facet>
+                         <h:outputText value="#{t.grade}"/>
+                     </rich:column>
+                     <rich:column>
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_quantite}"/>
+                         </f:facet>
+                         <h:outputText value="#{t.quantite}"/>
+                     </rich:column>
+                     <rich:column filterBy="#{t.m_commande.type}">
+                         <f:facet name="header">
+                             <h:outputText value="#{msg.lib_type}"/>
+                         </f:facet>
+                         <h:outputText value="#{t.m_commande.type}"/>
+                     </rich:column>
+                 </rich:dataTable>
+                  <rich:spacer height="40/"/>
+                        <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><a4j:commandButton id="annul"  action="#{gsCommandes.fermerModelPanel}" styleClass="btn_Valider" value="#{msg.btn_fermer}" reRender="panel"/></td>
+                            </tr>
+                        </table>
+             </rich:panel>
+         </rich:modalPanel>
+  </h:form>
     </ui:define>
 
 

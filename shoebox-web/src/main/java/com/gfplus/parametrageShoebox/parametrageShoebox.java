@@ -324,6 +324,7 @@ public class parametrageShoebox implements Serializable {
 
     public String newProduitIntrant() {
         produit.setCategorie("intrant");
+        produit.setType("Intrant");
         produit.setCurrentuser(session.getUser());
         produit.setCoop(session.getCurrentCoop());
         parametrageCoop.newProduit(getProduit());
