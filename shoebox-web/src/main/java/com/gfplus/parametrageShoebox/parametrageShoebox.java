@@ -180,8 +180,6 @@ public class parametrageShoebox implements Serializable {
             TransactionMagasin tsxm = new TransactionMagasin();
                retourneCharteCompteSelonProduit(configmag);
              affectationMagasinCaisse(tsxc, tsxm);
-             commande.getLsttransactionCaisse().add(tsxc);
-             commande.getLsttransactionMagasin().add(tsxm);
                 magasin.setCommande(commande);
                 parametrageCoop.updateMagasin(magasin);
                 magasin = new Magasin();

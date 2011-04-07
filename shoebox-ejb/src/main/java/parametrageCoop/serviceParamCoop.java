@@ -285,10 +285,10 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     @Override
-    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop) {
+    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduitIntrant(produit, coop).isEmpty() && rechercehSortisProduitIntrant(produit, coop).isEmpty()) {
-            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop)) {
+        if (!rechercehEntreeProduitIntrant(produit, coop,periode).isEmpty() && rechercehSortisProduitIntrant(produit, coop,periode).isEmpty()) {
+            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop,periode)) {
                 Object[] obj = new Object[3];
                 obj[0] = (Magasin) (t[0]);
                 obj[1] = (Produit) (t[1]);
@@ -296,8 +296,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
                 lstObject.add(obj);
             }
         } else {
-            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop)) {
-                for (Object[] o : rechercehSortisProduitIntrant(produit, coop)) {
+            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop,periode)) {
+                for (Object[] o : rechercehSortisProduitIntrant(produit, coop,periode)) {
                     if (t[0].equals(o[0]) && t[1].equals(o[1])) {
                         Object[] obj = new Object[3];
                         obj[0] = (Magasin) (t[0]);
@@ -311,10 +311,10 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return lstObject;
     }
 
-    public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop) {
+    public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop, DefinitionPeriode periode) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduit(produit, grade, coop).isEmpty() && rechercehSortisProduit(produit, grade, coop).isEmpty()) {
-            for (Object[] t : rechercehEntreeProduit(produit, grade, coop)) {
+        if (!rechercehEntreeProduit(produit, grade, coop,periode).isEmpty() && rechercehSortisProduit(produit, grade, coop,periode).isEmpty()) {
+            for (Object[] t : rechercehEntreeProduit(produit, grade, coop,periode)) {
                 Object[] obj = new Object[3];
                 obj[0] = (Magasin) (t[0]);
                 obj[1] = (Produit) (t[1]);
@@ -322,8 +322,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
                 lstObject.add(obj);
             }
         } else {
-            for (Object[] t : rechercehEntreeProduit(produit, grade, coop)) {
-                for (Object[] o : rechercehSortisProduit(produit, grade, coop)) {
+            for (Object[] t : rechercehEntreeProduit(produit, grade, coop,periode)) {
+                for (Object[] o : rechercehSortisProduit(produit, grade, coop,periode)) {
                     if (t[1].equals(o[1]) && t[2].equals(o[2])) {
                         if(t[0].equals(o[0])){//le produit chercher est dans le meme magasin
                         Object[] obj = new Object[3];
@@ -346,21 +346,23 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return lstObject;
     }
 
-    private List<Object[]> rechercehEntreeProduit(Produit produit, int grade, Cooperative coop) {
+    private List<Object[]> rechercehEntreeProduit(Produit produit, int grade, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null && grade != 0) {
             if (produit.getType().equals("Principal")) {
-                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 group by x.magasin");
+                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
                 q.setParameter(1, produit);
                 q.setParameter(2, grade);
                 q.setParameter(3, "EPP");
                 q.setParameter(4, coop);
+                q.setParameter(5, periode);
                 return (List<Object[]>) q.getResultList();
             } else {
-                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 group by x.magasin");
+                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
                 q.setParameter(1, produit);
                 q.setParameter(2, grade);
                 q.setParameter(3, "EPS");
                 q.setParameter(4, coop);
+                q.setParameter(5, periode);
                 return (List<Object[]>) q.getResultList();
             }
 
@@ -368,36 +370,39 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return null;
     }
 
-    private List<Object[]> rechercehSortisProduit(Produit produit, int grade, Cooperative coop) {
+    private List<Object[]> rechercehSortisProduit(Produit produit, int grade, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type in (?3,?5) and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4  group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type in (?3,?5) and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?6 group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(2, grade);
             q.setParameter(3, "SPP");
             q.setParameter(5, "SPS");
             q.setParameter(4, coop);
+            q.setParameter(6, periode);
             return (List<Object[]>) q.getResultList();
         }
         return null;
     }
 
-    private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop) {
+    private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 defPeriode = ?5 group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(3, "EPI");
             q.setParameter(4, coop);
+            q.setParameter(5, periode);
             return (List<Object[]>) q.getResultList();
         }
         return null;
     }
 
-    private List<Object[]> rechercehSortisProduitIntrant(Produit produit, Cooperative coop) {
+    private List<Object[]> rechercehSortisProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.coop = ?4  group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.coop = ?4 defPeriode = ?5 group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(3, "SI");
             q.setParameter(4, coop);
+            q.setParameter(5, periode);
             return (List<Object[]>) q.getResultList();
         }
         return null;

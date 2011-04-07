@@ -7,16 +7,16 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-         <link rel="shortcut icon" href="#{request.contextPath}/icons/socoico.gif" />
+        <link rel="shortcut icon" href="#{request.contextPath}/icons/socoico.gif" />
         <link href="#{request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
         <title>Facelets Template</title>
     </head>
 
     <body>
         <div id="backimg">
-	  <img src="#{request.contextPath}/images/bg.png" />
-	</div>
-  
+            <img src="#{request.contextPath}/images/bg.png" />
+        </div>
+
         <div id="top">
             <h:form>
                 <ui:insert name="top">
@@ -29,16 +29,16 @@
                         <ui:insert name="message">
                         </ui:insert>
                         </td>
-                       <td width="14%">
+                        <td width="14%">
                             <div style="vertical-align: top;" align="left">
-                        <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
-                        <rich:spacer width="5"/>
-                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
-                        <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
-                        <rich:spacer width="5"/>
-                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
-                        <h:commandButton image="/icons/per.png"/>
-                         <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
+                                <h:panelGrid columns="2">
+                                    <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
+                                    <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
+                                    <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
+                                    <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
+                                    <h:commandButton image="/icons/per.png"/>
+                                    <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
+                                </h:panelGrid>
                             </div>
                         </td>
                         </tr>
@@ -48,7 +48,7 @@
                             <h:commandLink value="#{p.name}" action="#{redirectController.redirect}" style="color: #ffffff">
                                 <f:param name="outcome" value="#{p.redirect}"/>
                             </h:commandLink>
-                                <rich:spacer width="50"/>
+                            <rich:spacer width="50"/>
                         </ui:repeat>  
                     </rich:toolBar>
                 </ui:insert>

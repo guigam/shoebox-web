@@ -29,15 +29,15 @@
                         </ui:insert>
                         </td>
                         <td width="14%">
-                            <div style="vertical-align: top;" align="left">
+                            <div>
+                                 <h:panelGrid columns="2">
                         <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
-                        <rich:spacer width="5"/>
-                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
+                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
                         <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
-                        <rich:spacer width="5"/>
-                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
+                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
                         <h:commandButton image="/icons/per.png"/>
-                         <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
+                        <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
+                           </h:panelGrid>
                             </div>
                         </td>
                         </tr>

@@ -278,7 +278,7 @@ public class gestionCommandes implements Serializable {
         }else{
         List<Object[]> lstObject = new LinkedList<Object[]>();
         lstStockSortieProduit.clear();
-        lstObject = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop());
+        lstObject = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop(), session.getCurrentPeriode());
         for (Object[] t : lstObject) {
             StockSortieProduit ssp = new StockSortieProduit();
             ssp.setMagasin((Magasin) t[0]);
@@ -296,7 +296,7 @@ public class gestionCommandes implements Serializable {
         }else{
         List<Object[]> lstObject = new LinkedList<Object[]>();
         lstStockSortieProduit.clear();
-        lstObject = parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop());
+        lstObject = parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop(), session.getCurrentPeriode());
         for (Object[] t : lstObject) {
             StockSortieProduit ssp = new StockSortieProduit();
             ssp.setMagasin((Magasin) t[0]);

@@ -15,7 +15,7 @@
         <div id="backimg">
             <img src="#{request.contextPath}/images/bg.png" />
         </div>
-        <div id="top">
+        <div id="top" >
             <h:form>
                 <ui:insert name="top">
                     <table width="100%" border="0">
@@ -28,15 +28,15 @@
                         </ui:insert>
                         </td>
                          <td width="14%">
-                            <div style="vertical-align: top;" align="left">
+                            <div style="vertical-align: top;text-align: right;" >
+                                <h:panelGrid columns="2">
                         <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
-                        <rich:spacer width="5"/>
-                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/><br/>
+                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
                         <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
-                        <rich:spacer width="5"/>
-                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/><br/>
+                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
                         <h:commandButton image="/icons/per.png"/>
                         <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
+                           </h:panelGrid>
                             </div>
                         </td>
                         </tr>

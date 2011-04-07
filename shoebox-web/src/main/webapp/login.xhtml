@@ -37,21 +37,17 @@ and open the template in the editor.
             <h:panelGrid columns="2">
                 <h:graphicImage value="/images/boite.png" width="350" height="250"/>
                 <h:form>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="0">
                         <h:panelGrid columns="2">
                             <h:outputText value="#{msg.lib_username}" styleClass="titreLibelle"/>
                             <h:inputText value="#{gsLogin.user.username}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
                             <h:outputText value="#{msg.lib_password}" styleClass="titreLibelle"/>
                             <h:inputSecret value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
-                            <h:commandButton action="#{gsLogin.identification}" value="valider"/>
+                            <rich:spacer height="20"/>
+                            <h:commandButton id="val"  action="#{gsLogin.identification}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/>
+                       
                         </h:panelGrid>
-                        <h:panelGrid>
-                            <a4j:status>
-                                <f:facet name="start">
-                                    <h:graphicImage  value="/icons/searching_progress.gif"/>
-                                </f:facet>
-                            </a4j:status>
-                        </h:panelGrid>
+                    
                     </h:panelGrid>
                 </h:form>
             </h:panelGrid>

@@ -127,9 +127,9 @@ public interface serviceParamCoopLocal {
 
 
     //***************************autres*********************************//
-    public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop);
+    public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop,DefinitionPeriode periode);
 
-    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop);
+    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode);
 
     public boolean verifdate(Date date, DefinitionPeriode defPer);
 
