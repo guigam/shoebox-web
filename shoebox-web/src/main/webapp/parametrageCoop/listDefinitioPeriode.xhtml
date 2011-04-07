@@ -26,10 +26,10 @@
                 <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriode}"  var="def" width="70%" id="tab">
+                <rich:dataTable value="#{gsLogin.currentCoop.lstDef}"  var="def" width="70%" id="tab">
                             <rich:column width="20%">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg.lib_periode}"/>
+                                    <h:outputText value="P#{msg.lib_periode}"/>
                                 </f:facet>
                                 <h:outputText value="#{def.periode}"/>
                             </rich:column>
@@ -49,7 +49,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.lib_periodeCourante}"/>
                                 </f:facet>
-                                <center><h:graphicImage value="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}"/></center>
+                                <center><h:graphicImage value="#{gsLogin.currentCoop.nbreDefPeriode.equals(def.periode) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}"/></center>
                             </rich:column>
                         </rich:dataTable>
             </h:form>

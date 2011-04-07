@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -39,7 +40,7 @@ public class DefinitionPeriode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String periode;
+    private int periode;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDebut;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -47,6 +48,7 @@ public class DefinitionPeriode implements Serializable {
     private boolean periodeActif;
     @ManyToOne
     private Cooperative coop;
+
    
     public Long getId() {
         return id;
@@ -76,22 +78,19 @@ public class DefinitionPeriode implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "ModelesParametrage.DefinitionPeriode[id=" + getId() + "]";
-    }
+ 
 
     /**
      * @return the periode
      */
-    public String getPeriode() {
+    public int getPeriode() {
         return periode;
     }
 
     /**
      * @param periode the periode to set
      */
-    public void setPeriode(String periode) {
+    public void setPeriode(int periode) {
         this.periode = periode;
     }
 

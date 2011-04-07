@@ -104,7 +104,7 @@ public class GestionResultat implements Serializable {
         return calcul;
     }
 
-    private Double calculRW(String periode) {
+    private Double calculRW(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "RA-1", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RA-2", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "RB-1", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RB-2", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "RC", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RD", session.getCurrentCoop())
@@ -114,7 +114,7 @@ public class GestionResultat implements Serializable {
                 + serviceResultat.rechercheResultat(periode, "RL", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RP", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "RQ", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "RS", session.getCurrentCoop()));
     }
-    private Double calculTW(String periode) {
+    private Double calculTW(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "TA-1", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TA-2", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "TC", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TD", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "TF", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "TE", session.getCurrentCoop())
@@ -123,26 +123,26 @@ public class GestionResultat implements Serializable {
                 + serviceResultat.rechercheResultat(periode, "TS", session.getCurrentCoop()));
     }
 
-    private Double calculUF(String periode) {
+    private Double calculUF(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "UA", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "UC", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "UD", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "UE", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "UF", session.getCurrentCoop()));
     }
-    private Double calculSF(String periode) {
+    private Double calculSF(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "SA", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "SC", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "SD", session.getCurrentCoop()));
     }
 
-    private Double calculUO(String periode) {
+    private Double calculUO(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "UK", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "UL", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "UM", session.getCurrentCoop())+ serviceResultat.rechercheResultat(periode, "UN", session.getCurrentCoop()));
     }
-    private Double calculSO(String periode) {
+    private Double calculSO(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "SK", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "SL", session.getCurrentCoop())
                 + serviceResultat.rechercheResultat(periode, "SM", session.getCurrentCoop()));
     }
 
-    private Double calculSS(String periode) {
+    private Double calculSS(int periode) {
         return (double) (serviceResultat.rechercheResultat(periode, "SQ", session.getCurrentCoop()) + serviceResultat.rechercheResultat(periode, "SR", session.getCurrentCoop()));
     }
 
@@ -221,7 +221,7 @@ public class GestionResultat implements Serializable {
         }
     }
 
-    public Double ResultatCharge(String periode, String charteCompte) {
+    public Double ResultatCharge(int periode, String charteCompte) {
         if (charteCompte.equals("RB-1")) {
             return (double) serviceResultat.rechercheResultat(periode, "RA-1-SD", session.getCurrentCoop()) - (double) serviceResultat.rechercheResultat(periode, "RA-1-SF", session.getCurrentCoop());
         } else if (charteCompte.equals("RB-2")) {

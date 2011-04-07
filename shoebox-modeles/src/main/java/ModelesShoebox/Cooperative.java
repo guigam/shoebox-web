@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -58,6 +59,11 @@ private List<formatageEntier> lstFormatEntier = new LinkedList<formatageEntier>(
     private List<ParamTransaction> lstParametrage = new LinkedList<ParamTransaction>();
     @OneToMany(mappedBy="cooperative", cascade=CascadeType.ALL)
     private List<CategorieCharge> lstCategCharge = new LinkedList<CategorieCharge>();
+    @Transient
+    public int getnbreDefPeriode(){
+        return lstDef.size();
+    }
+
     public Long getId() {
         return id;
     }

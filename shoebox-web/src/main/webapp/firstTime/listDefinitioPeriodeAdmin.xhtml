@@ -26,35 +26,13 @@
                 <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstDefinitionPeriodeAdmin}"  var="def" width="60%" id="tab">
-                    <rich:column width="10%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_periode}"/>
-                        </f:facet>
-                       <h:outputText value="#{def.periode}"/>
-                    </rich:column>
-                      <rich:column width="40%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_dateDebutPeriode}"/>
-                        </f:facet>
-                          <rich:calendar value="#{def.dateDebut}"/>
-                    </rich:column>
-                      <rich:column width="40%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_dateFinPeriode}"/>
-                        </f:facet>
-                          <rich:calendar value="#{def.dateFin}"/>
-                    </rich:column>
-                      <rich:column width="20%">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.lib_periodeCourante}"/>
-                        </f:facet>
-                          <center><h:commandButton  image="#{def.periodeActif.equals(true) ? '/icons/Ok.ico' :'/icons/unCheck.ico'}" action="#{gsParamSoco.changePeriodeActif}" >
-                                  <f:setPropertyActionListener target="#{gsParamSoco.dePeriode}" value="#{def}"/>
-                              </h:commandButton>
-                          </center>
-                    </rich:column>
-                </rich:dataTable>
+                <h:panelGrid  columns="2">
+                    <h:outputText value="#{msg.lib_dateDebutPeriode}" styleClass="titreLibelle"/>
+                    <rich:calendar value="#{gsParamSoco.dePeriode.dateDebut}" required="true"/>
+                    <h:outputText value="#{msg.lib_dateFinPeriode}" styleClass="titreLibelle"/>
+                    <rich:calendar value="#{gsParamSoco.dePeriode.dateFin}" required="true"/>
+                </h:panelGrid>
+
                  <rich:spacer height="40/"/>
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">

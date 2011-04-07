@@ -121,7 +121,7 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
     }
 
     @Override
-    public double rechercheResultat(String periode, String charteCompte, Cooperative coop) {
+    public double rechercheResultat(int periode, String charteCompte, Cooperative coop) {
        Query query = em.createQuery("select  sum(t.montant) from  TransactionCaisse t "
                + "where t.defPeriode.periode = ?1 and t.charteCompte.reference = ?2 and t.coop = ?3"
                       + " group by t.charteCompte.reference, t.defPeriode.periode");

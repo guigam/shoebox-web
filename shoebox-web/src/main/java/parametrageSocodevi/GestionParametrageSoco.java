@@ -13,7 +13,6 @@ import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
-import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
 import gestionCommandes.gestionCommandes;
 import java.io.FileNotFoundException;
@@ -109,29 +108,29 @@ public class GestionParametrageSoco implements Serializable {
         System.out.println(event.getSource());
     }
 
-    public void changePeriodeActif() {
-        if (!lstDefPeriode.isEmpty()) {
-            for (DefinitionPeriode d : lstDefPeriode) {
-                if (d.getPeriode().equals(dePeriode.getPeriode())) {
-                    d.setPeriodeActif(true);
-                    d.setCoop(cooperative);
-                } else {
-                    d.setPeriodeActif(false);
-                    d.setCoop(cooperative);
-                }
-            }
-        } else {
-            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(cooperative)) {
-                if (d.equals(dePeriode)) {
-                    d.setCoop(cooperative);
-                    d.setPeriodeActif(true);
-                } else {
-                    d.setCoop(cooperative);
-                    d.setPeriodeActif(false);
-                }
-            }
-        }
-    }
+//    public void changePeriodeActif() {
+//        if (!lstDefPeriode.isEmpty()) {
+//            for (DefinitionPeriode d : lstDefPeriode) {
+//                if (d.getPeriode().equals(dePeriode.getPeriode())) {
+//                    d.setPeriodeActif(true);
+//                    d.setCoop(cooperative);
+//                } else {
+//                    d.setPeriodeActif(false);
+//                    d.setCoop(cooperative);
+//                }
+//            }
+//        } else {
+//            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(cooperative)) {
+//                if (d.equals(dePeriode)) {
+//                    d.setCoop(cooperative);
+//                    d.setPeriodeActif(true);
+//                } else {
+//                    d.setCoop(cooperative);
+//                    d.setPeriodeActif(false);
+//                }
+//            }
+//        }
+//    }
 
     public String newCoop() throws FileNotFoundException, IOException {
         if (fup.getFile() != null) {
@@ -139,13 +138,9 @@ public class GestionParametrageSoco implements Serializable {
             saveFile(chemin);
             cooperative.setLinkLogo(chemin + fup.getFile().getFileName());
         }
-        for (DefinitionPeriode d : lstDefPeriode) {
-            d.setCoop(cooperative);
-        }
         for(CategorieCharge c : cooperative.getLstCategCharge()){
         c.setCooperative(cooperative);
         }
-        cooperative.setLstDef(lstDefPeriode);
         unite.setType("Unite");
         devise.setType("Devise");
         unite.setCoop(cooperative);
@@ -211,13 +206,9 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public String definitionPeriodeAdminRedirect() {
-        for (DefinitionPeriode d : getlstDefinitionPeriodeAdmin()) {
-            if (d.getDateDebut() == null || d.getDateFin() == null || !verifPeriodeActif(getlstDefinitionPeriodeAdmin())) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
-                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
-                return null;
-            }
-        }
+        dePeriode.setPeriode(1);
+        dePeriode.setCoop(cooperative);
+        cooperative.getLstDef().add(dePeriode);
 
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
     }
@@ -341,34 +332,7 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriodeAdmin() {
-        if (cooperative.getId() == null && lstDefPeriode.isEmpty()) {
-            for (int i = 1; i <= 12; i++) {
-                DefinitionPeriode def = new DefinitionPeriode();
-                def.setPeriode("P" + i);
-                lstDefPeriode.add(def);
-            }
-            return lstDefPeriode;
-        } else if (cooperative.getId() == null && !lstDefPeriode.isEmpty()) {
-            return lstDefPeriode;
-        }
-        if (serviceSoco.lstDefinitionPeriode(cooperative).isEmpty()) {
-
-            if (lstDefPeriode.isEmpty()) {
-                for (int i = 1; i <= 12; i++) {
-                    DefinitionPeriode def = new DefinitionPeriode();
-                    def.setPeriode("P" + i);
-                    lstDefPeriode.add(def);
-                }
-                return lstDefPeriode;
-            } else {
-                return lstDefPeriode;
-            }
-        }
-        if (!verifPeriodeActif(lstDefPeriode)) {
             return lstDefPeriode = serviceSoco.lstDefinitionPeriode(cooperative);
-        } else {
-            return lstDefPeriode;
-        }
     }
 
     public List<DefinitionPeriode> getlstDefinitionPeriode() {
