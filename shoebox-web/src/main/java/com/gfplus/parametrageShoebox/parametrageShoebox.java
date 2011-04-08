@@ -180,6 +180,7 @@ public class parametrageShoebox implements Serializable {
             TransactionMagasin tsxm = new TransactionMagasin();
                retourneCharteCompteSelonProduit(configmag);
              affectationMagasinCaisse(tsxc, tsxm);
+             afectationFieldsCommande(commande);
                 magasin.setCommande(commande);
                 parametrageCoop.updateMagasin(magasin);
                 magasin = new Magasin();
@@ -190,20 +191,16 @@ public class parametrageShoebox implements Serializable {
              Commande commande = new Commande();
              commande.getLsttransactionCaisse().add(configmag.getTsxCaisse());
                commande.getLsttransactionMagasin().add(configmag.getTsxMag());
-               commande.setConfirmation(true);
-               commande.setCoop(session.getCurrentCoop());
-               commande.setCurrentuser(session.getUser());
-               commande.setDefPeriode(session.getCurrentPeriode());
                  retourneCharteCompteSelonProduit(configmag);
                 afectationFieldsCommande(magasin.getCommande());
                 parametrageCoop.updateMagasin(magasin);
                 magasin = new Magasin();
                 configmag = new ConfigMag();
                 return "/parametrageCoop/listMagasin.xhtml";
-            
-    }
+        }
+     }
+    
 
- }
     private void afectationFieldsCommande(Commande commande) {
         TransactionMagasin tsxm = new TransactionMagasin();
         TransactionCaisse tsxc = new TransactionCaisse();
@@ -223,9 +220,8 @@ public class parametrageShoebox implements Serializable {
         tsxc.setCoop(session.getCurrentCoop());
         tsxc.setDescription("Entree Magasin");
         tsxc.setReference("magasin" + magasin.getId());
-        tsxc.setTypeTransaction("E");
+        tsxc.setTypeTransaction("I");
         tsxc.setCharteCompte(configmag.getTsxCaisse().getCharteCompte());
-        tsxc.setCompteEncaisse(configmag.getTsxCaisse().getCompteEncaisse());
         tsxc.setMontant(configmag.getTsxCaisse().getMontant());
         tsxc.setCoop(session.getCurrentCoop());
         tsxc.setDate(new Date());

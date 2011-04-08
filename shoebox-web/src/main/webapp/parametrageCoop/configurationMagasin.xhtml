@@ -38,10 +38,6 @@
             <h:inputText value="#{parametrageShoebox.configmag.tsxMag.quantite}" />
             <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
             <h:inputText value="#{parametrageShoebox.configmag.tsxCaisse.montant}" />
-            <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
-            <rich:comboBox value="#{parametrageShoebox.configmag.tsxCaisse.compteEncaisse}" converter="converterCompte">
-                <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
-            </rich:comboBox>
             </h:panelGrid>
              <rich:spacer height="40/"/>
                         <table width="100%" border="0">

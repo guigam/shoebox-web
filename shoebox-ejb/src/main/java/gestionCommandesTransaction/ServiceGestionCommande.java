@@ -10,10 +10,8 @@ import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
 import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionAvanceProduit;
-import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
-import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -33,6 +31,21 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
     private ServiceParamSocoLocal serviceParamSoco;
  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
+
+    private List<Object[]> entreeProduit(Cooperative coop, DefinitionPeriode periode) {
+        Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where  x.coop = ?4 and x.defPeriode = ?5 and x.m_commande.type = ?3 group by x.produit");
+        q.setParameter(3, "E");
+        q.setParameter(4, coop);
+        q.setParameter(5, periode);
+        return (List<Object[]>) q.getResultList();
+    }
+    private List<Object[]> sortisProduit(Cooperative coop, DefinitionPeriode periode) {
+        Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where  x.coop = ?4 and x.defPeriode = ?5 and x.m_commande.type = ?3 group by x.produit");
+        q.setParameter(3, "D");
+        q.setParameter(4, coop);
+        q.setParameter(5, periode);
+        return (List<Object[]>) q.getResultList();
+    }
 
 
     
@@ -150,6 +163,13 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         query.setParameter(3, periode);
         return query.getResultList();
         }
+
+    @Override
+    public List<Object[]> etatMagByProduit( Cooperative coop, DefinitionPeriode periode) {
+             return entreeProduit(coop, periode);
+    }
+
+
     }
 
 

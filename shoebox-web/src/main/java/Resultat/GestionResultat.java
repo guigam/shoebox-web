@@ -409,8 +409,8 @@ public class GestionResultat implements Serializable {
         return tot;
     }
 
-    public float getquantiteProduitPrincipalEntree() {
-        float tot = 0;
+    public Long getquantiteProduitPrincipalEntree() {
+        long tot = 0;
         for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
             for (TransactionMagasin t : comm.getLsttransactionMagasin()) {
                 if (t.getProduit().getCategorie().equals("produitCoop")) {
@@ -421,8 +421,8 @@ public class GestionResultat implements Serializable {
         return tot;
     }
 
-    public float getquantiteProduitSecondairelEntree() {
-        float tot = 0;
+    public Long getquantiteProduitSecondairelEntree() {
+        long tot = 0;
         for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
             for (TransactionMagasin t : comm.getLsttransactionMagasin()) {
                 if (t.getProduit().getCategorie().equals("intrant")) {
@@ -433,8 +433,8 @@ public class GestionResultat implements Serializable {
         return tot;
     }
 
-    public float getquantiteProduitSecondaireSortie() {
-        float tot = 0;
+    public Long getquantiteProduitSecondaireSortie() {
+        long tot = 0;
         for (Commande comm : gsCommande.getLstCommandeSortisProduit()) {
             for (TransactionMagasin t : comm.getLsttransactionMagasin()) {
                 if (t.getProduit().getCategorie().equals("intrant")) {
@@ -445,8 +445,8 @@ public class GestionResultat implements Serializable {
         return tot;
     }
 
-    public float getquantiteProduitPrincipaleSortie() {
-        float tot = 0;
+    public Long getquantiteProduitPrincipaleSortie() {
+        long tot = 0;
         for (Commande comm : gsCommande.getLstCommandeSortisProduit()) {
             for (TransactionMagasin t : comm.getLsttransactionMagasin()) {
                 if (t.getProduit().getCategorie().equals("produitCoop")) {
@@ -458,7 +458,7 @@ public class GestionResultat implements Serializable {
     }
 
     public float getquantiteProduitIntrantSortie() {
-        float tot = 0;
+        long tot = 0;
         for (Commande comm : gsCommande.getlstCommandeSortisIntrant()) {
             tot = tot + comm.getquantiteSortisProduitIntrant();
         }

@@ -5,8 +5,10 @@
 package gestionCommandes;
 
 import Login.login;
+import ModelesParametrage.DefinitionPeriode;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import ModelesShoebox.Commande;
+import ModelesShoebox.Cooperative;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionMagasin;
@@ -25,6 +27,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import parametrageCoop.serviceParamCoopLocal;
+import parametrageSocodevi.GestionParametrageSoco;
+import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**
  *
@@ -38,8 +42,12 @@ public class gestionCommandes implements Serializable {
     private ServiceGestionCommandeTransactionLocal serviceGsCommande;
     @EJB
     private serviceParamCoopLocal parametrageCoop;
+    @EJB
+    private ServiceParamSocoLocal serviceSOCO;
     @Inject
     private parametrageShoebox paramShoebox;
+    @Inject
+    private GestionParametrageSoco paramSoco;
     @Inject
     private GestionCaisse gsCaisse;
     @Inject
@@ -51,7 +59,7 @@ public class gestionCommandes implements Serializable {
     private List<StockSortieProduit> lstStockSortieProduit = new ArrayList<StockSortieProduit>();
     private StockSortieProduit m_ssp = new StockSortieProduit();
     private Produit produit = new Produit();
-    private int grade = 0;
+    private Long grade;
     private List<Commande> lstCommandeSortisProduit = new LinkedList<Commande>();
     private List<Commande> allCommande = new LinkedList<Commande>();
     private TransactionMagasin tsxMag = new TransactionMagasin();
@@ -107,9 +115,24 @@ public class gestionCommandes implements Serializable {
             tsx.setCurrentuser(session.getUser());
             tsx.setCoop(session.getCurrentCoop());
             tsx.setDefPeriode(session.getCurrentPeriode());
-        }
+        } 
     }
 
+    public List<TransactionMagasin> getetatMagasingroupBy(){
+        List<TransactionMagasin> tsxMag = new LinkedList<TransactionMagasin>();
+        List<Object[]> lstObject = serviceGsCommande.etatMagByProduit(paramSoco.getCooperative(), serviceSOCO.currentPeriode(paramSoco.getCooperative()));
+        for(Object[] t : lstObject){
+            TransactionMagasin ssp = new TransactionMagasin();
+            ssp.setMagasin((Magasin) t[0]);
+            ssp.setProduit((Produit) t[1]);
+            Long a =new Long((Long) t[2]);
+            Long b =new Long((Long) t[3]);
+            ssp.setGrade(a);
+            ssp.setQuantite(b);
+            tsxMag.add(ssp);
+        }
+        return tsxMag;
+    }
 
     public void lstTransactionMagasinsByTypeProduitPrincipal(String type){
         lstTsxMagasin =  serviceGsCommande.transactionByProduit(type,session.getCurrentCoop(), session.getCurrentPeriode());
@@ -414,14 +437,14 @@ public class gestionCommandes implements Serializable {
     /**
      * @return the grade
      */
-    public int getGrade() {
+    public Long getGrade() {
         return grade;
     }
 
     /**
      * @param grade the grade to set
      */
-    public void setGrade(int grade) {
+    public void setGrade(Long grade) {
         this.grade = grade;
     }
 

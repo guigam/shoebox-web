@@ -15,7 +15,7 @@ public class StockSortieProduit {
     private Magasin magasin = new Magasin();
     private Long quantite;
    
-    private int quantiteSaisie;
+    private Long quantiteSaisie;
     private float pu;
 
     public StockSortieProduit() {
@@ -41,14 +41,14 @@ public class StockSortieProduit {
     /**
      * @return the quantiteSaisie
      */
-    public int getQuantiteSaisie() {
+    public Long getQuantiteSaisie() {
         return quantiteSaisie;
     }
 
     /**
      * @param quantiteSaisie the quantiteSaisie to set
      */
-    public void setQuantiteSaisie(int quantiteSaisie) {
+    public void setQuantiteSaisie(Long quantiteSaisie) {
         this.quantiteSaisie = quantiteSaisie;
     }
 

@@ -40,9 +40,9 @@ public class TransactionMagasin implements Serializable {
     private Long id;
     private Magasin magasin;
     private Produit produit;
-    private int grade;
+    private Long grade;
     private int humidite;
-    private int quantite;
+    private Long quantite;
     private float prixUnitaire;
     private int type; //1 = produit ,  2 = intrant
     private Commande m_commande;
@@ -124,28 +124,28 @@ private Cooperative coop;
     /**
      * @return the quantite
      */
-    public int getQuantite() {
+    public Long getQuantite() {
         return quantite;
     }
 
     /**
      * @param quantite the quantite to set
      */
-    public void setQuantite(int quantite) {
+    public void setQuantite(Long quantite) {
         this.quantite = quantite;
     }
 
     /**
      * @return the grade
      */
-    public int getGrade() {
+    public Long getGrade() {
         return grade;
     }
 
     /**
      * @param grade the grade to set
      */
-    public void setGrade(int grade) {
+    public void setGrade(Long grade) {
         this.grade = grade;
     }
 

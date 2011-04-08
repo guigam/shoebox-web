@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templateUtilisateur.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+         <h:outputText value="#{msg.lib_fermeturemagasin}" styleClass="titrePanel"/>
+        <rich:separator />
+        <rich:spacer height="20"/>
+        <rich:dataTable value="#{gsCommandes.etatMagasingroupBy}" var="m" width="100%">
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="#{msg.lib_magasin}" />
+                </f:facet>
+                <h:outputText value="#{m.produit.name}"/>
+                </rich:column  >
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msg.lib_produit}" />
+                </f:facet>
+                <h:outputText value="#{m.magasin.name}"/>
+                </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msg.lib_grade}" />
+                </f:facet>
+                <h:outputText value="#{m.grade}"/>
+                </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msg.lib_quantite}" />
+                </f:facet>
+                <h:outputText value="#{m.quantite}"/>
+            </rich:column>
+        </rich:dataTable>
+
+    </ui:define>
+
+
+
+</ui:composition>

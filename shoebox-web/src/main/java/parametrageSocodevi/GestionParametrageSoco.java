@@ -14,6 +14,7 @@ import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CategorieCharge;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.TransactionMagasin;
 import gestionCommandes.gestionCommandes;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -107,6 +108,8 @@ public class GestionParametrageSoco implements Serializable {
     public void recupID(ValueChangeEvent event) {
         System.out.println(event.getSource());
     }
+
+
 
 //    public void changePeriodeActif() {
 //        if (!lstDefPeriode.isEmpty()) {

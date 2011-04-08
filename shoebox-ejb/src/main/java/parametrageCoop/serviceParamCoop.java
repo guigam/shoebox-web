@@ -311,7 +311,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return lstObject;
     }
 
-    public List<Object[]> rechercheStockProduit(Produit produit, int grade, Cooperative coop, DefinitionPeriode periode) {
+    public List<Object[]> rechercheStockProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
         if (!rechercehEntreeProduit(produit, grade, coop,periode).isEmpty() && rechercehSortisProduit(produit, grade, coop,periode).isEmpty()) {
             for (Object[] t : rechercehEntreeProduit(produit, grade, coop,periode)) {
@@ -346,7 +346,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return lstObject;
     }
 
-    private List<Object[]> rechercehEntreeProduit(Produit produit, int grade, Cooperative coop, DefinitionPeriode periode) {
+    private List<Object[]> rechercehEntreeProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null && grade != 0) {
             if (produit.getType().equals("Principal")) {
                 Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
@@ -370,7 +370,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return null;
     }
 
-    private List<Object[]> rechercehSortisProduit(Produit produit, int grade, Cooperative coop, DefinitionPeriode periode) {
+    private List<Object[]> rechercehSortisProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null && grade != 0) {
             Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type in (?3,?5) and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?6 group by x.magasin");
             q.setParameter(1, produit);

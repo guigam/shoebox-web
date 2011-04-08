@@ -35,7 +35,7 @@
                         <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
                         <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
                         <h:commandButton image="/icons/per.png"/>
-                        <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
+                        <h:outputText value="#{gsLogin.currentPeriode.dateDebut} - #{gsLogin.currentPeriode.dateFin}" styleClass="titreLibelle" />
                            </h:panelGrid>
                             </div>
                         </td>

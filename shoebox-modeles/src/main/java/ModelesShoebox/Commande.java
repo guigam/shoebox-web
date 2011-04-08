@@ -49,8 +49,8 @@ public class Commande implements Serializable {
     }
 
     @Transient
-    public float getquantiteEntreeProduit() {
-        float tot = 0;
+    public Long getquantiteEntreeProduit() {
+        long tot = 0;
         if (type.equals("EP")) {
             for (TransactionMagasin t : lsttransactionMagasin) {
                 tot = tot + t.getQuantite();
@@ -60,8 +60,8 @@ public class Commande implements Serializable {
     }
 
     @Transient
-    public float getquantiteEntreeProduitIntrant() {
-        float tot = 0;
+    public Long getquantiteEntreeProduitIntrant() {
+        long tot = 0;
         if (type.equals("EI")) {
             for (TransactionMagasin t : lsttransactionMagasin) {
                 tot = tot + t.getQuantite();
@@ -71,8 +71,8 @@ public class Commande implements Serializable {
     }
 
     @Transient
-    public float getquantiteSortisProduit() {
-        float tot = 0;
+    public Long getquantiteSortisProduit() {
+        long tot = 0;
         if (type.equals("SP")) {
             for (TransactionMagasin t : lsttransactionMagasin) {
                 tot = tot + t.getQuantite();
@@ -82,8 +82,8 @@ public class Commande implements Serializable {
     }
 
     @Transient
-    public float getquantiteSortisProduitIntrant() {
-        float tot = 0;
+    public Long getquantiteSortisProduitIntrant() {
+        long tot = 0;
         if (type.equals("SI")) {
             for (TransactionMagasin t : lsttransactionMagasin) {
                 tot = tot + t.getQuantite();

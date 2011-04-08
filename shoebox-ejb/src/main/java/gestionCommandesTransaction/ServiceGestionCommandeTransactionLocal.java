@@ -51,6 +51,13 @@ public interface ServiceGestionCommandeTransactionLocal {
 
      public List<TransactionMagasin> transactionByProduit(String typeProduit, Cooperative coop, DefinitionPeriode periode);
 
+//     public List<TransactionMagasin> etatMagasinGroupedByMagasin(Cooperative coop, DefinitionPeriode periode);
+//
+//     public List<TransactionMagasin> etatMagasinGroupedByProduit(Cooperative coop, DefinitionPeriode periode);
+
+     public List<Object[]> etatMagByProduit(Cooperative coop, DefinitionPeriode periode);
+
+
 
     
 

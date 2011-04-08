@@ -109,12 +109,13 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public DefinitionPeriode currentPeriode(Cooperative coop) {
+        DefinitionPeriode Defperiode = new DefinitionPeriode();
        for(DefinitionPeriode periode : lstDefinitionPeriode(coop)){
-            if(periode.isPeriodeActif()){
-                return periode;
-            }
+          if(periode.getPeriode() == lstDefinitionPeriode(coop).size()){
+            Defperiode =  periode;
+          }
        }
-       return null;
+       return Defperiode;
     }
 
     @Override
