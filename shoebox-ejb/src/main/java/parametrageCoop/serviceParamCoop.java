@@ -386,7 +386,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
         if (produit != null) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 defPeriode = ?5 group by x.magasin");
+            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 and defPeriode = ?5 group by x.magasin");
             q.setParameter(1, produit);
             q.setParameter(3, "EPI");
             q.setParameter(4, coop);

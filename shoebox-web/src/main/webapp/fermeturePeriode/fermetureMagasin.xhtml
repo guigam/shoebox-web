@@ -13,13 +13,13 @@
         <rich:dataTable value="#{gsCommandes.etatMagasingroupBy}" var="m" width="100%">
             <rich:column >
                 <f:facet name="header">
-                    <h:outputText value="#{msg.lib_magasin}" />
+                    <h:outputText value="#{msg.lib_produit}" />
                 </f:facet>
                 <h:outputText value="#{m.produit.name}"/>
                 </rich:column  >
             <rich:column>
                 <f:facet name="header">
-                    <h:outputText value="#{msg.lib_produit}" />
+                    <h:outputText value="#{msg.lib_magasin}" />
                 </f:facet>
                 <h:outputText value="#{m.magasin.name}"/>
                 </rich:column>

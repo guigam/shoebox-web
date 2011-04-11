@@ -57,9 +57,4 @@ public interface ServiceGestionCommandeTransactionLocal {
 
      public List<Object[]> etatMagByProduit(Cooperative coop, DefinitionPeriode periode);
 
-
-
-    
-
-    
 }

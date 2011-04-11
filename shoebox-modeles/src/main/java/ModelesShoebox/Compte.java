@@ -53,7 +53,7 @@ public class Compte implements Serializable {
     for(TransactionCaisse t : tsxCaisse){
         if(t.getTypeTransaction().equals("E")){
             c = c + t.getMontant();
-        }else{
+        }else if(t.getTypeTransaction().equals("D")){
             c = c - t.getMontant();
         }
     }

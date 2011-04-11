@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../templateCaisse.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:rich="http://richfaces.org/rich">
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
     
   
 
@@ -16,7 +17,9 @@
                 <rich:spacer height="10"/>
                 <rich:dataGrid value="#{parametrageShoebox.lstCompteEncaisse}" var="c" width="100%" columns="3">
                     <rich:panel header="#{c.folio} #{c.nomCompte}">
-                        <h:outputText value="#{c.valeurtotalCompte}" styleClass="sousTitrePanel"/>
+                        <h:outputText value="#{c.valeurtotalCompte}" styleClass="sousTitrePanel">
+                            <f:convertNumber type="currency" minFractionDigits ="#{gsLogin.currentFormatDevise.apresVirgule}" currencySymbol = "#{gsLogin.currentFormatDevise.curremcy}"/>
+                        </h:outputText>
                     </rich:panel>
                 </rich:dataGrid>
 

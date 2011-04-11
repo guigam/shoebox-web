@@ -134,6 +134,7 @@ public class gestionCommandes implements Serializable {
         return tsxMag;
     }
 
+
     public void lstTransactionMagasinsByTypeProduitPrincipal(String type){
         lstTsxMagasin =  serviceGsCommande.transactionByProduit(type,session.getCurrentCoop(), session.getCurrentPeriode());
     }
