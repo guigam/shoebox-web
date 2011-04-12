@@ -17,10 +17,13 @@ import ModelesShoebox.Produit;
 import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionMagasin;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -143,15 +146,24 @@ public class parametrageShoebox implements Serializable {
      public List<CategorieCharge> getlstCategorieCharge(){
        return parametrageCoop.lstCategorieChargeByType(session.getCurrentCoop(), "Charge");
     }
-    public boolean validerDate(Date date) {
+    public boolean validerDate(Date date) throws IOException {
         if (parametrageCoop.verifdate(date, session.getCurrentPeriode())) {
             return true;
         }
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention la date n'est pas correct", "Attention la date n'est pas correct");
+            Properties  properties = loadFilePropriete();
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageDateIncorrect"), properties.getProperty("messageDateIncorrect"));
         FacesContext.getCurrentInstance().addMessage("type produit", msg);
         return false;
 
     }
+    private Properties loadFilePropriete() throws IOException {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        InputStream is = cl.getResourceAsStream(session.getNameFichier());
+        Properties properties = new Properties();
+        properties.load(is);
+        return properties;
+    }
+
 
     public String newFournisseurProduit() {
 

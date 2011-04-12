@@ -11,7 +11,7 @@
             <default-locale>FR</default-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>bundles/MessageResources_fr_CA</base-name>
+            <base-name>/bundles/MessageResources_fr_CA</base-name>
             <var>msg</var>
         </resource-bundle>
     </application>

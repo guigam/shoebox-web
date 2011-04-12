@@ -21,9 +21,12 @@ import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCaisse.GestionCaisse;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -98,8 +101,12 @@ public class GestionResultat implements Serializable {
 
     public Double calculSommePeriodeCharteCompte(String reference) {
         double calcul = 0;
-        for (DefinitionPeriode d : gsParamSoco.getlstDefinitionPeriode()) {
-            calcul = calcul + (double) serviceResultat.rechercheResultat(d.getPeriode(), reference, session.getCurrentCoop());
+        try {
+            for (DefinitionPeriode d : gsParamSoco.getlstDefinitionPeriode()) {
+                calcul = calcul + (double) serviceResultat.rechercheResultat(d.getPeriode(), reference, session.getCurrentCoop());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GestionResultat.class.getName()).log(Level.SEVERE, null, ex);
         }
         return calcul;
     }
@@ -260,7 +267,7 @@ public class GestionResultat implements Serializable {
 
     //////////////////////// calcul du resultat produit //////////////////////////
     public Double getcalculTB1() {
-        return (double) (calculSommePeriodeCharteCompte("TA-1") - calculSommePeriodeCharteCompte("RA-1") - (calculSommePeriodeCharteCompte("RA-1-SD") - calculSommePeriodeCharteCompte("RA-1-SF")));
+        return (double) (calculSommePeriodeCharteCompte("TA-1") - calculSommePeriodeCharteCompte("RA-1") - getVariationStock());
     }
 
     public Double getcalculTB2() {
@@ -275,7 +282,7 @@ public class GestionResultat implements Serializable {
 
     public Double getcalculTN() {
         return getcalculTB1() + getcalculTB2() + getcalculTG() + calculSommePeriodeCharteCompte("TH") + calculSommePeriodeCharteCompte("TK") + calculSommePeriodeCharteCompte("TL")
-                - calculSommePeriodeCharteCompte("RI") - calculSommePeriodeCharteCompte("RJ") - calculSommePeriodeCharteCompte("RK") - calculSommePeriodeCharteCompte("RL");
+                - (calculSommePeriodeCharteCompte("RI") + calculSommePeriodeCharteCompte("RJ") + calculSommePeriodeCharteCompte("RK") + calculSommePeriodeCharteCompte("RL"));
     }
 
     public Double getcalculeTQ() {
@@ -289,19 +296,19 @@ public class GestionResultat implements Serializable {
     }
 
     public Double getcalculeUG() {
-        return (double) (getcalculeTQ() + calculSommePeriodeCharteCompte("UF") - calculSommePeriodeCharteCompte("SF"));
+        return (double)   calculSommePeriodeCharteCompte("UF") - calculSommePeriodeCharteCompte("SF");
     }
 
     public Double getcalculeUI() {
-        return (double) (getcalculeTQ() + calculSommePeriodeCharteCompte("TX") + calculSommePeriodeCharteCompte("UG"));
+        return (double) getcalculeTX() + calculSommePeriodeCharteCompte("UG");
     }
 
     public Double getcalculeUP() {
-        return (double) (getcalculeTQ() + calculSommePeriodeCharteCompte("UO") - calculSommePeriodeCharteCompte("SO"));
+        return (double)  calculSommePeriodeCharteCompte("UO") - calculSommePeriodeCharteCompte("SO");
     }
 
     public Double getcalculeUZ() {
-        return (double) (getcalculeTQ() + calculSommePeriodeCharteCompte("UI") + getcalculeTQ() + calculSommePeriodeCharteCompte("UP") - calculSommePeriodeCharteCompte("SS"));
+        return (double)  getcalculeUI() +  getcalculeUP() - calculSommePeriodeCharteCompte("SS");
     }
 
 //////////////////////////////////////Resultat analyse ////////////////////////////////////////////////
@@ -334,7 +341,7 @@ public class GestionResultat implements Serializable {
     }
 
     public Double getmargeBrutSurProduit() {
-        return getSommeVenteCafeCacao() - getSommeAchatProduit();
+        return getSommeVenteCafeCacao() - (getSommeAchatProduit()+getVariationStock());
     }
 
     public Double getmargeBrutExploitation() {
@@ -369,7 +376,11 @@ public class GestionResultat implements Serializable {
     }
 
     public Double getresultatConsolide() {
-        return (getmargeBrutExploitation() - getsommeFraisCharge()) + getautresRevenus() - getCoutLie();
+        return (double)getresultatExploitation() + (double)getautresRevenus() - (double)getCoutLie();
+    }
+
+    public Double getresultatExploitation(){
+        return (double)getmargeBrutExploitation() - (double)getsommeFraisCharge();
     }
 
     public List<StructureCharge> getlstResultatCharge() {
@@ -381,7 +392,7 @@ public class GestionResultat implements Serializable {
     }
 
     public boolean verifTypeChargeAaffichier(StructureCharge sc) {
-        if (sc.getReference() != "ppp" && sc.getRefereaffichage().equals(null));
+        if (!sc.getReference().equals("ppp") && sc.getRefereaffichage() == null);
         return false;
     }
 

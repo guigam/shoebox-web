@@ -29,16 +29,16 @@
                         <ui:insert name="message">
                         </ui:insert>
                         </td>
-                        <td width="14%">
-                            <div style="vertical-align: top;" align="left">
+                        <td width="20%">
+                            <div style="vertical-align: top;text-align: right;" >
                                 <h:panelGrid columns="2">
-                                    <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
-                                    <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
-                                    <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
-                                    <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
-                                    <h:commandButton image="/icons/per.png"/>
-                                    <h:commandLink value="#{msg.lib_periode} #{gsLogin.currentPeriode.periode}" styleClass="titreLibelle" action="/parametrageCoop/listDefinitioPeriode.xhtml"/>
-                                </h:panelGrid>
+                        <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
+                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
+                        <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
+                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
+                        <h:commandButton image="/icons/per.png"/>
+                        <h:outputText value="#{gsLogin.currentPeriode.dateDebut} - #{gsLogin.currentPeriode.dateFin}" styleClass="titreLibelle" />
+                           </h:panelGrid>
                             </div>
                         </td>
                         </tr>

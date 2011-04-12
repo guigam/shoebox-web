@@ -19,11 +19,13 @@ import gestionCommandes.gestionCommandes;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
@@ -82,6 +84,14 @@ public class GestionParametrageSoco implements Serializable {
         return null;
     }
 
+
+        private Properties loadFilePropriete() throws IOException {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        InputStream is = cl.getResourceAsStream(session.getNameFichier());
+        Properties properties = new Properties();
+        properties.load(is);
+        return properties;
+    }
     public String updateParamTransaction() {
         cooperative.setLstParametrage(lstParamtransaction);
         serviceParamCoop.updateCoop(cooperative);
@@ -111,30 +121,6 @@ public class GestionParametrageSoco implements Serializable {
 
 
 
-//    public void changePeriodeActif() {
-//        if (!lstDefPeriode.isEmpty()) {
-//            for (DefinitionPeriode d : lstDefPeriode) {
-//                if (d.getPeriode().equals(dePeriode.getPeriode())) {
-//                    d.setPeriodeActif(true);
-//                    d.setCoop(cooperative);
-//                } else {
-//                    d.setPeriodeActif(false);
-//                    d.setCoop(cooperative);
-//                }
-//            }
-//        } else {
-//            for (DefinitionPeriode d : serviceSoco.lstDefinitionPeriode(cooperative)) {
-//                if (d.equals(dePeriode)) {
-//                    d.setCoop(cooperative);
-//                    d.setPeriodeActif(true);
-//                } else {
-//                    d.setCoop(cooperative);
-//                    d.setPeriodeActif(false);
-//                }
-//            }
-//        }
-//    }
-
     public String newCoop() throws FileNotFoundException, IOException {
         if (fup.getFile() != null) {
             String chemin = "/home/guigam/NetBeansProjects/shoebox2/shoebox-web/src/main/webapp/logo/";
@@ -162,16 +148,17 @@ public class GestionParametrageSoco implements Serializable {
         fos.write(fup.getFile().getData());
     }
 
-    public void addcategChargeVide() {
+    public void addcategChargeVide() throws IOException {
         if (verifCategorieCharge()) {
             cooperative.getLstCategCharge().add(new CategorieCharge());
         }
     }
 
-    private boolean verifCategorieCharge() {
+    private boolean verifCategorieCharge() throws IOException {
+         Properties  properties = loadFilePropriete();
         for (CategorieCharge c : cooperative.getLstCategCharge()) {
             if (c.getNomCategorie().equals("") && c.getDescription().equals("") && c.getType().equals("")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
                 FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
                 return false;
             }
@@ -179,7 +166,7 @@ public class GestionParametrageSoco implements Serializable {
         return true;
     }
 
-    public String categAdminRedirect() {
+    public String categAdminRedirect() throws IOException {
         if (verifCategorieCharge()) {
             return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
         }
@@ -197,10 +184,11 @@ public class GestionParametrageSoco implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
     }
 
-    public String configParamTransactionRedirect() {
+    public String configParamTransactionRedirect() throws IOException {
         for(ParamTransaction p : lstParamtransaction){
             if(p.getCharteCompte() == null){
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Veuillez remplir tous les champs necessaires", "Veuillez remplir tous les champs necessaires");
+                 Properties  properties = loadFilePropriete();
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"),properties.getProperty("messageChampsObligatoire"));
                 FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
                 return null;
             }
@@ -236,7 +224,8 @@ public class GestionParametrageSoco implements Serializable {
         return serviceParamCoop.lstCoop();
     }
 
-    public String validerConfigDefinitionperiode() {
+    public String validerConfigDefinitionperiode() throws IOException {
+             Properties  properties = loadFilePropriete();
         if (verifDonneePeriode() && verifPeriodeActif(lstDefPeriode)) {
             cooperative.setLstDef(lstDefPeriode);
             serviceParamCoop.updateCoop(cooperative);
@@ -265,7 +254,8 @@ public class GestionParametrageSoco implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
     }
 
-    private boolean verifDonneePeriode() {
+    private boolean verifDonneePeriode() throws IOException {
+              Properties  properties = loadFilePropriete();
         for (DefinitionPeriode d : lstDefPeriode) {
             if (d.getDateDebut().equals("") || d.getDateFin().equals("")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "La configuration de la definition de la periode n'est pas complete ");
@@ -298,9 +288,10 @@ public class GestionParametrageSoco implements Serializable {
         return "lstUtilisateurs";
     }
 
-    public String newUtilisateurAdmin() {
+    public String newUtilisateurAdmin() throws IOException {
+               Properties  properties = loadFilePropriete();
         if(utilisateur.getCooperative() == null){
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Veuillez choisir une cooperative ", "Veuillez choisir une cooperative ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,properties.getProperty("messageChoisirCoop"),properties.getProperty("messageChoisirCoop"));
                 FacesContext.getCurrentInstance().addMessage("coop", msg);
                 return null;
         }else{
@@ -338,7 +329,8 @@ public class GestionParametrageSoco implements Serializable {
             return lstDefPeriode = serviceSoco.lstDefinitionPeriode(cooperative);
     }
 
-    public List<DefinitionPeriode> getlstDefinitionPeriode() {
+    public List<DefinitionPeriode> getlstDefinitionPeriode() throws IOException {
+          Properties  properties = loadFilePropriete();
         if (serviceSoco.lstDefinitionPeriode(session.getCurrentCoop()).isEmpty()) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SVP, Contacter votre administrateur: la definition de periode n'est pas bien configure", null);
             FacesContext.getCurrentInstance().addMessage("defPeriode", msg);

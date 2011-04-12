@@ -12,10 +12,13 @@ import ModelesShoebox.TransactionCharge;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -59,7 +62,7 @@ public class GestionCaisse implements Serializable {
     public GestionCaisse() {
     }
 
-    public String newtransactionCommande() {
+    public String newtransactionCommande() throws IOException {
         if (validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(), tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())) {
             tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getCharteCompte());
             tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getType());
@@ -81,26 +84,35 @@ public class GestionCaisse implements Serializable {
     public void resetMontant(){
             tsxCaisse.setMontant(0);
     }
+    private Properties loadFilePropriete() throws IOException {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        InputStream is = cl.getResourceAsStream(session.getNameFichier());
+        Properties properties = new Properties();
+        properties.load(is);
+        return properties;
+    }
 
-    private boolean validerTransaction(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
+    private boolean validerTransaction(Date datetsx, Date dateOrigine, float montant, float montantRestant) throws IOException {
+            Properties  properties = loadFilePropriete();
         if (!paramShoebox.validerDate(datetsx)) {
             return false;
         } else if (montant > montantRestant) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", null);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageMontantSaisie"), null);
             FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
             return false;
         } else if (dateOrigine.after(datetsx)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date transaction ne doit pas etre inferieur a la date de la commande",null);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,  properties.getProperty("messageValiderfdateParApportCommande"),null);
             FacesContext.getCurrentInstance().addMessage("date", msg);
             return false;
         }
         return true;
     }
-    private boolean validerTransactionSD(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
+    private boolean validerTransactionSD(Date datetsx, Date dateOrigine, float montant, float montantRestant) throws IOException {
+        Properties  properties = loadFilePropriete();
         if (!paramShoebox.validerDate(datetsx)) {
             return false;
         } else if (montant > montantRestant) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "montant saisie incorrect", null);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageMontantSaisie"), null);
             FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
             return false;
         } 
@@ -108,7 +120,7 @@ public class GestionCaisse implements Serializable {
     }
 
 
-    public String newtransactionSD() {
+    public String newtransactionSD() throws IOException {
         if (validerTransactionSD(tsxCaisse.getDate(), gsSoldeDepart.getSd().getDate(), tsxCaisse.getMontant(), gsSoldeDepart.getSd().getmontantrestant())) {
             tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop())).getCharteCompte());
             tsxCaisse.setDescription(serviceSoco.rechercheParamCharteCompte(gsSoldeDepart.getSd().getTypeSolde(), session.getCurrentCoop()).getType());
@@ -141,7 +153,7 @@ public class GestionCaisse implements Serializable {
         }
     }
 
-    public String newTransactionCharge() {
+    public String newTransactionCharge() throws IOException {
         if (paramShoebox.validerDate(tsxCaisseCharge.getDate())) {
             tsxCaisseCharge.setTypeTransaction("D");
             tsxCaisseCharge.setCurrentuser(session.getUser());
@@ -153,7 +165,7 @@ public class GestionCaisse implements Serializable {
         }
         return null;
     }
-    public String newTransactionAvanceproduit() {
+    public String newTransactionAvanceproduit() throws IOException {
         if(paramShoebox.validerDate(tsxCaisseAvanceProduit.getDate())) {
             tsxCaisseAvanceProduit.setTypeTransaction("E");
             tsxCaisseAvanceProduit.setCurrentuser(session.getUser());

@@ -95,7 +95,11 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
         Query query = em.createQuery("from Utilisateur u where u.username = ?1 and u.password = ?2 ");
         query.setParameter(1, username);
         query.setParameter(2, password);
+        if(!query.getResultList().isEmpty()){
         return (Utilisateur) query.getSingleResult();
+        }else{
+        return null;
+        }
     }
 
     @Override

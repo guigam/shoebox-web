@@ -10,9 +10,11 @@ import ModelesParametrage.Permission;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.Cooperative;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -30,6 +32,7 @@ import parametrageSocodevi.ServiceParamSocoLocal;
 @Named(value="gsLogin")
 @SessionScoped
 public class login implements Serializable{
+   private String nameFichier ;
     private List<Permission> lstPermission = new LinkedList<Permission>();
     private Utilisateur user = new Utilisateur();
     private DefinitionPeriode currentPeriode = new DefinitionPeriode();
@@ -37,12 +40,17 @@ public class login implements Serializable{
     private formatageEntier currentFormatDevise = new formatageEntier();
     private formatageEntier currentFormatUnite = new formatageEntier();
     private String verifMDP = null;
+   
     @EJB
     private ServiceParamSocoLocal serviceparamSoco;
     @EJB
     private ServiceParamSocoLocal test;
     @Inject
     private GestionParametrageSoco paramSoco;
+         ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            private java.io.InputStream is ;
+
+
     /** Creates a new instance of login */
     public login() {
 
@@ -51,25 +59,38 @@ public class login implements Serializable{
         return serviceparamSoco.lstPermission();
     }
 
-    public String identification(){
+    public String identification() throws IOException{
         if(user.getUsername().equals("admin") && user.getPassword().equals("admin")){
             return "/firstTime/menuAdmin.xhtml";
-        }else{
+        }else if(serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword()) != null){
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
-        if(user != null){
           currentCoop = user.getCooperative();
                 currentPeriode = serviceparamSoco.currentPeriode(currentCoop);
                 formatage();
+                if(user.getLangue().equals("Français")){
+                    setNameFichier("/bundles/MessageResources_fr_CA.properties");
+                    is = cl.getResourceAsStream(getNameFichier());
+                     Properties properties = new Properties();
+                     properties.load(is);
+                }
            return "begin";
+        }else{
+            setNameFichier("/bundles/MessageResources_fr_CA.properties");
+                    is = cl.getResourceAsStream(getNameFichier());
+             Properties properties = new Properties();
+            properties.load(getIs());
+          FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("message_Obligatoire"), properties.getProperty("message_Obligatoire"));
+                FacesContext.getCurrentInstance().addMessage("verif", msg);
+        return "/login.xhtml";
         }
-    }
-        return null;
+    
     }
     public String logout(){
 ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
 
         return "/login.xhtml";
     }
+    
     private void formatage(){
         for(formatageEntier f : serviceparamSoco.formatage(currentCoop)){
             if(f.getType().equals("Devise")){
@@ -191,6 +212,34 @@ public class login implements Serializable{
      */
     public void setVerifMDP(String verifMDP) {
         this.verifMDP = verifMDP;
+    }
+
+    /**
+     * @return the is
+     */
+    public java.io.InputStream getIs() {
+        return is;
+    }
+
+    /**
+     * @param is the is to set
+     */
+    public void setIs(java.io.InputStream is) {
+        this.is = is;
+    }
+
+    /**
+     * @return the nameFichier
+     */
+    public String getNameFichier() {
+        return nameFichier;
+    }
+
+    /**
+     * @param nameFichier the nameFichier to set
+     */
+    public void setNameFichier(String nameFichier) {
+        this.nameFichier = nameFichier;
     }
 
    
