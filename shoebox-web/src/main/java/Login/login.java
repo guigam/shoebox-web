@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -59,7 +61,7 @@ public class login implements Serializable{
         return serviceparamSoco.lstPermission();
     }
 
-    public String identification() throws IOException{
+    public String identification() {
         if(user.getUsername().equals("admin") && user.getPassword().equals("admin")){
             return "/firstTime/menuAdmin.xhtml";
         }else if(serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword()) != null){
@@ -67,18 +69,26 @@ public class login implements Serializable{
           currentCoop = user.getCooperative();
                 currentPeriode = serviceparamSoco.currentPeriode(currentCoop);
                 formatage();
-                if(user.getLangue().equals("Français")){
+                if(user.getLangue().equals("FR")){
                     setNameFichier("/bundles/MessageResources_fr_CA.properties");
                     is = cl.getResourceAsStream(getNameFichier());
                      Properties properties = new Properties();
-                     properties.load(is);
+                try {
+                    properties.load(is);
+                } catch (IOException ex) {
+                    Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
            return "begin";
         }else{
             setNameFichier("/bundles/MessageResources_fr_CA.properties");
                     is = cl.getResourceAsStream(getNameFichier());
              Properties properties = new Properties();
-            properties.load(getIs());
+            try {
+                properties.load(getIs());
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
           FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("message_Obligatoire"), properties.getProperty("message_Obligatoire"));
                 FacesContext.getCurrentInstance().addMessage("verif", msg);
         return "/login.xhtml";

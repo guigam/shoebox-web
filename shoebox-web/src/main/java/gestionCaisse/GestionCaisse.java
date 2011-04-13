@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -62,18 +64,22 @@ public class GestionCaisse implements Serializable {
     public GestionCaisse() {
     }
 
-    public String newtransactionCommande() throws IOException {
-        if (validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(), tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())) {
-            tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getCharteCompte());
-            tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getType());
-            tsxCaisse.setCurrentuser(session.getUser());
-            tsxCaisse.setCoop(session.getCurrentCoop());
-            tsxCaisse.setDefPeriode(session.getCurrentPeriode());
-            affectationTypetransactionCaisse();
-            gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
-            serviceGsCommande.mergeCommande(gsCommande.getCommade());
-            tsxCaisse = new TransactionCaisse();
-            return "/caisse/menuCaisse.xhtml";
+    public String newtransactionCommande() {
+        try {
+            if (validerTransaction(tsxCaisse.getDate(), gsCommande.getCommade().getDateCommande(), tsxCaisse.getMontant(), gsCommande.getCommade().getmontantrestant())) {
+                tsxCaisse.setCharteCompte((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getCharteCompte());
+                tsxCaisse.setDescription((serviceSoco.rechercheParamCharteCompte(gsCommande.getCommade().getType(), session.getCurrentCoop())).getType());
+                tsxCaisse.setCurrentuser(session.getUser());
+                tsxCaisse.setCoop(session.getCurrentCoop());
+                tsxCaisse.setDefPeriode(session.getCurrentPeriode());
+                affectationTypetransactionCaisse();
+                gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
+                serviceGsCommande.mergeCommande(gsCommande.getCommade());
+                tsxCaisse = new TransactionCaisse();
+                return "/caisse/menuCaisse.xhtml";
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GestionCaisse.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -84,11 +90,15 @@ public class GestionCaisse implements Serializable {
     public void resetMontant(){
             tsxCaisse.setMontant(0);
     }
-    private Properties loadFilePropriete() throws IOException {
+    private Properties loadFilePropriete() {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         InputStream is = cl.getResourceAsStream(session.getNameFichier());
         Properties properties = new Properties();
-        properties.load(is);
+        try {
+            properties.load(is);
+        } catch (IOException ex) {
+            Logger.getLogger(GestionCaisse.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return properties;
     }
 
@@ -107,15 +117,19 @@ public class GestionCaisse implements Serializable {
         }
         return true;
     }
-    private boolean validerTransactionSD(Date datetsx, Date dateOrigine, float montant, float montantRestant) throws IOException {
+    private boolean validerTransactionSD(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
         Properties  properties = loadFilePropriete();
-        if (!paramShoebox.validerDate(datetsx)) {
-            return false;
-        } else if (montant > montantRestant) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageMontantSaisie"), null);
-            FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
-            return false;
-        } 
+        try {
+            if (!paramShoebox.validerDate(datetsx)) {
+                return false;
+            } else if (montant > montantRestant) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageMontantSaisie"), null);
+                FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
+                return false;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GestionCaisse.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return true;
     }
 
