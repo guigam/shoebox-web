@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,10 @@ public class login implements Serializable{
                 currentPeriode = serviceparamSoco.currentPeriode(currentCoop);
                 formatage();
                 if(user.getLangue().equals("FR")){
-                    setNameFichier("/bundles/MessageResources_fr_CA.properties");
+                    FacesContext.getCurrentInstance()
+        			.getViewRoot().setLocale((Locale)Locale.ENGLISH);
+
+                    setNameFichier("/bundles/MessageResources_EN.properties");
                     is = cl.getResourceAsStream(getNameFichier());
                      Properties properties = new Properties();
                 try {

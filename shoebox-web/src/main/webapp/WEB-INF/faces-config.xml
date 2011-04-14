@@ -8,10 +8,12 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <application>
         <locale-config>
-            <default-locale>FR</default-locale>
+            <default-locale>EN</default-locale>
+            <supported-locale>EN</supported-locale>
+            <supported-locale>FR</supported-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>/bundles/MessageResources_fr_CA</base-name>
+            <base-name>/bundles/MessageResources_</base-name>
             <var>msg</var>
         </resource-bundle>
     </application>
