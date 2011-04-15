@@ -13,7 +13,7 @@
             <supported-locale>FR</supported-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>/bundles/MessageResources_</base-name>
+            <base-name>/bundles/MessageResources</base-name>
             <var>msg</var>
         </resource-bundle>
     </application>

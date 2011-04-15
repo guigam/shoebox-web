@@ -155,11 +155,11 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     private boolean verifCategorieCharge() throws IOException {
-         Properties  properties = loadFilePropriete();
+//         Properties  properties = loadFilePropriete();
         for (CategorieCharge c : cooperative.getLstCategCharge()) {
             if (c.getNomCategorie().equals("") && c.getDescription().equals("") && c.getType().equals("")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
-                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+//                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
                 return false;
             }
         }
@@ -204,17 +204,29 @@ public class GestionParametrageSoco implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
     }
 
-    private List<ParamTransaction> initLstParamTransaction() {
-        List<ParamTransaction> lstParamTransaction = new ArrayList<ParamTransaction>();
-        for (TemplateParamTransaction p : serviceSoco.lstTemplateParamTransaction()) {
+    public List<ParamTransaction> getinitLstParamTransaction() {
+        if(lstParamtsx.isEmpty()){
+        for (enumerationTransaction.EnumTransaction et : enumerationTransaction.EnumTransaction.values()) {
             ParamTransaction param = new ParamTransaction();
-            param.setAbrev(p.getAbrev());
-            param.setType(p.getType());
+            param.setAbrev(et);
+            param.setType("aa");
             param.setCoop(cooperative);
-            lstParamTransaction.add(param);
+            lstParamtsx.add(param);
         }
-        return lstParamTransaction;
+        }
+        return lstParamtsx;
     }
+//    private List<ParamTransaction> initLstParamTransaction() {
+//        List<ParamTransaction> lstParamTransaction = new ArrayList<ParamTransaction>();
+//        for (TemplateParamTransaction p : serviceSoco.lstTemplateParamTransaction()) {
+//            ParamTransaction param = new ParamTransaction();
+//            param.setAbrev(p.getAbrev());
+//            param.setType(p.getType());
+//            param.setCoop(cooperative);
+//            lstParamTransaction.add(param);
+//        }
+//        return lstParamTransaction;
+//    }
 
     private void updateDefinitionPeriode(DefinitionPeriode def) {
         serviceSoco.mergeDefPeriode(def);
@@ -320,7 +332,6 @@ public class GestionParametrageSoco implements Serializable {
      */
     public List<ParamTransaction> getlstParamtransaction() {
         if (cooperative.getId() == null && lstParamtransaction.isEmpty()) {
-            return initLstParamTransaction();
         }
         return null;
     }

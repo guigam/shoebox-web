@@ -94,7 +94,9 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{msg.lib_action}"/>
                                         </f:facet>
-                                          <center><h:commandButton image="/icons/delete.png"/></center>
+                                          <center><h:commandButton image="/icons/delete.png" action="#{gsCommandes.deleteCommande}">
+                                                  <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{c}"/>
+                                              </h:commandButton></center>
 
                                     </rich:column>
                                 </rich:dataTable>

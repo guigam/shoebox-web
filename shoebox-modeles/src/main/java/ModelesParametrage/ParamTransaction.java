@@ -7,6 +7,7 @@ package ModelesParametrage;
 
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
+import enumerationTransaction.EnumTransaction;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class ParamTransaction implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String type;
-    private String abrev;
+    private EnumTransaction abrev;
     @OneToOne
     private CharteCompte charteCompte;
     @ManyToOne
@@ -110,14 +111,14 @@ public class ParamTransaction implements Serializable {
     /**
      * @return the abrev
      */
-    public String getAbrev() {
+    public EnumTransaction getAbrev() {
         return abrev;
     }
 
     /**
      * @param abrev the abrev to set
      */
-    public void setAbrev(String abrev) {
+    public void setAbrev(EnumTransaction abrev) {
         this.abrev = abrev;
     }
 

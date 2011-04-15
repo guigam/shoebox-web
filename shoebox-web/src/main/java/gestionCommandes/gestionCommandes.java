@@ -86,6 +86,13 @@ public class gestionCommandes implements Serializable {
         return null;
     }
 
+
+    public void deleteCommande(){
+        allCommande.remove(commade);
+        serviceGsCommande.deleteCommande(commade);
+        System.out.println("sashitaaaaaaaaaaaaaaaaaaaaaaaa");
+    }
+
     private void affectationTypeCommandesSelonProduit() {
         String typeCommande = lstTsxMagasin.get(0).getProduit().getType();
         if (typeCommande.equals("Principal")) {
@@ -509,7 +516,7 @@ public class gestionCommandes implements Serializable {
     /**
      * @return the allCommande
      */
-    public List<Commande> getAllCommande() {
+public List<Commande> getAllCommande() {
         return allCommande;
     }
 

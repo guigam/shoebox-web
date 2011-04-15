@@ -62,14 +62,12 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         em.getTransaction().begin();
         em.merge(objet);
         em.getTransaction().commit();
-        em.clear();
     }
 
     private void delete(Object objet) {
         em.getTransaction().begin();
         em.remove(objet);
         em.getTransaction().commit();
-        em.clear();
     }
 
 
@@ -107,7 +105,8 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
 
     @Override
     public void deleteCommande(Commande commande) {
-       delete(commande);
+       Commande commandToDelete = em.find(Commande.class, commande.getId());
+       delete(commandToDelete);
     }
 
     @Override

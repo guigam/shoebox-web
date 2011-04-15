@@ -26,7 +26,7 @@
                 <h:outputText value="#{msg.lib_paramTransactionSoco}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.lstParamtransaction}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}" >
+                <rich:dataTable value="#{gsParamSoco.initLstParamTransaction}"  var="p" width="100%" binding="#{gsParamSoco.dataTable}" >
                     <rich:column width="20%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_codeTransaction}"/>
@@ -43,11 +43,8 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_charteCompteAssocie}"/>
                         </f:facet>
-                        <center><rich:comboBox valueChangeListener="#{gsParamSoco.test}"  value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte"  >
+                        <center><rich:comboBox   value="#{p.charteCompte}"   width="400px" converter="converterCharteCompte"  >
                                 <f:selectItems value="#{parametrageShoebox.lstitemCharteCompte}" />
-                                <a4j:support event="onselect"   ajaxSingle="true" >
-<!--                                            <f:setPropertyActionListener target="#{gsParamSoco.paramtsx}" value="#{p}"/>-->
-                                </a4j:support>
                             </rich:comboBox></center>
                     </rich:column>
                 </rich:dataTable>
