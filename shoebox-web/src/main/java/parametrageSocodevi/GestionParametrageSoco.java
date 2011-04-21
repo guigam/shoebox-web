@@ -155,11 +155,11 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     private boolean verifCategorieCharge() throws IOException {
-//         Properties  properties = loadFilePropriete();
+         Properties  properties = loadFilePropriete();
         for (CategorieCharge c : cooperative.getLstCategCharge()) {
             if (c.getNomCategorie().equals("") && c.getDescription().equals("") && c.getType().equals("")) {
-//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
-//                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
                 return false;
             }
         }

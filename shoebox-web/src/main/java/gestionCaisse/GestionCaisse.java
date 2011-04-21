@@ -10,6 +10,7 @@ import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
+import enumerationTransaction.EnumTransaction;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import java.io.IOException;
@@ -122,7 +123,7 @@ public class GestionCaisse implements Serializable {
         try {
             if (!paramShoebox.validerDate(datetsx)) {
                 return false;
-            } else if (montant > montantRestant) {
+            } else if (montant > (montantRestant < 0 ? -montantRestant:montantRestant)) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageMontantSaisie"), null);
                 FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
                 return false;
