@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
@@ -205,11 +207,17 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public List<ParamTransaction> getinitLstParamTransaction() {
+        Properties  properties = null;
+        try {
+            properties = loadFilePropriete();
+        } catch (IOException ex) {
+            Logger.getLogger(GestionParametrageSoco.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(lstParamtsx.isEmpty()){
         for (enumerationTransaction.EnumTransaction et : enumerationTransaction.EnumTransaction.values()) {
             ParamTransaction param = new ParamTransaction();
             param.setAbrev(et);
-            param.setType("aa");
+            param.setType(properties.getProperty(et.toString()));
             param.setCoop(cooperative);
             lstParamtsx.add(param);
         }
