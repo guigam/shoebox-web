@@ -134,19 +134,8 @@ public class gestionCommandes implements Serializable {
     }
 
     public List<TransactionMagasin> getetatMagasingroupBy(){
-        List<TransactionMagasin> tsxMagg = new LinkedList<TransactionMagasin>();
-        List<Object[]> lstObject = serviceGsCommande.etatMagByProduit(paramSoco.getCooperative(), serviceSOCO.currentPeriode(paramSoco.getCooperative()));
-        for(Object[] t : lstObject){
-            TransactionMagasin ssp = new TransactionMagasin();
-            ssp.setMagasin((Magasin) t[0]);
-            ssp.setProduit((Produit) t[1]);
-            Long a =new Long((Long) t[2]);
-            Long b =new Long((Long) t[3]);
-            ssp.setGrade(a);
-            ssp.setQuantite(b);
-            tsxMagg.add(ssp);
-        }
-        return tsxMagg;
+        return  serviceGsCommande.etatMagByProduit(paramSoco.getCooperative(), serviceSOCO.currentPeriode(paramSoco.getCooperative()));
+           
     }
 
 

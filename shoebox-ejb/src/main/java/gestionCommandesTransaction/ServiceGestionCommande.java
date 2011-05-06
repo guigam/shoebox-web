@@ -13,8 +13,11 @@ import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,7 +59,6 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         em.getTransaction().begin();
         em.persist(objet);
         em.getTransaction().commit();
-        em.clear();
     }
 
     private void merge(Object objet) {
@@ -167,32 +169,49 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         }
 
     @Override
-    public List<Object[]> etatMagByProduit( Cooperative coop, DefinitionPeriode periode) {
-        List<Object[]> lstObject = new LinkedList<Object[]>();
-            for(Object[] o : entreeProduit(coop, periode)){
-                for(Object[] t : sortisProduit(coop, periode)){
-                    if(o[1] == t[1] ){
-                       Object[] obj = new Object[4];
-                       obj[1] = (Produit)o[1];
-                       obj[2] = (Magasin)o[0];
-                       obj[2] = o[2];
-                       obj[3] = new Long((Long)o[3]) -  new Long((Long)t[3]);
-                       lstObject.add(obj);
-                    }
-                    else{
-                    Object[] obj = new Object[4];
-                       obj[1] = (Produit)o[1];
-                       obj[2] = (Magasin)o[0];
-                       obj[2] = o[2];
-                       obj[3] = new Long((Long)o[3]);
-
-                    }
+    public List<TransactionMagasin> etatMagByProduit( Cooperative coop, DefinitionPeriode periode) {
+        List<TransactionMagasin> lstObject = new LinkedList<TransactionMagasin>();
+        
+        List<TransactionMagasin> tsxMagasinEncaiss = em.createQuery("from TransactionMagasin t where t.m_commande.type in ('EPP','EPS') ").getResultList();
+        List<TransactionMagasin> tsxMagasindeb= em.createQuery("from TransactionMagasin t where t.m_commande.type in ('SPS', 'SPP') ").getResultList(); 
+        
+        
+        Map<String,TransactionMagasin> mapT = new HashMap<String, TransactionMagasin>();
+        if(tsxMagasinEncaiss!=null){
+            for(TransactionMagasin t : tsxMagasinEncaiss){
+                String key = t.getMagasin().getId()+"_"+t.getProduit().getId()+"_"+t.getGrade();
+                TransactionMagasin tm = mapT.get(key);
+                if(tm==null){
+                    mapT.put(key, t);    
+                }else{
+                    tm.setQuantite(tm.getQuantite()+t.getQuantite());
                 }
-
-            }
-            return lstObject;
-    }
-
+            } 
+        }
+        if(tsxMagasindeb!=null){
+            for(TransactionMagasin t : tsxMagasindeb){
+                String key = t.getMagasin().getId()+"_"+t.getProduit().getId()+"_"+t.getGrade();
+                TransactionMagasin tm = mapT.get(key);
+                if(tm==null){
+                    mapT.put(key, t);    
+                }else{
+                    tm.setQuantite(tm.getQuantite()-t.getQuantite());
+                }
+            } 
+        }        
+        
+        if(mapT!=null){
+           List<TransactionMagasin> tmag = new ArrayList(mapT.values());
+            return tmag;
+        }
+        
+        
+        
+        
+        
+        
+        return null;
+         }
 
    
 

@@ -62,7 +62,8 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
     @SuppressWarnings("empty-statement")
     public ParamTransaction rechercheParamCharteCompte(String typetransction, Cooperative coop) {
         Query query = em.createQuery("from ParamTransaction p where p.abrev = ?1 and p.coop = ?2");
-        query.setParameter(1, typetransction);
+        EnumTransaction t = EnumTransaction.valueOf(typetransction);
+        query.setParameter(1, t);
         query.setParameter(2, coop);
         return   (ParamTransaction) query.getResultList().get(0);
     }
