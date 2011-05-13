@@ -64,9 +64,14 @@ public class login implements Serializable{
 
     public String identification() {
         if(user.getUsername().equals("admin") && user.getPassword().equals("admin")){
-             setNameFichier("/bundles/MessageResources_EN.properties");
+             nameFichier = "/bundles/MessageResources_fr_CA.properties";
                     is = cl.getResourceAsStream(getNameFichier());
                      Properties properties = new Properties();
+            try {
+                properties.load(is);
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return "/firstTime/menuAdmin.xhtml";
         }else if(serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword()) != null){
         user = serviceparamSoco.verifUtilisateur(user.getUsername(), user.getPassword());
@@ -77,7 +82,7 @@ public class login implements Serializable{
                     FacesContext.getCurrentInstance()
         			.getViewRoot().setLocale((Locale)Locale.CANADA_FRENCH);
 
-                    setNameFichier("/bundles/MessageResources_EN.properties");
+                    setNameFichier("/bundles/MessageResources_fr_CA.properties");
                     is = cl.getResourceAsStream(getNameFichier());
                      Properties properties = new Properties();
                 try {

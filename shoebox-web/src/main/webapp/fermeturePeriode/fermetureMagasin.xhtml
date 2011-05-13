@@ -11,29 +11,35 @@
         <rich:separator />
         <rich:spacer height="20"/>
         <rich:dataTable value="#{gsCommandes.etatMagasingroupBy}" var="m" width="100%">
-            <rich:column >
+            <rich:column width="20%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_produit}" />
                 </f:facet>
                 <h:outputText value="#{m.produit.name}"/>
                 </rich:column  >
-            <rich:column>
+            <rich:column width="20%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_magasin}" />
                 </f:facet>
                 <h:outputText value="#{m.magasin.name}"/>
                 </rich:column>
-            <rich:column>
+            <rich:column width="20%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_grade}" />
                 </f:facet>
                 <h:outputText value="#{m.grade}"/>
                 </rich:column>
-            <rich:column>
+            <rich:column width="20%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_quantite}" />
                 </f:facet>
                 <h:outputText value="#{m.quantite}"/>
+            </rich:column>
+            <rich:column width="20%">
+                <f:facet name="header">
+                    <h:outputText value="#{msg.libQteReel}"  />
+                </f:facet>
+                <h:inputText />
             </rich:column>
         </rich:dataTable>
 

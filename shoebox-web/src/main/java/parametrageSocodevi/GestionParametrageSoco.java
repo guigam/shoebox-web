@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.component.UIData;
@@ -73,7 +74,10 @@ public class GestionParametrageSoco implements Serializable {
     private Utilisateur utilisateur = new Utilisateur();
     private formatageEntier devise = new formatageEntier();
     private formatageEntier unite = new formatageEntier();
-
+   
+    public DefinitionPeriode getcurrentPeriode(Cooperative currentCoop){
+    return serviceSoco.currentPeriode(currentCoop);
+    }
     /** Creates a new instance of GestionLangue */
     public GestionParametrageSoco() {
     }
@@ -157,11 +161,11 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     private boolean verifCategorieCharge() throws IOException {
-         Properties  properties = loadFilePropriete();
+//         Properties  properties = loadFilePropriete();
         for (CategorieCharge c : cooperative.getLstCategCharge()) {
             if (c.getNomCategorie().equals("") && c.getDescription().equals("") && c.getType().equals("")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
-                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+//                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
                 return false;
             }
         }
@@ -401,7 +405,6 @@ public class GestionParametrageSoco implements Serializable {
      * @return the cooperative
      */
     public Cooperative getCooperative() {
-
         return cooperative;
     }
 

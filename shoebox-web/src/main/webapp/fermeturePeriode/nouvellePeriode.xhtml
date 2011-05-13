@@ -16,9 +16,9 @@
         <rich:spacer height="20"/>
         <h:panelGrid columns="2">
         <h:outputText value="#{msg.lib_dateDebutPeriode}" styleClass="titreLibelle"/>
-        <h:outputText styleClass="titreLibelle"/>
+        <h:outputText  value="#{gsParamSoco.getcurrentPeriode(gsParamSoco.cooperative).dateDebut}" styleClass="titreLibelle"/>
         <h:outputText value="#{msg.lib_dateFinPeriode}" styleClass="titreLibelle"/>
-        <h:inputText styleClass="titreLibelle"/>
+        <rich:calendar styleClass="titreLibelle"/>
         </h:panelGrid>
              <rich:spacer height="40/"/>
                 <table width="100%" border="0">
