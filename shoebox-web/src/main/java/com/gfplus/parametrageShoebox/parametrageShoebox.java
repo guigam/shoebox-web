@@ -58,6 +58,7 @@ public class parametrageShoebox implements Serializable {
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
+    
    
     /** Creates a new instance of parametrageShoebox */
     public parametrageShoebox() {
@@ -157,10 +158,8 @@ public class parametrageShoebox implements Serializable {
 
     }
     private Properties loadFilePropriete() throws IOException {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream is = cl.getResourceAsStream(session.getNameFichier());
         Properties properties = new Properties();
-        properties.load(is);
+        properties.load(session.loadLonguage(session.getUser().getLangue()));
         return properties;
     }
 

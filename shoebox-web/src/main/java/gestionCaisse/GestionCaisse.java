@@ -91,15 +91,9 @@ public class GestionCaisse implements Serializable {
     public void resetMontant(){
             tsxCaisse.setMontant(0);
     }
-    private Properties loadFilePropriete() {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream is = cl.getResourceAsStream(session.getNameFichier());
+      private Properties loadFilePropriete() throws IOException {
         Properties properties = new Properties();
-        try {
-            properties.load(is);
-        } catch (IOException ex) {
-            Logger.getLogger(GestionCaisse.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        properties.load(session.loadLonguage(session.getUser().getLangue()));
         return properties;
     }
 
@@ -119,12 +113,11 @@ public class GestionCaisse implements Serializable {
         return true;
     }
     private boolean validerTransactionSD(Date datetsx, Date dateOrigine, float montant, float montantRestant) {
-        Properties  properties = loadFilePropriete();
         try {
             if (!paramShoebox.validerDate(datetsx)) {
                 return false;
             } else if (montant > (montantRestant < 0 ? -montantRestant:montantRestant)) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageMontantSaisie"), null);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, loadFilePropriete().getProperty("messageMontantSaisie"), null);
                 FacesContext.getCurrentInstance().addMessage("montant saisie", msg);
                 return false;
             }

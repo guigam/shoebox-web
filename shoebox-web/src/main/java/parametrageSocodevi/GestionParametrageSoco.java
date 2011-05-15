@@ -91,11 +91,14 @@ public class GestionParametrageSoco implements Serializable {
     }
 
 
-        private Properties loadFilePropriete() throws IOException {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream is = cl.getResourceAsStream(session.getNameFichier());
+     private Properties loadFilePropriete()  {
         Properties properties = new Properties();
-        properties.load(is);
+        String langue = session.getUser().getLangue();
+        try {
+            properties.load(session.loadLonguage(langue !=null ? langue : "FR" ));
+        } catch (IOException ex) {
+            Logger.getLogger(GestionParametrageSoco.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return properties;
     }
     public String updateParamTransaction() {
@@ -211,17 +214,11 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public List<ParamTransaction> getinitLstParamTransaction() {
-        Properties  properties = null;
-        try {
-            properties = loadFilePropriete();
-        } catch (IOException ex) {
-            Logger.getLogger(GestionParametrageSoco.class.getName()).log(Level.SEVERE, null, ex);
-        }
         if(lstParamtsx.isEmpty()){
         for (enumerationTransaction.EnumTransaction et : enumerationTransaction.EnumTransaction.values()) {
             ParamTransaction param = new ParamTransaction();
             param.setAbrev(et);
-            param.setType(properties.getProperty(et.toString()));
+            param.setType(loadFilePropriete().getProperty(et.toString()));
             param.setCoop(cooperative);
             lstParamtsx.add(param);
         }

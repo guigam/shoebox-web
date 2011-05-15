@@ -116,11 +116,9 @@ public class gestionCommandes implements Serializable {
         commandeAffiche = new Commande();
     }
 
-    private Properties loadFilePropriete() throws IOException {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream is = cl.getResourceAsStream(session.getNameFichier());
+       private Properties loadFilePropriete() throws IOException {
         Properties properties = new Properties();
-        properties.load(is);
+        properties.load(session.loadLonguage(session.getUser().getLangue()));
         return properties;
     }
 
