@@ -22,6 +22,7 @@ import java.util.Properties;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -233,6 +234,8 @@ public class gestionCommandes implements Serializable {
         return true;
     }
 
+      @Named
+    @Produces
     public List<Commande> getlstCommandeEntreeProduit() {
         List<Commande> listCommandes = new LinkedList<Commande>();
         listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPP", session.getCurrentCoop()));
@@ -240,7 +243,9 @@ public class gestionCommandes implements Serializable {
 
         return listCommandes;
     }
-
+    
+      @Named
+    @Produces
     public List<Commande> getlstCommandeEntreeIntrant() {
         return serviceGsCommande.lstCommandeByType("EPI", session.getCurrentCoop());
     }
@@ -279,6 +284,8 @@ public class gestionCommandes implements Serializable {
         return null;
     }
 
+    @Named
+    @Produces
     public List<Commande> getlstCommandeSortisIntrant() {
         return serviceGsCommande.lstCommandeByType("SI", session.getCurrentCoop());
     }
@@ -472,6 +479,8 @@ public class gestionCommandes implements Serializable {
     /**
      * @return the lstCommandeSortisProduit
      */
+      @Named
+    @Produces
     public List<Commande> getLstCommandeSortisProduit() {
         List<Commande> lstCommandes = new LinkedList<Commande>();
         lstCommandes.addAll(serviceGsCommande.lstCommandeByType("SPP", session.getCurrentCoop()));

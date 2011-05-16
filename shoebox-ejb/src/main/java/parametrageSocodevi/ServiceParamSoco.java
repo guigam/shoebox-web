@@ -31,6 +31,8 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
+//    @PersistenceContext(unitName="gestion")
+//    EntityManager em;
 
     private void persist(Object objet) {
         em.getTransaction().begin();

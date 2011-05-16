@@ -163,7 +163,7 @@ public class Commande implements Serializable {
     /**
      * @return the lsttransactionMagasin
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "m_commande")
+    @OneToMany(mappedBy = "m_commande")
     public List<TransactionMagasin> getLsttransactionMagasin() {
         return lsttransactionMagasin;
     }

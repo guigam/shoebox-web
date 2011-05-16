@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -23,7 +24,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class serviceSoldeDepart implements serviceSoldeDepartLocal {
-
+//@PersistenceContext(unitName="gestion")
+//    EntityManager em;
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
 

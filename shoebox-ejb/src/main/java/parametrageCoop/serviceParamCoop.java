@@ -15,7 +15,6 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
-import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import java.lang.Object;
 import java.util.ArrayList;
@@ -35,7 +34,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class serviceParamCoop implements serviceParamCoopLocal {
-
+//@PersistenceContext(unitName="gestion")
+//    EntityManager em;
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
 

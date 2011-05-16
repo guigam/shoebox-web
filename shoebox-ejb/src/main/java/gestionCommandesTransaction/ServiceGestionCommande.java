@@ -8,8 +8,6 @@ package gestionCommandesTransaction;
 import ModelesParametrage.DefinitionPeriode;
 import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
-import ModelesShoebox.Magasin;
-import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCharge;
 import ModelesShoebox.TransactionMagasin;
@@ -23,8 +21,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import parametrageCoop.serviceParamCoopLocal;
 import parametrageSocodevi.ServiceParamSocoLocal;
 
 /**
@@ -38,6 +36,8 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
 
+//    @PersistenceContext(unitName="gestion")
+//    EntityManager em;
     private List<Object[]> entreeProduit(Cooperative coop, DefinitionPeriode periode) {
         Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where  x.coop = ?4 and x.defPeriode = ?5 and x.m_commande.type in (?2,?3) group by x.produit");
         q.setParameter(2, "EPS");
