@@ -172,6 +172,15 @@ background-repeat:no-repeat;
 background-image: url("/images/img_bg_titre.png");
 background-repeat: repeat-x;
 }
+.btn_val{
+    border-style:none;
+    background-color:#156b44;
+    width: 100%;
+    cursor: pointer; 
+    color: white;
+    font-weight: bold;
+    font-size: 12px
+}
 
 
 

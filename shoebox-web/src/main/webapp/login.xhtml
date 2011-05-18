@@ -45,7 +45,7 @@ and open the template in the editor.
                             <h:outputText value="#{msg.lib_password}" styleClass="titreLibelle"/>
                             <h:inputSecret value="#{gsLogin.user.password}" required="true" requiredMessage="#{msg.message_Obligatoire}"/>
                             <rich:spacer height="20"/>
-                            <h:commandButton id="val"  action="#{gsLogin.identification}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_valider}"/>
+                            <h:commandButton id="val"  action="#{gsLogin.identification}" styleClass="btn_val" value="#{msg.btn_valider}"/>
                        
                         </h:panelGrid>
                     
