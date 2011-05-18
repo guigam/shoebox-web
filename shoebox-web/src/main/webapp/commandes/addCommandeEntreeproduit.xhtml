@@ -114,7 +114,7 @@
                             <tr style="background-color:#b8cbab">
                                 <td width="20%" ><h:commandButton id="annul" action="lstCommandeEntreeproduit"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsCommandes.newCommandeEntreeProduit}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsCommandes.newCommandeEntreeProduit()}" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
                     </a4j:outputPanel>

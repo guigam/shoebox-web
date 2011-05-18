@@ -51,7 +51,7 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                        <div style="text-align: right; vertical-align: top">
-                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montant.equals(item.montantPaye)}" action="addTransactionSD">
+                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montant.equals(item.montantPaye)}" action="#{gestionCaisse.addTransactionCaisseSDRedirect()}">
                                 <f:setPropertyActionListener target="#{gsSoldeDepart.sd}" value="#{item}"/>
                             </h:commandButton>
                         </div>

@@ -5,16 +5,13 @@
 package gestionCaisse;
 
 import Login.login;
-import ModelesShoebox.Compte;
 import ModelesShoebox.TransactionAvanceProduit;
 import ModelesShoebox.TransactionCaisse;
 import ModelesShoebox.TransactionCharge;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
-import enumerationTransaction.EnumTransaction;
 import gestionCommandes.gestionCommandes;
 import gestionCommandesTransaction.ServiceGestionCommandeTransactionLocal;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -23,10 +20,10 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import parametrageSocodevi.ServiceParamSocoLocal;
@@ -38,7 +35,7 @@ import soldeDepart.gestionSoldeDepart;
  * @author guigamehdi
  */
 @Named(value = "gestionCaisse")
-@SessionScoped
+@ConversationScoped
 public class GestionCaisse implements Serializable {
 
     @Inject
@@ -60,6 +57,8 @@ public class GestionCaisse implements Serializable {
     private login session;
     @Inject
     private parametrageShoebox paramShoebox;
+    @Inject 
+    Conversation conversation;
 
     /** Creates a new instance of gestionCaisse */
     public GestionCaisse() {
@@ -76,7 +75,7 @@ public class GestionCaisse implements Serializable {
                 affectationTypetransactionCaisse();
                 gsCommande.getCommade().getLsttransactionCaisse().add(tsxCaisse);
                 serviceGsCommande.mergeCommande(gsCommande.getCommade());
-                tsxCaisse = new TransactionCaisse();
+                conversation.end();
                 return "/caisse/menuCaisse.xhtml";
             }
         } catch (IOException ex) {
@@ -97,6 +96,15 @@ public class GestionCaisse implements Serializable {
         return properties;
     }
 
+      public String addTransactionCaisseRedirect(){
+          conversation.begin();
+      return "addTransaction";
+      }
+      public String addTransactionCaisseSDRedirect(){
+          conversation.begin();
+      return "addTransactionSD";
+      }
+      
     private boolean validerTransaction(Date datetsx, Date dateOrigine, float montant, float montantRestant) throws IOException {
             Properties  properties = loadFilePropriete();
         if (!paramShoebox.validerDate(datetsx)) {
@@ -138,7 +146,7 @@ public class GestionCaisse implements Serializable {
             affectationTypetransactionSD();
             gsSoldeDepart.getSd().getLstTransactionSoldeDepart().add(tsxCaisse);
             serviceSolde.mergeSolde(gsSoldeDepart.getSd());
-            tsxCaisse = new TransactionCaisse();
+            conversation.end();
             return "/caisse/menuCaisse.xhtml";
         }
         return null;

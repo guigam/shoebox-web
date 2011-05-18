@@ -55,7 +55,7 @@
                             <h:outputText value="#{msg.lib_montantPaye}" />
                         </f:facet>
                         <div style="text-align: right; vertical-align: top">
-                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="addTransaction">
+                            <h:commandButton image="/icons/_plus2.png" id="plus" rendered="#{not item.montantTotal.equals(item.montantPaye) and item.confirmation.equals(true)}" action="#{gestionCaisse.addTransactionCaisseRedirect()}">
                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
                             </h:commandButton>
                         </div>

@@ -27,12 +27,12 @@
                 <rich:spacer height="10"/>
 
                 <div style="margin-left:15px">
-                    <h:commandButton image="/icons/add.png" action="addEntreeProduit" />
-                    <h:commandLink value="#{msg.lib_addCommande}" action="addEntreeProduit" />
+                    <h:commandButton image="/icons/add.png" action="#{gsCommandes.addEntreeProduitredirect()}" />
+                    <h:commandLink value="#{msg.lib_addCommande}" action="#{gsCommandes.addEntreeProduitredirect()}" />
                 </div>
                 <rich:spacer height="10"/>
 
-                <rich:dataTable width="100%" value="#{lstCommandeEntreeProduit}" var="item">
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandesEntreProduit}" var="item">
                      <rich:column width="7%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_date}" />

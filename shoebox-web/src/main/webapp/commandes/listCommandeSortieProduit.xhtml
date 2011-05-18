@@ -27,17 +27,17 @@
                 <rich:spacer height="10"/>
 
                 <div style="margin-left:15px">
-                    <h:commandButton image="/icons/add.png" action="addSP" />
-                    <h:commandLink value="#{msg.lib_addCommande}" action="addSP" />
+                    <h:commandButton image="/icons/add.png" action="#{gsCommandes.addSortisProduitredirect}" />
+                    <h:commandLink value="#{msg.lib_addCommande}" action="#{gsCommandes.addSortisProduitredirect}" />
                 </div>
                 <rich:spacer height="10"/>
 
-                <rich:dataTable width="100%" value="#{lstCommandeSortisProduit}" var="item" id="tab">
+                <rich:dataTable width="100%" value="#{gsCommandes.lstCommandeSortisProduit}" var="item" id="tab">
                     <rich:column width="5%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
                         </f:facet>
-                        <center><a4j:commandButton image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
+                        <center><a4j:commandButton action="#{gsCommandes.getconfirmRedirect()}" image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
                                  <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
                             </a4j:commandButton></center>
                         <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
@@ -133,7 +133,7 @@
         <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}" rendered="#{gsCommandes.commade.confirmation.equals(false)}">
                 <h:form>
                 <rich:panel>
-                    <rich:dataTable value="#{gsCommandes.commade.lsttransactionMagasin}" var="tsx" width="100%" >
+                    <rich:dataTable value="#{gsCommandes.getconfirmRedirect().lsttransactionMagasin}" var="tsx" width="100%" >
                           <rich:column>
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_produit} : "  styleClass="titreLibelle" />

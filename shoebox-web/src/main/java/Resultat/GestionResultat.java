@@ -154,7 +154,7 @@ public class GestionResultat implements Serializable {
     }
 
     private void compteApayerEntreeProduit(List<rapportCompte> lstRapportCompte) {
-        for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
+        for (Commande comm : gsCommande.getLstCommandesEntreProduit()) {
             if (comm.getmontantrestant() != 0) {
                 rapportCompte rpCompte = new rapportCompte();
                 rpCompte.setDate(comm.getDateCommande());
@@ -406,7 +406,7 @@ public class GestionResultat implements Serializable {
 
     public float gettotalSortis() {
         float tot = 0;
-        for (Commande com : gsCommande.getlstCommandeEntreeProduit()) {
+        for (Commande com : gsCommande.getLstCommandesEntreProduit()) {
             tot = tot + com.getmontantPaye();
         }
         return tot;
@@ -422,7 +422,7 @@ public class GestionResultat implements Serializable {
 
     public Long getquantiteProduitPrincipalEntree() {
         long tot = 0;
-        for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
+        for (Commande comm : gsCommande.getLstCommandesEntreProduit()) {
             for (TransactionMagasin t : comm.getLsttransactionMagasin()) {
                 if (t.getProduit().getCategorie().equals("produitCoop")) {
                     tot = tot + t.getQuantite();
@@ -434,7 +434,7 @@ public class GestionResultat implements Serializable {
 
     public Long getquantiteProduitSecondairelEntree() {
         long tot = 0;
-        for (Commande comm : gsCommande.getlstCommandeEntreeProduit()) {
+        for (Commande comm : gsCommande.getLstCommandesEntreProduit()) {
             for (TransactionMagasin t : comm.getLsttransactionMagasin()) {
                 if (t.getProduit().getCategorie().equals("intrant")) {
                     tot = tot + t.getQuantite();

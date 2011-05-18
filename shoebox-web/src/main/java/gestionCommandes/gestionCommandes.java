@@ -13,16 +13,16 @@ import ModelesShoebox.TransactionMagasin;
 import com.gfplus.parametrageShoebox.parametrageShoebox;
 import gestionCaisse.GestionCaisse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -36,7 +36,7 @@ import parametrageSocodevi.ServiceParamSocoLocal;
  * @author guigam
  */
 @Named(value = "gsCommandes")
-@SessionScoped
+@ConversationScoped
 public class gestionCommandes implements Serializable {
 
     @EJB
@@ -62,36 +62,42 @@ public class gestionCommandes implements Serializable {
     private Produit produit = new Produit();
     private Long grade;
     private List<Commande> lstCommandeSortisProduit = new LinkedList<Commande>();
+    private List<Commande> lstCommandesEntreProduit = new LinkedList<Commande>();
     private List<Commande> allCommande = new LinkedList<Commande>();
     private TransactionMagasin tsxMag = new TransactionMagasin();
     private Commande commandeAffiche = new Commande();
+
     /** Creates a new instance of gestionCommandes */
     public gestionCommandes() {
     }
 
-    public String newCommandeEntreeProduit() throws IOException {
-        if (paramShoebox.validerDate(commade.getDateCommande())) {
-            if (verifHomogeniteEntreeProduit()) {
-                commade.setType(detectTypeEntreeProduit());
-                commade.setDefPeriode(session.getCurrentPeriode());
-                setterCurrentUserPeriode();
-                commade.setCurrentuser(session.getUser());
-                commade.setCoop(session.getCurrentCoop());
-                commade.setLsttransactionMagasin(lstTsxMagasin);
-                serviceGsCommande.newCommnde(commade);
-                commade = new Commande();
-                lstTsxMagasin.clear();
-                return "lstCommandeEntreeproduit";
+    public String newCommandeEntreeProduit() {
+        try {
+            if (paramShoebox.validerDate(commade.getDateCommande())) {
+                if (verifHomogeniteEntreeProduit()) {
+                    commade.setType(detectTypeEntreeProduit());
+                    commade.setDefPeriode(session.getCurrentPeriode());
+                    setterCurrentUserPeriode();
+                    commade.setCurrentuser(session.getUser());
+                    commade.setCoop(session.getCurrentCoop());
+                    commade.setLsttransactionMagasin(lstTsxMagasin);
+                    serviceGsCommande.newCommnde(commade);
+                    conversation.end();
+                    return "lstCommandeEntreeproduit";
+                }
             }
+        } catch (IOException ex) {
+            Logger.getLogger(gestionCommandes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-
-    public void deleteCommande(){
+    public Commande getconfirmRedirect(){
+        return commade;
+    }
+    public void deleteCommande() {
         allCommande.remove(commade);
         serviceGsCommande.deleteCommande(commade);
-        System.out.println("sashitaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     private void affectationTypeCommandesSelonProduit() {
@@ -112,55 +118,56 @@ public class gestionCommandes implements Serializable {
         }
     }
 
-      public void fermerModelPanel(){
-          lstTsxMagasin.clear();
+    public void fermerModelPanel() {
+        lstTsxMagasin.clear();
         commandeAffiche = new Commande();
     }
 
-       private Properties loadFilePropriete() throws IOException {
+    private Properties loadFilePropriete() {
         Properties properties = new Properties();
-        properties.load(session.loadLonguage(session.getUser().getLangue()));
+        try {
+            properties.load(session.loadLonguage(session.getUser().getLangue()));
+        } catch (IOException ex) {
+            Logger.getLogger(gestionCommandes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return properties;
     }
-
 
     private void setterCurrentUserPeriode() {
         for (TransactionMagasin tsx : lstTsxMagasin) {
             tsx.setCurrentuser(session.getUser());
             tsx.setCoop(session.getCurrentCoop());
             tsx.setDefPeriode(session.getCurrentPeriode());
-        } 
+        }
     }
 
-    public List<TransactionMagasin> getetatMagasingroupBy(){
-        return  serviceGsCommande.etatMagByProduit(paramSoco.getCooperative(), serviceSOCO.currentPeriode(paramSoco.getCooperative()));
-           
+    public List<TransactionMagasin> getetatMagasingroupBy() {
+        return serviceGsCommande.etatMagByProduit(paramSoco.getCooperative(), serviceSOCO.currentPeriode(paramSoco.getCooperative()));
+
     }
 
-
-    public void lstTransactionMagasinsByTypeProduitPrincipal(String type){
-        lstTsxMagasin =  serviceGsCommande.transactionByProduit(type,session.getCurrentCoop(), session.getCurrentPeriode());
+    public void lstTransactionMagasinsByTypeProduitPrincipal(String type) {
+        lstTsxMagasin = serviceGsCommande.transactionByProduit(type, session.getCurrentCoop(), session.getCurrentPeriode());
     }
-  
 
     public void removeTsxMAG() {
-        if(lstTsxMagasin.remove(tsxMag));
+        if (lstTsxMagasin.remove(tsxMag));
         getLstTsxMagasin();
     }
 
     public String newCommandeEntreeIntrant() throws IOException {
-        if(veriflistTsxmagasin()){
-        if (paramShoebox.validerDate(commade.getDateCommande())) {
-            commade.setType("EPI");
-            commade.setDefPeriode(session.getCurrentPeriode());
-            setterCurrentUserPeriode();
-            commade.setCurrentuser(session.getUser());
-            commade.setCoop(session.getCurrentCoop());
-            commade.setLsttransactionMagasin(lstTsxMagasin);
-            serviceGsCommande.newCommnde(commade);
-            commade = new Commande();
-            return "lstCommandeEntreeIntrant";
-        }
+        if (veriflistTsxmagasinIntrant()) {
+            if (paramShoebox.validerDate(commade.getDateCommande())) {
+                commade.setType("EPI");
+                commade.setDefPeriode(session.getCurrentPeriode());
+                setterCurrentUserPeriode();
+                commade.setCurrentuser(session.getUser());
+                commade.setCoop(session.getCurrentCoop());
+                commade.setLsttransactionMagasin(lstTsxMagasin);
+                serviceGsCommande.newCommnde(commade);
+                conversation.end();
+                return "lstCommandeEntreeIntrant";
+            }
         }
         return null;
     }
@@ -173,19 +180,31 @@ public class gestionCommandes implements Serializable {
         }
 
     }
+
     public void ajouterLigneVideIntrant() throws IOException {
-        if(veriflistTsxmagasin()){
+        if (veriflistTsxmagasin()) {
             TransactionMagasin tsx = new TransactionMagasin();
             tsx.setM_commande(commade);
             lstTsxMagasin.add(tsx);
         }
     }
 
-    private boolean  veriflistTsxmagasin() throws IOException {
+    private boolean veriflistTsxmagasin() throws IOException {
         for (TransactionMagasin t : lstTsxMagasin) {
             if (t.getGrade() == 0 || t.getHumidite() == 0 || t.getMagasin() == null || t.getQuantite() == 0 || t.getProduit() == null || t.getPrixUnitaire() == 0) {
                 Properties properties = loadFilePropriete();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"),  properties.getProperty("messageChampsObligatoire"));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+                FacesContext.getCurrentInstance().addMessage("verif", msg);
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean veriflistTsxmagasinIntrant() throws IOException {
+        for (TransactionMagasin t : lstTsxMagasin) {
+            if (t.getMagasin() == null || t.getQuantite() == 0 || t.getProduit() == null || t.getPrixUnitaire() == 0) {
+                Properties properties = loadFilePropriete();
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
                 FacesContext.getCurrentInstance().addMessage("verif", msg);
                 return false;
             }
@@ -195,22 +214,21 @@ public class gestionCommandes implements Serializable {
 
     private boolean verifDuplicSortisProduit() throws IOException {
         for (TransactionMagasin t : lstTsxMagasin) {
-
         }
         return true;
     }
 
-    private boolean verifHomogeniteEntreeProduit() throws IOException {
-              Properties properties = loadFilePropriete();
+    private boolean verifHomogeniteEntreeProduit() {
+        Properties properties = loadFilePropriete();
         if (!lstTsxMagasin.isEmpty()) {
             TransactionMagasin tsxz = lstTsxMagasin.get(0);
             for (TransactionMagasin t : lstTsxMagasin) {
-                if(t.getGrade() == 0 || t.getHumidite()  == 0 || t.getMagasin()  == null || t.getQuantite()  == 0 || t.getProduit()  == null || t.getPrixUnitaire()  == 0){
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+                if (t.getGrade() == 0 || t.getHumidite() == 0 || t.getMagasin() == null || t.getQuantite() == 0 || t.getProduit() == null || t.getPrixUnitaire() == 0) {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
                     FacesContext.getCurrentInstance().addMessage("verif", msg);
                     return false;
-                }else if (!t.getProduit().getType().equals(tsxz.getProduit().getType())) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageHomoginite") , properties.getProperty("messageHomoginite"));
+                } else if (!t.getProduit().getType().equals(tsxz.getProduit().getType())) {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageHomoginite"), properties.getProperty("messageHomoginite"));
                     FacesContext.getCurrentInstance().addMessage("type produit", msg);
 
                     return false;
@@ -219,12 +237,13 @@ public class gestionCommandes implements Serializable {
         }
         return true;
     }
+
     private boolean verifHomogeniteSortisProduit() throws IOException {
-         Properties properties = loadFilePropriete();
+        Properties properties = loadFilePropriete();
         if (!lstTsxMagasin.isEmpty()) {
             for (TransactionMagasin t : lstTsxMagasin) {
                 if (!t.getProduit().getType().equals(produit.getType())) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageHomoginite"),properties.getProperty("messageHomoginite"));
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageHomoginite"), properties.getProperty("messageHomoginite"));
                     FacesContext.getCurrentInstance().addMessage("type produit", msg);
 
                     return false;
@@ -234,18 +253,26 @@ public class gestionCommandes implements Serializable {
         return true;
     }
 
-      @Named
-    @Produces
-    public List<Commande> getlstCommandeEntreeProduit() {
-        List<Commande> listCommandes = new LinkedList<Commande>();
-        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPP", session.getCurrentCoop()));
-        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPS", session.getCurrentCoop()));
-
-        return listCommandes;
+    public String addEntreeProduitredirect() {
+        conversation.begin();
+        return "addEntreeProduit";
     }
-    
-      @Named
-    @Produces
+
+    public String addEntreeProduitIntrantredirect() {
+        conversation.begin();
+        return "addEntreeIntrant";
+    }
+        public String addSortisProduitredirect(){
+        conversation.begin();
+        return "addSP";
+    }
+        public String addSortisProduitIntrantredirect(){
+        conversation.begin();
+        return "addSI";
+    }
+
+ 
+
     public List<Commande> getlstCommandeEntreeIntrant() {
         return serviceGsCommande.lstCommandeByType("EPI", session.getCurrentCoop());
     }
@@ -260,8 +287,7 @@ public class gestionCommandes implements Serializable {
             commade.setCoop(session.getCurrentCoop());
             serviceGsCommande.newCommnde(commade);
             lstCommandeSortisProduit.add(commade);
-            commade = new Commande();
-            lstTsxMagasin.clear();
+            conversation.end();
             return "lstCommandeSortieproduit";
         }
         return null;
@@ -277,66 +303,63 @@ public class gestionCommandes implements Serializable {
             commade.setCurrentuser(session.getUser());
             commade.setCoop(session.getCurrentCoop());
             serviceGsCommande.newCommnde(commade);
-            commade = new Commande();
-            lstTsxMagasin.clear();
+            conversation.end();
             return "/commandes/listCommandeSortieProduitIntrant.xhtml";
         }
         return null;
     }
 
-    @Named
-    @Produces
     public List<Commande> getlstCommandeSortisIntrant() {
         return serviceGsCommande.lstCommandeByType("SI", session.getCurrentCoop());
     }
 
     public void rechercheStockProduit() throws IOException {
-        if(produit == null || grade == 0){
-                Properties properties = loadFilePropriete();
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoirerecherche"), properties.getProperty("messageChampsObligatoirerecherche"));
+        if (produit == null || grade == 0) {
+            Properties properties = loadFilePropriete();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoirerecherche"), properties.getProperty("messageChampsObligatoirerecherche"));
             FacesContext.getCurrentInstance().addMessage("recherche", msg);
-        }else{
-        List<Object[]> lstObject = new LinkedList<Object[]>();
-        lstStockSortieProduit.clear();
-        lstObject = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop(), session.getCurrentPeriode());
-        for (Object[] t : lstObject) {
-            StockSortieProduit ssp = new StockSortieProduit();
-            ssp.setMagasin((Magasin) t[0]);
-            ssp.setQuantite((Long) t[2]);
-            lstStockSortieProduit.add(ssp);
+        } else {
+            List<Object[]> lstObject = new LinkedList<Object[]>();
+            lstStockSortieProduit.clear();
+            lstObject = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop(), session.getCurrentPeriode());
+            for (Object[] t : lstObject) {
+                StockSortieProduit ssp = new StockSortieProduit();
+                ssp.setMagasin((Magasin) t[0]);
+                ssp.setQuantite((Long) t[2]);
+                lstStockSortieProduit.add(ssp);
+            }
         }
-        }
-         
+
     }
 
     public void rechercheStockProduitIntrant() throws IOException {
-        if(produit == null){
-             Properties properties = loadFilePropriete();
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,properties.getProperty("messageProduitPourRecherche"), properties.getProperty("messageProduitPourRecherche"));
+        if (produit == null) {
+            Properties properties = loadFilePropriete();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageProduitPourRecherche"), properties.getProperty("messageProduitPourRecherche"));
             FacesContext.getCurrentInstance().addMessage("recherche", msg);
-        }else{
-        List<Object[]> lstObject = new LinkedList<Object[]>();
-        lstStockSortieProduit.clear();
-        lstObject = parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop(), session.getCurrentPeriode());
-        for (Object[] t : lstObject) {
-            StockSortieProduit ssp = new StockSortieProduit();
-            ssp.setMagasin((Magasin) t[0]);
-            ssp.setQuantite((Long) t[2]);
-            lstStockSortieProduit.add(ssp);
+        } else {
+            List<Object[]> lstObject = new LinkedList<Object[]>();
+            lstStockSortieProduit.clear();
+            lstObject = parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop(), session.getCurrentPeriode());
+            for (Object[] t : lstObject) {
+                StockSortieProduit ssp = new StockSortieProduit();
+                ssp.setMagasin((Magasin) t[0]);
+                ssp.setQuantite((Long) t[2]);
+                lstStockSortieProduit.add(ssp);
+            }
         }
-    }
     }
 
     public void ajouterSortieProduit() throws IOException {
-               Properties properties = loadFilePropriete();
-        if(m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()){
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageDepassementStock"), properties.getProperty("messageDepassementStock"));
+        Properties properties = loadFilePropriete();
+        if (m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageDepassementStock"), properties.getProperty("messageDepassementStock"));
             FacesContext.getCurrentInstance().addMessage("depassement", msg);
-        }else if(m_ssp.getQuantiteSaisie() == 0 || m_ssp.getPu() == 0){
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+        } else if (m_ssp.getQuantiteSaisie() == 0 || m_ssp.getPu() == 0) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
             FacesContext.getCurrentInstance().addMessage("required", msg);
-        }else if (paramShoebox.validerDate(commade.getDateCommande())) {
-                if(verifHomogeniteSortisProduit()){
+        } else if (paramShoebox.validerDate(commade.getDateCommande())) {
+            if (verifHomogeniteSortisProduit()) {
                 if (verifDuplicSortisProduit()) {
                     TransactionMagasin tsx = new TransactionMagasin();
                     tsx.setM_commande(commade);
@@ -350,31 +373,28 @@ public class gestionCommandes implements Serializable {
                 }
             }
         }
-        }
-    
-    public void ajouterSortieProduitIntrant() throws IOException {
-            Properties properties = loadFilePropriete();
-        if(m_ssp.getQuantiteSaisie() >  m_ssp.getQuantite()){
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,properties.getProperty("messageDepassementStock"),properties.getProperty("messageDepassementStock"));
-            FacesContext.getCurrentInstance().addMessage("depassement", msg);
-        }else if (m_ssp.getPu() == 0 && m_ssp.getQuantiteSaisie() == 0) {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
-            FacesContext.getCurrentInstance().addMessage("required", msg);
-            }else if (verifDuplicSortisProduit()) {
-                    TransactionMagasin tsx = new TransactionMagasin();
-                    tsx.setM_commande(commade);
-                    tsx.setGrade(grade);
-                    tsx.setMagasin(m_ssp.getMagasin());
-                    tsx.setPrixUnitaire(m_ssp.getPu());
-                    tsx.setProduit(produit);
-                    tsx.setQuantite(m_ssp.getQuantiteSaisie());
-                    lstTsxMagasin.add(tsx);
-                    m_ssp = new StockSortieProduit();
-                }
-            }
-        
+    }
 
-    
+    public void ajouterSortieProduitIntrant() throws IOException {
+        Properties properties = loadFilePropriete();
+        if (m_ssp.getQuantiteSaisie() > m_ssp.getQuantite()) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageDepassementStock"), properties.getProperty("messageDepassementStock"));
+            FacesContext.getCurrentInstance().addMessage("depassement", msg);
+        } else if (m_ssp.getPu() == 0 && m_ssp.getQuantiteSaisie() == 0) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+            FacesContext.getCurrentInstance().addMessage("required", msg);
+        } else if (verifDuplicSortisProduit()) {
+            TransactionMagasin tsx = new TransactionMagasin();
+            tsx.setM_commande(commade);
+            tsx.setGrade(grade);
+            tsx.setMagasin(m_ssp.getMagasin());
+            tsx.setPrixUnitaire(m_ssp.getPu());
+            tsx.setProduit(produit);
+            tsx.setQuantite(m_ssp.getQuantiteSaisie());
+            lstTsxMagasin.add(tsx);
+            m_ssp = new StockSortieProduit();
+        }
+    }
 
     public float getcalculSommeCommande() {
         float somme = 0;
@@ -416,9 +436,9 @@ public class gestionCommandes implements Serializable {
     public String confirmerCommande() {
         commade.setConfirmation(true);
         serviceGsCommande.mergeCommande(commade);
+        conversation.end();
         return "/commandes/listCommandeSortieProduit.xhtml";
     }
-
 
     /**
      * @return the produit
@@ -479,8 +499,6 @@ public class gestionCommandes implements Serializable {
     /**
      * @return the lstCommandeSortisProduit
      */
-      @Named
-    @Produces
     public List<Commande> getLstCommandeSortisProduit() {
         List<Commande> lstCommandes = new LinkedList<Commande>();
         lstCommandes.addAll(serviceGsCommande.lstCommandeByType("SPP", session.getCurrentCoop()));
@@ -512,7 +530,7 @@ public class gestionCommandes implements Serializable {
     /**
      * @return the allCommande
      */
-public List<Commande> getAllCommande() {
+    public List<Commande> getAllCommande() {
         return allCommande;
     }
 
@@ -535,5 +553,23 @@ public List<Commande> getAllCommande() {
      */
     public void setCommandeAffiche(Commande commandeAffiche) {
         this.commandeAffiche = commandeAffiche;
+    }
+
+    /**
+     * @return the lstCommandesEntreProduit
+     */
+    public List<Commande> getLstCommandesEntreProduit() {
+         List<Commande> listCommandes = new LinkedList<Commande>();
+        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPP", session.getCurrentCoop()));
+        listCommandes.addAll(serviceGsCommande.lstCommandeByType("EPS", session.getCurrentCoop()));
+
+        return listCommandes;
+    }
+
+    /**
+     * @param lstCommandesEntreProduit the lstCommandesEntreProduit to set
+     */
+    public void setLstCommandesEntreProduit(List<Commande> lstCommandesEntreProduit) {
+        this.lstCommandesEntreProduit = lstCommandesEntreProduit;
     }
 }
