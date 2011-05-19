@@ -15,6 +15,7 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
+import ModelesShoebox.TransactionMagasin;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -129,7 +130,7 @@ public interface serviceParamCoopLocal {
     //***************************autres*********************************//
     public List<Object[]> rechercheStockProduit(Produit produit, Long grade, Cooperative coop,DefinitionPeriode periode);
 
-    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode);
+    public List<TransactionMagasin> rechercheStockProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode);
 
     public boolean verifdate(Date date, DefinitionPeriode defPer);
 
