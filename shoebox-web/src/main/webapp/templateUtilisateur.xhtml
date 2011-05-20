@@ -29,16 +29,16 @@
                         <ui:insert name="message">
                         </ui:insert>
                         </td>
-                       <td width="20%">
+                        <td width="20%">
                             <div style="vertical-align: top;text-align: right;" >
                                 <h:panelGrid columns="2">
-                        <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
-                        <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
-                        <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
-                        <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
-                        <h:commandButton image="/icons/per.png"/>
-                        <h:outputText value="#{gsLogin.currentPeriode.dateDebut} - #{gsLogin.currentPeriode.dateFin}" styleClass="titreLibelle" />
-                           </h:panelGrid>
+                                    <h:commandButton image="/icons/ico_decon.png" action="#{gsLogin.logout}"/>
+                                    <h:commandLink value="Deconnexion" styleClass="titreLibelle" action="#{gsLogin.logout}"/>
+                                    <h:commandButton image="/icons/user_green.png" action="/parametrageSoco/updatUserClient.xhtml"/>
+                                    <h:commandLink value="#{gsLogin.user.username}" styleClass="titreLibelle" action="/parametrageSoco/updatUserClient.xhtml"/>
+                                    <h:commandButton image="/icons/per.png"/>
+                                    <h:outputText value="#{gsLogin.currentPeriode.dateDebut} - #{gsLogin.currentPeriode.dateFin}" styleClass="titreLibelle" />
+                                </h:panelGrid>
                             </div>
                         </td>
                         </tr>
@@ -50,11 +50,10 @@
                             </h:commandLink>
                             <rich:spacer width="50"/>
                         </ui:repeat>  
-
-
-
-
-
+                        <rich:toolBarGroup  location="right">
+                            <h:commandButton id="stat" image="/icons/tb.png" action="/resultat/stat"/>
+                        </rich:toolBarGroup>
+                         <rich:toolTip for="stat" value="#{msg.tableaudeBordGraph}"/>
                     </rich:toolBar>
                 </ui:insert>
                 <rich:spacer height="5"/>
@@ -73,10 +72,10 @@
                 </tr>
             </table>
         </div>
-        <center><div id="bottom">
-                <ui:insert name="bottom">Copyright @ 2011 Gfplus CANADA </ui:insert>
-            </div></center>
+    <center><div id="bottom">
+            <ui:insert name="bottom">Copyright @ 2011 Gfplus CANADA </ui:insert>
+        </div></center>
 
-    </body>
+</body>
 
 </html>

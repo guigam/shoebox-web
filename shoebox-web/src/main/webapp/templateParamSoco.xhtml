@@ -43,7 +43,11 @@
                                 <f:param name="outcome" value="#{p.redirect}"/>
                             </h:commandLink>
                                 <rich:spacer width="50"/>
-                        </ui:repeat>  
+                        </ui:repeat> 
+                                <rich:toolBarGroup  location="right">
+                                    <h:commandButton id="stat" image="/icons/tb.png" action="/resultat/stat"/>
+                        </rich:toolBarGroup>
+                         <rich:toolTip for="stat" value="#{msg.tableaudeBordGraph}"/>
                     </rich:toolBar>
                 </ui:insert>
                 <rich:spacer height="5"/>
