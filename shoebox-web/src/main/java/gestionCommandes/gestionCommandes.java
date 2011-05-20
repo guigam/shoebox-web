@@ -348,12 +348,11 @@ public class gestionCommandes implements Serializable {
         } else {
             List<Object[]> lstObject = new LinkedList<Object[]>();
             lstStockSortieProduit.clear();
-            lstObject = parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop(), session.getCurrentPeriode());
-            for (Object[] t : lstObject) {
+            for(TransactionMagasin t : parametrageCoop.rechercheStockProduitIntrant(produit, session.getCurrentCoop(), session.getCurrentPeriode())){
                 StockSortieProduit ssp = new StockSortieProduit();
-                ssp.setMagasin((Magasin) t[0]);
-                ssp.setQuantite((Long) t[2]);
-                lstStockSortieProduit.add(ssp);
+                ssp.setMagasin(t.getMagasin());
+                ssp.setQuantite(t.getQuantite());
+                 lstStockSortieProduit.add(ssp);
             }
         }
     }

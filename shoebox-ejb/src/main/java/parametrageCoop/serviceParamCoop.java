@@ -16,11 +16,14 @@ import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.Magasin;
 import ModelesShoebox.Produit;
 import ModelesShoebox.TransactionCharge;
+import ModelesShoebox.TransactionMagasin;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
@@ -36,10 +39,9 @@ import javax.persistence.Query;
 public class serviceParamCoop implements serviceParamCoopLocal {
 //@PersistenceContext(unitName="gestion")
 //    EntityManager em;
+
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion");
     private EntityManager em = emf.createEntityManager();
-
- 
 
     private void persist(Object objet) {
         em.getTransaction().begin();
@@ -284,37 +286,10 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return listClient;
     }
 
-    @Override
-    public List<Object[]> rechercheStockProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
-        List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduitIntrant(produit, coop,periode).isEmpty() && rechercehSortisProduitIntrant(produit, coop,periode).isEmpty()) {
-            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop,periode)) {
-                Object[] obj = new Object[3];
-                obj[0] = (Magasin) (t[0]);
-                obj[1] = (Produit) (t[1]);
-                obj[2] = new Long((Long) t[2]);
-                lstObject.add(obj);
-            }
-        } else {
-            for (Object[] t : rechercehEntreeProduitIntrant(produit, coop,periode)) {
-                for (Object[] o : rechercehSortisProduitIntrant(produit, coop,periode)) {
-                    if (t[0].equals(o[0]) && t[1].equals(o[1])) {
-                        Object[] obj = new Object[3];
-                        obj[0] = (Magasin) (t[0]);
-                        obj[1] = (Produit) (t[1]);
-                        obj[2] = new Long((Long) t[2]).longValue() - new Long((Long) o[2]).longValue();
-                        lstObject.add(obj);
-                    }
-                }
-            }
-        }
-        return lstObject;
-    }
-
     public List<Object[]> rechercheStockProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
         List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduit(produit, grade, coop,periode).isEmpty() && rechercehSortisProduit(produit, grade, coop,periode).isEmpty()) {
-            for (Object[] t : rechercehEntreeProduit(produit, grade, coop,periode)) {
+        if (!rechercehEntreeProduit(produit, grade, coop, periode).isEmpty() && rechercehSortisProduit(produit, grade, coop, periode).isEmpty()) {
+            for (Object[] t : rechercehEntreeProduit(produit, grade, coop, periode)) {
                 Object[] obj = new Object[3];
                 obj[0] = (Magasin) (t[0]);
                 obj[1] = (Produit) (t[1]);
@@ -322,21 +297,21 @@ public class serviceParamCoop implements serviceParamCoopLocal {
                 lstObject.add(obj);
             }
         } else {
-            for (Object[] t : rechercehEntreeProduit(produit, grade, coop,periode)) {
-                for (Object[] o : rechercehSortisProduit(produit, grade, coop,periode)) {
+            for (Object[] t : rechercehEntreeProduit(produit, grade, coop, periode)) {
+                for (Object[] o : rechercehSortisProduit(produit, grade, coop, periode)) {
                     if (t[1].equals(o[1]) && t[2].equals(o[2])) {
-                        if(t[0].equals(o[0])){//le produit chercher est dans le meme magasin
-                        Object[] obj = new Object[3];
-                        obj[0] = (Magasin) (t[0]);
-                        obj[1] = (Produit) (t[1]);
-                        obj[2] = new Long((Long) t[3]).longValue() - new Long((Long) o[3]).longValue();
-                        lstObject.add(obj);
-                        }else{ //le produit existe uniquement dans ce magasin
-                        Object[] obj = new Object[3];
-                        obj[0] = (Magasin) (t[0]);
-                        obj[1] = (Produit) (t[1]);
-                        obj[2] = new Long((Long) t[3]).longValue();
-                        lstObject.add(obj);
+                        if (t[0].equals(o[0])) {//le produit chercher est dans le meme magasin
+                            Object[] obj = new Object[3];
+                            obj[0] = (Magasin) (t[0]);
+                            obj[1] = (Produit) (t[1]);
+                            obj[2] = new Long((Long) t[3]).longValue() - new Long((Long) o[3]).longValue();
+                            lstObject.add(obj);
+                        } else { //le produit existe uniquement dans ce magasin
+                            Object[] obj = new Object[3];
+                            obj[0] = (Magasin) (t[0]);
+                            obj[1] = (Produit) (t[1]);
+                            obj[2] = new Long((Long) t[3]).longValue();
+                            lstObject.add(obj);
 
                         }
                     }
@@ -344,6 +319,54 @@ public class serviceParamCoop implements serviceParamCoopLocal {
             }
         }
         return lstObject;
+    }
+
+    @Override
+    public List<TransactionMagasin> rechercheStockProduitIntrant(Produit p, Cooperative coop, DefinitionPeriode periode) {
+        List<TransactionMagasin> lstObject = new LinkedList<TransactionMagasin>();
+
+        List<TransactionMagasin> tsxMagasinEncaissIntrant = new LinkedList<TransactionMagasin>();
+        Query q1 = em.createQuery("from TransactionMagasin t where t.m_commande.type = 'EPI' and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3");
+        q1.setParameter(1, periode);
+        q1.setParameter(2, coop);
+        q1.setParameter(3, p);
+        tsxMagasinEncaissIntrant.addAll(q1.getResultList());
+        List<TransactionMagasin> tsxMagasindebIntrant = new LinkedList<TransactionMagasin>();
+        Query q2 = em.createQuery("from TransactionMagasin t where t.m_commande.type = 'SPI' and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3");
+        q2.setParameter(1, periode);
+        q2.setParameter(2, coop);
+        q2.setParameter(3, p);
+        tsxMagasinEncaissIntrant.addAll(q1.getResultList());
+
+
+        Map<String, TransactionMagasin> mapT = new HashMap<String, TransactionMagasin>();
+        if (tsxMagasinEncaissIntrant != null) {
+            for (TransactionMagasin t : tsxMagasinEncaissIntrant) {
+                String key = t.getMagasin().getId() + "_" + t.getProduit().getId();
+                TransactionMagasin tm = mapT.get(key);
+                if (tm == null) {
+                    mapT.put(key, t);
+                } else {
+                    tm.setQuantite(tm.getQuantite() + t.getQuantite());
+                }
+            }
+        }
+        if (tsxMagasindebIntrant != null) {
+            for (TransactionMagasin t : tsxMagasindebIntrant) {
+                String key = t.getMagasin().getId() + "_" + t.getProduit().getId();
+                TransactionMagasin tm = mapT.get(key);
+                if (tm == null) {
+                    mapT.put(key, t);
+                } else {
+                    tm.setQuantite(tm.getQuantite() - t.getQuantite());
+                }
+            }
+        }
+        if (mapT != null) {
+            List<TransactionMagasin> tmag = new ArrayList(mapT.values());
+            return tmag;
+        }
+        return null;
     }
 
     private List<Object[]> rechercehEntreeProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
@@ -384,30 +407,6 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return null;
     }
 
-    private List<Object[]> rechercehEntreeProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
-        if (produit != null) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1 and x.coop = ?4 and defPeriode = ?5 group by x.magasin");
-            q.setParameter(1, produit);
-            q.setParameter(3, "EPI");
-            q.setParameter(4, coop);
-            q.setParameter(5, periode);
-            return (List<Object[]>) q.getResultList();
-        }
-        return null;
-    }
-
-    private List<Object[]> rechercehSortisProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode) {
-        if (produit != null) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3 and x.produit = ?1  and x.coop = ?4 defPeriode = ?5 group by x.magasin");
-            q.setParameter(1, produit);
-            q.setParameter(3, "SI");
-            q.setParameter(4, coop);
-            q.setParameter(5, periode);
-            return (List<Object[]>) q.getResultList();
-        }
-        return null;
-    }
-
     @Override
     public List<SelectItem> lstitemCompte(Cooperative coop) {
         List<SelectItem> listConpte = new ArrayList<SelectItem>();
@@ -440,6 +439,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         query.setParameter(2, type);
         return query.getResultList();
     }
+
     @Override
     public List<CategorieCharge> lstCategorieCharge(Cooperative coop) {
         Query query = em.createQuery("from CategorieCharge f where f.cooperative = ?1");
@@ -475,17 +475,17 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         Query query = em.createQuery("from TransactionCharge t  where t.categorieCharge = ?1");
         query.setParameter(1, categ);
         List<TransactionCharge> lst = query.getResultList();
-       for(TransactionCharge c : lst){
-            somme  = somme + c.getMontant();
-       }
-       return somme;
+        for (TransactionCharge c : lst) {
+            somme = somme + c.getMontant();
+        }
+        return somme;
     }
 
     @Override
     public Double sommeCharges(Cooperative coop) {
         double somme = 0;
-        for(CategorieCharge c : lstCategorieCharge(coop)){
-            somme =  somme + calculCategorie(c);
+        for (CategorieCharge c : lstCategorieCharge(coop)) {
+            somme = somme + calculCategorie(c);
         }
         return somme;
     }
@@ -499,7 +499,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return lstCategItem;
     }
 
-      @Override
+    @Override
     public List<Cooperative> lstCoop() {
         Query query = em.createQuery("from Cooperative");
         return query.getResultList();
@@ -512,9 +512,4 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         query.setParameter(2, datecom);
         return query.getResultList();
     }
-
-
-
-  
-
 }
