@@ -22,13 +22,20 @@ data.addColumn('number', 'Hours per Day'); // Column 1 is type number and has la
 
 // Add data.
 data.addRows(#{gsCommandes.data});
+var data2 = new google.visualization.DataTable();
+      data2.addColumn('string', 'Topping');
+      data2.addColumn('number', '');
+      data2.addRows(#{gsCommandes.data});
     var chart = new google.visualization.PieChart(document.getElementById('my_chart_div'));
+    var chart2 = new google.visualization.BarChart(document.getElementById('my_chart_div2'));
     chart.draw(data, {width: 400, height: 240, is3D: true, title: 'My Daily Activities'});
+    chart2.draw(data2, {width: 400, height: 240, is3D: true, title: 'My Daily Activities'});
   }
 </script>
     
         google chart
          <div id="my_chart_div"></div>
+         <div id="my_chart_div2"></div>
     </ui:define>
 
 

@@ -303,7 +303,7 @@ public class gestionCommandes implements Serializable {
 
     public String newCommandeSortisIntrant() throws IOException {
         if (paramShoebox.validerDate(commade.getDateCommande())) {
-            commade.setType("SI");
+            commade.setType("SPI");
             setterCurrentUserPeriode();
             commade.setLsttransactionMagasin(lstTsxMagasin);
             commade.setConfirmation(true);//il n'y a pas de confirmation avec la sortis de produit intrant
@@ -318,7 +318,7 @@ public class gestionCommandes implements Serializable {
     }
 
     public List<Commande> getlstCommandeSortisIntrant() {
-        return serviceGsCommande.lstCommandeByType("SI", session.getCurrentCoop());
+        return serviceGsCommande.lstCommandeByType("SPI", session.getCurrentCoop());
     }
 
     public void rechercheStockProduit() throws IOException {
@@ -327,13 +327,12 @@ public class gestionCommandes implements Serializable {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoirerecherche"), properties.getProperty("messageChampsObligatoirerecherche"));
             FacesContext.getCurrentInstance().addMessage("recherche", msg);
         } else {
-            List<Object[]> lstObject = new LinkedList<Object[]>();
             lstStockSortieProduit.clear();
-            lstObject = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop(), session.getCurrentPeriode());
-            for (Object[] t : lstObject) {
+            List<TransactionMagasin> lstMag = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop(), session.getCurrentPeriode());
+            for (TransactionMagasin t : lstMag) {
                 StockSortieProduit ssp = new StockSortieProduit();
-                ssp.setMagasin((Magasin) t[0]);
-                ssp.setQuantite((Long) t[2]);
+                ssp.setMagasin(t.getMagasin());
+                ssp.setQuantite(t.getQuantite());
                 lstStockSortieProduit.add(ssp);
             }
         }

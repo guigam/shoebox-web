@@ -9,15 +9,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="shortcut icon" href="#{request.contextPath}/icons/socoico.gif" />
         <link href="#{request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <title>Facelets Template</title>
     </head>
 
     <body>
+         
         <div id="backimg">
             <img src="#{request.contextPath}/images/bg.png" />
         </div>
 
         <div id="top">
+              
             <h:form>
                 <ui:insert name="top">
                     <table width="100%" border="0">
@@ -49,7 +52,8 @@
                                 <f:param name="outcome" value="#{p.redirect}"/>
                             </h:commandLink>
                             <rich:spacer width="50"/>
-                        </ui:repeat>  
+                        </ui:repeat> 
+                        <div style="text-align: right"><h:graphicImage value="/icons/tb.png"/></div>
                     </rich:toolBar>
                 </ui:insert>
                 <rich:spacer height="5"/>

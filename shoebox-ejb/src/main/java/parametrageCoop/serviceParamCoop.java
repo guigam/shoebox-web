@@ -286,44 +286,55 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return listClient;
     }
 
-    public List<Object[]> rechercheStockProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
-        List<Object[]> lstObject = new LinkedList<Object[]>();
-        if (!rechercehEntreeProduit(produit, grade, coop, periode).isEmpty() && rechercehSortisProduit(produit, grade, coop, periode).isEmpty()) {
-            for (Object[] t : rechercehEntreeProduit(produit, grade, coop, periode)) {
-                Object[] obj = new Object[3];
-                obj[0] = (Magasin) (t[0]);
-                obj[1] = (Produit) (t[1]);
-                obj[2] = new Long((Long) t[3]);
-                lstObject.add(obj);
-            }
-        } else {
-            for (Object[] t : rechercehEntreeProduit(produit, grade, coop, periode)) {
-                for (Object[] o : rechercehSortisProduit(produit, grade, coop, periode)) {
-                    if (t[1].equals(o[1]) && t[2].equals(o[2])) {
-                        if (t[0].equals(o[0])) {//le produit chercher est dans le meme magasin
-                            Object[] obj = new Object[3];
-                            obj[0] = (Magasin) (t[0]);
-                            obj[1] = (Produit) (t[1]);
-                            obj[2] = new Long((Long) t[3]).longValue() - new Long((Long) o[3]).longValue();
-                            lstObject.add(obj);
-                        } else { //le produit existe uniquement dans ce magasin
-                            Object[] obj = new Object[3];
-                            obj[0] = (Magasin) (t[0]);
-                            obj[1] = (Produit) (t[1]);
-                            obj[2] = new Long((Long) t[3]).longValue();
-                            lstObject.add(obj);
+    public List<TransactionMagasin> rechercheStockProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
+        List<TransactionMagasin> tsxMagasinEncaissIntrant = new LinkedList<TransactionMagasin>();
+        Query q1 = em.createQuery("from TransactionMagasin t where t.m_commande.type in('EPP','EPS') and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3 and t.grade = ?4");
+        q1.setParameter(1, periode);
+        q1.setParameter(2, coop);
+        q1.setParameter(3, produit);
+        q1.setParameter(4, grade);
+        tsxMagasinEncaissIntrant.addAll(q1.getResultList());
+        List<TransactionMagasin> tsxMagasindebIntrant = new LinkedList<TransactionMagasin>();
+        Query q2 = em.createQuery("from TransactionMagasin t where t.m_commande.type in('SPP','SPS') and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3 and t.grade = ?4");
+        q2.setParameter(1, periode);
+        q2.setParameter(2, coop);
+        q2.setParameter(3, produit);
+        q2.setParameter(4, grade);
+        tsxMagasindebIntrant.addAll(q2.getResultList());
 
-                        }
-                    }
+
+        Map<String, TransactionMagasin> mapT = new HashMap<String, TransactionMagasin>();
+        if (tsxMagasinEncaissIntrant != null) {
+            for (TransactionMagasin t : tsxMagasinEncaissIntrant) {
+                String key = t.getMagasin().getId() + "_" + t.getProduit().getId() + "_" + t.getGrade();
+                TransactionMagasin tm = mapT.get(key);
+                if (tm == null) {
+                    mapT.put(key, t);
+                } else {
+                    tm.setQuantite(tm.getQuantite() + t.getQuantite());
                 }
             }
         }
-        return lstObject;
+        if (tsxMagasindebIntrant != null) {
+            for (TransactionMagasin t : tsxMagasindebIntrant) {
+                String key = t.getMagasin().getId() + "_" + t.getProduit().getId()+ "_" + t.getGrade();
+                TransactionMagasin tm = mapT.get(key);
+                if (tm == null) {
+                    mapT.put(key, t);
+                } else {
+                    tm.setQuantite(tm.getQuantite() - t.getQuantite());
+                }
+            }
+        }
+        if (mapT != null) {
+            List<TransactionMagasin> tmag = new ArrayList(mapT.values());
+            return tmag;
+        }
+        return null;
     }
 
     @Override
     public List<TransactionMagasin> rechercheStockProduitIntrant(Produit p, Cooperative coop, DefinitionPeriode periode) {
-        List<TransactionMagasin> lstObject = new LinkedList<TransactionMagasin>();
 
         List<TransactionMagasin> tsxMagasinEncaissIntrant = new LinkedList<TransactionMagasin>();
         Query q1 = em.createQuery("from TransactionMagasin t where t.m_commande.type = 'EPI' and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3");
@@ -336,7 +347,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         q2.setParameter(1, periode);
         q2.setParameter(2, coop);
         q2.setParameter(3, p);
-        tsxMagasinEncaissIntrant.addAll(q1.getResultList());
+        tsxMagasindebIntrant.addAll(q2.getResultList());
 
 
         Map<String, TransactionMagasin> mapT = new HashMap<String, TransactionMagasin>();
@@ -369,43 +380,43 @@ public class serviceParamCoop implements serviceParamCoopLocal {
         return null;
     }
 
-    private List<Object[]> rechercehEntreeProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
-        if (produit != null && grade != 0) {
-            if (produit.getType().equals("Principal")) {
-                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
-                q.setParameter(1, produit);
-                q.setParameter(2, grade);
-                q.setParameter(3, "EPP");
-                q.setParameter(4, coop);
-                q.setParameter(5, periode);
-                return (List<Object[]>) q.getResultList();
-            } else {
-                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
-                q.setParameter(1, produit);
-                q.setParameter(2, grade);
-                q.setParameter(3, "EPS");
-                q.setParameter(4, coop);
-                q.setParameter(5, periode);
-                return (List<Object[]>) q.getResultList();
-            }
+//    private List<Object[]> rechercehEntreeProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
+//        if (produit != null && grade != 0) {
+//            if (produit.getType().equals("Principal")) {
+//                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
+//                q.setParameter(1, produit);
+//                q.setParameter(2, grade);
+//                q.setParameter(3, "EPP");
+//                q.setParameter(4, coop);
+//                q.setParameter(5, periode);
+//                return (List<Object[]>) q.getResultList();
+//            } else {
+//                Query q = em.createQuery("SELECT  x.magasin, x.produit, x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type = ?3  and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?5 group by x.magasin");
+//                q.setParameter(1, produit);
+//                q.setParameter(2, grade);
+//                q.setParameter(3, "EPS");
+//                q.setParameter(4, coop);
+//                q.setParameter(5, periode);
+//                return (List<Object[]>) q.getResultList();
+//            }
+//
+//        }
+//        return null;
+//    }
 
-        }
-        return null;
-    }
-
-    private List<Object[]> rechercehSortisProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
-        if (produit != null && grade != 0) {
-            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type in (?3,?5) and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?6 group by x.magasin");
-            q.setParameter(1, produit);
-            q.setParameter(2, grade);
-            q.setParameter(3, "SPP");
-            q.setParameter(5, "SPS");
-            q.setParameter(4, coop);
-            q.setParameter(6, periode);
-            return (List<Object[]>) q.getResultList();
-        }
-        return null;
-    }
+//    private List<Object[]> rechercehSortisProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
+//        if (produit != null && grade != 0) {
+//            Query q = em.createQuery("SELECT  x.magasin, x.produit,x.grade  , SUM(x.quantite) FROM TransactionMagasin x where x.m_commande.type in (?3,?5) and x.produit = ?1 AND x.grade = ?2 and x.coop = ?4 and x.defPeriode = ?6 group by x.magasin");
+//            q.setParameter(1, produit);
+//            q.setParameter(2, grade);
+//            q.setParameter(3, "SPP");
+//            q.setParameter(5, "SPS");
+//            q.setParameter(4, coop);
+//            q.setParameter(6, periode);
+//            return (List<Object[]>) q.getResultList();
+//        }
+//        return null;
+//    }
 
     @Override
     public List<SelectItem> lstitemCompte(Cooperative coop) {

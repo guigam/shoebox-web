@@ -128,7 +128,7 @@ public interface serviceParamCoopLocal {
 
 
     //***************************autres*********************************//
-    public List<Object[]> rechercheStockProduit(Produit produit, Long grade, Cooperative coop,DefinitionPeriode periode);
+    public List<TransactionMagasin> rechercheStockProduit(Produit produit, Long grade, Cooperative coop,DefinitionPeriode periode);
 
     public List<TransactionMagasin> rechercheStockProduitIntrant(Produit produit, Cooperative coop, DefinitionPeriode periode);
 
