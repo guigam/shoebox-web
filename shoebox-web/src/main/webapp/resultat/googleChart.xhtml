@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="./../templateResultat.xhtml">
+
+
+
+    <ui:define name="content">
+<script type="text/javascript">
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(drawChart);
+  
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+// Declare columns and rows.
+data.addColumn('string', 'Task');  // Column 0 is type string and has label "Task".
+data.addColumn('number', 'Hours per Day'); // Column 1 is type number and has label "Hours per Day".
+
+// Add data.
+data.addRows(#{gsCommandes.data});
+    var chart = new google.visualization.PieChart(document.getElementById('my_chart_div'));
+    chart.draw(data, {width: 400, height: 240, is3D: true, title: 'My Daily Activities'});
+  }
+</script>
+    
+        google chart
+         <div id="my_chart_div"></div>
+    </ui:define>
+
+
+</ui:composition>

@@ -213,6 +213,11 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         return null;
          }
 
+    @Override
+    public List<TransactionMagasin> testsasha() {
+        return em.createQuery("from TransactionMagasin").getResultList();
+    }
+
    
 
     }

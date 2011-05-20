@@ -56,5 +56,7 @@ public interface ServiceGestionCommandeTransactionLocal {
 //     public List<TransactionMagasin> etatMagasinGroupedByProduit(Cooperative coop, DefinitionPeriode periode);
 
      public List<TransactionMagasin> etatMagByProduit(Cooperative coop, DefinitionPeriode periode);
+     
+     public List<TransactionMagasin> testsasha();
 
 }

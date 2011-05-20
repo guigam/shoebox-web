@@ -67,6 +67,14 @@ public class gestionCommandes implements Serializable {
     private TransactionMagasin tsxMag = new TransactionMagasin();
     private Commande commandeAffiche = new Commande();
 
+    public String getData() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (TransactionMagasin t : serviceGsCommande.testsasha())
+            sb.append("['"+t.getProduit().getName()+"', "+t.getQuantite()+"],");
+        sb.append("]");
+        return sb.toString();
+    }
     /** Creates a new instance of gestionCommandes */
     public gestionCommandes() {
     }
