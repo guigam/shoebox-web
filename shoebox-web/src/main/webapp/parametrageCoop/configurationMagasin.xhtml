@@ -21,36 +21,37 @@
     </ui:define>
     <ui:define name="content">
         <h:form>
-            <h:outputText value="#{msg.lib_config}" styleClass="titrePanel"/>
+            <h:outputText value="#{msg.lib_config} #{msg.lib_magasin} #{configMag.magasin.name}" styleClass="titrePanel"/>
             <rich:separator width="100%"/>
             <rich:spacer height="10"/>
-            <h:outputText value="#{msg.lib_magasin}"/>
-            <rich:spacer width="5"/>
-            <h:outputText value="#{parametrageShoebox.magasin.name}"/>
             <h:panelGrid columns="2">
             <h:outputText value="#{msg.lib_produit}" styleClass="titreLibelle"/>
-            <rich:comboBox value="#{parametrageShoebox.configmag.tsxMag.produit}" converter="converterProduit">
+            <rich:comboBox value="#{configMag.produit}" converter="converterProduit">
                 <f:selectItems value="#{parametrageShoebox.listitemProduit}"/>
             </rich:comboBox>
             <h:outputText value="#{msg.lib_grade}" styleClass="titreLibelle"/>
-            <h:inputText value="#{parametrageShoebox.configmag.tsxMag.grade}" />
+            <h:inputText value="#{configMag.grade}" />
             <h:outputText value="#{msg.lib_quantite}" styleClass="titreLibelle" />
-            <h:inputText value="#{parametrageShoebox.configmag.tsxMag.quantite}" />
+            <h:inputText value="#{configMag.quantite}" />
             <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
-            <h:inputText value="#{parametrageShoebox.configmag.tsxCaisse.montant}" />
+            <h:inputText value="#{configMag.montant}" />
+            <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
+            <rich:comboBox value="#{configMag.compteEncaisse}" converter="converterCompte">
+                            <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
+                        </rich:comboBox>
             </h:panelGrid>
              <rich:spacer height="40/"/>
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">
-                                <td width="20%" ><h:commandButton id="annul" action="/parametrageCoop/listMagasin.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="20%" ><h:commandButton id="annul" action="#{configMag.endConfMag}"  styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{parametrageShoebox.newInitMagasinConfig}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{configMag.newInitMagasinConfig}"  styleClass="btn_val" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
                 <rich:spacer height="20"/>
                 <rich:separator height="1"/>
                 <rich:spacer height="10"/>
-             <rich:dataTable  value="#{parametrageShoebox.magasin.commande.lsttransactionMagasin}" var="mag" width="70%">
+                <rich:dataTable  value="#{configMag.lstTsxMag()}" var="mag" width="70%">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_listedesTransactionMagasin}"/>
                             </f:facet>
@@ -74,7 +75,7 @@
                     </rich:column>
                 </rich:dataTable>
                 <rich:spacer height="10"/>
-                <rich:dataTable  value="#{parametrageShoebox.magasin.commande.lsttransactionCaisse}" var="caisse" width="70%">
+                <rich:dataTable  value="#{configMag.magasin.lstTransCaisse}" var="caisse" width="70%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_listedesTransaction}"/>
                         </f:facet>

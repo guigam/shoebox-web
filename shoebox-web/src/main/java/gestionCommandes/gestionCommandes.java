@@ -67,14 +67,7 @@ public class gestionCommandes implements Serializable {
     private TransactionMagasin tsxMag = new TransactionMagasin();
     private Commande commandeAffiche = new Commande();
 
-    public String getData() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (TransactionMagasin t : serviceGsCommande.testsasha())
-            sb.append("['"+t.getProduit().getName()+"', "+t.getQuantite()+"],");
-        sb.append("]");
-        return sb.toString();
-    }
+
     /** Creates a new instance of gestionCommandes */
     public gestionCommandes() {
     }
@@ -100,9 +93,7 @@ public class gestionCommandes implements Serializable {
         return null;
     }
 
-    public Commande getconfirmRedirect(){
-        return commade;
-    }
+
     public void deleteCommande() {
         allCommande.remove(commade);
         serviceGsCommande.deleteCommande(commade);
@@ -149,10 +140,6 @@ public class gestionCommandes implements Serializable {
         }
     }
 
-    public List<TransactionMagasin> getetatMagasingroupBy() {
-        return serviceGsCommande.etatMagByProduit(paramSoco.getCooperative(), serviceSOCO.currentPeriode(paramSoco.getCooperative()));
-
-    }
 
     public void lstTransactionMagasinsByTypeProduitPrincipal(String type) {
         lstTsxMagasin = serviceGsCommande.transactionByProduit(type, session.getCurrentCoop(), session.getCurrentPeriode());
@@ -322,12 +309,12 @@ public class gestionCommandes implements Serializable {
     }
 
     public void rechercheStockProduit() throws IOException {
-        if (produit == null || grade == 0) {
+        lstStockSortieProduit.clear();
+        if (produit == null || grade == null) {
             Properties properties = loadFilePropriete();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoirerecherche"), properties.getProperty("messageChampsObligatoirerecherche"));
             FacesContext.getCurrentInstance().addMessage("recherche", msg);
         } else {
-            lstStockSortieProduit.clear();
             List<TransactionMagasin> lstMag = parametrageCoop.rechercheStockProduit(produit, grade, session.getCurrentCoop(), session.getCurrentPeriode());
             for (TransactionMagasin t : lstMag) {
                 StockSortieProduit ssp = new StockSortieProduit();
@@ -439,12 +426,7 @@ public class gestionCommandes implements Serializable {
         this.lstTsxMagasin = lstTsxMagasin;
     }
 
-    public String confirmerCommande() {
-        commade.setConfirmation(true);
-        serviceGsCommande.mergeCommande(commade);
-        conversation.end();
-        return "/commandes/listCommandeSortieProduit.xhtml";
-    }
+
 
     /**
      * @return the produit
@@ -578,4 +560,6 @@ public class gestionCommandes implements Serializable {
     public void setLstCommandesEntreProduit(List<Commande> lstCommandesEntreProduit) {
         this.lstCommandesEntreProduit = lstCommandesEntreProduit;
     }
+
+    
 }

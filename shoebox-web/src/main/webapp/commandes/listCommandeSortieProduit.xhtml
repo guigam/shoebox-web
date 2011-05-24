@@ -37,8 +37,8 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_confirmation}" />
                         </f:facet>
-                        <center><a4j:commandButton action="#{gsCommandes.getconfirmRedirect()}" image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
-                                 <f:setPropertyActionListener target="#{gsCommandes.commade}" value="#{item}"/>
+                        <center><a4j:commandButton  image="#{item.confirmation.equals(false) ? '/icons/inactif.png' : '/icons/actif.png'}" id="link"  reRender="panel">
+                                <f:setPropertyActionListener target="#{confirmCommandController.commadeConfirm}" value="#{item}"/>
                             </a4j:commandButton></center>
                         <rich:toolTip for="link" value="#{item.confirmation.equals(false) ? msg.lib_confirme : msg.lib_nonConfirme}"/>
                     </rich:column>
@@ -130,10 +130,10 @@
                 </rich:dataTable>
             </rich:panel>
 </h:form>
-        <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{gsCommandes.commade.id != null}" rendered="#{gsCommandes.commade.confirmation.equals(false)}">
+        <rich:modalPanel  id="panel"  autosized="true" zindex="2000" showWhenRendered="#{confirmCommandController.commadeConfirm.id != null}" rendered="#{gsCommandes.commade.confirmation.equals(false)}">
                 <h:form>
                 <rich:panel>
-                    <rich:dataTable value="#{gsCommandes.getconfirmRedirect().lsttransactionMagasin}" var="tsx" width="100%" >
+                    <rich:dataTable value="#{confirmCommandController.commadeConfirm.lsttransactionMagasin}" var="tsx" width="100%" >
                           <rich:column>
                             <f:facet name="header">
                                 <h:outputText value="#{msg.lib_produit} : "  styleClass="titreLibelle" />
@@ -164,9 +164,9 @@
                     
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">
-                                <td width="20%" ><a4j:commandButton id="annul" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="20%" ><a4j:commandButton id="annul" onclick="#{rich:component('panel')}.hide()" action="#{redirectController.redirect}"  styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><a4j:commandButton id="val"  action="#{gsCommandes.confirmerCommande}" onclick="#{rich:component('panel')}.hide()" styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                                <td  width="20%" height="20px"><a4j:commandButton id="val"  action="#{confirmCommandController.confirmerCommande}"  styleClass="btn_val" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
                 </rich:panel>

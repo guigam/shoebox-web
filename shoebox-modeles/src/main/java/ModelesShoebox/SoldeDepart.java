@@ -57,6 +57,13 @@ private Cooperative coop;
     public Long getId() {
         return id;
     }
+    @Transient
+    public float getMontantAbsolue(){
+        if(montant < 0 ){
+        return -montant;
+        }
+        return montant;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -78,7 +85,7 @@ private Cooperative coop;
     }
     @Transient
     public float getmontantrestant(){
-        return getMontant() - getmontantPaye();
+        return getMontantAbsolue() - getmontantPaye();
     }
 
     @Override

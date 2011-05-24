@@ -16,18 +16,18 @@
         <rich:spacer height="20"/>
         <h:panelGrid columns="2">
         <h:outputText value="#{msg.lib_dateDebutPeriode}" styleClass="titreLibelle"/>
-        <h:outputText  value="#{gsParamSoco.getcurrentPeriode(gsParamSoco.cooperative).dateDebut}" styleClass="titreLibelle"/>
+        <h:outputText  value="#{fermeturePeriode.defperiode.dateDebut}" styleClass="titreLibelle"/>
         <h:outputText value="#{msg.lib_dateFinPeriode}" styleClass="titreLibelle"/>
-        <rich:calendar styleClass="titreLibelle"/>
+        <rich:calendar styleClass="titreLibelle" value="#{fermeturePeriode.datefin}"/>
         </h:panelGrid>
              <rich:spacer height="40/"/>
                 <table width="100%" border="0">
                     <tr style="background-color:#b8cbab">
-                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler} " immediate="true">
+                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}"  styleClass="btn_annul" value="#{msg.btn_annuler} " immediate="true">
                                 <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
                             </h:commandButton></td>
                         <td width="70%" ></td>
-                        <td  width="15%" height="20px"><h:commandButton id="val"  action="/fermeturePeriode/fermetureMagasin.xhtml" styleClass="btn_Valider" value="#{msg.btn_suivant} >"/></td>
+                        <td  width="15%" height="20px"><h:commandButton id="val"  action="#{fermeturePeriode.setterDateFin()}" styleClass="btn_val" value="#{msg.btn_suivant} >"/></td>
                     </tr>
                 </table>
              </rich:panel>

@@ -64,8 +64,10 @@ public class login implements Serializable {
 
     public boolean verifConnexion(String username, String password) {
         if (username != null || password != null) {
-            user = serviceparamSoco.verifUtilisateur(username, password);
+           if(serviceparamSoco.verifUtilisateur(username, password) != null){
+             user =  serviceparamSoco.verifUtilisateur(username, password); 
             return true;
+        }
         }
         return false;
 
@@ -100,9 +102,13 @@ public class login implements Serializable {
             }
         }
         else {
-               
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("message_Obligatoire"), properties.getProperty("message_Obligatoire"));
-        FacesContext.getCurrentInstance().addMessage("verif", msg);
+               try {
+               properties.load(loadLonguage("FR"));
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,properties.getProperty("message_Obligatoire"),null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
         return "/login.xhtml";
 }

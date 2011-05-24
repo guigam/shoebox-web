@@ -271,11 +271,11 @@
                         <rich:spacer height="40/"/>
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">
-                                <td width="15%" ><h:commandButton id="annul5" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                                <td width="15%" ><h:commandButton id="annul5" action="#{gsParamSoco.annulerTransactionCoop}"  styleClass="btn_annul"  value="#{msg.btn_annuler}" immediate="true">
                                         <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
                                     </h:commandButton></td>
                                 <td width="70%" ></td>
-                                <td  width="15%" height="20px"><h:commandButton id="val5" action="#{gsParamSoco.updateParamTransaction}"  styleClass="btn_Valider" value="#{msg.btn_valider}"/></td>
+                                <td  width="15%" height="20px"><h:commandButton id="val5" action="#{gsParamSoco.updateParamTransaction}"  styleClass="btn_val" value="#{msg.btn_valider}"/></td>
                             </tr>
                         </table>
                     </h:form>

@@ -72,20 +72,20 @@
 
                                     <rich:panelMenuGroup label="#{msg.lib_caisse}" style="margin-left: -20px;" expanded="true"   >
                                         <rich:panelMenuGroup label="#{msg.lib_encaissement}" style="margin-left: -20px;" expanded="true">
-                                            <rich:panelMenuItem  label="#{msg.lib_venteproduit}" style="margin-left: -20px;" action="lstVenteProduit" />
-                                            <rich:panelMenuItem  label="#{msg.lib_venteIntrant}" style="margin-left: -20px;" action="lstVenteProduitIntrant" />
-                                            <rich:panelMenuItem  label="#{msg.lib_detteFournisseurProduit}" style="margin-left: -20px;" action="detteFP" />
-                                            <rich:panelMenuItem  label="#{msg.lib_detteFournisseurIntrant}" style="margin-left: -20px;" action="detteFI"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_detteClient}" style="margin-left: -20px;" action="detteClient"/>
+                                            <rich:panelMenuItem  label="#{msg.lib_venteproduit}" style="margin-left: -20px;" action="#{redirectController.redirect}"><f:param value="lstVenteProduit" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_venteIntrant}" style="margin-left: -20px;"  action="#{redirectController.redirect}"><f:param value="lstVenteProduitIntrant" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_detteFournisseurProduit}" style="margin-left: -20px;"   action="#{redirectController.redirect}"><f:param value="detteFP" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_detteFournisseurIntrant}" style="margin-left: -20px;" action="#{redirectController.redirect}"><f:param value="detteFI" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_detteClient}" style="margin-left: -20px;"  action="#{redirectController.redirect}"><f:param value="detteClient" name="outcome"/></rich:panelMenuItem>
                                         </rich:panelMenuGroup>
                                         <rich:panelMenuGroup label="#{msg.lib_debourse}" style="margin-left: -20px;" expanded="true">
-                                            <rich:panelMenuItem label="#{msg.lib_achatProduit}" style="margin-left: -20px;" action="lstAchatProduit"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_achatIntrant}" style="margin-left: -20px;" action="lstAchatProduitIntrant"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_remboursementavanceClient}" style="margin-left: -20px;" action="rmbClient" />
-                                            <rich:panelMenuItem label="#{msg.lib_remboursementDettesFournisseurProduit}" style="margin-left: -20px;" action="rmbFP"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_remboursementDettesFournisseurIntrant}" style="margin-left: -20px;" action="rmbFI" />
-                                            <rich:panelMenuItem  label="#{msg.lib_paiementCharges}" style="margin-left: -20px;" action="lstTransactionCharge"/>
-                                            <rich:panelMenuItem  label="#{msg.lib_diversPorduitEtAutresEncaissement}" style="margin-left: -20px;" action="lstAvanceproduit"/>
+                                            <rich:panelMenuItem label="#{msg.lib_achatProduit}" style="margin-left: -20px;"  action="#{redirectController.redirect}"><f:param value="lstAchatProduit" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_achatIntrant}" style="margin-left: -20px;"  action="#{redirectController.redirect}"><f:param value="lstAchatProduitIntrant" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_remboursementavanceClient}" style="margin-left: -20px;"  action="#{redirectController.redirect}"><f:param value="rmbClient" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem label="#{msg.lib_remboursementDettesFournisseurProduit}" style="margin-left: -20px;" action="#{redirectController.redirect}"><f:param value="rmbFP" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_remboursementDettesFournisseurIntrant}" style="margin-left: -20px;"  action="#{redirectController.redirect}"><f:param value="rmbFI" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_paiementCharges}" style="margin-left: -20px;" action="#{redirectController.redirect}"><f:param value="lstTransactionCharge" name="outcome"/></rich:panelMenuItem>
+                                            <rich:panelMenuItem  label="#{msg.lib_diversPorduitEtAutresEncaissement}" style="margin-left: -20px;" action="#{redirectController.redirect}"><f:param value="lstAvanceproduit" name="outcome"/></rich:panelMenuItem>
                                         </rich:panelMenuGroup>
                                     </rich:panelMenuGroup>
                                 </rich:panelMenuGroup>

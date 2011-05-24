@@ -33,6 +33,13 @@
                         <f:selectItems value="#{gsParamSoco.listitemPermission}"/>
                     </rich:pickList>
                 </h:panelGrid>
+                 <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="20%" ><h:commandButton id="annul" action="/index.xhtml"  styleClass="btn_annul"  value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val" action="#{gsParamSoco.updateUtilisateur}"  styleClass="btn_val" value="#{msg.btn_modifier}"/></td>
+                            </tr>
+                        </table>
                 <h:commandButton value="#{msg.btn_modifier}" action="#{gsParamSoco.updateUtilisateur}"/>
             </rich:panel>
          </h:form>

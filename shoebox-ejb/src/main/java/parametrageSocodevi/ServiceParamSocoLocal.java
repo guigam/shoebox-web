@@ -12,9 +12,10 @@ import ModelesParametrage.TemplateParamTransaction;
 import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
-import ModelesShoebox.Commande;
 import ModelesShoebox.Cooperative;
-import enumerationTransaction.EnumTransaction;
+import ModelesShoebox.Magasin;
+import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.Local;
 import javax.faces.model.SelectItem;
@@ -64,8 +65,19 @@ public interface ServiceParamSocoLocal {
 
    public List<SelectItem> lstItemPermission();
 
-
    public List<formatageEntier> lstFormatEntier();
+
+   public void addTransactionCaisse(TransactionCaisse tsxCaisse);
+   
+   public void addTransactionMagasin(TransactionMagasin tsxMagasin);
+
+    public void addDefPeriode(DefinitionPeriode defperiode);
+
+    public void updateDefinitionPeriode(DefinitionPeriode d);
+
+    public List<TransactionMagasin> lstTsxMagByMagasin(Magasin magasin);
+
+    
 
   
 

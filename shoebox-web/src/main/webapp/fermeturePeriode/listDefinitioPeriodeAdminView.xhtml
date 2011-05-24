@@ -26,7 +26,7 @@
                 <h:outputText value="#{msg.lib_paramDefinitionPeriode}" styleClass="titrePanel" />
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
-                <rich:dataTable value="#{gsParamSoco.cooperative.lstDef}"  var="def" width="60%" id="tab">
+                <rich:dataTable value="#{fermeturePeriode.coop.lstDef}"  var="def" width="60%" id="tab">
                     <rich:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periode}"/>
@@ -56,9 +56,9 @@
                  <rich:spacer height="40/"/>
                         <table width="100%" border="0">
                             <tr style="background-color:#b8cbab">
-                                <td width="20%" ><h:commandButton id="annul" action="/commandes/listCommandeSortieProduitIntrant.xhtml"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="20%" ><h:commandButton id="annul" action="#{fermeturePeriode.annulBeginPeriode}"  styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true"/></td>
                                 <td width="60%" ></td>
-                                <td  width="20%" height="20px"><h:commandButton id="val"  action="/fermeturePeriode/nouvellePeriode.xhtml" styleClass="btn_Valider" value="#{msg.btn_fermeturePeriode}"/></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val"  action="#{fermeturePeriode.beginFermeturePeriode()}" styleClass="btn_val" value="#{msg.btn_fermeturePeriode}"/></td>
                             </tr>
                         </table>
             </h:form>

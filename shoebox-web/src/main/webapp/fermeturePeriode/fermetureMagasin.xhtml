@@ -7,23 +7,25 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <h:form>
+        <rich:panel>
          <h:outputText value="#{msg.lib_fermeturemagasin}" styleClass="titrePanel"/>
         <rich:separator />
         <rich:spacer height="20"/>
-        <rich:dataTable value="#{gsCommandes.etatMagasingroupBy}" var="m" width="100%">
+        <rich:dataTable value="#{fermeturePeriode.lstTransMag}" var="m" width="100%">
             <rich:column width="20%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_produit}" />
                 </f:facet>
                 <h:outputText value="#{m.produit.name}"/>
                 </rich:column  >
-            <rich:column width="20%">
+            <rich:column width="15%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_magasin}" />
                 </f:facet>
                 <h:outputText value="#{m.magasin.name}"/>
                 </rich:column>
-            <rich:column width="20%">
+            <rich:column width="5%">
                 <f:facet name="header">
                     <h:outputText value="#{msg.lib_grade}" />
                 </f:facet>
@@ -39,10 +41,25 @@
                 <f:facet name="header">
                     <h:outputText value="#{msg.libQteReel}"  />
                 </f:facet>
-                <h:inputText />
+                <h:inputText value="#{m.qteReel}"/>
+            </rich:column>
+            <rich:column width="20%">
+                <f:facet name="header">
+                    <h:outputText value="#{msg.lib_valReel}"  />
+                </f:facet>
+                <h:inputText value="#{m.valueReel}"/>
             </rich:column>
         </rich:dataTable>
-
+        <rich:spacer height="40/"/>
+           <table width="100%" border="0">
+                            <tr style="background-color:#b8cbab">
+                                <td width="20%" ><h:commandButton id="annul" action="#{fermeturePeriode.annulBeginPeriode()}"  styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true"/></td>
+                                <td width="60%" ></td>
+                                <td  width="20%" height="20px"><h:commandButton id="val"  action="#{fermeturePeriode.fermerPeriode}" styleClass="btn_val" value="#{msg.btn_valider}"/></td>
+                            </tr>
+                        </table>
+        </rich:panel>
+        </h:form>
     </ui:define>
 
 

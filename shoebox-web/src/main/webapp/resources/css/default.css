@@ -181,6 +181,16 @@ background-repeat: repeat-x;
     font-weight: bold;
     font-size: 12px
 }
+.btn_annul{
+    border-style:none;
+    background-color:#4E0201;
+    width: 100%; 
+    cursor: pointer; 
+    color: white;
+    font-weight: bold;
+    font-size: 12px
+    
+}
 
 
 

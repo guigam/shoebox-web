@@ -73,7 +73,7 @@
                                         <rich:panelMenuItem label="#{msg.lib_client}" action="lstClient" />
                                         <rich:panelMenuItem  label="#{msg.lib_produit}" action="lstProduit" />
                                         <rich:panelMenuItem  label="#{msg.lib_intrant}" action="lstProduitIntrant" />
-                                        <rich:panelMenuItem  label="#{msg.lib_magasin}" action="lstMagasin" />
+                                        <rich:panelMenuItem  label="#{msg.lib_magasin}" action="#{redirectController.redirect()}" ><f:param name="outcome" value="lstMagasin"/></rich:panelMenuItem>
                                         <rich:panelMenuItem  label="#{msg.lib_compteEncaisse}" action="lstCompteEncaisse" />
                                         <rich:panelMenuItem  label="#{msg.lib_charteCompte}" action="lstCharteCompte" />
                                     </rich:panelMenuGroup>

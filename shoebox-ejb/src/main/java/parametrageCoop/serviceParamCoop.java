@@ -287,6 +287,7 @@ public class serviceParamCoop implements serviceParamCoopLocal {
     }
 
     public List<TransactionMagasin> rechercheStockProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
+        em.clear();
         List<TransactionMagasin> tsxMagasinEncaissIntrant = new LinkedList<TransactionMagasin>();
         Query q1 = em.createQuery("from TransactionMagasin t where t.m_commande.type in('EPP','EPS') and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3 and t.grade = ?4");
         q1.setParameter(1, periode);

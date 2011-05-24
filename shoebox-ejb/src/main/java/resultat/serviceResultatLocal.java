@@ -14,6 +14,7 @@ import ModelesShoebox.Cooperative;
 import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -46,6 +47,10 @@ public interface serviceResultatLocal {
     public List<StructureCharge> lsttructureCharge();
     
     public List<StructureProduit> lsttructureProduit();
+    
+      public List<TransactionMagasin> statMagasinByProduit(Cooperative coop, DefinitionPeriode periode);
+      
+      public List<TransactionCaisse> statCaisseByProduit(Cooperative coop, DefinitionPeriode periode);
 
   
 

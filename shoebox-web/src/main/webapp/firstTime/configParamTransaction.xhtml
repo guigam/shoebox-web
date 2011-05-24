@@ -51,13 +51,13 @@
                 <rich:spacer height="40/"/>
                 <table width="100%" border="0">
                     <tr style="background-color:#b8cbab">
-                        <td width="15%" ><h:commandButton id="ret" action="/firstTime/configUniteDevise.xhtml"  styleClass="btn_Valider" value="#{msg.btn_retour}" immediate="true"/></td>
+                        <td width="15%" ><h:commandButton id="ret" action="/firstTime/configUniteDevise.xhtml"  styleClass="btn_val" value="#{msg.btn_retour}" immediate="true"/></td>
                         <td width="27%" ></td>
-                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}"  style="border-style:none;background-color:#4E0201;width: 100%; cursor: pointer; color: white;font-weight: bold;font-size: 12px" value="#{msg.btn_annuler}" immediate="true">
+                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}" styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true">
                                 <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
                             </h:commandButton></td>
                         <td width="27%" ></td>
-                        <td  width="15%" height="20px"><h:commandButton id="val"  action="#{gsParamSoco.configParamTransactionRedirect}" styleClass="btn_Valider" value="#{msg.btn_suivant}">
+                        <td  width="15%" height="20px"><h:commandButton id="val"  action="#{gsParamSoco.configParamTransactionRedirect}" styleClass="btn_val" value="#{msg.btn_suivant}">
                                 <f:param name="outcome" value="/firstTime/resume.xhtml"/>
                             </h:commandButton></td>
                     </tr>

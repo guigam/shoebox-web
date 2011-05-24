@@ -8,6 +8,7 @@
       <property name="hibernate.connection.password" value="guim2708"/>
       <property name="hibernate.connection.url" value="jdbc:mysql://guigam.dyndns.org:3306/shoebox"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
 </persistence>

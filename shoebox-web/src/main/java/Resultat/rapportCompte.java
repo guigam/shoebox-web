@@ -24,6 +24,7 @@ public float getresteAPayer(){
     return getMontantTotal() - getMontantPaye();
 }
 
+
     /**
      * @return the date
      */

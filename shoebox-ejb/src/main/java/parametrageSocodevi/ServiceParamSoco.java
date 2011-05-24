@@ -12,6 +12,9 @@ import ModelesParametrage.Utilisateur;
 import ModelesParametrage.formatageEntier;
 import ModelesShoebox.CharteCompte;
 import ModelesShoebox.Cooperative;
+import ModelesShoebox.Magasin;
+import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import enumerationTransaction.EnumTransaction;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,13 +121,12 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
 
     @Override
     public DefinitionPeriode currentPeriode(Cooperative coop) {
-        DefinitionPeriode Defperiode = new DefinitionPeriode();
        for(DefinitionPeriode periode : lstDefinitionPeriode(coop)){
-          if(periode.getPeriode() == lstDefinitionPeriode(coop).size()){
-            Defperiode =  periode;
+          if(periode.isPeriodeActif()){
+            return periode;
           }
        }
-       return Defperiode;
+       return null;
     }
 
     @Override
@@ -192,6 +194,36 @@ public class ServiceParamSoco implements ServiceParamSocoLocal {
        Query query = em.createQuery("from TemplateParamTransaction");
        return query.getResultList();
     }
+
+    @Override
+    public void addTransactionCaisse(TransactionCaisse tsxCaisse) {
+        persist(tsxCaisse);
+    }
+
+    @Override
+    public void addTransactionMagasin(TransactionMagasin tsxMagasin) {
+        persist(tsxMagasin);
+    }
+
+    @Override
+    public void addDefPeriode(DefinitionPeriode defperiode) {
+        persist(defperiode);
+    }
+
+    @Override
+    public void updateDefinitionPeriode(DefinitionPeriode d) {
+        merge(d);
+    }
+
+    @Override
+    public List<TransactionMagasin> lstTsxMagByMagasin(Magasin magasin) {
+       Query q =  em.createQuery("from TransactionMagasin t where t.magasin = ?1");
+       q.setParameter(1, magasin);
+       return q.getResultList();
+    }
+
+
+    
 
 
 

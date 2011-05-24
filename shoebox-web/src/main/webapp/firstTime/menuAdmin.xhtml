@@ -28,7 +28,7 @@
                 <rich:spacer height="10"/>
                 <div style="margin-left:15px">
                     <h:commandButton image="/icons/add.png" action="/firstTime/addCooperative.xhtml" />
-                    <h:commandLink value="#{msg.lib_addCooperative}" action="/firstTime/addCooperative.xhtml" />
+                    <h:commandLink value="#{msg.lib_addCooperative}" action="#{gsParamSoco.addCoopBegin }" />
                 </div>
                 <rich:dataTable value="#{gsParamSoco.lstCoop}"  var="item" width="100%"  id="tab" >
                     <rich:column width="1%">
@@ -91,8 +91,8 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_periode}" />
                         </f:facet>
-                         <center><h:commandButton id="periode"  image="/icons/calender.png" action="/firstTime/listDefinitioPeriodeAdminView.xhtml">
-                              <f:setPropertyActionListener target="#{gsParamSoco.cooperative}" value="#{item}"/>
+                        <center><h:commandButton id="periode"  image="/icons/calender.png" action="#{fermeturePeriode.gsPeriode}">
+                                <f:setPropertyActionListener target="#{fermeturePeriode.coop}" value="#{item}"/>
                              </h:commandButton></center>
                     </rich:column>
                           <rich:column width="3%">

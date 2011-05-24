@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -47,7 +48,7 @@ import parametrageCoop.serviceParamCoopLocal;
  * @author guigam
  */
 @Named(value = "gsParamSoco")
-@SessionScoped
+@ConversationScoped
 public class GestionParametrageSoco implements Serializable {
     private String reference = null;
     private Date dateComm ;
@@ -90,7 +91,10 @@ public class GestionParametrageSoco implements Serializable {
         return null;
     }
 
-
+     public String addCoopBegin(){
+         conversation.begin();
+         return "/firstTime/addCooperative.xhtml";
+     }  
      private Properties loadFilePropriete()  {
         Properties properties = new Properties();
         String langue = session.getUser().getLangue();
@@ -127,7 +131,11 @@ public class GestionParametrageSoco implements Serializable {
     public void recupID(ValueChangeEvent event) {
         System.out.println(event.getSource());
     }
-
+    
+    public String endCreateCoop(){
+        conversation.end();
+        return "/fistTime/menuAdmin";
+    }
 
 
     public String newCoop() throws FileNotFoundException, IOException {
@@ -148,6 +156,7 @@ public class GestionParametrageSoco implements Serializable {
         cooperative.setLstParametrage(lstParamtsx);
         serviceSoco.newCoop(cooperative);
         ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        conversation.end();
         return "lstCooperative";
     }
 

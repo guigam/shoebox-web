@@ -49,8 +49,8 @@ public class Magasin implements Serializable {
     private Utilisateur currentuser;
 @ManyToOne
 private Cooperative coop;
-@OneToOne(cascade=CascadeType.ALL)
-private Commande commande;
+@OneToMany(cascade= CascadeType.ALL)
+private List<TransactionCaisse> lstTransCaisse = new LinkedList<TransactionCaisse>();
     public Magasin() {
     }
 
@@ -157,19 +157,22 @@ private Commande commande;
         this.coop = coop;
     }
 
+
     /**
-     * @return the commande
+     * @return the lstTransCaisse
      */
-    public Commande getCommande() {
-        return commande;
+    public List<TransactionCaisse> getLstTransCaisse() {
+        return lstTransCaisse;
     }
 
     /**
-     * @param commande the commande to set
+     * @param lstTransCaisse the lstTransCaisse to set
      */
-    public void setCommande(Commande commande) {
-        this.commande = commande;
+    public void setLstTransCaisse(List<TransactionCaisse> lstTransCaisse) {
+        this.lstTransCaisse = lstTransCaisse;
     }
+
+    
 
 
 

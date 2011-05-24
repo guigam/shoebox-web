@@ -51,14 +51,12 @@ public class parametrageShoebox implements Serializable {
     private Magasin magasin = new Magasin();
     private SoldeDepart soldeDepart = new SoldeDepart();
     private List<ConfigMag> lstconfigMag = new LinkedList<ConfigMag>();
-    private ConfigMag configmag = new ConfigMag();
     @EJB
     private serviceParamCoopLocal parametrageCoop;
     @Inject
     private login session;
     @EJB
     private ServiceParamSocoLocal serviceSoco;
-    
    
     /** Creates a new instance of parametrageShoebox */
     public parametrageShoebox() {
@@ -184,83 +182,14 @@ public class parametrageShoebox implements Serializable {
         return "lstFP";
     }
 
-    public String newInitMagasinConfig() {
-        if (magasin.getCommande() == null) {
-            Commande commande = new Commande();
-            TransactionCaisse tsxc = new TransactionCaisse();
-            TransactionMagasin tsxm = new TransactionMagasin();
-               retourneCharteCompteSelonProduit(configmag);
-             affectationMagasinCaisse(tsxc, tsxm);
-             afectationFieldsCommande(commande);
-                magasin.setCommande(commande);
-                parametrageCoop.updateMagasin(magasin);
-                magasin = new Magasin();
-                configmag = new ConfigMag();
-                return "/parametrageCoop/listMagasin.xhtml";
-            
-        } else {
-             Commande commande = new Commande();
-             commande.getLsttransactionCaisse().add(configmag.getTsxCaisse());
-               commande.getLsttransactionMagasin().add(configmag.getTsxMag());
-                 retourneCharteCompteSelonProduit(configmag);
-                afectationFieldsCommande(magasin.getCommande());
-                parametrageCoop.updateMagasin(magasin);
-                magasin = new Magasin();
-                configmag = new ConfigMag();
-                return "/parametrageCoop/listMagasin.xhtml";
-        }
-     }
+   
     
 
-    private void afectationFieldsCommande(Commande commande) {
-        TransactionMagasin tsxm = new TransactionMagasin();
-        TransactionCaisse tsxc = new TransactionCaisse();
-        commande.setConfirmation(true);
-        commande.setCoop(session.getCurrentCoop());
-        commande.setCurrentuser(session.getUser());
-        commande.setDefPeriode(session.getCurrentPeriode());
-        commande.setReference("magasin" + magasin.getId());
-        commande.setType("EMI");
-        affectationMagasinCaisse(tsxc, tsxm);
+    
 
-        commande.getLsttransactionCaisse().add(tsxc);
-        commande.getLsttransactionMagasin().add(tsxm);
-    }
+   
 
-    private void affectationMagasinCaisse(TransactionCaisse tsxc, TransactionMagasin tsxm) {
-        tsxc.setCoop(session.getCurrentCoop());
-        tsxc.setDescription("Entree Magasin");
-        tsxc.setReference("magasin" + magasin.getId());
-        tsxc.setTypeTransaction("I");
-        tsxc.setCharteCompte(configmag.getTsxCaisse().getCharteCompte());
-        tsxc.setMontant(configmag.getTsxCaisse().getMontant());
-        tsxc.setCoop(session.getCurrentCoop());
-        tsxc.setDate(new Date());
-        tsxc.setCurrentuser(session.getUser());
-        tsxc.setDefPeriode(session.getCurrentPeriode());
-        tsxm.setCoop(session.getCurrentCoop());
-        tsxm.setGrade(configmag.getTsxMag().getGrade());
-        tsxm.setM_commande(magasin.getCommande());
-        tsxm.setMagasin(configmag.getTsxMag().getMagasin());
-        tsxm.setProduit(configmag.getTsxMag().getProduit());
-        tsxm.setQuantite(configmag.getTsxMag().getQuantite());
-        tsxm.setCurrentuser(session.getUser());
-        tsxm.setDefPeriode(session.getCurrentPeriode());
-
-    }
-
-    private void retourneCharteCompteSelonProduit(ConfigMag c) {
-        if (c.getTsxMag().getProduit().getType().equals("Principal")) {
-            if(serviceSoco.charteCompteByReference("RA-1-SD") != null){
-                c.getTsxCaisse().setCharteCompte(serviceSoco.charteCompteByReference("RA-1-SD"));
-            }
-        } else if (c.getTsxMag().getProduit().getType().equals("Secondaire")) {
-              c.getTsxCaisse().setCharteCompte(serviceSoco.charteCompteByReference("RA-2-SD"));
-        }else{
-              c.getTsxCaisse().setCharteCompte(serviceSoco.charteCompteByReference("RC-SD"));
-        }
-      
-    }
+   
 
     public String newFournisseurIntrant() {
         if (getSoldeDepart().getMontant() < 0) {
@@ -441,38 +370,6 @@ public class parametrageShoebox implements Serializable {
         this.magasin = magasin;
     }
 
-    /**
-     * @return the lstconfigMag
-     */
-    public List<ConfigMag> getLstconfigMag() {
-        ConfigMag cm = new ConfigMag();
-        for (TransactionMagasin m : magasin.getCommande().getLsttransactionMagasin()) {
-            cm.setTsxMag(m);
-        }
-
-        return lstconfigMag;
-    }
-
-    /**
-     * @param lstconfigMag the lstconfigMag to set
-     */
-    public void setLstconfigMag(List<ConfigMag> lstconfigMag) {
-        this.lstconfigMag = lstconfigMag;
-    }
-
-    /**
-     * @return the configmag
-     */
-    public ConfigMag getConfigmag() {
-        return configmag;
-    }
-
-    /**
-     * @param configmag the configmag to set
-     */
-    public void setConfigmag(ConfigMag configmag) {
-        this.configmag = configmag;
-    }
 
     /**
      * @return the compte

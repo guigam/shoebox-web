@@ -16,6 +16,7 @@ import ModelesShoebox.FournisseurIntrant;
 import ModelesShoebox.FournisseurProduit;
 import ModelesShoebox.SoldeDepart;
 import ModelesShoebox.TransactionCaisse;
+import ModelesShoebox.TransactionMagasin;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -155,12 +156,26 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gesti
        return query.getResultList();
     }
 
-
+    @Override
+   public List<TransactionMagasin> statMagasinByProduit(Cooperative coop, DefinitionPeriode periode){
+    Query q = em.createQuery("from TransactionMagasin t where t.coop = ?1 and t.defPeriode = ?2 group by t.produit, t.m_commande.type ");
+    q.setParameter(1, coop);
+    q.setParameter(2, periode);
+    return q.getResultList();
+    }
 
 
     
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    public List<TransactionCaisse> statCaisseByProduit(Cooperative coop, DefinitionPeriode periode) {
+        Query q = em.createQuery("from TransactionCaisse t where t.coop = ?1 and t.defPeriode = ?2 and t.typeTransaction in('E','D') group by t.typeTransaction ");
+    q.setParameter(1, coop);
+    q.setParameter(2, periode);
+    return q.getResultList();
+    }
  
 }

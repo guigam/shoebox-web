@@ -64,7 +64,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{msg.lib_etat}" />
                         </f:facet>
-                        <h:outputText  value="#{-item.montant > item.montantPaye ? msg.lib_paye : msg.lib_nonPaye}"/>
+                         <center><h:outputText  value="#{item.montantAbsolue.equals(item.montantPaye) ? msg.lib_paye : msg.lib_nonPaye}" styleClass="titreLibelle"/></center>
                     </rich:column>
                     
                 </rich:dataTable>

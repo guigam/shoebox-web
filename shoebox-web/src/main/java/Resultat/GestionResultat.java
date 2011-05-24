@@ -222,7 +222,7 @@ public class GestionResultat implements Serializable {
                 rpCompte.setDescription("Remboursement solde de depart");
                 rpCompte.setEntite(sd.getEntite());
                 rpCompte.setMontantPaye(sd.getmontantPaye());
-                rpCompte.setMontantTotal(sd.getMontant());
+                rpCompte.setMontantTotal(sd.getMontantAbsolue());
                 lstRapportCompte.add(rpCompte);
             }
         }

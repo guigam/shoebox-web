@@ -230,6 +230,8 @@ private Cooperative coop;
         this.coop = coop;
     }
 
+   
+
 
 
 }
