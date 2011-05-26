@@ -345,11 +345,11 @@ public class gestionCommandes implements Serializable {
 
     public void ajouterSortieProduit() throws IOException {
         Properties properties = loadFilePropriete();
-        if (m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageDepassementStock"), properties.getProperty("messageDepassementStock"));
+        if (m_ssp.getQuantiteSaisie() == null || m_ssp.getPu() == 0){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageDepassementStock"));
             FacesContext.getCurrentInstance().addMessage("depassement", msg);
-        } else if (m_ssp.getQuantiteSaisie() == 0 || m_ssp.getPu() == 0) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"), properties.getProperty("messageChampsObligatoire"));
+        } else if (m_ssp.getQuantite() < m_ssp.getQuantiteSaisie()){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageDepassementStock"), properties.getProperty("messageChampsObligatoire"));
             FacesContext.getCurrentInstance().addMessage("required", msg);
         } else if (paramShoebox.validerDate(commade.getDateCommande())) {
             if (verifHomogeniteSortisProduit()) {

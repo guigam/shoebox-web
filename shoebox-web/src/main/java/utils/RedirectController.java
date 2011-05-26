@@ -41,12 +41,6 @@ Conversation conversation;
             conversation.end();
         }
         String outcome = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
-        if(outcome.equals("lstCooperative")){
-        paramSoco.setUtilisateur(new Utilisateur());
-        paramSoco.getlstDefinitionPeriodeAdmin().clear();
-        paramSoco.getlstParamtransaction().clear();
-       paramSoco.setCooperative(new Cooperative());
-        }
         return outcome;
     }
 

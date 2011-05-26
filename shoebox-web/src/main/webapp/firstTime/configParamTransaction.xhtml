@@ -53,7 +53,7 @@
                     <tr style="background-color:#b8cbab">
                         <td width="15%" ><h:commandButton id="ret" action="/firstTime/configUniteDevise.xhtml"  styleClass="btn_val" value="#{msg.btn_retour}" immediate="true"/></td>
                         <td width="27%" ></td>
-                        <td width="15%" ><h:commandButton id="annul" action="#{gsParamSoco.annulerTransactionCoop}" styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true">
+                        <td width="15%" ><h:commandButton id="annul" action="#{redirectController.redirect}" styleClass="btn_annul" value="#{msg.btn_annuler}" immediate="true">
                                 <f:param name="outcome" value="/firstTime/menuAdmin.xhtml"/>
                             </h:commandButton></td>
                         <td width="27%" ></td>

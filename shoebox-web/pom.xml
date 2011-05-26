@@ -138,17 +138,17 @@
         <dependency>
             <groupId>org.richfaces.framework</groupId>
             <artifactId>richfaces-impl</artifactId>
-            <version>3.2.2.GA</version>
+            <version>3.3.3.Final</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.framework</groupId>
             <artifactId>richfaces-api</artifactId>
-            <version>3.2.2.GA</version>
+            <version>3.3.3.Final</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-ui</artifactId>
-            <version>3.2.2.GA</version>
+            <version>3.3.3.Final</version>
         </dependency>
     </dependencies>
     <build>

@@ -22,7 +22,41 @@
             </a4j:status>
     </ui:define>
     <ui:define name="content">
+<script type="text/javascript">
+  //google.load("jquery", "1.6.1");
+  //$j = $.noConflict();
+  // Load the Visualization API and the piechart package.
+  
 
+  // Set a callback to run when the Google Visualization API is loaded.
+  //google.setOnLoadCallback(drawChart);
+(function($) {
+    // $ sign here is a parameter, which is set to jQuery 
+google.load('visualization', '1', {'packages':['corechart']});
+    $(function() {
+        
+        drawChart();
+    });
+})(jQuery);
+
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+// Declare columns and rows.
+data.addColumn('string', 'Task');  // Column 0 is type string and has label "Task".
+data.addColumn('number', 'Hours per Day'); // Column 1 is type number and has label "Hours per Day".
+
+// Add data.
+data.addRows(#{stat.dataMagByProd});
+var data2 = new google.visualization.DataTable();
+      data2.addColumn('string', 'Topping');
+      data2.addColumn('number', '');
+      data2.addRows(#{stat.dataCaissByProd});
+    var chart = new google.visualization.PieChart(document.getElementById('my_chart_div'));
+    var chart2 = new google.visualization.BarChart(document.getElementById('my_chart_div2'));
+    chart.draw(data, {width: 400, height: 240, is3D: true, title: 'Partition des produit en magasin'});
+    chart2.draw(data2, {width: 400, height: 240, is3D: true, title: 'Partition des encaissements et des debourse'});
+  }
+</script>
   <h:form>
 
          <rich:panel>
@@ -84,6 +118,12 @@
                 </tr>
             </table>
                 <center><h:graphicImage value="/images/commande.png" width="250" height="250"/></center>
+                
+                    <h:panelGrid columns="2">
+                        fghfghfghfghfghfghgh
+            <h:panelGrid id="my_chart_div"></h:panelGrid>
+            <h:panelGrid id="my_chart_div2"></h:panelGrid>
+         </h:panelGrid>
         </rich:panel>
 
       <rich:modalPanel  id="panel" width="600"  autosized="true" zindex="2000" showWhenRendered="#{not empty gsCommandes.lstTsxMagasin}">

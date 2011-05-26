@@ -203,13 +203,19 @@ public class GestionParametrageSoco implements Serializable {
     }
 
     public String configParamTransactionRedirect() throws IOException {
+                 Properties  properties = loadFilePropriete();
+        if(!lstParamtransaction.isEmpty()){
         for(ParamTransaction p : lstParamtransaction){
             if(p.getCharteCompte() == null){
-                 Properties  properties = loadFilePropriete();
              FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"),properties.getProperty("messageChampsObligatoire"));
                 FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
                 return null;
             }
+        }
+        }else{
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"),properties.getProperty("messageChampsObligatoire"));
+                FacesContext.getCurrentInstance().addMessage("obligatoire", msg);
+                return null;
         }
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("outcome");
     }

@@ -21,14 +21,19 @@ and open the template in the editor.
         <div id="backimg">
             <img src="#{request.contextPath}/images/bg.png" />
         </div>
-
-
-        <div style="height: 180px">
-            <div style="text-align: left">
-                <h:graphicImage value="/images/soco.png" />
-            </div>
-        </div>
-
+        <table width="100%" >
+            <tr>
+                <td style="width: 20%;">
+                    <h:graphicImage value="/images/soco.png" />
+                </td>
+                <td style="width: 80%;">
+                      <rich:panel rendered="#{facesContext.externalContext.requestParameterMap['expire'] == 'true' ? true : false}">
+                <h:outputText value="session expiré" rendered="#{facesContext.externalContext.requestParameterMap['expire'] == 'true' ? true : false}"/>
+            </rich:panel>
+                </td>
+            </tr>
+        </table>
+        <rich:spacer height="120"/>
         <div align="right" style="position: relative; right:250px; top: -100px">
             <h:panelGrid columns="2">
                 <h:graphicImage value="/images/boite.png" width="350" height="250"/>

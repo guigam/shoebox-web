@@ -27,7 +27,7 @@
                 <rich:separator width="100%"/>
                 <rich:spacer height="10"/>
                 <div style="margin-left:15px">
-                    <h:commandButton image="/icons/add.png" action="/firstTime/addCooperative.xhtml" />
+                    <h:commandButton image="/icons/add.png" action="#{gsParamSoco.addCoopBegin}" />
                     <h:commandLink value="#{msg.lib_addCooperative}" action="#{gsParamSoco.addCoopBegin }" />
                 </div>
                 <rich:dataTable value="#{gsParamSoco.lstCoop}"  var="item" width="100%"  id="tab" >

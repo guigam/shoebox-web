@@ -48,10 +48,7 @@ conversation.begin();
 return "/parametrageCoop/configurationMagasin";
 }
 
-public String endConfMag(){
-    conversation.end();
-return "/parametrageCoop/listMagasin";
-}
+
 
 public String newInitMagasinConfig() {
             TransactionCaisse tsxc = new TransactionCaisse();
