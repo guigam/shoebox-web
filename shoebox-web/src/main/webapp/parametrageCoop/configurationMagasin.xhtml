@@ -35,10 +35,6 @@
             <h:inputText value="#{configMag.quantite}" />
             <h:outputText value="#{msg.lib_montant}" styleClass="titreLibelle"/>
             <h:inputText value="#{configMag.montant}" />
-            <h:outputText value="#{msg.lib_compteEncaisse}" styleClass="titreLibelle"/>
-            <rich:comboBox value="#{configMag.compteEncaisse}" converter="converterCompte">
-                            <f:selectItems value="#{parametrageShoebox.lstItemCompte}"/>
-                        </rich:comboBox>
             </h:panelGrid>
              <rich:spacer height="40/"/>
                         <table width="100%" border="0">
@@ -79,7 +75,7 @@
                 <rich:spacer height="10"/>
                 <rich:dataTable  value="#{configMag.magasin.lstTransCaisse}" var="caisse" width="70%">
                         <f:facet name="header">
-                            <h:outputText value="#{msg.lib_listedesTransaction}"/>
+                            <h:outputText value="#{msg.lib_listedesTransactionMagasin}"/>
                         </f:facet>
 <!--                    <rich:column >
                         <f:facet name="header">

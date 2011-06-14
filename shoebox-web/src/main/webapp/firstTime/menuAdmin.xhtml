@@ -46,7 +46,7 @@
                             <h:outputText />
                         </f:facet>
                          <center>
-                             <h:commandButton id="update"  image="/icons/pencil.png" action="/firstTime/updateCooperative.xhtml">
+                             <h:commandButton id="update"  image="/icons/pencil.png" action="#{gsParamSoco.beginUpdateCoop}">
                                  <f:setPropertyActionListener target="#{gsParamSoco.cooperative}" value="#{item}"/>
                              </h:commandButton>
                          </center>

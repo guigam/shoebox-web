@@ -6,6 +6,9 @@
     xmlns="http://java.sun.com/xml/ns/javaee" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+    <view-handler>org.ajax4jsf.application.AjaxViewHandler</view-handler>
+    
     <application>
         <locale-config>
             <default-locale>EN</default-locale>

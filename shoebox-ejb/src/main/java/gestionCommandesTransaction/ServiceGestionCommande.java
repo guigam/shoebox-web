@@ -176,6 +176,10 @@ public class ServiceGestionCommande implements ServiceGestionCommandeTransaction
         q.setParameter(1, coop);
         q.setParameter(2, periode);
         tsxMagasinEncaiss = q.getResultList();
+        Query qq = em.createQuery("from TransactionMagasin t where t.type = 1 and t.coop = ?1 and t.defPeriode = ?2");
+        qq.setParameter(1, coop);
+        qq.setParameter(2, periode);
+        tsxMagasinEncaiss.addAll(qq.getResultList());
         List<TransactionMagasin> tsxMagasindeb = new LinkedList<TransactionMagasin>();
         Query q2 = em.createQuery("from TransactionMagasin t where t.m_commande.type in ('SPS', 'SPP') and t.coop = ?1 and t.defPeriode = ?2");
         q2.setParameter(1, coop);

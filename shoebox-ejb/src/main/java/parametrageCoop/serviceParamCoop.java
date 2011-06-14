@@ -288,13 +288,19 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
     public List<TransactionMagasin> rechercheStockProduit(Produit produit, Long grade, Cooperative coop, DefinitionPeriode periode) {
         em.clear();
-        List<TransactionMagasin> tsxMagasinEncaissIntrant = new LinkedList<TransactionMagasin>();
+        List<TransactionMagasin> tsxMagasinEncais = new LinkedList<TransactionMagasin>();
         Query q1 = em.createQuery("from TransactionMagasin t where t.m_commande.type in('EPP','EPS') and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3 and t.grade = ?4");
         q1.setParameter(1, periode);
         q1.setParameter(2, coop);
         q1.setParameter(3, produit);
         q1.setParameter(4, grade);
-        tsxMagasinEncaissIntrant.addAll(q1.getResultList());
+        tsxMagasinEncais.addAll(q1.getResultList());
+   Query qq = em.createQuery("from TransactionMagasin t where t.type = 1 and t.coop = ?1 and t.defPeriode = ?2 and t.produit = ?3 and t.grade = ?4");
+        qq.setParameter(1, coop);
+        qq.setParameter(2, periode);
+         qq.setParameter(3, produit);
+        qq.setParameter(4, grade);
+        tsxMagasinEncais.addAll(qq.getResultList());
         List<TransactionMagasin> tsxMagasindebIntrant = new LinkedList<TransactionMagasin>();
         Query q2 = em.createQuery("from TransactionMagasin t where t.m_commande.type in('SPP','SPS') and t.defPeriode = ?1 and t.coop = ?2 and t.produit = ?3 and t.grade = ?4");
         q2.setParameter(1, periode);
@@ -305,8 +311,8 @@ public class serviceParamCoop implements serviceParamCoopLocal {
 
 
         Map<String, TransactionMagasin> mapT = new HashMap<String, TransactionMagasin>();
-        if (tsxMagasinEncaissIntrant != null) {
-            for (TransactionMagasin t : tsxMagasinEncaissIntrant) {
+        if (tsxMagasinEncais != null) {
+            for (TransactionMagasin t : tsxMagasinEncais) {
                 String key = t.getMagasin().getId() + "_" + t.getProduit().getId() + "_" + t.getGrade();
                 TransactionMagasin tm = mapT.get(key);
                 if (tm == null) {

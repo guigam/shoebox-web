@@ -91,6 +91,11 @@ public class GestionParametrageSoco implements Serializable {
         return null;
     }
 
+    public String beginUpdateCoop(){
+        conversation.begin();
+        return "/firstTime/updateCooperative.xhtml";
+    }
+    
      public String addCoopBegin(){
          conversation.begin();
          return "/firstTime/addCooperative.xhtml";
@@ -204,7 +209,7 @@ public class GestionParametrageSoco implements Serializable {
 
     public String configParamTransactionRedirect() throws IOException {
                  Properties  properties = loadFilePropriete();
-        if(!lstParamtransaction.isEmpty()){
+        if(!lstParamtsx.isEmpty()){
         for(ParamTransaction p : lstParamtransaction){
             if(p.getCharteCompte() == null){
              FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, properties.getProperty("messageChampsObligatoire"),properties.getProperty("messageChampsObligatoire"));

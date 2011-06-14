@@ -87,6 +87,7 @@ public String newInitMagasinConfig() {
                magasin.getLstTransCaisse().add(tsxc);
                 parametrageCoop.updateMagasin(magasin);
             }
+            tsxm.setType(1);
             tsxm.setDefPeriode(session.getCurrentPeriode());
             tsxm.setCoop(session.getCurrentCoop());
             tsxm.setMagasin(this.magasin);
